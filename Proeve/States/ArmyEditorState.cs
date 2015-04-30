@@ -27,8 +27,7 @@ namespace Proeve.States
 
         public ArmyEditorState()
         {
-            
-            
+
         }
 
         public override void Initialize()
@@ -43,7 +42,7 @@ namespace Proeve.States
 
             background = ArtAssets.editorBackground;
 
-            buttons.Add(new Button(ArtAssets.TestButton));
+            buttons.Add(new Button(ArtAssets.TestButton, 24, 24));
 
             Armies.army = new List<Character>();
             Armies.army.Add(Armies.GetCharacter(Armies.CharacterRanks.Marshal));
@@ -106,8 +105,6 @@ namespace Proeve.States
                 drag = false;
                 dragIndex = -1;
             }
-
-
         }
 
         public override void Draw(SpriteBatch spriteBatch)

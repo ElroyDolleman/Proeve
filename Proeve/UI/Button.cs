@@ -35,12 +35,18 @@ namespace Proeve.UI
             this.graphic.position = new Vector2(hitbox.X, hitbox.Y);
         }
 
-        public Button(Sprite graphic, int width, int height)
+        public Button(Sprite graphic, Vector2 position)
         {
             this.graphic = graphic;
-            this.hitbox = new Rectangle(0, 0, width, height);
+            this.hitbox = new Rectangle((int)position.X, (int)position.Y, graphic.texture.Width, graphic.texture.Height);
 
-            this.graphic.position = new Vector2(hitbox.X, hitbox.Y);
+            this.graphic.position = new Vector2(position.X, position.Y);
+        }
+
+        public Button(Sprite graphic, int x, int y)
+          : this(graphic, new Vector2(x, y))
+        {
+
         }
 
         public void Update(GameTime gametime)

@@ -64,10 +64,10 @@ namespace Proeve.States
         {
             spriteBatch.Begin();
 
+            stateList[stateList.Count-1].Draw(spriteBatch);
+
             foreach (Button b in stateList[stateList.Count - 1].buttons)
                 b.Draw(spriteBatch);
-
-            stateList[stateList.Count-1].Draw(spriteBatch);
 
             spriteBatch.End();
         }
