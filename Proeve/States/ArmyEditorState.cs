@@ -27,7 +27,7 @@ namespace Proeve.States
 
         public ArmyEditorState()
         {
-
+            
         }
 
         public override void Initialize()
@@ -43,6 +43,7 @@ namespace Proeve.States
             background = ArtAssets.editorBackground;
 
             buttons.Add(new Button(ArtAssets.TestButton, 24, 24));
+            buttons[0].ClickEvent += Ready;
 
             Armies.army = new List<Character>();
             Armies.army.Add(Armies.GetCharacter(Armies.CharacterRanks.Marshal));
@@ -66,6 +67,11 @@ namespace Proeve.States
             Armies.army[7].Position = Grid.ToPixelLocation(new Point(7, 0), gridLocation, Globals.TileDimensions).ToVector2();
             Armies.army[8].Position = Grid.ToPixelLocation(new Point(0, 1), gridLocation, Globals.TileDimensions).ToVector2();
             Armies.army[9].Position = Grid.ToPixelLocation(new Point(1, 1), gridLocation, Globals.TileDimensions).ToVector2();
+        }
+
+        private void Ready()
+        {
+            StateManager.ChangeState(Settings.STATES.MatchFinder);
         }
 
         public override void Update(GameTime gameTime)

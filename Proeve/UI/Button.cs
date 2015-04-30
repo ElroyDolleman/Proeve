@@ -14,6 +14,10 @@ namespace Proeve.UI
 {
     class Button
     {
+        public delegate void OnClickEvent();
+
+        public OnClickEvent ClickEvent;
+
         private Sprite graphic;
         private Rectangle hitbox;
 
@@ -57,7 +61,12 @@ namespace Proeve.UI
                     graphic.CurrentFrame = 2;
             }
             if (Globals.mouseState.LeftButtonReleased)
+            {
                 graphic.CurrentFrame = 1;
+
+                if (ClickEvent != null)
+                    ClickEvent();
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
