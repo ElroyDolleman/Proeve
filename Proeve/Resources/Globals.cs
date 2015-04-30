@@ -21,7 +21,12 @@ namespace Proeve.Resources
         public static int coins;
 
         public static Point GridLocation { get { return new Point(228, 40); } }
-        public const int GRID_WIDTH = 82;
-        public const int GRID_HEIGHT = 82;
+        public static Point TileDimensions { get { return new Point(TILE_WIDTH, TILE_HEIGHT); } }
+
+        public const int TILE_WIDTH = 82;
+        public const int TILE_HEIGHT = 82;
+
+        public const int GRID_WIDTH = 8;
+        public const int GRID_HEIGHT = 8;
     }
 }

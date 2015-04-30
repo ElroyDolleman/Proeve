@@ -40,6 +40,7 @@ namespace Proeve.Resources
 
         /* BACKGROUND */
         private const string BACKGROUND_GRASS_LEVEL = "environment_placeholder";
+        private const string BACKGROUND_EDITOR = "editorBackground";
 
         #endregion
         #region TEXTURES
@@ -59,7 +60,8 @@ namespace Proeve.Resources
         private static E2DTexture testButtonTexture;
 
         /* BACKGROUNDS */
-        private static E2DTexture backgroundGrassLevel;
+        public static E2DTexture editorBackground;
+        public static E2DTexture backgroundGrassLevel;
 
         #endregion
         #region SPRITES
@@ -114,6 +116,7 @@ namespace Proeve.Resources
             testButtonTexture.Load(UI_PATH, TESTBUTTON);
 
             /* BACKGROUNDS */
+            editorBackground.Load(BACKGROUND_PATH, BACKGROUND_EDITOR);
             backgroundGrassLevel.Load(BACKGROUND_PATH, BACKGROUND_GRASS_LEVEL);
 
             InitializeSprites();

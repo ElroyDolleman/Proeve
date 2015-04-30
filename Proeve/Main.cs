@@ -20,6 +20,9 @@ namespace Proeve
             Content.RootDirectory = "Content";
             Window.Title = "Proeve";
 
+            WindowWidth = 1024;
+            WindowHeight = 768;
+
             IsMouseVisible = true;
             backgroundColor = Color.Black;
         }
