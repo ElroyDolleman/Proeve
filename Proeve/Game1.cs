@@ -12,6 +12,8 @@ namespace Proeve
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        int iets = 24;
+
         public Game1()
             : base()
         {
