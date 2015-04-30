@@ -19,6 +19,8 @@ namespace Proeve.Resources
 
         private const string UI_PATH = "UI\\";
 
+        private const string BACKGROUND_PATH = "Backgrounds\\";
+
         #endregion
         #region FILES
 
@@ -36,6 +38,9 @@ namespace Proeve.Resources
         // Buttons
         private const string TESTBUTTON = "startButtonPlaceHolder";
 
+        /* BACKGROUND */
+        private const string BACKGROUND_GRASS_LEVEL = "environment_placeholder";
+
         #endregion
         #region TEXTURES
 
@@ -52,6 +57,9 @@ namespace Proeve.Resources
         /* UI */
         // Buttons
         private static E2DTexture testButtonTexture;
+
+        /* BACKGROUNDS */
+        private static E2DTexture backgroundGrassLevel;
 
         #endregion
         #region SPRITES
@@ -104,6 +112,9 @@ namespace Proeve.Resources
             /* UI */
             // Buttons
             testButtonTexture.Load(UI_PATH, TESTBUTTON);
+
+            /* BACKGROUNDS */
+            backgroundGrassLevel.Load(BACKGROUND_PATH, BACKGROUND_GRASS_LEVEL);
 
             InitializeSprites();
         }

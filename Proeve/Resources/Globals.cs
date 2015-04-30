@@ -18,8 +18,10 @@ namespace Proeve.Resources
         public static E2DMouseState mouseState;
         public static ContentManager contentManager;
 
-        
-
         public static int coins;
+
+        public static Point GridLocation { get { return new Point(228, 40); } }
+        public const int GRID_WIDTH = 82;
+        public const int GRID_HEIGHT = 82;
     }
 }

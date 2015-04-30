@@ -79,6 +79,7 @@
     <MonoGameContentReference Include="Content\Content.mgcb" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Content\Backgrounds\" />
     <Folder Include="Content\Characters\Chips\" />
     <Folder Include="Content\UI\" />
   </ItemGroup>
