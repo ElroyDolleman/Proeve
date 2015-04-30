@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using E2DFramework.Graphics;
 
+using Proeve.UI;
 using Proeve.Entities;
 using Proeve.Resources;
 using Proeve.Resources.Calculations;
@@ -27,6 +28,7 @@ namespace Proeve.States
         public ArmyEditorState()
         {
             
+            
         }
 
         public override void Initialize()
@@ -40,6 +42,8 @@ namespace Proeve.States
             gridLocation = new Point(Globals.GridLocation.X, Globals.GridLocation.Y + Globals.TILE_HEIGHT * 5);
 
             background = ArtAssets.editorBackground;
+
+            buttons.Add(new Button(ArtAssets.TestButton));
 
             Armies.army = new List<Character>();
             Armies.army.Add(Armies.GetCharacter(Armies.CharacterRanks.Marshal));
@@ -102,6 +106,8 @@ namespace Proeve.States
                 drag = false;
                 dragIndex = -1;
             }
+
+
         }
 
         public override void Draw(SpriteBatch spriteBatch)

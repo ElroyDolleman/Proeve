@@ -19,12 +19,28 @@ namespace Proeve.UI
 
         public bool Down{ get { return graphic.CurrentFrame == 2; } }
 
+        public Button(Sprite graphic)
+        {
+            this.hitbox = graphic.TextureFrame;
+            this.graphic = graphic;
+
+            this.graphic.position = new Vector2(hitbox.X, hitbox.Y);
+        }
+
         public Button(Sprite graphic, Rectangle hitbox)
         {
-            graphic.position = new Vector2(hitbox.X, hitbox.Y);
-
             this.graphic = graphic;
             this.hitbox = hitbox;
+
+            this.graphic.position = new Vector2(hitbox.X, hitbox.Y);
+        }
+
+        public Button(Sprite graphic, int width, int height)
+        {
+            this.graphic = graphic;
+            this.hitbox = new Rectangle(0, 0, width, height);
+
+            this.graphic.position = new Vector2(hitbox.X, hitbox.Y);
         }
 
         public void Update(GameTime gametime)
