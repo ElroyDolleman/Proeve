@@ -16,7 +16,8 @@ namespace Proeve.States
 {
     class ArmyEditorState : State
     {
-        
+        private bool drag;
+        private int dragIndex;
 
         public ArmyEditorState()
         {
@@ -47,11 +48,28 @@ namespace Proeve.States
             Armies.army[7].Position = Grid.ToPixelLocation(new Point(7, 0), new Point(50, 50), new Point(82, 82)).ToVector2();
             Armies.army[8].Position = Grid.ToPixelLocation(new Point(0, 1), new Point(50, 50), new Point(82, 82)).ToVector2();
             Armies.army[9].Position = Grid.ToPixelLocation(new Point(1, 1), new Point(50, 50), new Point(82, 82)).ToVector2();
+
+            dragIndex = -1;
+            drag = false;
         }
 
         public override void Update(GameTime gameTime)
         {
-            
+            if (Globals.mouseState.LeftButtonPressed)
+                foreach(Character c in Armies.army)
+                    if (c.Hitbox.Contains(Globals.mouseState.Position))
+                    {
+                        dragIndex = Armies.army.IndexOf(c);
+                        drag = true;
+                    }
+
+            if (Globals.mouseState.LeftButtonReleased && drag)
+            {
+                Armies.army[dragIndex].Position = Grid.ToGridLocation(Globals.mouseState.Position.ToPoint(), new Point(50, 50), new Point(82, 82)).ToVector2() * (Vector2.One * 82) + (Vector2.One * 50);
+
+                drag = false;
+                dragIndex = -1;
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -64,7 +82,10 @@ namespace Proeve.States
 
             foreach(Character c in Armies.army)
             {
-                c.sprite.Draw(spriteBatch);
+                if (dragIndex != Armies.army.IndexOf(c))
+                    c.sprite.Draw(spriteBatch);
+                else
+                    spriteBatch.DrawSprite(c.sprite, Globals.mouseState.Position - new Vector2(41, 41));
             }
         }
     }

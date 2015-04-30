@@ -36,6 +36,11 @@ namespace Proeve.Entities
         public Weapon weapon;
         public Special special;
 
+        public Rectangle Hitbox
+        {
+            get { return new Rectangle((int)position.X, (int)position.Y, 82, 82); }
+        }
+
         public Sprite sprite;
         private Vector2 position;
 
