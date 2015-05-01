@@ -22,7 +22,7 @@ namespace Proeve.Resources
         public enum Army
         {
             Normal,
-            Tike
+            Tiki
         }
 
         public static List<Character> army;

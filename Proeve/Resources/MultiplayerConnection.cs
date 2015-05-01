@@ -59,7 +59,7 @@ namespace Proeve.Resources
                 writeFile = player2File;
                 readFile = player1File;
 
-                //CreateFiles();
+                CreateFiles();
             }
             else
             {
@@ -83,7 +83,23 @@ namespace Proeve.Resources
 
         #region Connection
 
+        private void ReadConnection()
+        {
+            BeginRead();
+            if (NewReadData)
+            {
+                connected = reader.ReadBoolean();
+                currentState = State.Army;
+            }
+            EndRead();
+        }
 
+        private void WriteConnection()
+        {
+            BeginWrite();
+            writer.Write(true);
+            EndWrite();
+        }
 
         #endregion
 
@@ -93,14 +109,30 @@ namespace Proeve.Resources
         {
             BeginRead();
 
-            
+            if (NewReadData)
+            {
+                Armies.opponentArmy = new List<Character>();
+
+                for (int i = 0; i < Globals.ARMY_AMOUNT; i++)
+                {
+                    Character character = new Character();
+                    character.hp = reader.ReadInt32();
+                    character.move = reader.ReadInt32();
+                    character.special = (Character.Special)reader.ReadInt32();
+                    character.weapon = (Character.Weapon)reader.ReadInt32();
+                }
+            }
 
             EndRead();
         }
 
         private void WriteArmy()
         {
+            BeginWrite();
 
+
+
+            EndWrite();
         }
 
         #endregion

@@ -12,6 +12,22 @@ namespace Proeve.Entities
 {
     class Character
     {
+        public enum Rank
+        {
+            Marshal,
+            General,
+            Majoor,
+            Captain,
+            Special,
+            Bomb
+        }
+
+        public enum Army
+        {
+            Normal,
+            Tiki
+        }
+
         public enum Special
         {
             Normal,
@@ -51,6 +67,11 @@ namespace Proeve.Entities
                 position = value;
                 sprite.position = value;
             }
+        }
+
+        public Character()
+        {
+
         }
 
         public Character(Sprite sprite, int hp, int move, Special special = Special.Normal)
