@@ -112,6 +112,8 @@ namespace Proeve.States
 
                 drag = false;
                 dragIndex = -1;
+
+
             }
         }
 

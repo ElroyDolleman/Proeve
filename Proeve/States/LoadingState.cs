@@ -12,6 +12,7 @@ using E2DFramework.Graphics;
 using Proeve.UI;
 using Proeve.Entities;
 using Proeve.Resources;
+using Proeve.Resources.Calculations.Pathfinding;
 #endregion
 
 namespace Proeve.States
@@ -25,6 +26,8 @@ namespace Proeve.States
 
         public override void Initialize()
         {
+            Node.size = Globals.TILE_WIDTH;
+
             ArtAssets.LoadTextures();
             ArtAssets.LoadFont(Globals.contentManager);
             AudioAssets.Load(Globals.contentManager);

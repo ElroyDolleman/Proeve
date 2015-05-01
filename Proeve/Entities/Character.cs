@@ -78,6 +78,11 @@ namespace Proeve.Entities
 
         }
 
+        public Character(Sprite sprite)
+        {
+            this.sprite = sprite;
+        }
+
         public Character(Sprite sprite, int hp, int move, Rank rank, Army army = Army.Normal, Special special = Special.None)
         {
             this.sprite = sprite;

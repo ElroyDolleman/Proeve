@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework;
 using E2DFramework.Entities;
 
 using Proeve.Entities;
+using Proeve.Resources.Calculations;
 #endregion
 
 namespace Proeve.Resources
@@ -155,9 +156,14 @@ namespace Proeve.Resources
 
                 for (int i = 0; i < Armies.ARMY_AMOUNT; i++)
                 {
-                    Character character = new Character();
+                    Character character = new Character(ArtAssets.EnemyChip);
 
-                    character.Position = new Vector2(reader.ReadInt32(), reader.ReadInt32());
+                    Vector2 newPosition;
+                    Point gridPosition = Grid.ToGridLocation((new Vector2(reader.ReadInt32(), reader.ReadInt32())).ToPoint(), Globals.GridLocation, Globals.TileDimensions);
+
+                    newPosition.X = (Globals.GRID_WIDTH - 1) - gridPosition.X;
+                    newPosition.Y = (Globals.GRID_HEIGHT - 1) - gridPosition.Y;
+                    character.Position = newPosition;
 
                     character.hp = reader.ReadInt32();
                     character.move = reader.ReadInt32();

@@ -7,6 +7,8 @@ namespace Proeve.Resources.Calculations.Pathfinding
 {
     public class Node
     {
+        public static int size;
+
         public int x;
         public int y;
 
@@ -22,28 +24,28 @@ namespace Proeve.Resources.Calculations.Pathfinding
         public String status = null;
         public Node parent = null;
 
-        public Node(bool[] collisionData, int x, int y)
+        public Node(int x, int y)
         {
-            up = collisionData[0];
-            right = collisionData[1];
-            down = collisionData[2];
-            left = collisionData[3];
+            up = true;
+            right = true;
+            down = true;
+            left = true;
             this.x = x;
             this.y = y;
         }
 
         public void setValues()
         {
-            int Hx = (AStar.end == null ? 0 : this.x - AStar.end.x) * NodeData.size;
-            int Hy = (AStar.end == null ? 0 : this.y - AStar.end.y) * NodeData.size;
+            int Hx = (AStar.end == null ? 0 : this.x - AStar.end.x) * size;
+            int Hy = (AStar.end == null ? 0 : this.y - AStar.end.y) * size;
 
             if (Hx < 0) { Hx = -Hx; }
             if (Hy < 0) { Hy = -Hy; }
 
             this.h = Hx + Hy;
 
-            int Gx = ((parent == null ? 0 : this.parent.x) - this.x) * NodeData.size;
-            int Gy = ((parent == null ? 0 : this.parent.y) - this.y) * NodeData.size;
+            int Gx = ((parent == null ? 0 : this.parent.x) - this.x) * size;
+            int Gy = ((parent == null ? 0 : this.parent.y) - this.y) * size;
 
             if (Gx < 0) { Gx = -Gx; }
             if (Gy < 0) { Gy = -Gy; }

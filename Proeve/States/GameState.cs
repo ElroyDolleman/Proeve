@@ -31,7 +31,7 @@ namespace Proeve.States
 
         public override void Update(GameTime gameTime)
         {
-            //
+            
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -43,6 +43,11 @@ namespace Proeve.States
                 {
                     spriteBatch.DrawRectangle(new Vector2(200 + j * 50 + 1, 50 + i * 50 + 1), 48, 48, Color.White);
                 }
+            }
+
+            foreach(Character c in Armies.opponentArmy)
+            {
+                c.sprite.Draw(spriteBatch);
             }
         }
 

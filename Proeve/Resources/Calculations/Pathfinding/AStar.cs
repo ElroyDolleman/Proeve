@@ -37,7 +37,7 @@ namespace Proeve.Resources.Calculations.Pathfinding
 		    for (int i = 0; i < field.Length; i++){
 			    AStar.field.Add(new List<Node>());
 			    for (int j = 0; j < field[i].Length; j++){
-				    AStar.field[i].Add(new Node(NodeData.data[field[i][j]], i, j));
+				    AStar.field[i].Add(new Node(i, j));
 			    }
 		    }
 	    }
@@ -78,7 +78,7 @@ namespace Proeve.Resources.Calculations.Pathfinding
 					    if (surround[i].status == null){
 						    surround[i].parent = current;
 						    surround[i].setValues();
-						    if (range > 0 ? surround[i].g < range*NodeData.size: true){
+						    if (range > 0 ? surround[i].g < range*Node.size: true){
 							    AddToOpen(surround[i]);
 						    }
 					    }
@@ -115,8 +115,8 @@ namespace Proeve.Resources.Calculations.Pathfinding
 	    }
 	
 	    private static bool TestG(Node n, Node p){
-		    int Gx = (p.x - n.x) * NodeData.size;
-		    int Gy = (p.y - n.y) * NodeData.size;
+            int Gx = (p.x - n.x) * Node.size;
+            int Gy = (p.y - n.y) * Node.size;
 		
 		    if (Gx < 0) { Gx = -Gx; }
 		    if (Gy < 0) { Gy = -Gy; }
