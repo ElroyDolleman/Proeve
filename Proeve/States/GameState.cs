@@ -54,7 +54,6 @@ namespace Proeve.States
         public void SetEnemyArmy(List<Character> sendArmy)
         {
             enemyArmy = sendArmy;
-
         }
     }
 }
