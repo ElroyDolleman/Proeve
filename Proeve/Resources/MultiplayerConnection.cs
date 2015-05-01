@@ -161,8 +161,8 @@ namespace Proeve.Resources
                     Vector2 newPosition;
                     Point gridPosition = Grid.ToGridLocation((new Vector2(reader.ReadInt32(), reader.ReadInt32())).ToPoint(), Globals.GridLocation, Globals.TileDimensions);
 
-                    newPosition.X = (Globals.GRID_WIDTH - 1) - gridPosition.X;
-                    newPosition.Y = (Globals.GRID_HEIGHT - 1) - gridPosition.Y;
+                    newPosition.X = ((Globals.GRID_WIDTH - 1) - gridPosition.X) * Globals.TILE_WIDTH + Globals.GridLocation.X;
+                    newPosition.Y = ((Globals.GRID_HEIGHT - 1) - gridPosition.Y) * Globals.TILE_HEIGHT + Globals.GridLocation.Y;
                     character.Position = newPosition;
 
                     character.hp = reader.ReadInt32();

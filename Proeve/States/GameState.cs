@@ -18,6 +18,8 @@ namespace Proeve.States
         private List<Character> army;
         private List<Character> enemyArmy;
 
+        private E2DTexture background;
+
         public GameState()
         {
 
@@ -27,6 +29,7 @@ namespace Proeve.States
         {
             level = Levels.grassLevel;
             StateManager.AddState(Settings.STATES.ArmyEditor);
+            background = ArtAssets.backgroundGrassLevel;
         }
 
         public override void Update(GameTime gameTime)
@@ -36,16 +39,23 @@ namespace Proeve.States
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            for (int i = 0; i < level.GetLength(0); i++)
+            spriteBatch.DrawE2DTexture(background, Vector2.Zero);
+
+            /*for (int i = 0; i < level.GetLength(0); i++)
             for (int j = 0; j < level.GetLength(1); j++)
             {
                 if (level[i, j] == 0)
                 {
                     spriteBatch.DrawRectangle(new Vector2(200 + j * 50 + 1, 50 + i * 50 + 1), 48, 48, Color.White);
                 }
-            }
+            }*/
 
             foreach(Character c in Armies.opponentArmy)
+            {
+                c.sprite.Draw(spriteBatch);
+            }
+
+            foreach (Character c in Armies.army)
             {
                 c.sprite.Draw(spriteBatch);
             }
