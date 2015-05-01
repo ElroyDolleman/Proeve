@@ -47,7 +47,7 @@ namespace Proeve.States
 
         private void RecievedArmy()
         {
-            Console.WriteLine(Armies.opponentArmy.Count());
+            StateManager.ChangeState(Settings.STATES.GameUI);
         }
 
         public override void Update(GameTime gameTime)
