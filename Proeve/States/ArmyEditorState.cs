@@ -46,16 +46,16 @@ namespace Proeve.States
             buttons[0].ClickEvent += Ready;
 
             Armies.army = new List<Character>();
-            Armies.army.Add(Armies.GetCharacter(Armies.CharacterRanks.Marshal));
-            Armies.army.Add(Armies.GetCharacter(Armies.CharacterRanks.General));
-            Armies.army.Add(Armies.GetCharacter(Armies.CharacterRanks.General));
-            Armies.army.Add(Armies.GetCharacter(Armies.CharacterRanks.Majoor));
-            Armies.army.Add(Armies.GetCharacter(Armies.CharacterRanks.Majoor));
-            Armies.army.Add(Armies.GetCharacter(Armies.CharacterRanks.Captain));
-            Armies.army.Add(Armies.GetCharacter(Armies.CharacterRanks.Captain));
-            Armies.army.Add(Armies.GetCharacter(Armies.CharacterRanks.Special));
-            Armies.army.Add(Armies.GetCharacter(Armies.CharacterRanks.Bomb));
-            Armies.army.Add(Armies.GetCharacter(Armies.CharacterRanks.Bomb));
+            Armies.army.Add(Armies.GetCharacter(Character.Rank.Marshal));
+            Armies.army.Add(Armies.GetCharacter(Character.Rank.General));
+            Armies.army.Add(Armies.GetCharacter(Character.Rank.General));
+            Armies.army.Add(Armies.GetCharacter(Character.Rank.Majoor));
+            Armies.army.Add(Armies.GetCharacter(Character.Rank.Majoor));
+            Armies.army.Add(Armies.GetCharacter(Character.Rank.Captain));
+            Armies.army.Add(Armies.GetCharacter(Character.Rank.Captain));
+            Armies.army.Add(Armies.GetCharacter(Character.Rank.Special));
+            Armies.army.Add(Armies.GetCharacter(Character.Rank.Bomb));
+            Armies.army.Add(Armies.GetCharacter(Character.Rank.Bomb));
 
             Armies.army[0].Position = Grid.ToPixelLocation(new Point(0, 0), gridLocation, Globals.TileDimensions).ToVector2();
             Armies.army[1].Position = Grid.ToPixelLocation(new Point(1, 0), gridLocation, Globals.TileDimensions).ToVector2();

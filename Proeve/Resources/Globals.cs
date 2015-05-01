@@ -17,6 +17,7 @@ namespace Proeve.Resources
     {
         public static E2DMouseState mouseState;
         public static ContentManager contentManager;
+        public static MultiplayerConnection multiplayerConnection;
 
         public static int coins;
 
@@ -28,5 +29,7 @@ namespace Proeve.Resources
 
         public const int GRID_WIDTH = 8;
         public const int GRID_HEIGHT = 8;
+
+        public const int ARMY_AMOUNT = 10;
     }
 }
