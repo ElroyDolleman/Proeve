@@ -36,6 +36,8 @@ namespace Proeve.Resources
         private const string MINOR_CHIP = "MineurRank3";
         private const string BOMB_CHIP = "BombPlaceHolder";
 
+        private const string ENEMY_CHIP = "EnemyChip";
+
         /* UI */
         // Buttons
         private const string TESTBUTTON = "startButtonPlaceHolder";
@@ -60,6 +62,8 @@ namespace Proeve.Resources
         private static E2DTexture minorChipTexture;
         private static E2DTexture bombChipTexture;
 
+        private static E2DTexture enemyChipTexture;
+
         /* UI */
         // Buttons
         private static E2DTexture testButtonTexture;
@@ -81,6 +85,8 @@ namespace Proeve.Resources
         private static Sprite minorChipSprite;
         private static Sprite bombChipSprite;
 
+        private static Sprite enemyChipSprite;
+
         /* UI */
         // Buttons
         private static Sprite testButtonSprite;
@@ -97,6 +103,8 @@ namespace Proeve.Resources
 
         public static Sprite MinorChip { get { return (Sprite)minorChipSprite.Clone(); } }
         public static Sprite BombChip { get { return (Sprite)bombChipSprite.Clone(); } }
+
+        public static Sprite EnemyChip { get { return (Sprite)enemyChipSprite.Clone(); } }
 
         /* UI */
         // Buttons
@@ -118,6 +126,8 @@ namespace Proeve.Resources
 
             minorChipTexture.Load(CHIPS_PATH, MINOR_CHIP);
             bombChipTexture.Load(CHIPS_PATH, BOMB_CHIP);
+
+            enemyChipTexture.Load(CHIPS_PATH, ENEMY_CHIP);
 
             /* UI */
             // Buttons
@@ -146,6 +156,8 @@ namespace Proeve.Resources
 
             minorChipSprite = new Sprite(minorChipTexture);
             bombChipSprite = new Sprite(bombChipTexture);
+
+            enemyChipSprite = new Sprite(enemyChipTexture);
 
             /* UI */
             // Buttons

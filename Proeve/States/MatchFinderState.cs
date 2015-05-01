@@ -14,7 +14,8 @@ namespace Proeve.States
 {
     class MatchFinderState : State
     {
-        SpriteFont font;
+        private SpriteFont font;
+        private byte you, opponent;
 
         public MatchFinderState()
         {
@@ -25,6 +26,28 @@ namespace Proeve.States
         {
             font = ArtAssets.normalFont;
             Globals.multiplayerConnection = new MultiplayerConnection();
+
+            Globals.multiplayerConnection.RecieveArmy += RecievedArmy;
+            Globals.multiplayerConnection.RecieveConnection += RecievedConnection;
+
+            if (Globals.multiplayerConnection.isHosting) {
+                you = 1;
+                opponent = 2;
+            }
+            else {
+                you = 2;
+                opponent = 1;
+            }
+        }
+
+        private void RecievedConnection()
+        {
+            
+        }
+
+        private void RecievedArmy()
+        {
+            StateManager.ChangeState(Settings.STATES.GameUI);
         }
 
         public override void Update(GameTime gameTime)
@@ -34,7 +57,12 @@ namespace Proeve.States
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            
+            spriteBatch.DrawString(font, "player " + you, new Vector2(100, 64), Color.White);
+
+            if (Globals.multiplayerConnection.connected)
+                spriteBatch.DrawString(font, "player " + opponent, new Vector2(Main.WindowWidth - 100, 64), Color.White);
+            else
+                spriteBatch.DrawString(font, "searching...", new Vector2(Main.WindowWidth - 100, 64), Color.White);
         }
     }
 }

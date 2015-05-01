@@ -67,7 +67,9 @@ namespace Proeve.Entities
             get { return position; }
             set { 
                 position = value;
-                sprite.position = value;
+
+                if (sprite != null)
+                    sprite.position = value;
             }
         }
 

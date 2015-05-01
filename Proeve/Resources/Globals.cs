@@ -29,7 +29,5 @@ namespace Proeve.Resources
 
         public const int GRID_WIDTH = 8;
         public const int GRID_HEIGHT = 8;
-
-        public const int ARMY_AMOUNT = 10;
     }
 }

@@ -24,7 +24,7 @@ namespace Proeve.States
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            
+            StateManager.GetState(1).Draw(spriteBatch);
         }
     }
 }

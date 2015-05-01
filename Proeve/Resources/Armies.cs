@@ -9,6 +9,8 @@ namespace Proeve.Resources
 {
     class Armies
     {
+        public const int ARMY_AMOUNT = 10;
+
         public static List<Character> army;
         public static List<Character> opponentArmy;
 
