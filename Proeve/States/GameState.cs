@@ -50,12 +50,12 @@ namespace Proeve.States
                 }
             }*/
 
-            foreach(Character c in Armies.opponentArmy)
+            foreach (Character c in army)
             {
                 c.sprite.Draw(spriteBatch);
             }
 
-            foreach (Character c in Armies.army)
+            foreach (Character c in enemyArmy)
             {
                 c.sprite.Draw(spriteBatch);
             }
