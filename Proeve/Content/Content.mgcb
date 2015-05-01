@@ -123,3 +123,9 @@
 /processorParam:TextureFormat=Color
 /build:Backgrounds/editorBackground.png
 
+#begin Fonts/normalFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:Fonts/normalFont.spritefont
+

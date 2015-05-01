@@ -9,9 +9,11 @@ namespace Proeve.States
 {
     class MatchFinderState : State
     {
+        
+
         public MatchFinderState()
         {
-
+            
         }
 
         public override void Update(GameTime gameTime)

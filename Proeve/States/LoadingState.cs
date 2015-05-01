@@ -26,6 +26,7 @@ namespace Proeve.States
         public override void Initialize()
         {
             ArtAssets.LoadTextures();
+            ArtAssets.LoadFont(Globals.contentManager);
             AudioAssets.Load(Globals.contentManager);
 
             Armies.SetUpCharacters();

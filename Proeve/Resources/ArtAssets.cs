@@ -21,6 +21,8 @@ namespace Proeve.Resources
 
         private const string BACKGROUND_PATH = "Backgrounds\\";
 
+        private const string FONT_PATH = "Fonts\\";
+
         #endregion
         #region FILES
 
@@ -41,6 +43,9 @@ namespace Proeve.Resources
         /* BACKGROUND */
         private const string BACKGROUND_GRASS_LEVEL = "environment_placeholder";
         private const string BACKGROUND_EDITOR = "editorBackground";
+
+        /* FONTS */
+        private const string FONT_NORMAL = "normalFont";
 
         #endregion
         #region TEXTURES
@@ -98,6 +103,9 @@ namespace Proeve.Resources
         public static Sprite TestButton { get { return (Sprite)testButtonSprite.Clone(); } }
 
         #endregion
+        #region FONTS
+        public static SpriteFont normalFont;
+        #endregion
 
         public static void LoadTextures()
         {
@@ -122,6 +130,11 @@ namespace Proeve.Resources
             InitializeSprites();
         }
 
+        public static void LoadFont(ContentManager contentManager)
+        {
+            normalFont = contentManager.Load<SpriteFont>(FONT_PATH + FONT_NORMAL);
+        }
+
         private static void InitializeSprites()
         {
             /* CHARACTERS */
@@ -140,3 +153,4 @@ namespace Proeve.Resources
         }
     }
 }
+
