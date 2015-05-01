@@ -60,12 +60,11 @@ namespace Proeve.UI
                 if (hitbox.Contains(Globals.mouseState.Position))
                     graphic.CurrentFrame = 2;
             }
-            if (Globals.mouseState.LeftButtonReleased)
-            {
-                graphic.CurrentFrame = 1;
-
-                if (ClickEvent != null)
+            if (Globals.mouseState.LeftButtonReleased){
+                if (ClickEvent != null && graphic.CurrentFrame == 2)
                     ClickEvent();
+
+                graphic.CurrentFrame = 1;
             }
         }
 

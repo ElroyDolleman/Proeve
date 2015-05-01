@@ -23,7 +23,7 @@ namespace Proeve.States
 
         public override void Initialize()
         {
-            StateManager.ChangeState(Settings.STATES.ArmyEditor);
+            StateManager.ChangeState(Settings.STATES.Game);
 
             E2DTexture texture;
             texture.Load("Characters\\TikiAnimSWF_Spritesheet423x466");

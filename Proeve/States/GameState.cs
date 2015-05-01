@@ -26,7 +26,7 @@ namespace Proeve.States
         public override void Initialize()
         {
             level = Levels.grassLevel;
-            StateManager.AddState(Settings.STATES.GameUI);
+            StateManager.AddState(Settings.STATES.ArmyEditor);
         }
 
         public override void Update(GameTime gameTime)

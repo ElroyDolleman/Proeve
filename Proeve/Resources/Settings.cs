@@ -26,6 +26,7 @@ namespace Proeve.Resources
             states.Add(STATES.ArmyEditor, new ArmyEditorState());
             states.Add(STATES.MatchFinder, new MatchFinderState());
             states.Add(STATES.GameUI, new GameUIState());
+            states.Add(STATES.Game, new GameState());
         }
     }
 }
