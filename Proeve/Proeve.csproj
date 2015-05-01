@@ -46,6 +46,9 @@
     <Compile Include="Resources\ArtAssets.cs" />
     <Compile Include="Resources\AudioAssets.cs" />
     <Compile Include="Resources\Calculations\Grid.cs" />
+    <Compile Include="Resources\Calculations\Pathfinding\AStar.cs" />
+    <Compile Include="Resources\Calculations\Pathfinding\Node.cs" />
+    <Compile Include="Resources\Calculations\Pathfinding\NodeData.cs" />
     <Compile Include="Resources\Debug.cs" />
     <Compile Include="Resources\Globals.cs" />
     <Compile Include="Resources\Levels.cs" />
