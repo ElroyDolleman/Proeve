@@ -30,7 +30,7 @@ namespace Proeve.Entities
 
         public enum Special
         {
-            Normal,
+            None,
             Spy,
             Healer,
             Minor,
@@ -49,8 +49,10 @@ namespace Proeve.Entities
         public int hp;
         public int move;
 
-        public Weapon weapon;
         public Special special;
+        public Weapon weapon;
+        public Rank rank;
+        public Army army;
 
         public Rectangle Hitbox
         {
@@ -74,7 +76,7 @@ namespace Proeve.Entities
 
         }
 
-        public Character(Sprite sprite, int hp, int move, Special special = Special.Normal)
+        public Character(Sprite sprite, int hp, int move, Rank rank, Army army = Army.Normal, Special special = Special.None)
         {
             this.sprite = sprite;
 
@@ -82,6 +84,10 @@ namespace Proeve.Entities
             this.move = move;
 
             this.special = special;
+            this.weapon = Weapon.Sword;
+
+            this.rank = rank;
+            this.army = army;
         }
 
         public Character Clone()
