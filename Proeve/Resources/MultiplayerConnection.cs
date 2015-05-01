@@ -18,8 +18,8 @@ namespace Proeve.Resources
     {
         #region Events
 
-        public delegate void RecieveConnectionEvent(bool isHosting);
-        public delegate void RecieveArmyEvent(List<Character> army);
+        public delegate void RecieveConnectionEvent();
+        public delegate void RecieveArmyEvent();
 
         public RecieveConnectionEvent RecieveConnection;
         public RecieveArmyEvent RecieveArmy;
@@ -51,6 +51,9 @@ namespace Proeve.Resources
             string player1File = "data1.txt";
             string player2File = "data2.txt";
 
+            writeValue = 0;
+            readValue = 0;
+
             if (!File.Exists(player1File))
             {
                 // Player 1
@@ -78,7 +81,40 @@ namespace Proeve.Resources
 
         public void Update(GameTime gameTime)
         {
+            switch(currentState)
+            {
+                case State.Join:
+                    if (previousState != currentState)
+                        if (isHosting)
+                            WriteConnection();
+                    previousState = currentState;
 
+                    ReadConnection();
+
+                    if (currentState != State.Join) {
+                        if (!isHosting)
+                            WriteConnection();
+
+                        RecieveConnection();
+                    }
+                    break;
+
+                case State.Army:
+                    if (previousState != currentState)
+                        if (isHosting)
+                            WriteArmy();
+                    previousState = currentState;
+
+                    ReadArmy();
+
+                    if (currentState != State.Army) { 
+                        if (!isHosting)
+                            WriteArmy();
+
+                        RecieveArmy();
+                    }
+                    break;
+            }
         }
 
         #region Connection
@@ -109,18 +145,31 @@ namespace Proeve.Resources
         {
             BeginRead();
 
+            Console.WriteLine("readValue before {0}", readValue);
+
             if (NewReadData)
             {
+                Console.WriteLine("readValue after {0}", readValue);
+
                 Armies.opponentArmy = new List<Character>();
 
-                for (int i = 0; i < Globals.ARMY_AMOUNT; i++)
+                for (int i = 0; i < Armies.ARMY_AMOUNT; i++)
                 {
                     Character character = new Character();
+
+                    character.Position = new Vector2(reader.ReadInt32(), reader.ReadInt32());
+
                     character.hp = reader.ReadInt32();
                     character.move = reader.ReadInt32();
+
                     character.special = (Character.Special)reader.ReadInt32();
                     character.weapon = (Character.Weapon)reader.ReadInt32();
+                    character.rank = (Character.Rank)reader.ReadInt32();
+
+                    Armies.opponentArmy.Add(character);
                 }
+
+                currentState = State.None;
             }
 
             EndRead();
@@ -130,7 +179,20 @@ namespace Proeve.Resources
         {
             BeginWrite();
 
+            for (int i = 0; i < Armies.ARMY_AMOUNT; i++)
+            {
+                Character character = Armies.army[i];
 
+                writer.Write((int)character.Position.X);
+                writer.Write((int)character.Position.Y);
+
+                writer.Write(character.hp);
+                writer.Write(character.move);
+
+                writer.Write((int)character.special);
+                writer.Write((int)character.weapon);
+                writer.Write((int)character.rank);
+            }
 
             EndWrite();
         }
