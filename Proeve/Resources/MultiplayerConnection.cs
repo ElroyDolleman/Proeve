@@ -32,12 +32,22 @@ namespace Proeve.Resources
             None,
             Join,
             Army,
-            Ready,
-            Game
+            GameLogicRecieving,
+            SendingFight,
+            SendingMove,
+            SendingEndTurn
+        }
+
+        private enum GameData
+        {
+            Move,
+            Fight,
+            Turn
         }
 
         private State currentState, previousState;
 
+        public bool myTurn;
         public bool connected;
         public readonly bool isHosting;
         public readonly string writeFile, readFile;
@@ -59,6 +69,7 @@ namespace Proeve.Resources
             {
                 // Player 1
                 this.isHosting = true;
+                this.myTurn = true;
 
                 writeFile = player2File;
                 readFile = player1File;
@@ -69,6 +80,7 @@ namespace Proeve.Resources
             {
                 // Player 2
                 this.isHosting = false;
+                this.myTurn = false;
 
                 writeFile = player1File;
                 readFile = player2File;
@@ -117,6 +129,27 @@ namespace Proeve.Resources
                     break;
             }
         }
+
+        #region Game Logic Connection
+
+        public void SendMove(Character character, int gridPlace)
+        {
+
+        }
+
+        public void SendFight(Character character)
+        {
+
+        }
+
+        public void SendEndTurn()
+        {
+
+        }
+
+        //public void 
+
+        #endregion
 
         #region Connection
 
