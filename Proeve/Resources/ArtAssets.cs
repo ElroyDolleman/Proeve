@@ -1,4 +1,7 @@
-﻿using System;
+﻿#define DEBUG
+
+#region Using Statements
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +11,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 using E2DFramework.Graphics;
+#endregion
 
 namespace Proeve.Resources
 {
@@ -143,6 +147,10 @@ namespace Proeve.Resources
         public static void LoadFont(ContentManager contentManager)
         {
             normalFont = contentManager.Load<SpriteFont>(FONT_PATH + FONT_NORMAL);
+
+#if DEBUG
+            Debug.spriteFont = Globals.contentManager.Load<SpriteFont>(FONT_PATH + FONT_NORMAL);
+#endif
         }
 
         private static void InitializeSprites()

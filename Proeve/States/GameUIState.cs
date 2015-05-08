@@ -19,7 +19,7 @@ namespace Proeve.States
 
         public override void Update(GameTime gameTime)
         {
-            
+            StateManager.GetState(1).Update(gameTime);
         }
 
         public override void Draw(SpriteBatch spriteBatch)

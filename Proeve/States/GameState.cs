@@ -9,16 +9,19 @@ using E2DFramework.Graphics;
 
 using Proeve.Entities;
 using Proeve.Resources;
+using Proeve.Resources.Calculations;
 
 namespace Proeve.States
 {
     class GameState : State
     {
         private int[,] level;
+        private E2DTexture background;
+
         private List<Character> army;
         private List<Character> enemyArmy;
 
-        private E2DTexture background;
+        private bool MyTurn { get { return Globals.multiplayerConnection.myTurn; } }
 
         public GameState()
         {
@@ -32,9 +35,42 @@ namespace Proeve.States
             background = ArtAssets.backgroundGrassLevel;
         }
 
+        public void MatchStarts()
+        {
+            Globals.multiplayerConnection.RecieveMove += RecievedMove;
+            Globals.multiplayerConnection.RecieveFight += RecievedFight;
+            Globals.multiplayerConnection.RecieveEndTurn += OtherPlayerEndedHisTurn;
+        }
+
         public override void Update(GameTime gameTime)
         {
-            
+            Globals.multiplayerConnection.Update(gameTime);
+
+            if (MyTurn)
+            {
+                // Ending Turn Test
+                /*if (Globals.mouseState.RightButtonPressed && Main.WindowRectangle.Contains(Globals.mouseState.Position))
+                {
+                    Globals.multiplayerConnection.SendEndTurn();
+                }*/
+
+                // Fight Test
+                /*if (Globals.mouseState.RightButtonPressed && Main.WindowRectangle.Contains(Globals.mouseState.Position))
+                {
+                    Globals.multiplayerConnection.SendFight(0, 0);
+
+                    army[0].Position = new Vector2(0, 0);
+                    enemyArmy[0].Position = new Vector2(82, 0);
+                }*/
+
+                // Move Character Test
+                /*if (Globals.mouseState.RightButtonPressed && Main.WindowRectangle.Contains(Globals.mouseState.Position))
+                {
+                    Globals.multiplayerConnection.SendMove(0, Point.Zero);
+
+                    army[0].Position = Grid.ToPixelLocation(Point.Zero, Globals.GridLocation, Globals.TileDimensions).ToVector2();
+                }*/
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -59,16 +95,37 @@ namespace Proeve.States
             {
                 c.sprite.Draw(spriteBatch);
             }
+
+#if DEBUG
+            // Draw Debug Stuff
+            spriteBatch.DrawDebugText("myTurn: " + MyTurn, 4, 4, Color.White);
+            spriteBatch.DrawDebugText("WaitingForResponse: " + Globals.multiplayerConnection.IsWaitingForResponse, 4, 32, Color.White);
+#endif
         }
 
-        public void SetArmy(List<Character> sendArmy)
+        public void SetArmy(List<Character> sendArmy) { army = sendArmy; }
+        public void SetEnemyArmy(List<Character> sendArmy) { enemyArmy = sendArmy; }
+
+
+        #region Recieve Methods
+
+        private void RecievedMove(int charIndex, Point gridLocation)
         {
-            army = sendArmy;
+            enemyArmy[charIndex].Position = Grid.ToPixelLocation(gridLocation, Globals.GridLocation, Globals.TileDimensions).ToVector2();
         }
 
-        public void SetEnemyArmy(List<Character> sendArmy)
+        public void RecievedFight(int charIndexAttacker, int charIndexDefender)
         {
-            enemyArmy = sendArmy;
+            // Attacker is the opponent. Defender is you.
+
+            army[charIndexDefender].Position = new Vector2(0, 0);
+            enemyArmy[charIndexAttacker].Position = new Vector2(82, 0);
         }
+
+        private void OtherPlayerEndedHisTurn()
+        {
+
+        }
+        #endregion
     }
 }

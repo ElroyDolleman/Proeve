@@ -21,9 +21,17 @@ namespace Proeve.Resources
 
         public delegate void RecieveConnectionEvent();
         public delegate void RecieveArmyEvent();
+        public delegate void RecieveMoveEvent(int characterIndex, Point gridLocation);
+        public delegate void RecieveFightEvent(int characterIndexAttacker, int characterIndexDefender);
+        public delegate void RecieveEndTurnEvent();
+        public delegate void RecieveResponsEvent();
 
         public RecieveConnectionEvent RecieveConnection;
         public RecieveArmyEvent RecieveArmy;
+        public RecieveMoveEvent RecieveMove;
+        public RecieveFightEvent RecieveFight;
+        public RecieveEndTurnEvent RecieveEndTurn;
+        public RecieveResponsEvent RecieveResponse;
 
         #endregion
 
@@ -33,22 +41,22 @@ namespace Proeve.Resources
             Join,
             Army,
             GameLogicRecieving,
-            SendingFight,
-            SendingMove,
-            SendingEndTurn
+            WaitingResponse
         }
 
-        private enum GameData
+        private enum GameLogicData
         {
             Move,
             Fight,
-            Turn
+            EndTurn
         }
 
         private State currentState, previousState;
 
+        public bool IsWaitingForResponse { get { return currentState == State.WaitingResponse; } }
+
         public bool myTurn;
-        public bool connected;
+        public bool Connected { get; private set; }
         public readonly bool isHosting;
         public readonly string writeFile, readFile;
 
@@ -59,26 +67,29 @@ namespace Proeve.Resources
 
         public MultiplayerConnection()
         {
+            // The file names.
             string player1File = "data1.txt";
             string player2File = "data2.txt";
 
+            // The values for checking if it reads something new.
             writeValue = 0;
             readValue = 0;
 
             if (!File.Exists(player1File))
             {
-                // Player 1
+                // Player1 is the host and gets the first turn
                 this.isHosting = true;
                 this.myTurn = true;
 
                 writeFile = player2File;
                 readFile = player1File;
 
+                // The host creates the files
                 CreateFiles();
             }
             else
             {
-                // Player 2
+                // Player 2 doesn't host and gets his turn after player1
                 this.isHosting = false;
                 this.myTurn = false;
 
@@ -89,7 +100,7 @@ namespace Proeve.Resources
             this.currentState = State.Join;
             this.previousState = State.None;
 
-            this.connected = false;
+            this.Connected = false;
         }
 
         public void Update(GameTime gameTime)
@@ -127,27 +138,151 @@ namespace Proeve.Resources
                         RecieveArmy();
                     }
                     break;
+
+                case State.GameLogicRecieving:
+                    ReadGameLogicData();
+                    break;
+                case State.WaitingResponse:
+                    ReadResponse();
+                    break;
             }
         }
 
         #region Game Logic Connection
 
-        public void SendMove(Character character, int gridPlace)
+        private void ReadGameLogicData()
         {
+            BeginRead();
 
+            if (NewReadData)
+            {
+                GameLogicData gameLogicData = (GameLogicData)reader.ReadInt32();
+
+                switch (gameLogicData)
+                {
+                    case GameLogicData.Move:
+                        int charIndex = reader.ReadInt32();
+                        Point gridLocation = new Point(reader.ReadInt32(), reader.ReadInt32());
+
+                        RecieveMove(charIndex, gridLocation);
+                        break;
+                    case GameLogicData.Fight:
+                        RecieveFight(reader.ReadInt32(), reader.ReadInt32());
+                        break;
+                    case GameLogicData.EndTurn:
+                        myTurn = true;
+                        currentState = State.None;
+
+                        RecieveEndTurn();
+                        break;
+                }
+
+                WriteResponse();
+            }
+
+            EndRead();
         }
 
-        public void SendFight(Character character)
+        #region Sends A Move
+        /// <summary>
+        /// Sends the move that a specific character did.
+        /// </summary>
+        /// <param name="characterIndex">The index value of the chatacter that made a move.</param>
+        /// <param name="gridLocation">The grid location where the character went.</param>
+        #endregion
+        public void SendMove(int characterIndex, Point gridLocation)
         {
+            if (currentState == State.None)
+            {
+                BeginWrite();
 
+                writer.Write((int)GameLogicData.Move);
+
+                writer.Write(characterIndex);
+                writer.Write(gridLocation.X);
+                writer.Write(gridLocation.Y);
+
+                EndWrite();
+
+                currentState = State.WaitingResponse;
+            }
+            else
+                throw new Exception("Wait for the other player response.");
         }
 
+        #region Sends A Fight
+        /// <summary>
+        /// Sends which two characters are going to battle.
+        /// </summary>
+        /// <param name="attackerIndex">The index value of this player his character that attacks.</param>
+        /// <param name="defenderIndex">The index value of the opponent his character that is going to be attacked.</param>
+        #endregion
+        public void SendFight(int attackerIndex, int defenderIndex)
+        {
+            if (currentState == State.None)
+            {
+                BeginWrite();
+
+                writer.Write((int)GameLogicData.Fight);
+
+                writer.Write(attackerIndex);
+                writer.Write(defenderIndex);
+
+                EndWrite();
+
+                currentState = State.WaitingResponse;
+            }
+            else
+                throw new Exception("Wait for the other player response.");
+        }
+
+        #region Sending End Of Turn
+        /// <summary>
+        /// Sending that this player ends his turn.
+        /// </summary>
+        #endregion
         public void SendEndTurn()
         {
+            if (currentState == State.None)
+            {
+                myTurn = false;
 
+                BeginWrite();
+                writer.Write((int)GameLogicData.EndTurn);
+                EndWrite();
+
+                currentState = State.WaitingResponse;
+            }
+            else if (currentState == State.WaitingResponse)
+                throw new Exception("Wait for the other player response.");
+            else
+                throw new Exception("State is still in " + currentState + " State");
         }
 
-        //public void 
+        private void ReadResponse()
+        {
+            BeginRead();
+
+            if (NewReadData)
+            {
+                if (myTurn)
+                    currentState = State.None;
+                else
+                    currentState = State.GameLogicRecieving;
+            }
+                
+
+            EndRead();
+        }
+
+        private void WriteResponse()
+        {
+            BeginWrite();
+
+            writer.Write(true);
+
+            EndWrite();
+        }
 
         #endregion
 
@@ -158,7 +293,7 @@ namespace Proeve.Resources
             BeginRead();
             if (NewReadData)
             {
-                connected = reader.ReadBoolean();
+                Connected = reader.ReadBoolean();
                 currentState = State.Army;
             }
             EndRead();
@@ -208,7 +343,10 @@ namespace Proeve.Resources
                     Armies.opponentArmy.Add(character);
                 }
 
-                currentState = State.None;
+                if (myTurn)
+                    currentState = State.None;
+                else
+                    currentState = State.GameLogicRecieving;
             }
 
             EndRead();
