@@ -41,7 +41,8 @@ namespace Proeve.Resources
             Join,
             Army,
             GameLogicRecieving,
-            WaitingResponse
+            WaitingResponse,
+            ConnectionLost
         }
 
         private enum GameLogicData
@@ -54,6 +55,7 @@ namespace Proeve.Resources
         private State currentState, previousState;
 
         public bool IsWaitingForResponse { get { return currentState == State.WaitingResponse; } }
+        public bool ConnectionLost { get { return currentState == State.ConnectionLost; } }
 
         public bool myTurn;
         public bool Connected { get; private set; }
@@ -381,7 +383,7 @@ namespace Proeve.Resources
         private void BeginRead()
         {
             bool succes = false;
-            while(!succes)
+            while (!succes)
             {
                 try
                 {
@@ -390,7 +392,14 @@ namespace Proeve.Resources
 
                     succes = true;
                 }
-                catch { }
+                catch
+                {
+                    if (!File.Exists(readFile))
+                    {
+                        currentState = State.ConnectionLost;
+                        break;
+                    }
+                }
             }
         }
 
@@ -418,8 +427,15 @@ namespace Proeve.Resources
 
                     succes = true;
                 }
-                catch { }
-            }
+                catch 
+                {
+                    if (!File.Exists(writeFile))
+                    {
+                        currentState = State.ConnectionLost;
+                        break;
+                    }
+                }
+            }  
         }
 
         private void EndWrite()
@@ -431,12 +447,15 @@ namespace Proeve.Resources
         {
             get
             {
-                byte newReadValue = reader.ReadByte();
-
-                if (newReadValue != readValue)
+                if (!ConnectionLost)
                 {
-                    readValue = newReadValue;
-                    return true;
+                    byte newReadValue = reader.ReadByte();
+
+                    if (newReadValue != readValue)
+                    {
+                        readValue = newReadValue;
+                        return true;
+                    }
                 }
 
                 return false;

@@ -71,6 +71,9 @@ namespace Proeve.States
                     army[0].Position = Grid.ToPixelLocation(Point.Zero, Globals.GridLocation, Globals.TileDimensions).ToVector2();
                 }*/
             }
+
+            if (Globals.multiplayerConnection.ConnectionLost)
+                StateManager.ChangeState(Settings.STATES.ArmyEditor);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
