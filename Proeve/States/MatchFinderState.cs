@@ -48,6 +48,8 @@ namespace Proeve.States
         private void RecievedArmy()
         {
             ((GameState)StateManager.GetState(1)).SetEnemyArmy(Armies.opponentArmy);
+            ((GameState)StateManager.GetState(1)).MatchStarts();
+
             StateManager.ChangeState(Settings.STATES.GameUI);
         }
 
@@ -60,7 +62,7 @@ namespace Proeve.States
         {
             spriteBatch.DrawString(font, "player " + you, new Vector2(100, 64), Color.White);
 
-            if (Globals.multiplayerConnection.connected)
+            if (Globals.multiplayerConnection.Connected)
                 spriteBatch.DrawString(font, "player " + opponent, new Vector2(Main.WindowWidth - 100, 64), Color.White);
             else
                 spriteBatch.DrawString(font, "searching...", new Vector2(Main.WindowWidth - 100, 64), Color.White);
