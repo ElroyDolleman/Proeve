@@ -48,7 +48,7 @@ namespace Proeve.States
         private void RecievedArmy()
         {
             ((GameState)StateManager.GetState(1)).SetEnemyArmy(Armies.opponentArmy);
-            ((GameState)StateManager.GetState(1)).MatchStarts();
+            //((GameState)StateManager.GetState(1)).MatchStarts();
 
             StateManager.ChangeState(Settings.STATES.GameUI);
         }

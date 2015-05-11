@@ -37,11 +37,16 @@ namespace Proeve.Resources.Calculations.Pathfinding
 		    for (int i = 0; i < field.Length; i++){
 			    AStar.field.Add(new List<Node>());
 			    for (int j = 0; j < field[i].Length; j++){
-				    AStar.field[i].Add(new Node(i, j));
+				    AStar.field[i].Add(new Node(i, j, field[i][j]));
 			    }
 		    }
 	    }
-	
+
+        public static void SetField(List<List<Node>> field)
+        {
+            AStar.field = field;
+        }
+
 	    public static void Path(int x, int y, int x2, int y2){
 		    start = field[x][y];
 		    end = field[x2][y2];
@@ -61,8 +66,9 @@ namespace Proeve.Resources.Calculations.Pathfinding
 		    AddToOpen(start);
 		
 		    Node current;
-		
-		    while (open.Count() > 0){
+
+            while (open.Count() > 0)
+            {
 			    current = null;
 			    for (int i = 0; i < open.Count(); i++){
 				    if ((current == null || current.g >= open[i].g)){
@@ -72,13 +78,16 @@ namespace Proeve.Resources.Calculations.Pathfinding
 			    SwitchToClosed(current);
 			
 			    if (closed[closed.Count()-1] != end){
-				    List<Node> surround = GetSurrounding(current);
-				
-				    for (int i = 0; i < surround.Count; i++){
-					    if (surround[i].status == null){
+                    List<Node> surround = GetSurrounding(current);
+
+                    for (int i = 0; i < surround.Count; i++)
+                    {
+                        if (surround[i].status == null)
+                        {
 						    surround[i].parent = current;
 						    surround[i].setValues();
-						    if (range > 0 ? surround[i].g < range*Node.size: true){
+                            Console.WriteLine(range + ":" + surround[i].g);
+						    if (range > 0 ? surround[i].g <= range*Node.size : true){
 							    AddToOpen(surround[i]);
 						    }
 					    }
@@ -92,9 +101,9 @@ namespace Proeve.Resources.Calculations.Pathfinding
 				    surround = null;
 			    }
 		    }
-		    current = null;
+            current = null;
 		
-		    if (end.status == "Closed"){
+		    if (end != null && end.status == "Closed"){
 		    //if (closed.size() == AStar.field.size()){
 			    SetPath();
 		    }

@@ -80,5 +80,10 @@ namespace Proeve.States
         {
             return enemyArmy;
         }
+
+        public int[,] GetLevel()
+        {
+            return level;
+        }
     }
 }
