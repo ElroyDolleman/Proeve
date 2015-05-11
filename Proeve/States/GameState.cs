@@ -70,5 +70,15 @@ namespace Proeve.States
         {
             enemyArmy = sendArmy;
         }
+
+        public List<Character> GetArmy()
+        {
+            return army;
+        }
+
+        public List<Character> GetEnemyArmy()
+        {
+            return enemyArmy;
+        }
     }
 }
