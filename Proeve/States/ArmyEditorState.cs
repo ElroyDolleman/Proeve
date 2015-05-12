@@ -13,6 +13,8 @@ using Proeve.Entities;
 using Proeve.Resources;
 using Proeve.Resources.Calculations;
 
+using Spine;
+
 namespace Proeve.States
 {
     class ArmyEditorState : State
@@ -24,6 +26,7 @@ namespace Proeve.States
         private Point gridLocation;
         private int gridWidth, gridHeight;
         private Rectangle GridArea { get { return new Rectangle(gridLocation.X, gridLocation.Y, gridWidth * Globals.TILE_WIDTH, gridHeight * Globals.TILE_HEIGHT); } }
+        private Character selectedCharacter;
 
         public ArmyEditorState()
         {
@@ -67,6 +70,8 @@ namespace Proeve.States
             Armies.army[7].Position = Grid.ToPixelLocation(new Point(7, 0), gridLocation, Globals.TileDimensions).ToVector2();
             Armies.army[8].Position = Grid.ToPixelLocation(new Point(0, 1), gridLocation, Globals.TileDimensions).ToVector2();
             Armies.army[9].Position = Grid.ToPixelLocation(new Point(1, 1), gridLocation, Globals.TileDimensions).ToVector2();
+
+            selectedCharacter = Armies.army[0];
         }
 
         private void Ready()
@@ -82,6 +87,7 @@ namespace Proeve.States
                 foreach(Character c in Armies.army)
                     if (c.Hitbox.Contains(Globals.mouseState.Position))
                     {
+                        selectedCharacter = c;
                         dragIndex = Armies.army.IndexOf(c);
                         drag = true;
                     }
@@ -112,8 +118,6 @@ namespace Proeve.States
 
                 drag = false;
                 dragIndex = -1;
-
-
             }
         }
 
@@ -128,6 +132,13 @@ namespace Proeve.States
                 else
                     spriteBatch.DrawSprite(c.sprite, Globals.mouseState.Position - new Vector2(41, 41));
             }
+
+            spriteBatch.DrawRectangle(selectedCharacter.Position, Globals.TILE_WIDTH, Globals.TILE_HEIGHT, Color.Red * .45f);
+            spriteBatch.DrawDebugText("Rank: " + selectedCharacter.rank, 100, 16, Color.White);
+            spriteBatch.DrawDebugText("Weapon: " + selectedCharacter.weapon, 100, 32, Color.White);
+            spriteBatch.DrawDebugText("Level: " + selectedCharacter.Level, 100, 48, Color.White);
+            spriteBatch.DrawDebugText("Steps: " + selectedCharacter.move, 100, 64, Color.White);
+            spriteBatch.DrawDebugText("HP: " + selectedCharacter.hp, 100, 80, Color.White);
         }
     }
 }

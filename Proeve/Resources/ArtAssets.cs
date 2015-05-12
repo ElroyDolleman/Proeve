@@ -22,6 +22,7 @@ namespace Proeve.Resources
         private const string CHIPS_PATH = CHARACTERS_PATH + "Chips\\";
 
         private const string UI_PATH = "UI\\";
+        private const string ARMY_EDITOR_UI_PATH = UI_PATH + "ArmyEditor\\";
 
         private const string BACKGROUND_PATH = "Backgrounds\\";
 
@@ -45,6 +46,11 @@ namespace Proeve.Resources
         /* UI */
         // Buttons
         private const string TESTBUTTON = "startButtonPlaceHolder";
+
+        // ArmyEditor
+        private const string AXE_ICON = "AxeIcon";
+        private const string SWORD_ICON = "swordIcon";
+        private const string SHIELD_ICON = "shieldIcon";
 
         /* BACKGROUND */
         private const string BACKGROUND_GRASS_LEVEL = "environment_placeholder";
@@ -72,6 +78,11 @@ namespace Proeve.Resources
         // Buttons
         private static E2DTexture testButtonTexture;
 
+        // Army Editor
+        private static E2DTexture swordIconTexture;
+        private static E2DTexture shieldIconTexture;
+        private static E2DTexture axeIconTexture;
+
         /* BACKGROUNDS */
         public static E2DTexture editorBackground;
         public static E2DTexture backgroundGrassLevel;
@@ -95,6 +106,11 @@ namespace Proeve.Resources
         // Buttons
         private static Sprite testButtonSprite;
 
+        // Army Editor
+        private static Sprite axeIconSprite;
+        private static Sprite swordIconSprite;
+        private static Sprite shieldIconSprite;
+
         #endregion
         #region READONLY PROPERTIES
 
@@ -113,6 +129,11 @@ namespace Proeve.Resources
         /* UI */
         // Buttons
         public static Sprite TestButton { get { return (Sprite)testButtonSprite.Clone(); } }
+
+        // ArmyEditor
+        public static Sprite SwordIcon { get { return (Sprite)swordIconSprite; } }
+        public static Sprite AxeIcon { get { return (Sprite)axeIconSprite; } }
+        public static Sprite ShieldIcon { get { return (Sprite)shieldIconSprite; } }
 
         #endregion
         #region FONTS
@@ -136,6 +157,11 @@ namespace Proeve.Resources
             /* UI */
             // Buttons
             testButtonTexture.Load(UI_PATH, TESTBUTTON);
+
+            // Army Editor
+            swordIconTexture.Load(ARMY_EDITOR_UI_PATH, SWORD_ICON);
+            shieldIconTexture.Load(ARMY_EDITOR_UI_PATH, SHIELD_ICON);
+            axeIconTexture.Load(ARMY_EDITOR_UI_PATH, AXE_ICON);
 
             /* BACKGROUNDS */
             editorBackground.Load(BACKGROUND_PATH, BACKGROUND_EDITOR);
@@ -170,6 +196,11 @@ namespace Proeve.Resources
             /* UI */
             // Buttons
             testButtonSprite = new Sprite(testButtonTexture, new Rectangle(0, 0, 64, 64), 2, 0f);
+
+            // Army Editor
+            axeIconSprite = new Sprite(swordIconTexture);
+            swordIconSprite = new Sprite(swordIconTexture);
+            shieldIconSprite = new Sprite(swordIconTexture);
         }
     }
 }

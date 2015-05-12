@@ -17,6 +17,7 @@ namespace Proeve.Resources
     {
         public static E2DMouseState mouseState;
         public static ContentManager contentManager;
+        public static GraphicsDevice graphicsDevices;
         public static MultiplayerConnection multiplayerConnection;
 
         public static int coins;
