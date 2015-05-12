@@ -110,7 +110,7 @@ namespace Proeve.States
             {
                 Point gridpos = Grid.ToGridLocation(new Point((int)army[i].Position.X, (int)army[i].Position.Y), Globals.GridLocation, Globals.TileDimensions);
 
-                Console.WriteLine(gridpos);
+                //Console.WriteLine(gridpos);
 
                 tempLevel[gridpos.X, gridpos.Y] = 1;
             }

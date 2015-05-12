@@ -318,12 +318,8 @@ namespace Proeve.Resources
         {
             BeginRead();
 
-            Console.WriteLine("readValue before {0}", readValue);
-
             if (NewReadData)
             {
-                Console.WriteLine("readValue after {0}", readValue);
-
                 Armies.opponentArmy = new List<Character>();
 
                 for (int i = 0; i < Armies.ARMY_AMOUNT; i++)

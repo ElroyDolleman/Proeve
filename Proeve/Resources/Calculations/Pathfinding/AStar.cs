@@ -86,7 +86,7 @@ namespace Proeve.Resources.Calculations.Pathfinding
                         {
 						    surround[i].parent = current;
 						    surround[i].setValues();
-                            Console.WriteLine(range + ":" + surround[i].g);
+                            //Console.WriteLine(range + ":" + surround[i].g);
 						    if (range > 0 ? surround[i].g <= range*Node.size : true){
 							    AddToOpen(surround[i]);
 						    }

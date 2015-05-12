@@ -23,10 +23,11 @@ namespace Proeve.Resources.Calculations
         public static Point ToGridLocation(Point location, Point baseLocation, Point tileDimensions)
         {
             Point answer = new Point();
-            if (location.X < baseLocation.X) location.X -= tileDimensions.X;
-            if (location.Y < baseLocation.Y) location.Y -= tileDimensions.Y;
+            
+            //if (location.X < baseLocation.X) location.X -= tileDimensions.X;
+            //if (location.Y < baseLocation.Y) location.Y -= tileDimensions.Y;
 
-            answer.X = (int)Math.Floor((double)((location.X - baseLocation.X) / tileDimensions.X));
+            answer.X = (int)Math.Ceiling((double)((location.X - baseLocation.X) / tileDimensions.X));
             answer.Y = (int)Math.Floor((double)((location.Y - baseLocation.Y) / tileDimensions.Y));
 
             return answer;

@@ -42,8 +42,21 @@ namespace Proeve.States
 
         public override void Update(GameTime gameTime)
         {
+            
+
+
             if (IsTurn)
             {
+                if (Globals.mouseState.RightButtonPressed)
+                {
+                    
+                    Armies.army[0].GridPosition = new Point(-1, 2);
+
+                    Console.WriteLine("old position = {0}", Armies.army[0].Position.ToPoint());
+                    Console.WriteLine("new gridPos = {0}", Armies.army[0].GridPosition);
+                    Console.WriteLine("new position = {0}", Armies.army[0].Position);
+                }
+
                 if (selected == -1)
                 {
                     if (Globals.mouseState.LeftButtonPressed)
@@ -65,14 +78,14 @@ namespace Proeve.States
                         else if (selected != -1)
                         {
                             int[,] level = (int[,])((GameState)StateManager.GetState(1)).GetLevel().Clone();
-                            
-                            for (int i = 0; i < ((GameState)StateManager.GetState(1)).GetArmy().Count(); i++)
+
+                            for (int i = 0; i < Armies.army.Count(); i++)
                             {
-                                Point gridpos = Grid.ToGridLocation(new Point((int)((GameState)StateManager.GetState(1)).GetArmy()[i].Position.X,(int)((GameState)StateManager.GetState(1)).GetArmy()[i].Position.Y),Globals.GridLocation,Globals.TileDimensions);
+                                Point gridpos = Armies.army[i].GridPosition;
 
-                                Console.WriteLine(gridpos);
+                                Console.WriteLine("gridpos: {0}", gridpos);
 
-                                level[gridpos.X,gridpos.Y] = 1;
+                                level[gridpos.X, gridpos.Y] = 1;
                             }
                             for (int i = 0; i < ((GameState)StateManager.GetState(1)).GetEnemyArmy().Count(); i++)
                             {
@@ -99,7 +112,7 @@ namespace Proeve.States
                             AStar.Area(gridPos.X, gridPos.Y, ((GameState)StateManager.GetState(1)).GetArmy()[selected].move);
                             List<Node> nodes = AStar.GetClosed();
                             canMoveTo = new List<Point>();
-                            Console.WriteLine(nodes.Count);
+                            //Console.WriteLine(nodes.Count);
                             for (int i = 1; i < nodes.Count; i++)
                             {
                                 canMoveTo.Add(new Point(nodes[i].x, nodes[i].y));

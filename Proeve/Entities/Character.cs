@@ -9,6 +9,9 @@ using E2DFramework.Entities;
 using E2DFramework.Graphics;
 using E2DFramework.Helpers;
 
+using Proeve.Resources;
+using Proeve.Resources.Calculations;
+
 namespace Proeve.Entities
 {
     class Character
@@ -73,6 +76,12 @@ namespace Proeve.Entities
                 if (sprite != null)
                     sprite.position = value;
             }
+        }
+
+        public Point GridPosition
+        {
+            get { return Grid.ToGridLocation(Position.ToPoint(), Globals.GridLocation, Globals.TileDimensions); }
+            set { Position = Grid.ToPixelLocation(value, Globals.GridLocation, Globals.TileDimensions).ToVector2(); }
         }
 
         public Character()
