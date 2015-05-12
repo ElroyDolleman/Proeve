@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 
 using E2DFramework.Entities;
 using E2DFramework.Graphics;
+using E2DFramework.Helpers;
 
 namespace Proeve.Entities
 {
@@ -48,6 +49,7 @@ namespace Proeve.Entities
 
         public int hp;
         public int move;
+        public List<Point> waypoints;
 
         public Special special;
         public Weapon weapon;
@@ -75,15 +77,17 @@ namespace Proeve.Entities
 
         public Character()
         {
-
+            waypoints = new List<Point>();
         }
 
         public Character(Sprite sprite)
+            : this()
         {
             this.sprite = sprite;
         }
 
         public Character(Sprite sprite, int hp, int move, Rank rank, Army army = Army.Normal, Special special = Special.None)
+            : this()
         {
             this.sprite = sprite;
 
@@ -95,6 +99,33 @@ namespace Proeve.Entities
 
             this.rank = rank;
             this.army = army;
+        }
+
+        #region Move In Direction
+        /// <summary>
+        /// Move in a specific direction.
+        /// </summary>
+        /// <param name="velocity">The amount of speed.</param>
+        /// <param name="degree">The amount of degree.</param>
+        #endregion
+        public virtual void MoveInDirection(float degree, float velocity)
+        {
+            this.position.X += (float)Math.Cos(degree * (Math.PI / 180)) * velocity;
+            this.position.Y += (float)Math.Sin(degree * (Math.PI / 180)) * velocity;
+        }
+
+        #region Move Towards
+        /// <summary>
+        /// Move towards an other position.
+        /// </summary>
+        /// <param name="destination">The position it needs to move towards to.</param>
+        /// <param name="velocity">The amount of speed.</param>
+        #endregion
+        public virtual void MoveTowards(Vector2 destination, float velocity)
+        {
+            float degree = MathHelper.ToDegrees((float)position.GetAngleTo(destination));
+
+            this.MoveInDirection(degree, velocity);
         }
 
         public Character Clone()
