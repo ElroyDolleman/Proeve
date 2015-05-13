@@ -141,6 +141,7 @@ namespace Proeve.Entities
         {
             Character clone = (Character)this.MemberwiseClone();
             clone.sprite = (Sprite)this.sprite.Clone();
+            clone.waypoints = new List<Point>();
 
             return clone;
         }
