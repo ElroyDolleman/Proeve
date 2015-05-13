@@ -22,6 +22,8 @@ namespace Proeve.States
         private List<bool> canMove;
         private List<Point> canMoveTo;
 
+        private int[,] testLevel;
+
         public GameUIState()
         {
             
@@ -42,21 +44,8 @@ namespace Proeve.States
 
         public override void Update(GameTime gameTime)
         {
-            
-
-
             if (IsTurn)
             {
-                if (Globals.mouseState.RightButtonPressed)
-                {
-                    
-                    Armies.army[0].GridPosition = new Point(-1, 2);
-
-                    Console.WriteLine("old position = {0}", Armies.army[0].Position.ToPoint());
-                    Console.WriteLine("new gridPos = {0}", Armies.army[0].GridPosition);
-                    Console.WriteLine("new position = {0}", Armies.army[0].Position);
-                }
-
                 if (selected == -1)
                 {
                     if (Globals.mouseState.LeftButtonPressed)
@@ -97,6 +86,8 @@ namespace Proeve.States
                             level[GPos.X, GPos.Y] = 0;
 
                             level = Grid.RotateGrid(level, 2);
+
+                            testLevel = (int[,])level.Clone();
 
                             List<List<Node>> field = new List<List<Node>>();
                             for (int i = 0; i < level.GetLength(0); i++)
@@ -159,6 +150,19 @@ namespace Proeve.States
             }
 
             spriteBatch.DrawDebugText("IsTurn: " + IsTurn, new Point(4, 4), Color.White);
+
+            if (testLevel != null)
+                for (int y = 0; y < testLevel.GetLength(0); y++)
+                    for (int x = 0; x < testLevel.GetLength(1); x++)
+                    {
+                        if (testLevel[x, y] == 1)
+                            spriteBatch.DrawRectangle(new Vector2(Globals.GridLocation.X + x * 82, Globals.GridLocation.Y + y * 82), 82, 82, Color.Red * .42f);
+                    }
+
+            foreach(Character c in Armies.army)
+            {
+                spriteBatch.DrawRectangle(Globals.GridLocation.ToVector2() + c.GridPosition.ToVector2() * 82, 82, 82, Color.Blue * .5f);
+            }
         }
 
         private List<Character> GetArmy()
