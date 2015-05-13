@@ -78,7 +78,7 @@ namespace Proeve.States
                             {
                                 Point gridpos = ((GameState)StateManager.GetState(1)).GetArmy()[i].GridPosition;
 
-                                Console.WriteLine("gridpos: {0}", gridpos);
+                                //Console.WriteLine("gridpos: {0}", gridpos);
 
                                 level[gridpos.X, gridpos.Y] = 1;
                             }
@@ -91,8 +91,10 @@ namespace Proeve.States
                                 level[gridpos.X, gridpos.Y] = 1;
                             }
 
-                            Point GPos = Grid.ToGridLocation(new Point((int)((GameState)StateManager.GetState(1)).GetArmy()[selected].Position.X + Globals.TILE_WIDTH / 2, (int)((GameState)StateManager.GetState(1)).GetArmy()[selected].Position.Y + Globals.TILE_WIDTH / 2), Globals.GridLocation, Globals.TileDimensions);
+                            Point GPos = Armies.army[selected].GridPosition;
                             level[GPos.X, GPos.Y] = 0;
+
+                            Console.WriteLine("gridpos: {0}", GPos);
 
                             //level = Grid.RotateGrid(level, 2);
                             //testLevel = Grid.RotateGrid(testLevel, 2);
@@ -102,20 +104,18 @@ namespace Proeve.States
                             List<List<Node>> field = new List<List<Node>>();
                             for (int i = 0; i < level.GetLength(0); i++)
                             {
-                                Console.WriteLine();
                                 field.Add(new List<Node>());
                                 for (int j = 0; j < level.GetLength(1); j++)
                                 {
                                    field[i].Add(new Node(i, j, level[i, j]));
-                                   Console.Write(" " + level[i, j]);
                                 }
                             }
+
                             AStar.SetField(field);
-                            Point gridPos = Grid.ToGridLocation(new Point((int)((GameState)StateManager.GetState(1)).GetArmy()[selected].Position.X, (int)((GameState)StateManager.GetState(1)).GetArmy()[selected].Position.Y), Globals.GridLocation, Globals.TileDimensions);
-                            AStar.Area(gridPos.X, gridPos.Y, ((GameState)StateManager.GetState(1)).GetArmy()[selected].move);
+                            AStar.Area(GPos.X, GPos.Y, Armies.army[selected].move);
                             List<Node> nodes = AStar.GetClosed();
                             canMoveTo = new List<Point>();
-                            //Console.WriteLine(nodes.Count);
+                            
                             for (int i = 1; i < nodes.Count; i++)
                             {
                                 canMoveTo.Add(new Point(nodes[i].x, nodes[i].y));
@@ -192,14 +192,14 @@ namespace Proeve.States
         private void RecievedMove(int charIndex, Point gridLocation)
         {
             //enemyArmy[charIndex].Position = Grid.ToPixelLocation(gridLocation, Globals.GridLocation, Globals.TileDimensions).ToVector2();
+
         }
 
         public void RecievedFight(int charIndexAttacker, int charIndexDefender)
         {
             // Attacker is the opponent. Defender is you.
 
-            //army[charIndexDefender].Position = new Vector2(0, 0);
-            //enemyArmy[charIndexAttacker].Position = new Vector2(82, 0);
+            
         }
 
         private void OtherPlayerEndedHisTurn()
