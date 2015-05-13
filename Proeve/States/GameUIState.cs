@@ -74,34 +74,40 @@ namespace Proeve.States
                                 level[i, j] = ((GameState)StateManager.GetState(1)).GetLevel()[i, j];
                             }
 
-                                for (int i = 0; i < Armies.army.Count(); i++)
-                                {
-                                    Point gridpos = ((GameState)StateManager.GetState(1)).GetArmy()[i].GridPosition;
-
-                                    Console.WriteLine("gridpos: {0}", gridpos);
-
-                                    level[gridpos.X, gridpos.Y] = 1;
-                                }
-                            for (int i = 0; i < ((GameState)StateManager.GetState(1)).GetEnemyArmy().Count(); i++)
+                            for (int i = 0; i < Armies.army.Count(); i++)
                             {
-                                Point gridpos = ((GameState)StateManager.GetState(1)).GetEnemyArmy()[i].GridPosition; // Grid.ToGridLocation(new Point((int)((GameState)StateManager.GetState(1)).GetEnemyArmy()[i].Position.X + Globals.TILE_WIDTH / 2, (int)((GameState)StateManager.GetState(1)).GetEnemyArmy()[i].Position.Y + Globals.TILE_WIDTH / 2), Globals.GridLocation, Globals.TileDimensions);
+                                Point gridpos = ((GameState)StateManager.GetState(1)).GetArmy()[i].GridPosition;
+
+                                Console.WriteLine("gridpos: {0}", gridpos);
+
                                 level[gridpos.X, gridpos.Y] = 1;
                             }
 
-                            Point GPos = Grid.ToGridLocation(new Point((int)((GameState)StateManager.GetState(1)).GetEnemyArmy()[selected].Position.X + Globals.TILE_WIDTH / 2, (int)((GameState)StateManager.GetState(1)).GetEnemyArmy()[selected].Position.Y + Globals.TILE_WIDTH / 2), Globals.GridLocation, Globals.TileDimensions);
+                            
+
+                            for (int i = 0; i < Armies.opponentArmy.Count(); i++)
+                            {
+                                Point gridpos = Armies.opponentArmy[i].GridPosition; // Grid.ToGridLocation(new Point((int)((GameState)StateManager.GetState(1)).GetEnemyArmy()[i].Position.X + Globals.TILE_WIDTH / 2, (int)((GameState)StateManager.GetState(1)).GetEnemyArmy()[i].Position.Y + Globals.TILE_WIDTH / 2), Globals.GridLocation, Globals.TileDimensions);
+                                level[gridpos.X, gridpos.Y] = 1;
+                            }
+
+                            Point GPos = Grid.ToGridLocation(new Point((int)((GameState)StateManager.GetState(1)).GetArmy()[selected].Position.X + Globals.TILE_WIDTH / 2, (int)((GameState)StateManager.GetState(1)).GetArmy()[selected].Position.Y + Globals.TILE_WIDTH / 2), Globals.GridLocation, Globals.TileDimensions);
                             level[GPos.X, GPos.Y] = 0;
 
-                            level = Grid.RotateGrid(level, 2);
+                            //level = Grid.RotateGrid(level, 2);
+                            //testLevel = Grid.RotateGrid(testLevel, 2);
 
                             testLevel = (int[,])level.Clone();
 
                             List<List<Node>> field = new List<List<Node>>();
                             for (int i = 0; i < level.GetLength(0); i++)
                             {
+                                Console.WriteLine();
                                 field.Add(new List<Node>());
                                 for (int j = 0; j < level.GetLength(1); j++)
                                 {
                                    field[i].Add(new Node(i, j, level[i, j]));
+                                   Console.Write(" " + level[i, j]);
                                 }
                             }
                             AStar.SetField(field);
@@ -162,13 +168,15 @@ namespace Proeve.States
                     for (int x = 0; x < testLevel.GetLength(1); x++)
                     {
                         if (testLevel[x, y] == 1)
+                            spriteBatch.DrawRectangle(new Vector2(Globals.GridLocation.X + x * 82, Globals.GridLocation.Y + y * 82), 82, 82, Color.Blue * .42f);
+                        else if (testLevel[x, y] == 2)
                             spriteBatch.DrawRectangle(new Vector2(Globals.GridLocation.X + x * 82, Globals.GridLocation.Y + y * 82), 82, 82, Color.Red * .42f);
                     }
 
-            foreach(Character c in Armies.army)
-            {
-                spriteBatch.DrawRectangle(Globals.GridLocation.ToVector2() + c.GridPosition.ToVector2() * 82, 82, 82, Color.Blue * .5f);
-            }
+            //foreach(Character c in Armies.army)
+            //{
+            //    spriteBatch.DrawRectangle(Globals.GridLocation.ToVector2() + c.GridPosition.ToVector2() * 82, 82, 82, Color.Blue * .5f);
+            //}
         }
 
         private List<Character> GetArmy()

@@ -105,6 +105,7 @@ namespace Proeve.States
         public void MoveUnit(Character unit, Point gridPosition)
         {
             int[,] tempLevel = new int[level.GetLength(0), level.GetLength(1)];
+            tempLevel = Grid.RotateGrid(tempLevel, 2);
 
             for (int i = 0; i < tempLevel.GetLength(0); i++)
             for (int j = 0; j < tempLevel.GetLength(1); j++)

@@ -54,10 +54,17 @@ namespace Proeve
         {
             base.EndRun();
 
-            if (File.Exists("data1.txt"))
-                File.Delete("data1.txt");
-            if (File.Exists("data2.txt"))
-                File.Delete("data2.txt");
+            try
+            {
+                if (File.Exists("data1.txt"))
+                    File.Delete("data1.txt");
+                if (File.Exists("data2.txt"))
+                    File.Delete("data2.txt");
+            }
+            catch
+            {
+
+            }
         }
     }
 }
