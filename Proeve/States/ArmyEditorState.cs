@@ -13,7 +13,7 @@ using Proeve.Entities;
 using Proeve.Resources;
 using Proeve.Resources.Calculations;
 
-using Spine;
+//using Spine;
 
 namespace Proeve.States
 {
@@ -49,16 +49,16 @@ namespace Proeve.States
             buttons[0].ClickEvent += Ready;
 
             Armies.army = new List<Character>();
-            Armies.army.Add(Armies.GetCharacter(Character.Rank.Marshal));
-            Armies.army.Add(Armies.GetCharacter(Character.Rank.General));
-            Armies.army.Add(Armies.GetCharacter(Character.Rank.General));
-            Armies.army.Add(Armies.GetCharacter(Character.Rank.Majoor));
-            Armies.army.Add(Armies.GetCharacter(Character.Rank.Majoor));
-            Armies.army.Add(Armies.GetCharacter(Character.Rank.Captain));
-            Armies.army.Add(Armies.GetCharacter(Character.Rank.Captain));
-            Armies.army.Add(Armies.GetCharacter(Character.Rank.Special));
-            Armies.army.Add(Armies.GetCharacter(Character.Rank.Bomb));
-            Armies.army.Add(Armies.GetCharacter(Character.Rank.Bomb));
+            Armies.army.Add(Armies.GetCharacter(Character.Rank.Marshal).Clone());
+            Armies.army.Add(Armies.GetCharacter(Character.Rank.General).Clone());
+            Armies.army.Add(Armies.GetCharacter(Character.Rank.General).Clone());
+            Armies.army.Add(Armies.GetCharacter(Character.Rank.Majoor).Clone());
+            Armies.army.Add(Armies.GetCharacter(Character.Rank.Majoor).Clone());
+            Armies.army.Add(Armies.GetCharacter(Character.Rank.Captain).Clone());
+            Armies.army.Add(Armies.GetCharacter(Character.Rank.Captain).Clone());
+            Armies.army.Add(Armies.GetCharacter(Character.Rank.Special).Clone());
+            Armies.army.Add(Armies.GetCharacter(Character.Rank.Bomb).Clone());
+            Armies.army.Add(Armies.GetCharacter(Character.Rank.Bomb).Clone());
 
             Armies.army[0].Position = Grid.ToPixelLocation(new Point(0, 0), gridLocation, Globals.TileDimensions).ToVector2();
             Armies.army[1].Position = Grid.ToPixelLocation(new Point(1, 0), gridLocation, Globals.TileDimensions).ToVector2();

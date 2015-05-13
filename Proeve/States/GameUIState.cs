@@ -66,23 +66,29 @@ namespace Proeve.States
                         }
                         else if (selected != -1)
                         {
-                            int[,] level = (int[,])((GameState)StateManager.GetState(1)).GetLevel().Clone();
+                            int[,] level = new int[((GameState)StateManager.GetState(1)).GetLevel().GetLength(0), ((GameState)StateManager.GetState(1)).GetLevel().GetLength(1)];
 
-                            for (int i = 0; i < Armies.army.Count(); i++)
+                            for (int i = 0; i < level.GetLength(0); i++)
+                            for (int j = 0; j < level.GetLength(1); j++)
                             {
-                                Point gridpos = Armies.army[i].GridPosition;
-
-                                Console.WriteLine("gridpos: {0}", gridpos);
-
-                                level[gridpos.X, gridpos.Y] = 1;
+                                level[i, j] = ((GameState)StateManager.GetState(1)).GetLevel()[i, j];
                             }
+
+                                for (int i = 0; i < Armies.army.Count(); i++)
+                                {
+                                    Point gridpos = ((GameState)StateManager.GetState(1)).GetArmy()[i].GridPosition;
+
+                                    Console.WriteLine("gridpos: {0}", gridpos);
+
+                                    level[gridpos.X, gridpos.Y] = 1;
+                                }
                             for (int i = 0; i < ((GameState)StateManager.GetState(1)).GetEnemyArmy().Count(); i++)
                             {
-                                Point gridpos = Grid.ToGridLocation(new Point((int)((GameState)StateManager.GetState(1)).GetEnemyArmy()[i].Position.X, (int)((GameState)StateManager.GetState(1)).GetEnemyArmy()[i].Position.Y), Globals.GridLocation, Globals.TileDimensions);
+                                Point gridpos = ((GameState)StateManager.GetState(1)).GetEnemyArmy()[i].GridPosition; // Grid.ToGridLocation(new Point((int)((GameState)StateManager.GetState(1)).GetEnemyArmy()[i].Position.X + Globals.TILE_WIDTH / 2, (int)((GameState)StateManager.GetState(1)).GetEnemyArmy()[i].Position.Y + Globals.TILE_WIDTH / 2), Globals.GridLocation, Globals.TileDimensions);
                                 level[gridpos.X, gridpos.Y] = 1;
                             }
 
-                            Point GPos = Grid.ToGridLocation(new Point((int)((GameState)StateManager.GetState(1)).GetEnemyArmy()[selected].Position.X, (int)((GameState)StateManager.GetState(1)).GetEnemyArmy()[selected].Position.Y), Globals.GridLocation, Globals.TileDimensions);
+                            Point GPos = Grid.ToGridLocation(new Point((int)((GameState)StateManager.GetState(1)).GetEnemyArmy()[selected].Position.X + Globals.TILE_WIDTH / 2, (int)((GameState)StateManager.GetState(1)).GetEnemyArmy()[selected].Position.Y + Globals.TILE_WIDTH / 2), Globals.GridLocation, Globals.TileDimensions);
                             level[GPos.X, GPos.Y] = 0;
 
                             level = Grid.RotateGrid(level, 2);

@@ -104,7 +104,14 @@ namespace Proeve.States
 
         public void MoveUnit(Character unit, Point gridPosition)
         {
-            int[,] tempLevel = (int[,])level.Clone();
+            int[,] tempLevel = new int[level.GetLength(0), level.GetLength(1)];
+
+            for (int i = 0; i < tempLevel.GetLength(0); i++)
+            for (int j = 0; j < tempLevel.GetLength(1); j++)
+            {
+                tempLevel[i, j] = level[i, j];
+            }
+
 
             for (int i = 0; i < ((GameState)StateManager.GetState(1)).GetArmy().Count(); i++)
             {
@@ -137,9 +144,12 @@ namespace Proeve.States
             AStar.Path(gridPos.X,gridPos.Y,gridPosition.X,gridPosition.Y);
 
             List<Node> path = AStar.GetPath();
-            for (int i = 0; i < path.Count; i++)
+            if (path != null)
             {
-                unit.waypoints.Add(new Point(path[i].x, path[i].y));
+                for (int i = 0; i < path.Count; i++)
+                {
+                    unit.waypoints.Add(new Point(path[i].x, path[i].y));
+                }
             }
         }
     }

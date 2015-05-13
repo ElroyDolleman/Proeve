@@ -80,7 +80,7 @@ namespace Proeve.Entities
 
         public Point GridPosition
         {
-            get { return Grid.ToGridLocation(Position.ToPoint(), Globals.GridLocation, Globals.TileDimensions); }
+            get { return Grid.ToGridLocation(new Point((int)position.X + Globals.TILE_WIDTH/2, (int)position.Y + Globals.TILE_WIDTH/2), Globals.GridLocation, Globals.TileDimensions); }
             set { Position = Grid.ToPixelLocation(value, Globals.GridLocation, Globals.TileDimensions).ToVector2(); }
         }
 
