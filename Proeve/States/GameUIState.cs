@@ -36,6 +36,8 @@ namespace Proeve.States
             {
                 canMove.Add(true);
             }
+            canMove[canMove.Count - 1] = false;
+            canMove[canMove.Count - 2] = false;
 
             Globals.multiplayerConnection.RecieveMove += RecievedMove;
             Globals.multiplayerConnection.RecieveFight += RecievedFight;
@@ -53,7 +55,7 @@ namespace Proeve.States
                         bool contains = false;
                         for (int i = 0; i < ((GameState)StateManager.GetState(1)).GetArmy().Count; i++)
                         {
-                            if (((GameState)StateManager.GetState(1)).GetArmy()[i].Hitbox.Contains(Globals.mouseState.Position))
+                            if (((GameState)StateManager.GetState(1)).GetArmy()[i].Hitbox.Contains(Globals.mouseState.Position) && canMove[i])
                             {
                                 selected = i;
                                 contains = true;
@@ -83,7 +85,7 @@ namespace Proeve.States
                                 level[gridpos.X, gridpos.Y] = 1;
                             }
 
-                            
+
 
                             for (int i = 0; i < Armies.opponentArmy.Count(); i++)
                             {
@@ -94,7 +96,7 @@ namespace Proeve.States
                             Point GPos = Armies.army[selected].GridPosition;
                             level[GPos.X, GPos.Y] = 0;
 
-                            Console.WriteLine("gridpos: {0}", GPos);
+                            //Console.WriteLine("gridpos: {0}", GPos);
 
                             //level = Grid.RotateGrid(level, 2);
                             //testLevel = Grid.RotateGrid(testLevel, 2);
@@ -107,7 +109,7 @@ namespace Proeve.States
                                 field.Add(new List<Node>());
                                 for (int j = 0; j < level.GetLength(1); j++)
                                 {
-                                   field[i].Add(new Node(i, j, level[i, j]));
+                                    field[i].Add(new Node(i, j, level[i, j]));
                                 }
                             }
 
@@ -115,7 +117,7 @@ namespace Proeve.States
                             AStar.Area(GPos.X, GPos.Y, Armies.army[selected].move);
                             List<Node> nodes = AStar.GetClosed();
                             canMoveTo = new List<Point>();
-                            
+
                             for (int i = 1; i < nodes.Count; i++)
                             {
                                 canMoveTo.Add(new Point(nodes[i].x, nodes[i].y));
@@ -125,7 +127,6 @@ namespace Proeve.States
                 }
                 else
                 {
-
                     if (Globals.mouseState.LeftButtonPressed)
                     {
                         for (int i = 0; i < canMoveTo.Count; i++)
@@ -135,6 +136,7 @@ namespace Proeve.States
                             {
                                 Globals.multiplayerConnection.SendMove(selected, canMoveTo[i]);
                                 ((GameState)StateManager.GetState(1)).MoveUnit(((GameState)StateManager.GetState(1)).GetArmy()[selected], canMoveTo[i]);
+                                canMove[selected] = false;
                                 selected = -1;
                                 break;
                             }

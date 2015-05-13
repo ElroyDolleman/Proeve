@@ -40,15 +40,16 @@ namespace Proeve.States
             {
                 if (c.waypoints.Count > 0)
                 {
-                    c.Position = Grid.ToPixelLocation(new Point(c.waypoints[0].X,c.waypoints[0].Y),Globals.GridLocation,Globals.TileDimensions).ToVector2();
-                    if (Vector2.Distance(c.Position, c.waypoints[0].ToVector2()) > 4)
+                    c.Position = Grid.ToPixelLocation(new Point(c.waypoints[c.waypoints.Count - 1].X, c.waypoints[c.waypoints.Count - 1].Y), Globals.GridLocation, Globals.TileDimensions).ToVector2();
+                    c.waypoints.RemoveAt(c.waypoints.Count-1);
+                    /*if (Vector2.Distance(c.Position, c.waypoints[c.waypoints.Count-1].ToVector2()) > 4)
                     {
-                        c.MoveTowards(c.waypoints[0].ToVector2(), 4);
+                        c.MoveTowards(c.waypoints[c.waypoints.Count-1].ToVector2(), 4);
                     }
                     else
                     {
-                        c.waypoints.RemoveAt(0);
-                    }
+                        c.waypoints.RemoveAt(c.waypoints.Count-1);
+                    }/**/
                 }
             }
         }

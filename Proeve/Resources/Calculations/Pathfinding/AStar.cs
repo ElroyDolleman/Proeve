@@ -50,6 +50,7 @@ namespace Proeve.Resources.Calculations.Pathfinding
 	    public static void Path(int x, int y, int x2, int y2){
 		    start = field[x][y];
 		    end = field[x2][y2];
+            range = -1;
 		    Calculate();
 	    }
 	
@@ -87,7 +88,7 @@ namespace Proeve.Resources.Calculations.Pathfinding
 						    surround[i].parent = current;
 						    surround[i].setValues();
                             //Console.WriteLine(range + ":" + surround[i].g);
-						    if (range > 0 ? surround[i].g <= range*Node.size : true){
+						    if (range > -1 ? surround[i].g <= range*Node.size : true){
 							    AddToOpen(surround[i]);
 						    }
 					    }
