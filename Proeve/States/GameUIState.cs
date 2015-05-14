@@ -78,12 +78,8 @@ namespace Proeve.States
                             {
                                 Point gridpos = ((GameState)StateManager.GetState(1)).GetArmy()[i].GridPosition;
 
-                                //Console.WriteLine("gridpos: {0}", gridpos);
-
                                 level[gridpos.X, gridpos.Y] = 1;
                             }
-
-
 
                             for (int i = 0; i < Armies.opponentArmy.Count(); i++)
                             {
@@ -93,6 +89,15 @@ namespace Proeve.States
 
                             Point GPos = Armies.army[selected].GridPosition;
                             level[GPos.X, GPos.Y] = 0;
+
+                            // Debug
+                            for (int i = 0; i < level.GetLength(0); i++)
+                            {
+                                Console.WriteLine();
+                                for (int j = 0; j < level.GetLength(1); j++)
+                                    Console.Write(level[i, j]);
+                            }
+                            // Debug
 
                             List<List<Node>> field = new List<List<Node>>();
                             for (int i = 0; i < level.GetLength(0); i++)
