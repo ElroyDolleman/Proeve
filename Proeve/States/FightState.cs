@@ -77,35 +77,81 @@ namespace Proeve.States
         private void Attack()
         {
             lastDamage = -WeaponDamage(character.weapon, enemyCharacter.weapon);
+
+            if (character.special == Character.Special.Bomb)
+                lastDamage = -enemyCharacter.hp;
+
             enemyCharacter.hp += lastDamage;
         }
 
         private void Defend()
         {
             lastDamage = -WeaponDamage(enemyCharacter.weapon, character.weapon);
+
+            if (enemyCharacter.special == Character.Special.Bomb)
+                lastDamage = -character.hp;
+
             character.hp += lastDamage;
         }
 
         private int WeaponDamage(Character.Weapon attackWeapon, Character.Weapon defendWeapon)
         {
-            switch (attackWeapon)
+            if (character.special == Character.Special.None && enemyCharacter.special == Character.Special.None)
             {
-                default:
-                case Character.Weapon.Axe:
-                    if (defendWeapon == Character.Weapon.Shield)
-                        return 2;
-                    else
-                        return 1;
-                case Character.Weapon.Shield:
-                    if (defendWeapon == Character.Weapon.Sword)
-                        return 2;
-                    else
-                        return 1;
-                case Character.Weapon.Sword:
-                    if (defendWeapon == Character.Weapon.Axe)
-                        return 2;
-                    else
-                        return 1;
+                switch (attackWeapon)
+                {
+                    default:
+                    case Character.Weapon.Axe:
+                        if (defendWeapon == Character.Weapon.Shield)
+                            return 2;
+                        else
+                            return 1;
+                    case Character.Weapon.Shield:
+                        if (defendWeapon == Character.Weapon.Sword)
+                            return 2;
+                        else
+                            return 1;
+                    case Character.Weapon.Sword:
+                        if (defendWeapon == Character.Weapon.Axe)
+                            return 2;
+                        else
+                            return 1;
+                }
+            }
+            else
+            {
+                if (myAttackTurn)
+                {
+                    if (enemyCharacter.special == Character.Special.Bomb)
+                    {
+                        if (character.special == Character.Special.Minor)
+                            return enemyCharacter.hp;
+                        else
+                            return 0;
+                    }
+
+                    if (character.special == Character.Special.Spy)
+                        if (enemyCharacter.rank == Character.Rank.Marshal)
+                            return enemyCharacter.hp;
+
+                    return 1;
+                }
+                else
+                {
+                    if (character.special == Character.Special.Bomb)
+                    {
+                        if (enemyCharacter.special == Character.Special.Minor)
+                            return character.hp;
+                        else
+                            return 0;
+                    }
+
+                    if (enemyCharacter.special == Character.Special.Spy)
+                        if (character.rank == Character.Rank.Marshal)
+                            return character.hp;
+
+                    return 1;
+                }
             }
         }
 
