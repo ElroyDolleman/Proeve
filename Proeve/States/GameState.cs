@@ -36,8 +36,16 @@ namespace Proeve.States
 
         public override void Update(GameTime gameTime)
         {
-            foreach (Character c in Globals.multiplayerConnection.myTurn ? army : enemyArmy)
+            UpdateArmies(army);
+            UpdateArmies(enemyArmy);
+        }
+
+        private void UpdateArmies(List<Character> tempArmy)
+        {
+            for (int i = 0; i < tempArmy.Count; i++)
             {
+                Character c = tempArmy[i];
+
                 if (c.waypoints.Count > 0)
                 {
                     Vector2 wp = Grid.ToPixelLocation(c.waypoints[c.waypoints.Count - 1], Globals.GridLocation, Globals.TileDimensions).ToVector2();
@@ -47,12 +55,15 @@ namespace Proeve.States
                     else
                     {
                         c.position = wp;
-                        c.waypoints.RemoveAt(c.waypoints.Count-1);
+                        c.waypoints.RemoveAt(c.waypoints.Count - 1);
 
                         if (c.waypoints.Count == 0 && Globals.multiplayerConnection.myTurn)
                             c.IsMoved = true;
                     }
                 }
+
+                if (c.IsDead)
+                    tempArmy.Remove(c);
             }
         }
 
@@ -141,9 +152,21 @@ namespace Proeve.States
             }
         }
 
-        internal void AttackUnit(Character character1, Character character2)
+        public void AttackUnit(Character attacker, Character defender)
         {
-            throw new NotImplementedException();
+            while(!attacker.IsDead && !defender.IsDead)
+            {
+                defender.hp--;
+
+                if (!defender.IsDead)
+                    attacker.hp--;
+            }
+
+            Console.WriteLine("attacker hp: {0}", attacker.hp);
+            Console.WriteLine("attacker weapon: {0}", attacker.weapon);
+
+            Console.WriteLine("defender hp: {0}", defender.hp);
+            Console.WriteLine("defender weapon: {0}", defender.weapon);
         }
     }
 }

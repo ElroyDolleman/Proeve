@@ -52,6 +52,7 @@ namespace Proeve.Entities
         }
 
         public int Level { get { return hp + move; } }
+        public bool IsDead { get { return !(hp > 0); } }
 
         public int hp;
         public int move;

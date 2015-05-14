@@ -32,6 +32,8 @@ namespace Proeve.States
         public override void Initialize()
         {
             canMove = new List<bool>();
+            canAttack = new List<bool>();
+
             for (int i = 0; i < ((GameState)StateManager.GetState(1)).GetArmy().Count; i++)
             {
                 canMove.Add(true);
@@ -126,6 +128,8 @@ namespace Proeve.States
                             }
                             if (canAttack[selected])
                             {
+                                canAttackThis = new List<int>();
+
                                 for (int i = 0; i < Armies.opponentArmy.Count; i++)
                                 {
                                     if((Armies.opponentArmy[i].GridPosition.X == Armies.army[selected].GridPosition.X+1
@@ -150,7 +154,7 @@ namespace Proeve.States
                     if (Globals.mouseState.LeftButtonPressed)
                     {
                         bool contains = false;
-                        for (int i = 0; i < canMoveTo.Count; i++)
+                        for (int i = 0; i < canMoveTo.Count; i++) // <-- Gives error sometimes
                         {
                             Rectangle hitbox = new Rectangle(Grid.ToPixelLocation(new Point((int)canMoveTo[i].X, (int)canMoveTo[i].Y), Globals.GridLocation, Globals.TileDimensions).X, Grid.ToPixelLocation(new Point((int)canMoveTo[i].X, (int)canMoveTo[i].Y), Globals.GridLocation, Globals.TileDimensions).Y, Globals.TILE_WIDTH, Globals.TILE_HEIGHT);
                             if (hitbox.Contains(Globals.mouseState.Position))
