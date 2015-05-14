@@ -54,6 +54,7 @@
     <Compile Include="Resources\MultiplayerConnection.cs" />
     <Compile Include="Resources\Settings.cs" />
     <Compile Include="States\ArmyEditorState.cs" />
+    <Compile Include="States\FightState.cs" />
     <Compile Include="States\GameState.cs" />
     <Compile Include="States\GameUIState.cs" />
     <Compile Include="States\LoadingState.cs" />

@@ -240,7 +240,7 @@ namespace Proeve.Resources
 
                 currentState = State.WaitingResponse;
             }
-            else
+            else if (currentState == State.WaitingResponse)
                 throw new Exception("Wait for the other player response.");
         }
 

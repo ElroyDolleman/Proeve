@@ -182,8 +182,9 @@ namespace Proeve.States
                                 Rectangle hitbox = Armies.opponentArmy[canAttackThis[i]].Hitbox;
                                 if (hitbox.Contains(Globals.mouseState.Position))
                                 {
-                                    //Globals.multiplayerConnection.SendMove(selected, canMoveTo[i]);
+                                    Globals.multiplayerConnection.SendFight(selected, canAttackThis[i]);
                                     ((GameState)StateManager.GetState(1)).AttackUnit(Armies.army[selected], Armies.opponentArmy[canAttackThis[i]]);
+
                                     canAttack[selected] = false;
                                     selected = -1;
                                     contains = true;
@@ -252,9 +253,7 @@ namespace Proeve.States
 
         public void RecievedFight(int charIndexAttacker, int charIndexDefender)
         {
-            // Attacker is the opponent. Defender is you.
-
-            
+            ((GameState)StateManager.GetState(1)).AttackUnit(Armies.opponentArmy[charIndexAttacker], Armies.army[charIndexDefender]);
         }
 
         private void OtherPlayerEndedHisTurn()

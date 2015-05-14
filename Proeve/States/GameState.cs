@@ -154,19 +154,8 @@ namespace Proeve.States
 
         public void AttackUnit(Character attacker, Character defender)
         {
-            while(!attacker.IsDead && !defender.IsDead)
-            {
-                defender.hp--;
-
-                if (!defender.IsDead)
-                    attacker.hp--;
-            }
-
-            Console.WriteLine("attacker hp: {0}", attacker.hp);
-            Console.WriteLine("attacker weapon: {0}", attacker.weapon);
-
-            Console.WriteLine("defender hp: {0}", defender.hp);
-            Console.WriteLine("defender weapon: {0}", defender.weapon);
+            StateManager.AddState(Settings.STATES.Fight);
+            ((FightState)StateManager.GetState(0)).SetUnits(attacker, defender);
         }
     }
 }
