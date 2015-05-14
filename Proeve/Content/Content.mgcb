@@ -35,17 +35,6 @@
 /processorParam:TextureFormat=Color
 /build:UI/startButtonPlaceHolder.png
 
-#begin Backgrounds/environment_placeholder.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:TextureFormat=Color
-/build:Backgrounds/environment_placeholder.png
-
 #begin Backgrounds/editorBackground.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -117,4 +106,15 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:TextureFormat=Color
 /build:Characters/Chips/Tiki_Fiches_Sheet.png
+
+#begin Backgrounds/Background_grassland.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:Backgrounds/Background_grassland.png
 
