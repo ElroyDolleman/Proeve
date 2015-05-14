@@ -155,6 +155,9 @@ namespace Proeve.States
         public void AttackUnit(Character attacker, Character defender)
         {
             StateManager.AddState(Settings.STATES.Fight);
+            Console.WriteLine(StateManager.GetState(0).GetType());
+            Console.WriteLine(StateManager.GetState(1).GetType());
+            Console.WriteLine(StateManager.GetState(2).GetType());
             ((FightState)StateManager.GetState(0)).SetUnits(attacker, defender);
         }
     }

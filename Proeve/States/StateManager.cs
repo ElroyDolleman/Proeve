@@ -45,7 +45,7 @@ namespace Proeve.States
 
         public static State GetState(int i = 0)
         {
-            return stateList[(stateList.Count - (i + 1) >= 0 ? 0 : stateList.Count - (i + 1))];
+            return stateList[(stateList.Count - (i + 1) >= 0 ? stateList.Count - (i + 1) : 0)];
         }
 
         public static void Update(GameTime gameTime)
