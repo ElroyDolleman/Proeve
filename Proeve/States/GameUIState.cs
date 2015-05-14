@@ -145,6 +145,10 @@ namespace Proeve.States
                                         canAttackThis.Add(i);
                                     }
                                 }
+                                if (!canMove[selected] && canAttackThis.Count == 0)
+                                {
+                                    canAttack[selected] = false;
+                                }
                             }
                         }
                     }
@@ -154,30 +158,38 @@ namespace Proeve.States
                     if (Globals.mouseState.LeftButtonPressed)
                     {
                         bool contains = false;
-                        for (int i = 0; i < canMoveTo.Count; i++) // <-- Gives error sometimes
+                        if (canMoveTo != null)
                         {
-                            Rectangle hitbox = new Rectangle(Grid.ToPixelLocation(new Point((int)canMoveTo[i].X, (int)canMoveTo[i].Y), Globals.GridLocation, Globals.TileDimensions).X, Grid.ToPixelLocation(new Point((int)canMoveTo[i].X, (int)canMoveTo[i].Y), Globals.GridLocation, Globals.TileDimensions).Y, Globals.TILE_WIDTH, Globals.TILE_HEIGHT);
-                            if (hitbox.Contains(Globals.mouseState.Position))
+                            for (int i = 0; i < canMoveTo.Count; i++) // <-- Gives error sometimes
                             {
-                                Globals.multiplayerConnection.SendMove(selected, canMoveTo[i]);
-                                ((GameState)StateManager.GetState(1)).MoveUnit(((GameState)StateManager.GetState(1)).GetArmy()[selected], canMoveTo[i]);
-                                canMove[selected] = false;
-                                selected = -1;
-                                contains = true;
-                                break;
+                                Rectangle hitbox = new Rectangle(Grid.ToPixelLocation(new Point((int)canMoveTo[i].X, (int)canMoveTo[i].Y), Globals.GridLocation, Globals.TileDimensions).X, Grid.ToPixelLocation(new Point((int)canMoveTo[i].X, (int)canMoveTo[i].Y), Globals.GridLocation, Globals.TileDimensions).Y, Globals.TILE_WIDTH, Globals.TILE_HEIGHT);
+                                if (hitbox.Contains(Globals.mouseState.Position))
+                                {
+                                    Globals.multiplayerConnection.SendMove(selected, canMoveTo[i]);
+                                    ((GameState)StateManager.GetState(1)).MoveUnit(((GameState)StateManager.GetState(1)).GetArmy()[selected], canMoveTo[i]);
+                                    canMove[selected] = false;
+                                    selected = -1;
+                                    contains = true;
+                                    canMoveTo = null;
+                                    break;
+                                }
                             }
                         }
-                        for (int i = 0; i < canAttackThis.Count; i++)
+                        if (canAttackThis != null)
                         {
-                            Rectangle hitbox = Armies.opponentArmy[canAttackThis[i]].Hitbox;
-                            if (hitbox.Contains(Globals.mouseState.Position))
+                            for (int i = 0; i < canAttackThis.Count; i++)
                             {
-                                //Globals.multiplayerConnection.SendMove(selected, canMoveTo[i]);
-                                ((GameState)StateManager.GetState(1)).AttackUnit(Armies.army[selected], Armies.opponentArmy[canAttackThis[i]]);
-                                canAttack[selected] = false;
-                                selected = -1;
-                                contains = true;
-                                break;
+                                Rectangle hitbox = Armies.opponentArmy[canAttackThis[i]].Hitbox;
+                                if (hitbox.Contains(Globals.mouseState.Position))
+                                {
+                                    //Globals.multiplayerConnection.SendMove(selected, canMoveTo[i]);
+                                    ((GameState)StateManager.GetState(1)).AttackUnit(Armies.army[selected], Armies.opponentArmy[canAttackThis[i]]);
+                                    canAttack[selected] = false;
+                                    selected = -1;
+                                    contains = true;
+                                    canAttackThis = null;
+                                    break;
+                                }
                             }
                         }
 
