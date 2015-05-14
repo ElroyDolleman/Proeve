@@ -28,6 +28,9 @@ namespace Proeve.States
         private Rectangle GridArea { get { return new Rectangle(gridLocation.X, gridLocation.Y, gridWidth * Globals.TILE_WIDTH, gridHeight * Globals.TILE_HEIGHT); } }
         private Character selectedCharacter;
 
+        private Dictionary<Character.Weapon, Sprite> WeaponIcons;
+        private Vector2 WeaponIconPosition { get { return new Vector2(228, 24); } }
+
         public ArmyEditorState()
         {
             
@@ -47,6 +50,15 @@ namespace Proeve.States
 
             buttons.Add(new Button(ArtAssets.TestButton, 24, 24));
             buttons[0].ClickEvent += Ready;
+
+            WeaponIcons = new Dictionary<Character.Weapon, Sprite>();
+            WeaponIcons.Add(Character.Weapon.Axe, ArtAssets.AxeIcon);
+            WeaponIcons.Add(Character.Weapon.Sword, ArtAssets.SwordIcon);
+            WeaponIcons.Add(Character.Weapon.Shield, ArtAssets.ShieldIcon);
+
+            WeaponIcons[Character.Weapon.Axe].position =  WeaponIconPosition;
+            WeaponIcons[Character.Weapon.Sword].position =  WeaponIconPosition + Vector2.UnitX * WeaponIcons[Character.Weapon.Sword].sourceRectangle.Width;
+            WeaponIcons[Character.Weapon.Shield].position =  WeaponIconPosition + Vector2.UnitX * WeaponIcons[Character.Weapon.Shield].sourceRectangle.Width * 2;
 
             Armies.army = new List<Character>();
             Armies.army.Add(Armies.GetCharacter(Character.Rank.Marshal).Clone());
@@ -72,6 +84,7 @@ namespace Proeve.States
             Armies.army[9].position = Grid.ToPixelLocation(new Point(1, 1), gridLocation, Globals.TileDimensions).ToVector2();
 
             selectedCharacter = Armies.army[0];
+            WeaponIcons[selectedCharacter.weapon].sourceRectangle.X += WeaponIcons[selectedCharacter.weapon].sourceRectangle.Width;
         }
 
         private void Ready()
@@ -84,13 +97,29 @@ namespace Proeve.States
         public override void Update(GameTime gameTime)
         {
             if (Globals.mouseState.LeftButtonPressed)
-                foreach(Character c in Armies.army)
+            {
+                foreach (Character c in Armies.army)
                     if (c.Hitbox.Contains(Globals.mouseState.Position))
                     {
+                        WeaponIcons[selectedCharacter.weapon].sourceRectangle.X = 0;
+
                         selectedCharacter = c;
                         dragIndex = Armies.army.IndexOf(c);
                         drag = true;
+
+                        WeaponIcons[c.weapon].sourceRectangle.X += WeaponIcons[c.weapon].sourceRectangle.Width;
                     }
+
+                if (selectedCharacter.special != Character.Special.Bomb)
+                    foreach (Character.Weapon w in WeaponIcons.Keys)
+                    {
+                        Sprite s = WeaponIcons[w];
+                        Rectangle hitbox = new Rectangle((int)s.position.X, (int)s.position.Y, s.sourceRectangle.Width, s.sourceRectangle.Height);
+
+                        if (hitbox.Contains(Globals.mouseState.Position))
+                            ChangeWeapon(selectedCharacter, w);
+                    }
+            }
 
             if (Globals.mouseState.LeftButtonReleased && drag)
             {
@@ -121,6 +150,13 @@ namespace Proeve.States
             }
         }
 
+        private void ChangeWeapon(Character character, Character.Weapon weapon)
+        {
+            WeaponIcons[character.weapon].sourceRectangle.X = 0;
+            character.weapon = weapon;
+            WeaponIcons[character.weapon].sourceRectangle.X = WeaponIcons[character.weapon].sourceRectangle.Width;
+        }
+
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.DrawE2DTexture(background, Vector2.Zero);
@@ -132,6 +168,10 @@ namespace Proeve.States
                 else
                     spriteBatch.DrawSprite(c.sprite, Globals.mouseState.Position - new Vector2(41, 41));
             }
+
+            spriteBatch.DrawSprite(WeaponIcons[Character.Weapon.Axe]);
+            spriteBatch.DrawSprite(WeaponIcons[Character.Weapon.Sword]);
+            spriteBatch.DrawSprite(WeaponIcons[Character.Weapon.Shield]);
 
             spriteBatch.DrawRectangle(selectedCharacter.position, Globals.TILE_WIDTH, Globals.TILE_HEIGHT, Color.Red * .45f);
             spriteBatch.DrawDebugText("Rank: " + selectedCharacter.rank, 100, 16, Color.White);
