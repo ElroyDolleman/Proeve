@@ -48,6 +48,9 @@ namespace Proeve.States
                     {
                         c.position = wp;
                         c.waypoints.RemoveAt(c.waypoints.Count-1);
+
+                        if (c.waypoints.Count == 0)
+                            c.IsMoved = true;
                     }
                 }
             }

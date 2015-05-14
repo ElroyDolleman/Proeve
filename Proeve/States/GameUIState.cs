@@ -22,8 +22,6 @@ namespace Proeve.States
         private List<bool> canMove;
         private List<Point> canMoveTo;
 
-        private int[,] testLevel;
-
         public GameUIState()
         {
             
@@ -96,13 +94,6 @@ namespace Proeve.States
                             Point GPos = Armies.army[selected].GridPosition;
                             level[GPos.X, GPos.Y] = 0;
 
-                            //Console.WriteLine("gridpos: {0}", GPos);
-
-                            //level = Grid.RotateGrid(level, 2);
-                            //testLevel = Grid.RotateGrid(testLevel, 2);
-
-                            testLevel = (int[,])level.Clone();
-
                             List<List<Node>> field = new List<List<Node>>();
                             for (int i = 0; i < level.GetLength(0); i++)
                             {
@@ -164,16 +155,6 @@ namespace Proeve.States
             }
 
             spriteBatch.DrawDebugText("IsTurn: " + IsTurn, new Point(4, 4), Color.White);
-
-            if (testLevel != null)
-                for (int y = 0; y < testLevel.GetLength(0); y++)
-                    for (int x = 0; x < testLevel.GetLength(1); x++)
-                    {
-                        if (testLevel[x, y] == 1)
-                            spriteBatch.DrawRectangle(new Vector2(Globals.GridLocation.X + x * 82, Globals.GridLocation.Y + y * 82), 82, 82, Color.Blue * .42f);
-                        else if (testLevel[x, y] == 2)
-                            spriteBatch.DrawRectangle(new Vector2(Globals.GridLocation.X + x * 82, Globals.GridLocation.Y + y * 82), 82, 82, Color.Red * .42f);
-                    }
 
             //foreach(Character c in Armies.army)
             //{

@@ -56,6 +56,18 @@ namespace Proeve.Entities
         public int hp;
         public int move;
         public List<Point> waypoints;
+        public bool IsMoved
+        {
+            get { return layerSprite.colorEffect == MovedColorEffect; }
+            set {
+                if (value)
+                    layerSprite.colorEffect = MovedColorEffect;
+                else
+                    layerSprite.colorEffect = Color.White * 0f;
+            }
+        }
+
+        private Color MovedColorEffect { get { return Color.Black * .5f; } }
 
         public Special special;
         public Weapon weapon;
@@ -65,6 +77,7 @@ namespace Proeve.Entities
         public Rectangle Hitbox{ get { return new Rectangle((int)position.X, (int)position.Y, 82, 82); } }
 
         public Sprite sprite;
+        public Sprite layerSprite;
         public Vector2 position;
 
         public Point GridPosition
@@ -82,13 +95,12 @@ namespace Proeve.Entities
             : this()
         {
             this.sprite = sprite;
+            this.layerSprite = (Sprite)this.sprite.Clone();
         }
 
         public Character(Sprite sprite, int hp, int move, Rank rank, Army army = Army.Normal, Special special = Special.None)
-            : this()
+            : this(sprite)
         {
-            this.sprite = sprite;
-
             this.hp = hp;
             this.move = move;
 
@@ -131,6 +143,7 @@ namespace Proeve.Entities
             Character clone = (Character)this.MemberwiseClone();
             clone.sprite = (Sprite)this.sprite.Clone();
             clone.waypoints = new List<Point>();
+            clone.layerSprite = (Sprite)this.layerSprite.Clone();
 
             return clone;
         }
@@ -138,6 +151,9 @@ namespace Proeve.Entities
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.DrawSprite(this.sprite, this.position);
+
+            if (layerSprite.colorEffect == MovedColorEffect)
+                spriteBatch.DrawSprite(this.layerSprite, this.position);
         }
     }
 }
