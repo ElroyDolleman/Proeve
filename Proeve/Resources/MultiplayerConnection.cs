@@ -198,6 +198,10 @@ namespace Proeve.Resources
         {
             if (currentState == State.None)
             {
+                // Rotate Grid Positions
+                gridLocation.X = ((Globals.GRID_WIDTH - 1) - gridLocation.X);
+                gridLocation.Y = ((Globals.GRID_HEIGHT - 1) - gridLocation.Y);
+
                 BeginWrite();
 
                 writer.Write((int)GameLogicData.Move);

@@ -36,7 +36,7 @@ namespace Proeve.States
 
         public override void Update(GameTime gameTime)
         {
-            foreach (Character c in army)
+            foreach (Character c in Globals.multiplayerConnection.myTurn ? army : enemyArmy)
             {
                 if (c.waypoints.Count > 0)
                 {
@@ -49,7 +49,7 @@ namespace Proeve.States
                         c.position = wp;
                         c.waypoints.RemoveAt(c.waypoints.Count-1);
 
-                        if (c.waypoints.Count == 0)
+                        if (c.waypoints.Count == 0 && Globals.multiplayerConnection.myTurn)
                             c.IsMoved = true;
                     }
                 }
@@ -95,14 +95,13 @@ namespace Proeve.States
         public void MoveUnit(Character unit, Point gridPosition)
         {
             int[,] tempLevel = new int[level.GetLength(0), level.GetLength(1)];
-            tempLevel = Grid.RotateGrid(tempLevel, 2);
+            //tempLevel = Grid.RotateGrid(tempLevel, 2);
 
             for (int i = 0; i < tempLevel.GetLength(0); i++)
             for (int j = 0; j < tempLevel.GetLength(1); j++)
             {
                 tempLevel[i, j] = level[i, j];
             }
-
 
             for (int i = 0; i < ((GameState)StateManager.GetState(1)).GetArmy().Count(); i++)
             {
@@ -116,7 +115,7 @@ namespace Proeve.States
                 tempLevel[gridpos.X, gridpos.Y] = 1;
             }
 
-            Point GPos = Grid.ToGridLocation(new Point((int)unit.position.X, (int)unit.position.Y), Globals.GridLocation, Globals.TileDimensions);
+            Point GPos = unit.GridPosition;
             tempLevel[GPos.X, GPos.Y] = 0;
 
             List<List<Node>> field = new List<List<Node>>();

@@ -90,14 +90,14 @@ namespace Proeve.States
                             Point GPos = Armies.army[selected].GridPosition;
                             level[GPos.X, GPos.Y] = 0;
 
-                            // Debug
-                            for (int i = 0; i < level.GetLength(0); i++)
+                            // Uncomment to Print the grid
+                            /*for (int i = 0; i < level.GetLength(0); i++)
                             {
                                 Console.WriteLine();
                                 for (int j = 0; j < level.GetLength(1); j++)
                                     Console.Write(level[i, j]);
-                            }
-                            // Debug
+                            }*/
+                            // Uncomment to Print the grid
 
                             List<List<Node>> field = new List<List<Node>>();
                             for (int i = 0; i < level.GetLength(0); i++)
@@ -115,9 +115,7 @@ namespace Proeve.States
                             canMoveTo = new List<Point>();
 
                             for (int i = 1; i < nodes.Count; i++)
-                            {
                                 canMoveTo.Add(new Point(nodes[i].x, nodes[i].y));
-                            }
                         }
                     }
                 }
@@ -179,8 +177,7 @@ namespace Proeve.States
 
         private void RecievedMove(int charIndex, Point gridLocation)
         {
-            //enemyArmy[charIndex].Position = Grid.ToPixelLocation(gridLocation, Globals.GridLocation, Globals.TileDimensions).ToVector2();
-
+            ((GameState)StateManager.GetState(1)).MoveUnit(Armies.opponentArmy[charIndex], gridLocation);
         }
 
         public void RecievedFight(int charIndexAttacker, int charIndexDefender)
@@ -192,7 +189,7 @@ namespace Proeve.States
 
         private void OtherPlayerEndedHisTurn()
         {
-
+            
         }
     }
 }
