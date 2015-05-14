@@ -203,7 +203,8 @@ namespace Proeve.States
                 }
             }
 
-            ((GameState)StateManager.GetState(1)).Update(gameTime);
+            if (StateManager.GetState(1) is GameState)
+                ((GameState)StateManager.GetState(1)).Update(gameTime);
             Globals.multiplayerConnection.Update(gameTime);
         }
 

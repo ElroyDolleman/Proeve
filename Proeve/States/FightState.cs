@@ -15,8 +15,12 @@ namespace Proeve.States
 {
     class FightState : State
     {
-        Character attacker;
-        Character defender;
+        Character character;
+        Character enemyCharacter;
+        bool myAttackTurn;
+        int lastDamage;
+
+        float timer;
 
         public FightState()
         {
@@ -25,40 +29,112 @@ namespace Proeve.States
 
         public override void Initialize()
         {
-            /*Console.WriteLine("attacker hp: {0}", attacker.hp);
-            Console.WriteLine("attacker weapon: {0}", attacker.weapon);
-
-            Console.WriteLine("defender hp: {0}", defender.hp);
-            Console.WriteLine("defender weapon: {0}", defender.weapon);*/
+            
         }
 
         public void SetUnits(Character attacker, Character defender)
         {
-            while (!attacker.IsDead && !defender.IsDead)
-            {
-                defender.hp--;
+            this.myAttackTurn = Globals.multiplayerConnection.myTurn;
 
-                if (!defender.IsDead)
-                    attacker.hp--;
+            if (myAttackTurn) {
+                this.character = attacker;
+                this.enemyCharacter = defender;
+                Attack();
             }
-
-            Console.WriteLine("attacker hp: {0}", attacker.hp);
-            Console.WriteLine("attacker weapon: {0}", attacker.weapon);
-
-            Console.WriteLine("defender hp: {0}", defender.hp);
-            Console.WriteLine("defender weapon: {0}", defender.weapon);
+            else {
+                this.character = defender;
+                this.enemyCharacter = attacker;
+                Defend();
+            }
         }
 
         public override void Update(GameTime gameTime)
         {
-            
+            if (!character.IsDead && !enemyCharacter.IsDead)
+            {
+                timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+
+                if (timer > 2000)
+                {
+                    if (myAttackTurn)
+                        Attack();
+                    else
+                        Defend();
+
+                    myAttackTurn = !myAttackTurn;
+                    timer = 0;
+                }
+            }
+            else
+            {
+                timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+
+                if (timer > 2000)
+                    StateManager.RemoveState();
+            }
+        }
+
+        private void Attack()
+        {
+            lastDamage = -WeaponDamage(character.weapon, enemyCharacter.weapon);
+            enemyCharacter.hp += lastDamage;
+        }
+
+        private void Defend()
+        {
+            lastDamage = -WeaponDamage(enemyCharacter.weapon, character.weapon);
+            character.hp += lastDamage;
+        }
+
+        private int WeaponDamage(Character.Weapon attackWeapon, Character.Weapon defendWeapon)
+        {
+            switch (attackWeapon)
+            {
+                default:
+                case Character.Weapon.Axe:
+                    if (defendWeapon == Character.Weapon.Shield)
+                        return 2;
+                    else
+                        return 1;
+                case Character.Weapon.Shield:
+                    if (defendWeapon == Character.Weapon.Sword)
+                        return 2;
+                    else
+                        return 1;
+                case Character.Weapon.Sword:
+                    if (defendWeapon == Character.Weapon.Axe)
+                        return 2;
+                    else
+                        return 1;
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            StateManager.GetState(1).Draw(spriteBatch);
+            StateManager.GetState(2).Draw(spriteBatch);
 
             spriteBatch.DrawRectangle(Main.WindowRectangle, Color.Black * .5f);
+
+            spriteBatch.DrawDebugText("Rank: " + character.rank, 100, 16, Color.White);
+            spriteBatch.DrawDebugText("Weapon: " + character.weapon, 100, 32, Color.White);
+            spriteBatch.DrawDebugText("Level: " + character.Level, 100, 48, Color.White);
+            spriteBatch.DrawDebugText("Steps: " + character.move, 100, 64, Color.White);
+            spriteBatch.DrawDebugText("HP: " + character.hp, 100, 80, Color.White);
+
+            spriteBatch.DrawDebugText("Rank: " + enemyCharacter.rank, 500, 16, Color.White);
+            spriteBatch.DrawDebugText("Weapon: " + enemyCharacter.weapon, 500, 32, Color.White);
+            spriteBatch.DrawDebugText("Level: " + enemyCharacter.Level, 500, 48, Color.White);
+            spriteBatch.DrawDebugText("Steps: " + enemyCharacter.move, 500, 64, Color.White);
+            spriteBatch.DrawDebugText("HP: " + enemyCharacter.hp, 500, 80, Color.White);
+
+            if (character.IsDead)
+                spriteBatch.DrawDebugText("Lost", 100, 120, Color.Pink);
+            else if (enemyCharacter.IsDead)
+                spriteBatch.DrawDebugText("Win", 100, 120, Color.Pink);
+            else if (myAttackTurn)
+                spriteBatch.DrawDebugText("Damage: " + lastDamage, 100, 120, Color.Pink);
+            else
+                spriteBatch.DrawDebugText("Damage: " + lastDamage, 500, 120, Color.Pink);
         }
     }
 }
