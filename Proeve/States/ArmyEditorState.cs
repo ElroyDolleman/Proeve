@@ -60,16 +60,16 @@ namespace Proeve.States
             Armies.army.Add(Armies.GetCharacter(Character.Rank.Bomb).Clone());
             Armies.army.Add(Armies.GetCharacter(Character.Rank.Bomb).Clone());
 
-            Armies.army[0].Position = Grid.ToPixelLocation(new Point(0, 0), gridLocation, Globals.TileDimensions).ToVector2();
-            Armies.army[1].Position = Grid.ToPixelLocation(new Point(1, 0), gridLocation, Globals.TileDimensions).ToVector2();
-            Armies.army[2].Position = Grid.ToPixelLocation(new Point(2, 0), gridLocation, Globals.TileDimensions).ToVector2();
-            Armies.army[3].Position = Grid.ToPixelLocation(new Point(3, 0), gridLocation, Globals.TileDimensions).ToVector2();
-            Armies.army[4].Position = Grid.ToPixelLocation(new Point(4, 0), gridLocation, Globals.TileDimensions).ToVector2();
-            Armies.army[5].Position = Grid.ToPixelLocation(new Point(5, 0), gridLocation, Globals.TileDimensions).ToVector2();
-            Armies.army[6].Position = Grid.ToPixelLocation(new Point(6, 0), gridLocation, Globals.TileDimensions).ToVector2();
-            Armies.army[7].Position = Grid.ToPixelLocation(new Point(7, 0), gridLocation, Globals.TileDimensions).ToVector2();
-            Armies.army[8].Position = Grid.ToPixelLocation(new Point(0, 1), gridLocation, Globals.TileDimensions).ToVector2();
-            Armies.army[9].Position = Grid.ToPixelLocation(new Point(1, 1), gridLocation, Globals.TileDimensions).ToVector2();
+            Armies.army[0].position = Grid.ToPixelLocation(new Point(0, 0), gridLocation, Globals.TileDimensions).ToVector2();
+            Armies.army[1].position = Grid.ToPixelLocation(new Point(1, 0), gridLocation, Globals.TileDimensions).ToVector2();
+            Armies.army[2].position = Grid.ToPixelLocation(new Point(2, 0), gridLocation, Globals.TileDimensions).ToVector2();
+            Armies.army[3].position = Grid.ToPixelLocation(new Point(3, 0), gridLocation, Globals.TileDimensions).ToVector2();
+            Armies.army[4].position = Grid.ToPixelLocation(new Point(4, 0), gridLocation, Globals.TileDimensions).ToVector2();
+            Armies.army[5].position = Grid.ToPixelLocation(new Point(5, 0), gridLocation, Globals.TileDimensions).ToVector2();
+            Armies.army[6].position = Grid.ToPixelLocation(new Point(6, 0), gridLocation, Globals.TileDimensions).ToVector2();
+            Armies.army[7].position = Grid.ToPixelLocation(new Point(7, 0), gridLocation, Globals.TileDimensions).ToVector2();
+            Armies.army[8].position = Grid.ToPixelLocation(new Point(0, 1), gridLocation, Globals.TileDimensions).ToVector2();
+            Armies.army[9].position = Grid.ToPixelLocation(new Point(1, 1), gridLocation, Globals.TileDimensions).ToVector2();
 
             selectedCharacter = Armies.army[0];
         }
@@ -101,19 +101,19 @@ namespace Proeve.States
                     bool overlap = false;
 
                     foreach (Character c in Armies.army)
-                        if (c.Position == mouseGridPosition)
+                        if (c.position == mouseGridPosition)
                         {
                             overlap = true;
 
                             // Swap drag Character with overlap character
-                            c.Position = Armies.army[dragIndex].Position;
-                            Armies.army[dragIndex].Position = mouseGridPosition;
+                            c.position = Armies.army[dragIndex].position;
+                            Armies.army[dragIndex].position = mouseGridPosition;
 
                             break;
                         }
 
                     if (!overlap)
-                        Armies.army[dragIndex].Position = mouseGridPosition;
+                        Armies.army[dragIndex].position = mouseGridPosition;
                 }
 
                 drag = false;
@@ -128,12 +128,12 @@ namespace Proeve.States
             foreach(Character c in Armies.army)
             {
                 if (dragIndex != Armies.army.IndexOf(c))
-                    c.sprite.Draw(spriteBatch);
+                    c.Draw(spriteBatch);
                 else
                     spriteBatch.DrawSprite(c.sprite, Globals.mouseState.Position - new Vector2(41, 41));
             }
 
-            spriteBatch.DrawRectangle(selectedCharacter.Position, Globals.TILE_WIDTH, Globals.TILE_HEIGHT, Color.Red * .45f);
+            spriteBatch.DrawRectangle(selectedCharacter.position, Globals.TILE_WIDTH, Globals.TILE_HEIGHT, Color.Red * .45f);
             spriteBatch.DrawDebugText("Rank: " + selectedCharacter.rank, 100, 16, Color.White);
             spriteBatch.DrawDebugText("Weapon: " + selectedCharacter.weapon, 100, 32, Color.White);
             spriteBatch.DrawDebugText("Level: " + selectedCharacter.Level, 100, 48, Color.White);

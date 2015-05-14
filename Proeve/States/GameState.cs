@@ -42,11 +42,11 @@ namespace Proeve.States
                 {
                     Vector2 wp = Grid.ToPixelLocation(c.waypoints[c.waypoints.Count - 1], Globals.GridLocation, Globals.TileDimensions).ToVector2();
 
-                    if (Vector2.Distance(c.Position, wp) > 4)
+                    if (Vector2.Distance(c.position, wp) > 4)
                         c.MoveTowards(wp, 4);
                     else
                     {
-                        c.Position = wp;
+                        c.position = wp;
                         c.waypoints.RemoveAt(c.waypoints.Count-1);
                     }
                 }
@@ -57,24 +57,11 @@ namespace Proeve.States
         {
             spriteBatch.DrawE2DTexture(background, Vector2.Zero);
 
-            /*for (int i = 0; i < level.GetLength(0); i++)
-            for (int j = 0; j < level.GetLength(1); j++)
-            {
-                if (level[i, j] == 0)
-                {
-                    spriteBatch.DrawRectangle(new Vector2(200 + j * 50 + 1, 50 + i * 50 + 1), 48, 48, Color.White);
-                }
-            }*/
-
             foreach (Character c in army)
-            {
-                c.sprite.Draw(spriteBatch);
-            }
+                c.Draw(spriteBatch);
 
             foreach (Character c in enemyArmy)
-            {
-                c.sprite.Draw(spriteBatch);
-            }
+                c.Draw(spriteBatch);
         }
 
         public void SetArmy(List<Character> sendArmy)
@@ -116,17 +103,17 @@ namespace Proeve.States
 
             for (int i = 0; i < ((GameState)StateManager.GetState(1)).GetArmy().Count(); i++)
             {
-                Point gridpos = Grid.ToGridLocation(new Point((int)army[i].Position.X, (int)army[i].Position.Y), Globals.GridLocation, Globals.TileDimensions);
+                Point gridpos = Grid.ToGridLocation(new Point((int)army[i].position.X, (int)army[i].position.Y), Globals.GridLocation, Globals.TileDimensions);
 
                 tempLevel[gridpos.X, gridpos.Y] = 1;
             }
             for (int i = 0; i < ((GameState)StateManager.GetState(1)).GetEnemyArmy().Count(); i++)
             {
-                Point gridpos = Grid.ToGridLocation(new Point((int)enemyArmy[i].Position.X, (int)enemyArmy[i].Position.Y), Globals.GridLocation, Globals.TileDimensions);
+                Point gridpos = Grid.ToGridLocation(new Point((int)enemyArmy[i].position.X, (int)enemyArmy[i].position.Y), Globals.GridLocation, Globals.TileDimensions);
                 tempLevel[gridpos.X, gridpos.Y] = 1;
             }
 
-            Point GPos = Grid.ToGridLocation(new Point((int)unit.Position.X, (int)unit.Position.Y), Globals.GridLocation, Globals.TileDimensions);
+            Point GPos = Grid.ToGridLocation(new Point((int)unit.position.X, (int)unit.position.Y), Globals.GridLocation, Globals.TileDimensions);
             tempLevel[GPos.X, GPos.Y] = 0;
 
             List<List<Node>> field = new List<List<Node>>();
@@ -139,7 +126,7 @@ namespace Proeve.States
                 }
             }
             AStar.SetField(field);
-            Point gridPos = Grid.ToGridLocation(new Point((int)unit.Position.X, (int)unit.Position.Y),Globals.GridLocation,Globals.TileDimensions);
+            Point gridPos = Grid.ToGridLocation(new Point((int)unit.position.X, (int)unit.position.Y),Globals.GridLocation,Globals.TileDimensions);
             AStar.Path(gridPos.X,gridPos.Y,gridPosition.X,gridPosition.Y);
 
             List<Node> path = AStar.GetPath();

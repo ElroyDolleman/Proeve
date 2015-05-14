@@ -331,7 +331,7 @@ namespace Proeve.Resources
 
                     newPosition.X = ((Globals.GRID_WIDTH - 1) - gridPosition.X) * Globals.TILE_WIDTH + Globals.GridLocation.X;
                     newPosition.Y = ((Globals.GRID_HEIGHT - 1) - gridPosition.Y) * Globals.TILE_HEIGHT + Globals.GridLocation.Y;
-                    character.Position = newPosition;
+                    character.position = newPosition;
 
                     character.hp = reader.ReadInt32();
                     character.move = reader.ReadInt32();
@@ -360,8 +360,8 @@ namespace Proeve.Resources
             {
                 Character character = Armies.army[i];
 
-                writer.Write((int)character.Position.X);
-                writer.Write((int)character.Position.Y);
+                writer.Write((int)character.position.X);
+                writer.Write((int)character.position.Y);
 
                 writer.Write(character.hp);
                 writer.Write(character.move);

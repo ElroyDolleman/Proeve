@@ -1,9 +1,11 @@
-﻿using System;
+﻿#region Using Statements
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 using E2DFramework.Entities;
 using E2DFramework.Graphics;
@@ -11,6 +13,7 @@ using E2DFramework.Helpers;
 
 using Proeve.Resources;
 using Proeve.Resources.Calculations;
+#endregion
 
 namespace Proeve.Entities
 {
@@ -62,23 +65,12 @@ namespace Proeve.Entities
         public Rectangle Hitbox{ get { return new Rectangle((int)position.X, (int)position.Y, 82, 82); } }
 
         public Sprite sprite;
-        private Vector2 position;
-
-        public Vector2 Position
-        {
-            get { return position; }
-            set { 
-                position = value;
-
-                if (sprite != null)
-                    sprite.position = value;
-            }
-        }
+        public Vector2 position;
 
         public Point GridPosition
         {
             get { return Grid.ToGridLocation(new Point((int)position.X + Globals.TILE_WIDTH/2, (int)position.Y + Globals.TILE_WIDTH/2), Globals.GridLocation, Globals.TileDimensions); }
-            set { Position = Grid.ToPixelLocation(value, Globals.GridLocation, Globals.TileDimensions).ToVector2(); }
+            set { position = Grid.ToPixelLocation(value, Globals.GridLocation, Globals.TileDimensions).ToVector2(); }
         }
 
         public Character()
@@ -118,7 +110,6 @@ namespace Proeve.Entities
         {
             this.position.X += (float)Math.Cos(degree * (Math.PI / 180)) * velocity;
             this.position.Y += (float)Math.Sin(degree * (Math.PI / 180)) * velocity;
-            this.Position = position;
         }
 
         #region Move Towards
@@ -142,6 +133,11 @@ namespace Proeve.Entities
             clone.waypoints = new List<Point>();
 
             return clone;
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.DrawSprite(this.sprite, this.position);
         }
     }
 }
