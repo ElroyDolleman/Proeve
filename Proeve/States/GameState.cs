@@ -40,16 +40,15 @@ namespace Proeve.States
             {
                 if (c.waypoints.Count > 0)
                 {
-                    c.Position = Grid.ToPixelLocation(new Point(c.waypoints[c.waypoints.Count - 1].X, c.waypoints[c.waypoints.Count - 1].Y), Globals.GridLocation, Globals.TileDimensions).ToVector2();
-                    c.waypoints.RemoveAt(c.waypoints.Count-1);
-                    /*if (Vector2.Distance(c.Position, c.waypoints[c.waypoints.Count-1].ToVector2()) > 4)
-                    {
-                        c.MoveTowards(c.waypoints[c.waypoints.Count-1].ToVector2(), 4);
-                    }
+                    Vector2 wp = Grid.ToPixelLocation(c.waypoints[c.waypoints.Count - 1], Globals.GridLocation, Globals.TileDimensions).ToVector2();
+
+                    if (Vector2.Distance(c.Position, wp) > 4)
+                        c.MoveTowards(wp, 4);
                     else
                     {
+                        c.Position = wp;
                         c.waypoints.RemoveAt(c.waypoints.Count-1);
-                    }/**/
+                    }
                 }
             }
         }
@@ -118,8 +117,6 @@ namespace Proeve.States
             for (int i = 0; i < ((GameState)StateManager.GetState(1)).GetArmy().Count(); i++)
             {
                 Point gridpos = Grid.ToGridLocation(new Point((int)army[i].Position.X, (int)army[i].Position.Y), Globals.GridLocation, Globals.TileDimensions);
-
-                //Console.WriteLine(gridpos);
 
                 tempLevel[gridpos.X, gridpos.Y] = 1;
             }

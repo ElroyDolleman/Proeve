@@ -59,10 +59,7 @@ namespace Proeve.Entities
         public Rank rank;
         public Army army;
 
-        public Rectangle Hitbox
-        {
-            get { return new Rectangle((int)position.X, (int)position.Y, 82, 82); }
-        }
+        public Rectangle Hitbox{ get { return new Rectangle((int)position.X, (int)position.Y, 82, 82); } }
 
         public Sprite sprite;
         private Vector2 position;
@@ -121,6 +118,7 @@ namespace Proeve.Entities
         {
             this.position.X += (float)Math.Cos(degree * (Math.PI / 180)) * velocity;
             this.position.Y += (float)Math.Sin(degree * (Math.PI / 180)) * velocity;
+            this.Position = position;
         }
 
         #region Move Towards
