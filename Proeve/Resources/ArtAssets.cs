@@ -41,9 +41,7 @@ namespace Proeve.Resources
         private const string TESTBUTTON = "startButtonPlaceHolder";
 
         // ArmyEditor
-        private const string AXE_ICON = "AxeIcon";
-        private const string SWORD_ICON = "swordIcon";
-        private const string SHIELD_ICON = "shieldIcon";
+        private const string WEAPON_BUTTONS = "weaponButtons";
 
         /* BACKGROUND */
         private const string BACKGROUND_GRASS_LEVEL = "Background_grassland";
@@ -152,9 +150,9 @@ namespace Proeve.Resources
             testButtonTexture.Load(UI_PATH, TESTBUTTON);
 
             // Army Editor
-            swordIconTexture.Load(ARMY_EDITOR_UI_PATH, SWORD_ICON);
-            shieldIconTexture.Load(ARMY_EDITOR_UI_PATH, SHIELD_ICON);
-            axeIconTexture.Load(ARMY_EDITOR_UI_PATH, AXE_ICON);
+            swordIconTexture.Load(ARMY_EDITOR_UI_PATH, WEAPON_BUTTONS);
+            shieldIconTexture.Load(ARMY_EDITOR_UI_PATH, WEAPON_BUTTONS);
+            axeIconTexture.Load(ARMY_EDITOR_UI_PATH, WEAPON_BUTTONS);
 
             /* BACKGROUNDS */
             editorBackground.Load(BACKGROUND_PATH, BACKGROUND_EDITOR);
@@ -191,9 +189,9 @@ namespace Proeve.Resources
             testButtonSprite = new Sprite(testButtonTexture, new Rectangle(0, 0, 64, 64), 2, 0f);
 
             // Army Editor
-            axeIconSprite = new Sprite(swordIconTexture);
-            swordIconSprite = new Sprite(swordIconTexture);
-            shieldIconSprite = new Sprite(swordIconTexture);
+            axeIconSprite = new Sprite(swordIconTexture, new Rectangle(0, 82, 82, 82));
+            swordIconSprite = new Sprite(swordIconTexture, new Rectangle(0, 0, 82, 82));
+            shieldIconSprite = new Sprite(swordIconTexture, new Rectangle(0, 82*2, 82, 82));
         }
     }
 }
