@@ -33,15 +33,8 @@ namespace Proeve.Resources
 
         /* CHARACTERS */
         // Chips
-        private const string CAPTAIN_CHIP = "KapiteinRank4";
-        private const string MAJOOR_CHIP = "MajoorRank5";
-        private const string GENERAL_CHIP = "GeneraalRank6";
-        private const string MARSHAL_CHIP = "MaarschalkRank7";
-
-        private const string MINOR_CHIP = "MineurRank3";
-        private const string BOMB_CHIP = "BombPlaceHolder";
-
         private const string ENEMY_CHIP = "EnemyChip";
+        private const string TIKI_CHIPS_SHEET = "Tiki_Fiches_Sheet";
 
         /* UI */
         // Buttons
@@ -144,13 +137,13 @@ namespace Proeve.Resources
         {
             /* CHARACTERS */
             // Chips
-            captainChipTexture.Load(CHIPS_PATH, CAPTAIN_CHIP);
-            majoorChipTexture.Load(CHIPS_PATH, MAJOOR_CHIP);
-            generalChipTexture.Load(CHIPS_PATH, GENERAL_CHIP);
-            marshalChipTexture.Load(CHIPS_PATH, MARSHAL_CHIP);
+            captainChipTexture.Load(CHIPS_PATH, TIKI_CHIPS_SHEET);
+            majoorChipTexture.Load(CHIPS_PATH, TIKI_CHIPS_SHEET);
+            generalChipTexture.Load(CHIPS_PATH, TIKI_CHIPS_SHEET);
+            marshalChipTexture.Load(CHIPS_PATH, TIKI_CHIPS_SHEET);
 
-            minorChipTexture.Load(CHIPS_PATH, MINOR_CHIP);
-            bombChipTexture.Load(CHIPS_PATH, BOMB_CHIP);
+            minorChipTexture.Load(CHIPS_PATH, TIKI_CHIPS_SHEET);
+            bombChipTexture.Load(CHIPS_PATH, TIKI_CHIPS_SHEET);
 
             enemyChipTexture.Load(CHIPS_PATH, ENEMY_CHIP);
 
@@ -183,13 +176,13 @@ namespace Proeve.Resources
         {
             /* CHARACTERS */
             // Chips
-            captainChipSprite = new Sprite(captainChipTexture);
-            majoorChipSprite = new Sprite(majoorChipTexture);
-            generalChipSprite = new Sprite(generalChipTexture);
-            marshalChipSprite = new Sprite(marshalChipTexture);
+            captainChipSprite = new Sprite(captainChipTexture, new Rectangle(82, 0, 82, 82));
+            majoorChipSprite = new Sprite(majoorChipTexture, new Rectangle(0, 0, 82, 82));
+            generalChipSprite = new Sprite(generalChipTexture, new Rectangle(82*2, 82, 82, 82));
+            marshalChipSprite = new Sprite(marshalChipTexture, new Rectangle(0, 82, 82, 82));
 
-            minorChipSprite = new Sprite(minorChipTexture);
-            bombChipSprite = new Sprite(bombChipTexture);
+            minorChipSprite = new Sprite(minorChipTexture, new Rectangle(82*3, 0, 82, 82));
+            bombChipSprite = new Sprite(bombChipTexture, new Rectangle(82*3, 82, 82, 82));
 
             enemyChipSprite = new Sprite(enemyChipTexture);
 
