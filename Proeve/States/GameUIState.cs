@@ -21,6 +21,8 @@ namespace Proeve.States
         private int selected = -1;
         private List<bool> canMove;
         private List<Point> canMoveTo;
+        private List<bool> canAttack;
+        private List<int> canAttackThis;
 
         public GameUIState()
         {
@@ -33,9 +35,12 @@ namespace Proeve.States
             for (int i = 0; i < ((GameState)StateManager.GetState(1)).GetArmy().Count; i++)
             {
                 canMove.Add(true);
+                canAttack.Add(true);
             }
             canMove[canMove.Count - 1] = false;
             canMove[canMove.Count - 2] = false;
+            canAttack[canAttack.Count - 1] = false;
+            canAttack[canAttack.Count - 2] = false;
 
             Globals.multiplayerConnection.RecieveMove += RecievedMove;
             Globals.multiplayerConnection.RecieveFight += RecievedFight;
@@ -53,7 +58,7 @@ namespace Proeve.States
                         bool contains = false;
                         for (int i = 0; i < ((GameState)StateManager.GetState(1)).GetArmy().Count; i++)
                         {
-                            if (((GameState)StateManager.GetState(1)).GetArmy()[i].Hitbox.Contains(Globals.mouseState.Position) && canMove[i])
+                            if (((GameState)StateManager.GetState(1)).GetArmy()[i].Hitbox.Contains(Globals.mouseState.Position) && (canMove[i] || canAttack[i]))
                             {
                                 selected = i;
                                 contains = true;
@@ -66,56 +71,77 @@ namespace Proeve.States
                         }
                         else if (selected != -1)
                         {
-                            int[,] level = new int[((GameState)StateManager.GetState(1)).GetLevel().GetLength(0), ((GameState)StateManager.GetState(1)).GetLevel().GetLength(1)];
-
-                            for (int i = 0; i < level.GetLength(0); i++)
-                            for (int j = 0; j < level.GetLength(1); j++)
+                            if (canMove[selected])
                             {
-                                level[i, j] = ((GameState)StateManager.GetState(1)).GetLevel()[i, j];
-                            }
+                                int[,] level = new int[((GameState)StateManager.GetState(1)).GetLevel().GetLength(0), ((GameState)StateManager.GetState(1)).GetLevel().GetLength(1)];
 
-                            for (int i = 0; i < Armies.army.Count(); i++)
-                            {
-                                Point gridpos = ((GameState)StateManager.GetState(1)).GetArmy()[i].GridPosition;
+                                for (int i = 0; i < level.GetLength(0); i++)
+                                    for (int j = 0; j < level.GetLength(1); j++)
+                                    {
+                                        level[i, j] = ((GameState)StateManager.GetState(1)).GetLevel()[i, j];
+                                    }
 
-                                level[gridpos.X, gridpos.Y] = 1;
-                            }
-
-                            for (int i = 0; i < Armies.opponentArmy.Count(); i++)
-                            {
-                                Point gridpos = Armies.opponentArmy[i].GridPosition; // Grid.ToGridLocation(new Point((int)((GameState)StateManager.GetState(1)).GetEnemyArmy()[i].Position.X + Globals.TILE_WIDTH / 2, (int)((GameState)StateManager.GetState(1)).GetEnemyArmy()[i].Position.Y + Globals.TILE_WIDTH / 2), Globals.GridLocation, Globals.TileDimensions);
-                                level[gridpos.X, gridpos.Y] = 1;
-                            }
-
-                            Point GPos = Armies.army[selected].GridPosition;
-                            level[GPos.X, GPos.Y] = 0;
-
-                            // Uncomment to Print the grid
-                            /*for (int i = 0; i < level.GetLength(0); i++)
-                            {
-                                Console.WriteLine();
-                                for (int j = 0; j < level.GetLength(1); j++)
-                                    Console.Write(level[i, j]);
-                            }*/
-                            // Uncomment to Print the grid
-
-                            List<List<Node>> field = new List<List<Node>>();
-                            for (int i = 0; i < level.GetLength(0); i++)
-                            {
-                                field.Add(new List<Node>());
-                                for (int j = 0; j < level.GetLength(1); j++)
+                                for (int i = 0; i < Armies.army.Count(); i++)
                                 {
-                                    field[i].Add(new Node(i, j, level[i, j]));
+                                    Point gridpos = ((GameState)StateManager.GetState(1)).GetArmy()[i].GridPosition;
+
+                                    level[gridpos.X, gridpos.Y] = 1;
+                                }
+
+                                for (int i = 0; i < Armies.opponentArmy.Count(); i++)
+                                {
+                                    Point gridpos = Armies.opponentArmy[i].GridPosition; // Grid.ToGridLocation(new Point((int)((GameState)StateManager.GetState(1)).GetEnemyArmy()[i].Position.X + Globals.TILE_WIDTH / 2, (int)((GameState)StateManager.GetState(1)).GetEnemyArmy()[i].Position.Y + Globals.TILE_WIDTH / 2), Globals.GridLocation, Globals.TileDimensions);
+                                    level[gridpos.X, gridpos.Y] = 1;
+                                }
+
+                                Point GPos = Armies.army[selected].GridPosition;
+                                level[GPos.X, GPos.Y] = 0;
+
+                                // Uncomment to Print the grid
+                                /*for (int i = 0; i < level.GetLength(0); i++)
+                                {
+                                    Console.WriteLine();
+                                    for (int j = 0; j < level.GetLength(1); j++)
+                                        Console.Write(level[i, j]);
+                                }*/
+                                // Uncomment to Print the grid
+
+                                List<List<Node>> field = new List<List<Node>>();
+                                for (int i = 0; i < level.GetLength(0); i++)
+                                {
+                                    field.Add(new List<Node>());
+                                    for (int j = 0; j < level.GetLength(1); j++)
+                                    {
+                                        field[i].Add(new Node(i, j, level[i, j]));
+                                    }
+                                }
+
+                                AStar.SetField(field);
+                                AStar.Area(GPos.X, GPos.Y, Armies.army[selected].move);
+                                List<Node> nodes = AStar.GetClosed();
+                                canMoveTo = new List<Point>();
+
+                                for (int i = 1; i < nodes.Count; i++)
+                                    canMoveTo.Add(new Point(nodes[i].x, nodes[i].y));
+                            }
+                            if (canAttack[selected])
+                            {
+                                for (int i = 0; i < Armies.opponentArmy.Count; i++)
+                                {
+                                    if((Armies.opponentArmy[i].GridPosition.X == Armies.army[selected].GridPosition.X+1
+                                    || Armies.opponentArmy[i].GridPosition.X == Armies.army[selected].GridPosition.X-1)
+                                    && Armies.opponentArmy[i].GridPosition.Y == Armies.army[selected].GridPosition.Y)
+                                    {
+                                        canAttackThis.Add(i);
+                                    }
+                                    else if((Armies.opponentArmy[i].GridPosition.Y == Armies.army[selected].GridPosition.Y+1
+                                    || Armies.opponentArmy[i].GridPosition.Y == Armies.army[selected].GridPosition.Y-1)
+                                    && Armies.opponentArmy[i].GridPosition.X == Armies.army[selected].GridPosition.X)
+                                    {
+                                        canAttackThis.Add(i);
+                                    }
                                 }
                             }
-
-                            AStar.SetField(field);
-                            AStar.Area(GPos.X, GPos.Y, Armies.army[selected].move);
-                            List<Node> nodes = AStar.GetClosed();
-                            canMoveTo = new List<Point>();
-
-                            for (int i = 1; i < nodes.Count; i++)
-                                canMoveTo.Add(new Point(nodes[i].x, nodes[i].y));
                         }
                     }
                 }
@@ -123,6 +149,7 @@ namespace Proeve.States
                 {
                     if (Globals.mouseState.LeftButtonPressed)
                     {
+                        bool contains = false;
                         for (int i = 0; i < canMoveTo.Count; i++)
                         {
                             Rectangle hitbox = new Rectangle(Grid.ToPixelLocation(new Point((int)canMoveTo[i].X, (int)canMoveTo[i].Y), Globals.GridLocation, Globals.TileDimensions).X, Grid.ToPixelLocation(new Point((int)canMoveTo[i].X, (int)canMoveTo[i].Y), Globals.GridLocation, Globals.TileDimensions).Y, Globals.TILE_WIDTH, Globals.TILE_HEIGHT);
@@ -132,8 +159,28 @@ namespace Proeve.States
                                 ((GameState)StateManager.GetState(1)).MoveUnit(((GameState)StateManager.GetState(1)).GetArmy()[selected], canMoveTo[i]);
                                 canMove[selected] = false;
                                 selected = -1;
+                                contains = true;
                                 break;
                             }
+                        }
+                        for (int i = 0; i < canAttackThis.Count; i++)
+                        {
+                            Rectangle hitbox = Armies.opponentArmy[canAttackThis[i]].Hitbox;
+                            if (hitbox.Contains(Globals.mouseState.Position))
+                            {
+                                //Globals.multiplayerConnection.SendMove(selected, canMoveTo[i]);
+                                ((GameState)StateManager.GetState(1)).AttackUnit(Armies.army[selected], Armies.opponentArmy[canAttackThis[i]]);
+                                canAttack[selected] = false;
+                                selected = -1;
+                                contains = true;
+                                break;
+                            }
+                        }
+
+                        if (!contains)
+                        {
+                            selected = -1;
+                            canMoveTo = null;
                         }
                     }
                 }
@@ -148,11 +195,18 @@ namespace Proeve.States
             StateManager.GetState(1).Draw(spriteBatch);
             if (selected >= 0)
             {
-                if (canMove[selected] == true)
+                if (canMove[selected])
                 {
                     for (int i = 0; i < canMoveTo.Count; i++)
                     {
                         spriteBatch.DrawRectangle(new Rectangle(Grid.ToPixelLocation(new Point((int)canMoveTo[i].X, (int)canMoveTo[i].Y), Globals.GridLocation, Globals.TileDimensions).X, Grid.ToPixelLocation(new Point((int)canMoveTo[i].X, (int)canMoveTo[i].Y), Globals.GridLocation, Globals.TileDimensions).Y, Globals.TILE_WIDTH, Globals.TILE_HEIGHT), Color.White);
+                    }
+                }
+                if (canAttack[selected])
+                {
+                    for (int i = 0; i < canAttackThis.Count; i++)
+                    {
+                        spriteBatch.DrawRectangle(new Rectangle(Grid.ToPixelLocation(Armies.opponentArmy[canAttackThis[i]].GridPosition, Globals.GridLocation, Globals.TileDimensions).X, Grid.ToPixelLocation(Armies.opponentArmy[canAttackThis[i]].GridPosition, Globals.GridLocation, Globals.TileDimensions).Y, Globals.TILE_WIDTH, Globals.TILE_HEIGHT), Color.Red);
                     }
                 }
             }

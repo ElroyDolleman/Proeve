@@ -140,5 +140,10 @@ namespace Proeve.States
                 }
             }
         }
+
+        internal void AttackUnit(Character character1, Character character2)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
