@@ -59,18 +59,11 @@ namespace Proeve.Entities
         public int hp;
         public int move;
         public List<Point> waypoints;
-        public bool IsMoved
-        {
-            get { return layerSprite.colorEffect == MovedColorEffect; }
-            set {
-                if (value)
-                    layerSprite.colorEffect = MovedColorEffect;
-                else
-                    layerSprite.colorEffect = Color.White * 0f;
-            }
-        }
 
-        private Color MovedColorEffect { get { return Color.Black * .5f; } }
+        public Color ColorEffect {
+            get { return layerSprite.colorEffect; }
+            set { layerSprite.colorEffect = value; }
+        }
 
         public Special special;
         public Weapon weapon;
@@ -101,6 +94,7 @@ namespace Proeve.Entities
             this.sprite = sprite;
             this.animation = animation;
             this.layerSprite = (Sprite)this.sprite.Clone();
+            this.ResetColorEffect();
         }
 
         public Character(Sprite sprite, SpineAnimation animation, int hp, int move, Rank rank, Army army = Army.Normal, Special special = Special.None)
@@ -152,7 +146,7 @@ namespace Proeve.Entities
         {
             spriteBatch.DrawSprite(this.sprite, this.position);
 
-            if (layerSprite.colorEffect == MovedColorEffect)
+            if (ColorEffect != Color.White * 0f)
                 spriteBatch.DrawSprite(this.layerSprite, this.position);
         }
 
@@ -170,5 +164,7 @@ namespace Proeve.Entities
 
             return clone;
         }
+
+        public void ResetColorEffect() { ColorEffect = Color.White * 0f; }
     }
 }

@@ -33,8 +33,7 @@ namespace Proeve.Resources
 
         /* CHARACTERS */
         // Chips
-        private const string ENEMY_CHIP = "EnemyChip";
-        private const string TIKI_CHIPS_SHEET = "Tiki_Fiches_Sheet";
+        private const string CHIPS_SHEET = "ChipsSheet";
 
         /* UI */
         // Buttons
@@ -54,16 +53,8 @@ namespace Proeve.Resources
         #region TEXTURES
 
         /* CHARACTERS */
-        // Chips
-        private static E2DTexture captainChipTexture;
-        private static E2DTexture majoorChipTexture;
-        private static E2DTexture generalChipTexture;
-        private static E2DTexture marshalChipTexture;
-
-        private static E2DTexture minorChipTexture;
-        private static E2DTexture bombChipTexture;
-
-        private static E2DTexture enemyChipTexture;
+        // Chips Medieval
+        private static E2DTexture chipsSheet;
 
         /* UI */
         // Buttons
@@ -83,13 +74,13 @@ namespace Proeve.Resources
 
         /* CHARACTERS */
         // Chips
-        private static Sprite captainChipSprite;
-        private static Sprite majoorChipSprite;
-        private static Sprite generalChipSprite;
-        private static Sprite marshalChipSprite;
+        private static Sprite medievalCaptainChipSprite;
+        private static Sprite medievalMajoorChipSprite;
+        private static Sprite medievalGeneralChipSprite;
+        private static Sprite medievalMarshalChipSprite;
 
-        private static Sprite minorChipSprite;
-        private static Sprite bombChipSprite;
+        private static Sprite medievalMinorChipSprite;
+        private static Sprite medievalBombChipSprite;
 
         private static Sprite enemyChipSprite;
 
@@ -107,13 +98,13 @@ namespace Proeve.Resources
 
         /* CHARACTERS */
         // Chips
-        public static Sprite CaptainChip { get { return (Sprite)captainChipSprite.Clone(); } }
-        public static Sprite MajoorChip { get { return (Sprite)majoorChipSprite.Clone(); } }
-        public static Sprite GeneralChip { get { return (Sprite)generalChipSprite.Clone(); } }
-        public static Sprite MarshalChip { get { return (Sprite)marshalChipSprite.Clone(); } }
+        public static Sprite MedievalCaptainChip { get { return (Sprite)medievalCaptainChipSprite.Clone(); } }
+        public static Sprite MedievalMajoorChip { get { return (Sprite)medievalMajoorChipSprite.Clone(); } }
+        public static Sprite MedievalGeneralChip { get { return (Sprite)medievalGeneralChipSprite.Clone(); } }
+        public static Sprite MedievalMarshalChip { get { return (Sprite)medievalMarshalChipSprite.Clone(); } }
 
-        public static Sprite MinorChip { get { return (Sprite)minorChipSprite.Clone(); } }
-        public static Sprite BombChip { get { return (Sprite)bombChipSprite.Clone(); } }
+        public static Sprite MedievalMinorChip { get { return (Sprite)medievalMinorChipSprite.Clone(); } }
+        public static Sprite MedievalBombChip { get { return (Sprite)medievalBombChipSprite.Clone(); } }
 
         public static Sprite EnemyChip { get { return (Sprite)enemyChipSprite.Clone(); } }
 
@@ -135,15 +126,7 @@ namespace Proeve.Resources
         {
             /* CHARACTERS */
             // Chips
-            captainChipTexture.Load(CHIPS_PATH, TIKI_CHIPS_SHEET);
-            majoorChipTexture.Load(CHIPS_PATH, TIKI_CHIPS_SHEET);
-            generalChipTexture.Load(CHIPS_PATH, TIKI_CHIPS_SHEET);
-            marshalChipTexture.Load(CHIPS_PATH, TIKI_CHIPS_SHEET);
-
-            minorChipTexture.Load(CHIPS_PATH, TIKI_CHIPS_SHEET);
-            bombChipTexture.Load(CHIPS_PATH, TIKI_CHIPS_SHEET);
-
-            enemyChipTexture.Load(CHIPS_PATH, ENEMY_CHIP);
+            chipsSheet.Load(CHIPS_PATH, CHIPS_SHEET);
 
             /* UI */
             // Buttons
@@ -174,15 +157,17 @@ namespace Proeve.Resources
         {
             /* CHARACTERS */
             // Chips
-            captainChipSprite = new Sprite(captainChipTexture, new Rectangle(82, 0, 82, 82));
-            majoorChipSprite = new Sprite(majoorChipTexture, new Rectangle(0, 0, 82, 82));
-            generalChipSprite = new Sprite(generalChipTexture, new Rectangle(82*2, 82, 82, 82));
-            marshalChipSprite = new Sprite(marshalChipTexture, new Rectangle(0, 82, 82, 82));
+            int W = 82;
 
-            minorChipSprite = new Sprite(minorChipTexture, new Rectangle(82*3, 0, 82, 82));
-            bombChipSprite = new Sprite(bombChipTexture, new Rectangle(82*3, 82, 82, 82));
+            medievalCaptainChipSprite = new Sprite(chipsSheet, new Rectangle(W, 0, W, W));
+            medievalMajoorChipSprite = new Sprite(chipsSheet, new Rectangle(0, 0, W, W));
+            medievalGeneralChipSprite = new Sprite(chipsSheet, new Rectangle(W*2, W, W, W));
+            medievalMarshalChipSprite = new Sprite(chipsSheet, new Rectangle(0, W, W, W));
 
-            enemyChipSprite = new Sprite(enemyChipTexture);
+            medievalMinorChipSprite = new Sprite(chipsSheet, new Rectangle(W*3, 0, W, W));
+            medievalBombChipSprite = new Sprite(chipsSheet, new Rectangle(W*3, W, W, W));
+
+            enemyChipSprite = new Sprite(chipsSheet, new Rectangle(W*8, 0, W, W));
 
             /* UI */
             // Buttons

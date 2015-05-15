@@ -312,8 +312,8 @@ namespace Proeve.States
 
         private void OtherPlayerEndedHisTurn()
         {
-            foreach(Character c in Armies.army)
-                c.IsMoved = false;
+            foreach (Character c in Armies.army)
+                c.ResetColorEffect();
 
             SetMovable();
         }

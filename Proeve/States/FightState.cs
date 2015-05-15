@@ -15,6 +15,8 @@ namespace Proeve.States
 {
     class FightState : State
     {
+        private Vector2 MyAnimationPosition { get { return new Vector2(); } }
+
         Character character;
         Character enemyCharacter;
         bool myAttackTurn;
@@ -72,6 +74,9 @@ namespace Proeve.States
                 if (timer > 2000)
                     StateManager.RemoveState();
             }
+
+            character.UpdateAnimation(gameTime);
+            enemyCharacter.UpdateAnimation(gameTime);
         }
 
         private void Attack()
@@ -183,6 +188,12 @@ namespace Proeve.States
                 spriteBatch.DrawDebugText("Damage: " + lastDamage, 100, 120, Color.Pink);
             else
                 spriteBatch.DrawDebugText("Damage: " + lastDamage, 500, 120, Color.Pink);
+        }
+
+        public override void DrawAnimation(Spine.SkeletonMeshRenderer skeletonRenderer)
+        {
+            //character.DrawAnimation(skeletonRenderer);
+            //enemyCharacter.DrawAnimation(skeletonRenderer);
         }
     }
 }

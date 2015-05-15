@@ -41,28 +41,6 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/normalFont.spritefont
 
-#begin Characters/Chips/EnemyChip.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:TextureFormat=Color
-/build:Characters/Chips/EnemyChip.png
-
-#begin Characters/Chips/Tiki_Fiches_Sheet.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:TextureFormat=Color
-/build:Characters/Chips/Tiki_Fiches_Sheet.png
-
 #begin Backgrounds/Background_grassland.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -84,4 +62,15 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:TextureFormat=Color
 /build:UI/ArmyEditor/weaponButtons.png
+
+#begin Characters/Chips/ChipsSheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:Characters/Chips/ChipsSheet.png
 

@@ -58,7 +58,7 @@ namespace Proeve.States
                         c.waypoints.RemoveAt(c.waypoints.Count - 1);
 
                         if (c.waypoints.Count == 0 && Globals.multiplayerConnection.myTurn)
-                            c.IsMoved = true;
+                            c.ColorEffect = Color.Black * .5f;
                     }
                 }
 

@@ -19,6 +19,8 @@ namespace Proeve.States
 {
     class ArmyEditorState : State
     {
+        private Color SelectedColor { get { return Color.DarkRed * .75f; } }
+
         private bool drag;
         private int dragIndex;
         private E2DTexture background;
@@ -103,11 +105,14 @@ namespace Proeve.States
                 foreach (Character c in Armies.army)
                     if (c.Hitbox.Contains(Globals.mouseState.Position))
                     {
+                        selectedCharacter.ResetColorEffect();
                         WeaponIcons[selectedCharacter.weapon].sourceRectangle.X = 0;
 
                         selectedCharacter = c;
                         dragIndex = Armies.army.IndexOf(c);
                         drag = true;
+
+                        selectedCharacter.ColorEffect = SelectedColor;
                         selectedCharacter.animation.Position = AnimationPosition;
 
                         WeaponIcons[c.weapon].sourceRectangle.X += WeaponIcons[c.weapon].sourceRectangle.Width;
@@ -178,14 +183,12 @@ namespace Proeve.States
             spriteBatch.DrawSprite(WeaponIcons[Character.Weapon.Sword]);
             spriteBatch.DrawSprite(WeaponIcons[Character.Weapon.Shield]);
 
-            spriteBatch.DrawRectangle(selectedCharacter.position, Globals.TILE_WIDTH, Globals.TILE_HEIGHT, Color.Red * .45f);
+            //spriteBatch.DrawRectangle(selectedCharacter.position, Globals.TILE_WIDTH, Globals.TILE_HEIGHT, Color.Red * .45f);
             spriteBatch.DrawDebugText("Rank: " + selectedCharacter.rank, 100, 16, Color.White);
             spriteBatch.DrawDebugText("Weapon: " + selectedCharacter.weapon, 100, 32, Color.White);
             spriteBatch.DrawDebugText("Level: " + selectedCharacter.Level, 100, 48, Color.White);
             spriteBatch.DrawDebugText("Steps: " + selectedCharacter.move, 100, 64, Color.White);
             spriteBatch.DrawDebugText("HP: " + selectedCharacter.hp, 100, 80, Color.White);
-
-            
         }
 
         public override void DrawAnimation(SkeletonMeshRenderer skeletonRenderer)
