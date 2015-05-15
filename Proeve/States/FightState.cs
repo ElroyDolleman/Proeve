@@ -15,14 +15,15 @@ namespace Proeve.States
 {
     class FightState : State
     {
-        private Vector2 MyAnimationPosition { get { return new Vector2(); } }
+        private Vector2 MyAnimationPosition { get { return new Vector2(200, 340); } }
+        private Vector2 EnemyAnimationPosition { get { return new Vector2(Main.WindowWidth - 200, 340); } }
 
-        Character character;
-        Character enemyCharacter;
-        bool myAttackTurn;
-        int lastDamage;
+        private Character character;
+        private Character enemyCharacter;
+        private bool myAttackTurn;
+        private int lastDamage;
 
-        float timer;
+        private float timer;
 
         public FightState()
         {
@@ -48,6 +49,9 @@ namespace Proeve.States
                 this.enemyCharacter = attacker;
                 Defend();
             }
+
+            character.animation.Position = MyAnimationPosition;
+            enemyCharacter.animation.Position = EnemyAnimationPosition;
         }
 
         public override void Update(GameTime gameTime)
@@ -174,26 +178,26 @@ namespace Proeve.States
             spriteBatch.DrawDebugText("Steps: " + character.move, 100, 64, Color.White);
             spriteBatch.DrawDebugText("HP: " + character.hp, 100, 80, Color.White);
 
-            spriteBatch.DrawDebugText("Rank: " + enemyCharacter.rank, 500, 16, Color.White);
-            spriteBatch.DrawDebugText("Weapon: " + enemyCharacter.weapon, 500, 32, Color.White);
-            spriteBatch.DrawDebugText("Level: " + enemyCharacter.Level, 500, 48, Color.White);
-            spriteBatch.DrawDebugText("Steps: " + enemyCharacter.move, 500, 64, Color.White);
-            spriteBatch.DrawDebugText("HP: " + enemyCharacter.hp, 500, 80, Color.White);
+            spriteBatch.DrawDebugText("Rank: " + enemyCharacter.rank, 800, 16, Color.White);
+            spriteBatch.DrawDebugText("Weapon: " + enemyCharacter.weapon, 800, 32, Color.White);
+            spriteBatch.DrawDebugText("Level: " + enemyCharacter.Level, 800, 48, Color.White);
+            spriteBatch.DrawDebugText("Steps: " + enemyCharacter.move, 800, 64, Color.White);
+            spriteBatch.DrawDebugText("HP: " + enemyCharacter.hp, 800, 80, Color.White);
 
             if (character.IsDead)
-                spriteBatch.DrawDebugText("Lost", 100, 120, Color.Pink);
+                spriteBatch.DrawDebugText("Lost", 100, 120, Color.White);
             else if (enemyCharacter.IsDead)
-                spriteBatch.DrawDebugText("Win", 100, 120, Color.Pink);
+                spriteBatch.DrawDebugText("Win", 100, 120, Color.White);
             else if (myAttackTurn)
-                spriteBatch.DrawDebugText("Damage: " + lastDamage, 100, 120, Color.Pink);
+                spriteBatch.DrawDebugText("Damage: " + lastDamage, 100, 120, Color.White);
             else
-                spriteBatch.DrawDebugText("Damage: " + lastDamage, 500, 120, Color.Pink);
+                spriteBatch.DrawDebugText("Damage: " + lastDamage, 500, 120, Color.White);
         }
 
         public override void DrawAnimation(Spine.SkeletonMeshRenderer skeletonRenderer)
         {
-            //character.DrawAnimation(skeletonRenderer);
-            //enemyCharacter.DrawAnimation(skeletonRenderer);
+            character.DrawAnimation(skeletonRenderer);
+            enemyCharacter.DrawAnimation(skeletonRenderer);
         }
     }
 }

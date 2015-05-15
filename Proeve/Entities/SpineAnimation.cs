@@ -19,6 +19,9 @@ namespace Proeve.Entities
         private Skeleton skeleton;
         private AnimationState animationState;
 
+        private Atlas atlas;
+        private string filesName, animationName;
+
         public Vector2 Position {
             get { return new Vector2(skeleton.X, skeleton.Y); }
             set { skeleton.X = value.X; skeleton.Y = value.Y; }
@@ -32,14 +35,14 @@ namespace Proeve.Entities
         public void LoadAnimation(GraphicsDevice graphicsDevice, ContentManager contentManager, string folderPath, string fileName, string animationName = "animation")
         {
             // Skeleton
-            string root = @contentManager.RootDirectory + "\\";
+            this.filesName = @contentManager.RootDirectory + "\\" + folderPath + fileName;
 
-            Atlas atlas = new Atlas(root + folderPath + fileName + ".atlas", new XnaTextureLoader(graphicsDevice));
+            this.atlas = new Atlas(this.filesName + ".atlas", new XnaTextureLoader(graphicsDevice));
 
             SkeletonData skeletonData;
 
             SkeletonJson json = new SkeletonJson(atlas);
-            skeletonData = json.ReadSkeletonData(root + folderPath + fileName + ".json");
+            skeletonData = json.ReadSkeletonData(this.filesName + ".json");
 
             this.skeleton = new Skeleton(skeletonData);
 
@@ -47,7 +50,8 @@ namespace Proeve.Entities
             AnimationStateData animationStateData = new AnimationStateData(skeleton.Data);
             this.animationState = new AnimationState(animationStateData);
 
-            this.animationState.SetAnimation(0, animationName, true);
+            this.animationName = animationName;
+            this.animationState.SetAnimation(0, this.animationName, true);
 
             this.Position = Vector2.Zero;
             this.skeleton.UpdateWorldTransform();
@@ -67,7 +71,26 @@ namespace Proeve.Entities
 
         public object Clone()
         {
-            return this.MemberwiseClone();
+            SpineAnimation clone = (SpineAnimation)this.MemberwiseClone();
+
+            SkeletonData skeletonData;
+
+            SkeletonJson json = new SkeletonJson(atlas);
+            skeletonData = json.ReadSkeletonData(this.filesName + ".json");
+
+            this.skeleton = new Skeleton(skeletonData);
+
+            clone.skeleton = new Skeleton(skeletonData);
+
+            AnimationStateData animationStateData = new AnimationStateData(skeleton.Data);
+
+            clone.animationState = new AnimationState(animationStateData);
+            clone.animationState.SetAnimation(0, this.animationName, true);
+
+            clone.Position = Vector2.Zero;
+            clone.skeleton.UpdateWorldTransform();
+
+            return clone;
         }
     }
 }
