@@ -65,15 +65,24 @@ namespace Proeve.States
                 {
                     if (canMove[canMove.Count-3] && Armies.army[Armies.army.Count-3].special == Character.Special.Minor)
                     {
-                        if(Math.Pow(Armies.army[Armies.army.Count - 1].GridPosition.X - Armies.army[Armies.army.Count - 3].GridPosition.X,2) <= 1
-                        || Math.Pow(Armies.army[Armies.army.Count - 1].GridPosition.Y - Armies.army[Armies.army.Count - 3].GridPosition.Y, 2) <= 1)
+                        Console.WriteLine()
+                        if(Math.Pow(Armies.army[Armies.army.Count - 1].GridPosition.X - Armies.army[Armies.army.Count - 3].GridPosition.X, 2) <= 1
+                        && Math.Pow(Armies.army[Armies.army.Count - 1].GridPosition.Y - Armies.army[Armies.army.Count - 3].GridPosition.Y, 2) <= 1)
                         {
                             canMove[canMove.Count - 1] = true;
                         }
+                        else
+                        {
+                            canMove[canMove.Count - 1] = false;
+                        }
                         if(Math.Pow(Armies.army[Armies.army.Count - 2].GridPosition.X - Armies.army[Armies.army.Count - 3].GridPosition.X, 2) <= 1
-                        || Math.Pow(Armies.army[Armies.army.Count - 2].GridPosition.Y - Armies.army[Armies.army.Count - 3].GridPosition.Y, 2) <= 1)
+                        && Math.Pow(Armies.army[Armies.army.Count - 2].GridPosition.Y - Armies.army[Armies.army.Count - 3].GridPosition.Y, 2) <= 1)
                         {
                             canMove[canMove.Count - 2] = true;
+                        }
+                        else
+                        {
+                            canMove[canMove.Count - 2] = false;
                         }
                     }
                     else

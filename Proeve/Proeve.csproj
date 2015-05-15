@@ -76,10 +76,10 @@
       <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="spine-csharp_xna">
-      <HintPath>..\..\..\spine-csharp_xna.dll</HintPath>
+      <HintPath>..\spine-csharp_xna.dll</HintPath>
     </Reference>
     <Reference Include="spine-xna">
-      <HintPath>..\..\..\spine-xna.dll</HintPath>
+      <HintPath>..\spine-xna.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
