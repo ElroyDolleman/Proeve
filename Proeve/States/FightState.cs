@@ -80,6 +80,8 @@ namespace Proeve.States
 
             if (character.special == Character.Special.Bomb)
                 lastDamage = -enemyCharacter.hp;
+            else if (character.special == Character.Special.Minor && enemyCharacter.special == Character.Special.Bomb)
+                lastDamage = -enemyCharacter.hp;
 
             enemyCharacter.hp += lastDamage;
         }

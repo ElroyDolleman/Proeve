@@ -53,8 +53,34 @@ namespace Proeve.States
         {
             if (IsTurn)
             {
+                if (Globals.mouseState.LeftButtonPressed && new Rectangle(0,0,100,100).Contains(Globals.mouseState.Position))
+                {
+                    IsTurn = false;
+                    MultiplayerConnection.
+                    //send endturn command
+                    //no clue how this stuff works
+                }
+
                 if (selected == -1)
                 {
+                    if (canMove[canMove.Count-3] && Armies.army[Armies.army.Count-3].special == Character.Special.Minor)
+                    {
+                        if(Math.Pow(Armies.army[Armies.army.Count - 1].GridPosition.X - Armies.army[Armies.army.Count - 3].GridPosition.X,2) <= 1
+                        || Math.Pow(Armies.army[Armies.army.Count - 1].GridPosition.Y - Armies.army[Armies.army.Count - 3].GridPosition.Y, 2) <= 1)
+                        {
+                            canMove[canMove.Count - 1] = true;
+                        }
+                        if(Math.Pow(Armies.army[Armies.army.Count - 2].GridPosition.X - Armies.army[Armies.army.Count - 3].GridPosition.X, 2) <= 1
+                        || Math.Pow(Armies.army[Armies.army.Count - 2].GridPosition.Y - Armies.army[Armies.army.Count - 3].GridPosition.Y, 2) <= 1)
+                        {
+                            canMove[canMove.Count - 2] = true;
+                        }
+                    }
+                    else
+                    {
+                        canMove[canMove.Count - 1] = false;
+                        canMove[canMove.Count - 2] = false;
+                    }
                     if (Globals.mouseState.LeftButtonPressed)
                     {
                         bool contains = false;
@@ -160,11 +186,15 @@ namespace Proeve.States
                         bool contains = false;
                         if (canMoveTo != null)
                         {
-                            for (int i = 0; i < canMoveTo.Count; i++) // <-- Gives error sometimes
+                            for (int i = 0; i < canMoveTo.Count; i++)
                             {
                                 Rectangle hitbox = new Rectangle(Grid.ToPixelLocation(new Point((int)canMoveTo[i].X, (int)canMoveTo[i].Y), Globals.GridLocation, Globals.TileDimensions).X, Grid.ToPixelLocation(new Point((int)canMoveTo[i].X, (int)canMoveTo[i].Y), Globals.GridLocation, Globals.TileDimensions).Y, Globals.TILE_WIDTH, Globals.TILE_HEIGHT);
                                 if (hitbox.Contains(Globals.mouseState.Position))
                                 {
+                                    if (Armies.army[selected].special == Character.Special.Bomb)
+                                    {
+                                        canMove[Armies.army.Count - 3] = false;
+                                    }
                                     Globals.multiplayerConnection.SendMove(selected, canMoveTo[i]);
                                     ((GameState)StateManager.GetState(1)).MoveUnit(((GameState)StateManager.GetState(1)).GetArmy()[selected], canMoveTo[i]);
                                     canMove[selected] = false;
@@ -210,6 +240,10 @@ namespace Proeve.States
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            if (IsTurn)
+            {
+                spriteBatch.DrawRectangle(new Rectangle(0, 0, 100, 100), Color.Aqua);
+            }
             StateManager.GetState(1).Draw(spriteBatch);
             if (selected >= 0)
             {
