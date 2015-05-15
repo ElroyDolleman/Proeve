@@ -55,8 +55,8 @@ namespace Proeve.States
             {
                 if (Globals.mouseState.LeftButtonPressed && new Rectangle(0,0,100,100).Contains(Globals.mouseState.Position))
                 {
-                    IsTurn = false;
-                    MultiplayerConnection.
+                    //IsTurn = false;
+                    //MultiplayerConnection.
                     //send endturn command
                     //no clue how this stuff works
                 }
