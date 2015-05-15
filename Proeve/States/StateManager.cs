@@ -63,13 +63,19 @@ namespace Proeve.States
         public static void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
+            //Globals.skeletonRenderer.Begin();
 
             stateList[stateList.Count-1].Draw(spriteBatch);
 
             foreach (Button b in stateList[stateList.Count - 1].buttons)
                 b.Draw(spriteBatch);
 
+            //Globals.skeletonRenderer.End();
             spriteBatch.End();
+
+            Globals.skeletonRenderer.Begin();
+            stateList[stateList.Count - 1].DrawAnimation(Globals.skeletonRenderer);
+            Globals.skeletonRenderer.End();
         }
     }
 }

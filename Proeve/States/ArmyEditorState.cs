@@ -13,7 +13,7 @@ using Proeve.Entities;
 using Proeve.Resources;
 using Proeve.Resources.Calculations;
 
-//using Spine;
+using Spine;
 
 namespace Proeve.States
 {
@@ -30,6 +30,7 @@ namespace Proeve.States
 
         private Dictionary<Character.Weapon, Sprite> WeaponIcons;
         private Vector2 WeaponIconPosition { get { return new Vector2(228, 24); } }
+        private Vector2 AnimationPosition { get { return new Vector2(660, 200); } }
 
         public ArmyEditorState()
         {
@@ -84,6 +85,7 @@ namespace Proeve.States
             Armies.army[9].position = Grid.ToPixelLocation(new Point(1, 1), gridLocation, Globals.TileDimensions).ToVector2();
 
             selectedCharacter = Armies.army[0];
+            selectedCharacter.animation.Position = AnimationPosition;
             WeaponIcons[selectedCharacter.weapon].sourceRectangle.X += WeaponIcons[selectedCharacter.weapon].sourceRectangle.Width;
         }
 
@@ -106,6 +108,7 @@ namespace Proeve.States
                         selectedCharacter = c;
                         dragIndex = Armies.army.IndexOf(c);
                         drag = true;
+                        selectedCharacter.animation.Position = AnimationPosition;
 
                         WeaponIcons[c.weapon].sourceRectangle.X += WeaponIcons[c.weapon].sourceRectangle.Width;
                     }
@@ -148,6 +151,8 @@ namespace Proeve.States
                 drag = false;
                 dragIndex = -1;
             }
+
+            selectedCharacter.UpdateAnimation(gameTime);
         }
 
         private void ChangeWeapon(Character character, Character.Weapon weapon)
@@ -179,6 +184,13 @@ namespace Proeve.States
             spriteBatch.DrawDebugText("Level: " + selectedCharacter.Level, 100, 48, Color.White);
             spriteBatch.DrawDebugText("Steps: " + selectedCharacter.move, 100, 64, Color.White);
             spriteBatch.DrawDebugText("HP: " + selectedCharacter.hp, 100, 80, Color.White);
+
+            
+        }
+
+        public override void DrawAnimation(SkeletonMeshRenderer skeletonRenderer)
+        {
+            selectedCharacter.DrawAnimation(skeletonRenderer);
         }
     }
 }

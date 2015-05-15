@@ -87,14 +87,30 @@
   <ItemGroup>
     <Content Include="Content\Backgrounds\Background_grassland.png" />
     <Content Include="Content\Backgrounds\editorBackground.png" />
-    <Content Include="Content\Characters\Animations\medievalArmy\bombAnimation.png" />
-    <Content Include="Content\Characters\Animations\medievalArmy\dragonAnimation.png" />
-    <Content Include="Content\Characters\Animations\medievalArmy\kingAnimation.png" />
-    <Content Include="Content\Characters\Animations\medievalArmy\knightAnimation.png" />
-    <Content Include="Content\Characters\Animations\medievalArmy\narAnimation.png" />
-    <Content Include="Content\Characters\Animations\medievalArmy\soldierAnimation.png" />
-    <Content Include="Content\Characters\Animations\medievalArmy\spyAnimation.png" />
-    <Content Include="Content\Characters\Animations\medievalArmy\wizardAnimation.png" />
+    <Content Include="Content\Characters\Animations\MedievalArmy\bombAnimation.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Characters\Animations\MedievalArmy\dragonAnimation.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Characters\Animations\MedievalArmy\kingAnimation.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Characters\Animations\MedievalArmy\knightAnimation.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Characters\Animations\MedievalArmy\narAnimation.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Characters\Animations\MedievalArmy\soldierAnimation.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Characters\Animations\MedievalArmy\spyAnimation.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Characters\Animations\MedievalArmy\wizardAnimation.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Characters\Chips\EnemyChip.png" />
     <Content Include="Content\Characters\Chips\Tiki_Fiches_Sheet.png" />
     <Content Include="Content\UI\ArmyEditor\weaponButtons.png" />
@@ -105,52 +121,52 @@
     <MonoGameContentReference Include="Content\Content.mgcb" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content\Characters\Animations\medievalArmy\bombAnimation.atlas">
+    <None Include="Content\Characters\Animations\MedievalArmy\bombAnimation.atlas">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Content\Characters\Animations\medievalArmy\bombAnimation.json">
+    <None Include="Content\Characters\Animations\MedievalArmy\bombAnimation.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Content\Characters\Animations\medievalArmy\dragonAnimation.atlas">
+    <None Include="Content\Characters\Animations\MedievalArmy\dragonAnimation.atlas">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Content\Characters\Animations\medievalArmy\dragonAnimation.json">
+    <None Include="Content\Characters\Animations\MedievalArmy\dragonAnimation.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Content\Characters\Animations\medievalArmy\kingAnimation.atlas">
+    <None Include="Content\Characters\Animations\MedievalArmy\kingAnimation.atlas">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Content\Characters\Animations\medievalArmy\kingAnimation.json">
+    <None Include="Content\Characters\Animations\MedievalArmy\kingAnimation.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Content\Characters\Animations\medievalArmy\knightAnimation.atlas">
+    <None Include="Content\Characters\Animations\MedievalArmy\knightAnimation.atlas">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Content\Characters\Animations\medievalArmy\knightAnimation.json">
+    <None Include="Content\Characters\Animations\MedievalArmy\knightAnimation.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Content\Characters\Animations\medievalArmy\narAnimation.atlas">
+    <None Include="Content\Characters\Animations\MedievalArmy\narAnimation.atlas">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Content\Characters\Animations\medievalArmy\narAnimation.json">
+    <None Include="Content\Characters\Animations\MedievalArmy\narAnimation.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Content\Characters\Animations\medievalArmy\soldierAnimation.atlas">
+    <None Include="Content\Characters\Animations\MedievalArmy\soldierAnimation.atlas">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Content\Characters\Animations\medievalArmy\soldierAnimation.json">
+    <None Include="Content\Characters\Animations\MedievalArmy\soldierAnimation.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Content\Characters\Animations\medievalArmy\spyAnimation.atlas">
+    <None Include="Content\Characters\Animations\MedievalArmy\spyAnimation.atlas">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Content\Characters\Animations\medievalArmy\spyAnimation.json">
+    <None Include="Content\Characters\Animations\MedievalArmy\spyAnimation.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Content\Characters\Animations\medievalArmy\wizardAnimation.atlas">
+    <None Include="Content\Characters\Animations\MedievalArmy\wizardAnimation.atlas">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Content\Characters\Animations\medievalArmy\wizardAnimation.json">
+    <None Include="Content\Characters\Animations\MedievalArmy\wizardAnimation.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Content\Fonts\normalFont.spritefont" />

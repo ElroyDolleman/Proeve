@@ -13,6 +13,8 @@ using E2DFramework.Helpers;
 
 using Proeve.Resources;
 using Proeve.Resources.Calculations;
+
+using Spine;
 #endregion
 
 namespace Proeve.Entities
@@ -77,6 +79,7 @@ namespace Proeve.Entities
 
         public Rectangle Hitbox{ get { return new Rectangle((int)position.X, (int)position.Y, 82, 82); } }
 
+        public SpineAnimation animation;
         public Sprite sprite;
         public Sprite layerSprite;
         public Vector2 position;
@@ -92,15 +95,16 @@ namespace Proeve.Entities
             waypoints = new List<Point>();
         }
 
-        public Character(Sprite sprite)
+        public Character(Sprite sprite, SpineAnimation animation)
             : this()
         {
             this.sprite = sprite;
+            this.animation = animation;
             this.layerSprite = (Sprite)this.sprite.Clone();
         }
 
-        public Character(Sprite sprite, int hp, int move, Rank rank, Army army = Army.Normal, Special special = Special.None)
-            : this(sprite)
+        public Character(Sprite sprite, SpineAnimation animation, int hp, int move, Rank rank, Army army = Army.Normal, Special special = Special.None)
+            : this(sprite, animation)
         {
             this.hp = hp;
             this.move = move;
@@ -110,6 +114,11 @@ namespace Proeve.Entities
 
             this.rank = rank;
             this.army = army;
+        }
+
+        public void UpdateAnimation(GameTime gameTime)
+        {
+            animation.Update(gameTime);
         }
 
         #region Move In Direction
@@ -139,6 +148,19 @@ namespace Proeve.Entities
             this.MoveInDirection(degree, velocity);
         }
 
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.DrawSprite(this.sprite, this.position);
+
+            if (layerSprite.colorEffect == MovedColorEffect)
+                spriteBatch.DrawSprite(this.layerSprite, this.position);
+        }
+
+        public void DrawAnimation(SkeletonMeshRenderer skeletonRenderer)
+        {
+            animation.Draw(skeletonRenderer);
+        }
+
         public Character Clone()
         {
             Character clone = (Character)this.MemberwiseClone();
@@ -147,14 +169,6 @@ namespace Proeve.Entities
             clone.layerSprite = (Sprite)this.layerSprite.Clone();
 
             return clone;
-        }
-
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.DrawSprite(this.sprite, this.position);
-
-            if (layerSprite.colorEffect == MovedColorEffect)
-                spriteBatch.DrawSprite(this.layerSprite, this.position);
         }
     }
 }

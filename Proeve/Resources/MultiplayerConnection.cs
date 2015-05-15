@@ -328,7 +328,7 @@ namespace Proeve.Resources
 
                 for (int i = 0; i < Armies.ARMY_AMOUNT; i++)
                 {
-                    Character character = new Character(ArtAssets.EnemyChip);
+                    Character character = new Character(ArtAssets.EnemyChip, new SpineAnimation());
 
                     Vector2 newPosition;
                     Point gridPosition = Grid.ToGridLocation((new Vector2(reader.ReadInt32(), reader.ReadInt32())).ToPoint(), Globals.GridLocation, Globals.TileDimensions);
@@ -343,6 +343,8 @@ namespace Proeve.Resources
                     character.special = (Character.Special)reader.ReadInt32();
                     character.weapon = (Character.Weapon)reader.ReadInt32();
                     character.rank = (Character.Rank)reader.ReadInt32();
+
+                    character.animation = (SpineAnimation)Armies.characters[(int)character.rank][0].animation.Clone();
 
                     Armies.opponentArmy.Add(character);
                 }

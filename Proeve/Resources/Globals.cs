@@ -9,6 +9,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 using E2DFramework.Input;
 
+using Spine;
+
 using Proeve.Entities;
 
 namespace Proeve.Resources
@@ -17,8 +19,9 @@ namespace Proeve.Resources
     {
         public static E2DMouseState mouseState;
         public static ContentManager contentManager;
-        public static GraphicsDevice graphicsDevices;
+        public static GraphicsDevice graphicsDevice;
         public static MultiplayerConnection multiplayerConnection;
+        public static SkeletonMeshRenderer skeletonRenderer;
 
         public static int coins;
 

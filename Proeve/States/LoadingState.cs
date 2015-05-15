@@ -31,6 +31,7 @@ namespace Proeve.States
             ArtAssets.LoadTextures();
             ArtAssets.LoadFont(Globals.contentManager);
             AudioAssets.Load(Globals.contentManager);
+            AnimationAssets.LoadAnimations(Globals.graphicsDevice, Globals.contentManager);
 
             Armies.SetUpCharacters();
 

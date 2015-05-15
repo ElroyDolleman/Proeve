@@ -1,5 +1,6 @@
 ﻿#region Using Statements
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,15 +29,17 @@ namespace Proeve.Entities
 
         }
 
-        public void LoadAnimation(GraphicsDevice graphicsDevice, ContentManager contentManager, string folderPath, string fileName)
+        public void LoadAnimation(GraphicsDevice graphicsDevice, ContentManager contentManager, string folderPath, string fileName, string animationName = "animation")
         {
             // Skeleton
-            Atlas atlas = new Atlas(@contentManager.RootDirectory + folderPath + fileName + ".atlas", new XnaTextureLoader(graphicsDevice));
+            string root = @contentManager.RootDirectory + "\\";
+
+            Atlas atlas = new Atlas(root + folderPath + fileName + ".atlas", new XnaTextureLoader(graphicsDevice));
 
             SkeletonData skeletonData;
 
             SkeletonJson json = new SkeletonJson(atlas);
-            skeletonData = json.ReadSkeletonData(@contentManager.RootDirectory + folderPath + fileName + ".json");
+            skeletonData = json.ReadSkeletonData(root + folderPath + fileName + ".json");
 
             this.skeleton = new Skeleton(skeletonData);
 
@@ -44,7 +47,10 @@ namespace Proeve.Entities
             AnimationStateData animationStateData = new AnimationStateData(skeleton.Data);
             this.animationState = new AnimationState(animationStateData);
 
-            this.animationState.SetAnimation(0, "animation", true);
+            this.animationState.SetAnimation(0, animationName, true);
+
+            this.Position = Vector2.Zero;
+            this.skeleton.UpdateWorldTransform();
         }
 
         public void Update(GameTime gameTime)

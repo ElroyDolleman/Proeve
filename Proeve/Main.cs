@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework;
 
 using E2DFramework;
 
+using Spine;
+
 using Proeve.States;
 using Proeve.Resources;
 using Proeve.Resources.Calculations;
@@ -33,6 +35,8 @@ namespace Proeve
             base.LoadContent();
 
             Globals.contentManager = this.Content;
+            Globals.graphicsDevice = this.GraphicsDevice;
+            Globals.skeletonRenderer = new SkeletonMeshRenderer(this.GraphicsDevice);
 
             Settings.setDictionary();
             StateManager.Launch();
