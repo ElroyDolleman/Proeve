@@ -1,0 +1,97 @@
+
+skeleton.png
+size: 4096,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Haar
+  rotate: false
+  xy: 0, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Haar_achter
+  rotate: false
+  xy: 400, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Hoofd
+  rotate: false
+  xy: 800, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Kroon
+  rotate: false
+  xy: 1200, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Lichaam
+  rotate: false
+  xy: 1600, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Linker_arm
+  rotate: false
+  xy: 2000, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Linker_been
+  rotate: false
+  xy: 2400, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Linker_hand
+  rotate: false
+  xy: 2800, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Linkerwenkbrauw
+  rotate: false
+  xy: 3200, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Rechter_arm
+  rotate: false
+  xy: 3600, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Rechter_been
+  rotate: false
+  xy: 0, 400
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Rechter_hand
+  rotate: false
+  xy: 400, 400
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Rechterwenkbrauw
+  rotate: false
+  xy: 800, 400
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1

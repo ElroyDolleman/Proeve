@@ -1,0 +1,76 @@
+
+skeleton.png
+size: 4096,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+KNIGHT_0000_MASKER
+  rotate: false
+  xy: 0, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+KNIGHT_0001_HOOFD
+  rotate: false
+  xy: 400, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+KNIGHT_0002_PLUIM
+  rotate: false
+  xy: 800, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+KNIGHT_0003_BODY
+  rotate: false
+  xy: 1200, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+KNIGHT_0004_RECHTER_HAND
+  rotate: false
+  xy: 1600, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+KNIGHT_0005_LINKER_HAND
+  rotate: false
+  xy: 2000, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+KNIGHT_0006_RECHTER_ARM
+  rotate: false
+  xy: 2400, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+KNIGHT_0007_LINKER_ARM
+  rotate: false
+  xy: 2800, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+KNIGHT_0008_LINKER_BEEN
+  rotate: false
+  xy: 3200, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+KNIGHT_0009_RECHTER_BEEN
+  rotate: false
+  xy: 3600, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
