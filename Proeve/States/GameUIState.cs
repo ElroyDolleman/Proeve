@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using E2DFramework.Graphics;
 
+using Proeve.UI;
 using Proeve.Entities;
 using Proeve.Resources;
 using Proeve.Resources.Calculations;
@@ -31,18 +32,10 @@ namespace Proeve.States
 
         public override void Initialize()
         {
-            canMove = new List<bool>();
-            canAttack = new List<bool>();
+            buttons.Add(new Button(ArtAssets.TestButton, Main.WindowWidth - ArtAssets.TestButton.sourceRectangle.Width, Main.WindowHeight - ArtAssets.TestButton.sourceRectangle.Height));
+            buttons[0].ClickEvent = EndTurn;
 
-            for (int i = 0; i < ((GameState)StateManager.GetState(1)).GetArmy().Count; i++)
-            {
-                canMove.Add(true);
-                canAttack.Add(true);
-            }
-            canMove[canMove.Count - 1] = false;
-            canMove[canMove.Count - 2] = false;
-            canAttack[canAttack.Count - 1] = false;
-            canAttack[canAttack.Count - 2] = false;
+            SetMovable();
 
             Globals.multiplayerConnection.RecieveMove += RecievedMove;
             Globals.multiplayerConnection.RecieveFight += RecievedFight;
@@ -53,14 +46,6 @@ namespace Proeve.States
         {
             if (IsTurn)
             {
-                if (Globals.mouseState.LeftButtonPressed && new Rectangle(0,0,100,100).Contains(Globals.mouseState.Position))
-                {
-                    //IsTurn = false;
-                    //MultiplayerConnection.
-                    //send endturn command
-                    //no clue how this stuff works
-                }
-
                 if (selected == -1)
                 {
                     if (canMove[canMove.Count-3] && Armies.army[Armies.army.Count-3].special == Character.Special.Minor)
@@ -283,6 +268,28 @@ namespace Proeve.States
             //}
         }
 
+        private void SetMovable()
+        {
+            canMove = new List<bool>();
+            canAttack = new List<bool>();
+
+            for (int i = 0; i < ((GameState)StateManager.GetState(1)).GetArmy().Count; i++)
+            {
+                canMove.Add(true);
+                canAttack.Add(true);
+            }
+            canMove[canMove.Count - 1] = false;
+            canMove[canMove.Count - 2] = false;
+            canAttack[canAttack.Count - 1] = false;
+            canAttack[canAttack.Count - 2] = false;
+        }
+
+        private void EndTurn()
+        {
+            if (IsTurn)
+                Globals.multiplayerConnection.SendEndTurn();
+        }
+
         private List<Character> GetArmy()
         {
             return ((GameState)StateManager.GetState(1)).GetArmy();
@@ -305,7 +312,10 @@ namespace Proeve.States
 
         private void OtherPlayerEndedHisTurn()
         {
-            
+            foreach(Character c in Armies.army)
+                c.IsMoved = false;
+
+            SetMovable();
         }
     }
 }
