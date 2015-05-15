@@ -1,0 +1,83 @@
+
+skeleton.png
+size: 4096,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+NAR_0000_LINKERBEL
+  rotate: false
+  xy: 0, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+NAR_0001_RECHTERBEL
+  rotate: false
+  xy: 400, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+NAR_0002_MOND
+  rotate: false
+  xy: 800, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+NAR_0003_HOOFD
+  rotate: false
+  xy: 1200, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+NAR_0004_LICHAAM
+  rotate: false
+  xy: 1600, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+NAR_0005_LINKERARM
+  rotate: false
+  xy: 2000, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+NAR_0006_RECHTERARM
+  rotate: false
+  xy: 2400, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+NAR_0007_LINKERBOM
+  rotate: false
+  xy: 2800, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+NAR_0008_RECHTERBOM
+  rotate: false
+  xy: 3200, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+NAR_0009_LINKERBEEN
+  rotate: false
+  xy: 3600, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+NAR_0010_RECHTERBEEN
+  rotate: false
+  xy: 0, 400
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1

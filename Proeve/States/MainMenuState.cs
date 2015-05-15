@@ -14,7 +14,6 @@ namespace Proeve.States
 {
     class MainMenuState : State
     {
-        Sprite sprite;
 
         public MainMenuState()
         {
@@ -24,20 +23,16 @@ namespace Proeve.States
         public override void Initialize()
         {
             StateManager.ChangeState(Settings.STATES.Game);
-
-            E2DTexture texture;
-            texture.Load("Characters\\TikiAnimSWF_Spritesheet423x466");
-            sprite = new Sprite(texture, new Rectangle(0, 0, 423, 466), 29, 15f, 6);
         }
         
         public override void Update(GameTime gameTime)
         {
-            sprite.UpdateAnimation(gameTime);
+            
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            sprite.Draw(spriteBatch);
+            
         }
     }
 }
