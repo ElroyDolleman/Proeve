@@ -20,19 +20,21 @@ namespace Proeve.States
     class ArmyEditorState : State
     {
         private Color SelectedColor { get { return Color.DarkRed * .75f; } }
-
-        private bool drag;
-        private int dragIndex;
+        private Vector2 WeaponIconPosition { get { return new Vector2(228, 24); } }
+        private Vector2 AnimationPosition { get { return new Vector2(660, 200); } }
+        private const byte DRAG_HOLD_TIME = 200;
+        
         private E2DTexture background;
 
         private Point gridLocation;
         private int gridWidth, gridHeight;
         private Rectangle GridArea { get { return new Rectangle(gridLocation.X, gridLocation.Y, gridWidth * Globals.TILE_WIDTH, gridHeight * Globals.TILE_HEIGHT); } }
-        private Character selectedCharacter;
 
         private Dictionary<Character.Weapon, Sprite> WeaponIcons;
-        private Vector2 WeaponIconPosition { get { return new Vector2(228, 24); } }
-        private Vector2 AnimationPosition { get { return new Vector2(660, 200); } }
+
+        private float dragHoldTimer;
+        private bool drag;
+        private Character selectedCharacter;
 
         public ArmyEditorState()
         {
@@ -41,7 +43,6 @@ namespace Proeve.States
 
         public override void Initialize()
         {
-            dragIndex = -1;
             drag = false;
 
             gridWidth = Globals.GRID_WIDTH;
@@ -88,6 +89,8 @@ namespace Proeve.States
 
             selectedCharacter = Armies.army[0];
             selectedCharacter.animation.Position = AnimationPosition;
+            selectedCharacter.ColorEffect = SelectedColor;
+
             WeaponIcons[selectedCharacter.weapon].sourceRectangle.X += WeaponIcons[selectedCharacter.weapon].sourceRectangle.Width;
         }
 
@@ -100,25 +103,40 @@ namespace Proeve.States
 
         public override void Update(GameTime gameTime)
         {
+            if (!drag)
+                if (Globals.mouseState.LeftButtonHold)
+                {
+                    dragHoldTimer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+
+                    if (!(dragHoldTimer < DRAG_HOLD_TIME))
+                    {
+                        drag = true; 
+                        dragHoldTimer = 0;
+                    }
+                }
+
             if (Globals.mouseState.LeftButtonPressed)
             {
-                foreach (Character c in Armies.army)
-                    if (c.Hitbox.Contains(Globals.mouseState.Position))
-                    {
-                        selectedCharacter.ResetColorEffect();
-                        WeaponIcons[selectedCharacter.weapon].sourceRectangle.X = 0;
+                if (selectedCharacter.Hitbox.Contains(Globals.mouseState.Position))
+                    drag = true;
+                else
+                    foreach (Character c in Armies.army)
+                        if (c.Hitbox.Contains(Globals.mouseState.Position))
+                        {
+                            selectedCharacter.ResetColorEffect();
+                            WeaponIcons[selectedCharacter.weapon].sourceRectangle.X = 0;
 
-                        selectedCharacter = c;
-                        dragIndex = Armies.army.IndexOf(c);
-                        drag = true;
+                            selectedCharacter = c;
 
-                        selectedCharacter.ColorEffect = SelectedColor;
-                        selectedCharacter.animation.Position = AnimationPosition;
+                            selectedCharacter.ColorEffect = SelectedColor;
+                            selectedCharacter.animation.Position = AnimationPosition;
 
-                        WeaponIcons[c.weapon].sourceRectangle.X += WeaponIcons[c.weapon].sourceRectangle.Width;
-                    }
+                            WeaponIcons[c.weapon].sourceRectangle.X += WeaponIcons[c.weapon].sourceRectangle.Width;
 
-                if (selectedCharacter.special != Character.Special.Bomb)
+                            dragHoldTimer = 0;
+                        }
+
+                if (selectedCharacter.special == Character.Special.None)
                     foreach (Character.Weapon w in WeaponIcons.Keys)
                     {
                         Sprite s = WeaponIcons[w];
@@ -129,7 +147,7 @@ namespace Proeve.States
                     }
             }
 
-            if (Globals.mouseState.LeftButtonReleased && drag)
+            if (drag && Globals.mouseState.LeftButtonReleased)
             {
                 Vector2 mouseGridPosition = (Grid.ToGridLocation(Globals.mouseState.Position.ToPoint(), gridLocation, Globals.TileDimensions) * Globals.TileDimensions + gridLocation).ToVector2();
 
@@ -137,24 +155,24 @@ namespace Proeve.States
                 {
                     bool overlap = false;
 
+                    // Check for overlapping with another character
                     foreach (Character c in Armies.army)
                         if (c.position == mouseGridPosition)
                         {
                             overlap = true;
 
                             // Swap drag Character with overlap character
-                            c.position = Armies.army[dragIndex].position;
-                            Armies.army[dragIndex].position = mouseGridPosition;
+                            c.position = selectedCharacter.position;
+                            selectedCharacter.position = mouseGridPosition;
 
                             break;
                         }
 
                     if (!overlap)
-                        Armies.army[dragIndex].position = mouseGridPosition;
+                        selectedCharacter.position = mouseGridPosition;
                 }
 
                 drag = false;
-                dragIndex = -1;
             }
 
             selectedCharacter.UpdateAnimation(gameTime);
@@ -173,17 +191,25 @@ namespace Proeve.States
 
             foreach(Character c in Armies.army)
             {
-                if (dragIndex != Armies.army.IndexOf(c))
+                if (!drag || selectedCharacter != c)
                     c.Draw(spriteBatch);
                 else
-                    spriteBatch.DrawSprite(c.sprite, Globals.mouseState.Position - new Vector2(41, 41));
+                {
+                    int W = c.sprite.sourceRectangle.Width / 2;
+                    int H = c.sprite.sourceRectangle.Height / 2;
+
+                    Vector2 dragPos = Globals.mouseState.Position - new Vector2(W, H);
+                    dragPos.X = MathHelper.Clamp(dragPos.X, GridArea.Left - W, GridArea.Right - W);
+                    dragPos.Y = MathHelper.Clamp(dragPos.Y, GridArea.Top - H, GridArea.Bottom - H);
+
+                    spriteBatch.DrawSprite(c.sprite, dragPos);
+                }
             }
 
             spriteBatch.DrawSprite(WeaponIcons[Character.Weapon.Axe]);
             spriteBatch.DrawSprite(WeaponIcons[Character.Weapon.Sword]);
             spriteBatch.DrawSprite(WeaponIcons[Character.Weapon.Shield]);
 
-            //spriteBatch.DrawRectangle(selectedCharacter.position, Globals.TILE_WIDTH, Globals.TILE_HEIGHT, Color.Red * .45f);
             spriteBatch.DrawDebugText("Rank: " + selectedCharacter.rank, 100, 16, Color.White);
             spriteBatch.DrawDebugText("Weapon: " + selectedCharacter.weapon, 100, 32, Color.White);
             spriteBatch.DrawDebugText("Level: " + selectedCharacter.Level, 100, 48, Color.White);

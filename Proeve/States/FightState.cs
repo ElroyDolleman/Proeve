@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -77,6 +78,12 @@ namespace Proeve.States
 
                 if (timer > 2000)
                     StateManager.RemoveState();
+
+                //if (character.IsDead && character.rank == Character.Rank.Marshal)
+                    // TODO: You lost
+
+                //if (enemyCharacter.IsDead && enemyCharacter.rank == Character.Rank.Marshal)
+                    // TODO: You won
             }
 
             character.UpdateAnimation(gameTime);
@@ -89,6 +96,7 @@ namespace Proeve.States
 
             if (character.special == Character.Special.Bomb)
                 lastDamage = -enemyCharacter.hp;
+
             else if (character.special == Character.Special.Minor && enemyCharacter.special == Character.Special.Bomb)
                 lastDamage = -enemyCharacter.hp;
 
