@@ -19,7 +19,7 @@ namespace Proeve.States
 {
     class ArmyEditorState : State
     {
-        private Color SelectedColor { get { return Color.DarkRed * .75f; } }
+        private Color SelectedColor { get { return Color.DarkBlue * .65f; } }
         private Vector2 WeaponIconPosition { get { return new Vector2(228, 24); } }
         private Vector2 AnimationPosition { get { return new Vector2(660, 200); } }
         private const byte DRAG_HOLD_TIME = 200;
@@ -187,23 +187,25 @@ namespace Proeve.States
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            // Draw background
             spriteBatch.DrawE2DTexture(background, Vector2.Zero);
 
+            // Draw all character chips
             foreach(Character c in Armies.army)
-            {
                 if (!drag || selectedCharacter != c)
                     c.Draw(spriteBatch);
-                else
-                {
-                    int W = c.sprite.sourceRectangle.Width / 2;
-                    int H = c.sprite.sourceRectangle.Height / 2;
 
-                    Vector2 dragPos = Globals.mouseState.Position - new Vector2(W, H);
-                    dragPos.X = MathHelper.Clamp(dragPos.X, GridArea.Left - W, GridArea.Right - W);
-                    dragPos.Y = MathHelper.Clamp(dragPos.Y, GridArea.Top - H, GridArea.Bottom - H);
+            // Draw selected character
+            if (drag)
+            {
+                int W = selectedCharacter.sprite.sourceRectangle.Width / 2;
+                int H = selectedCharacter.sprite.sourceRectangle.Height / 2;
 
-                    spriteBatch.DrawSprite(c.sprite, dragPos);
-                }
+                Vector2 dragPos = Globals.mouseState.Position - new Vector2(W, H);
+                dragPos.X = MathHelper.Clamp(dragPos.X, GridArea.Left - W, GridArea.Right - W);
+                dragPos.Y = MathHelper.Clamp(dragPos.Y, GridArea.Top - H, GridArea.Bottom - H);
+
+                spriteBatch.DrawSprite(selectedCharacter.sprite, dragPos);
             }
 
             spriteBatch.DrawSprite(WeaponIcons[Character.Weapon.Axe]);
