@@ -79,7 +79,7 @@ namespace Proeve.Entities
 
         public Point GridPosition
         {
-            get { return Grid.ToGridLocation(new Point((int)position.X + Globals.TILE_WIDTH/2, (int)position.Y + Globals.TILE_WIDTH/2), Globals.GridLocation, Globals.TileDimensions); }
+            get { return (waypoints.Count == 0 ? Grid.ToGridLocation(new Point((int)position.X + Globals.TILE_WIDTH/2, (int)position.Y + Globals.TILE_WIDTH/2), Globals.GridLocation, Globals.TileDimensions) : waypoints[0]); }
             set { position = Grid.ToPixelLocation(value, Globals.GridLocation, Globals.TileDimensions).ToVector2(); }
         }
 

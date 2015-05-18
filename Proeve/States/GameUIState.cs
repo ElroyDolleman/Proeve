@@ -46,6 +46,27 @@ namespace Proeve.States
         {
             if (IsTurn)
             {
+                for (int i = 0; i < Armies.army.Count; i++)
+                {
+                    if (!canMove[i] && !canAttack[i] && Armies.army[i].waypoints.Count == 0)
+                        Armies.army[i].ColorEffect = Color.Black * .5f;
+                    else if (!canMove[i] && canAttack[i])
+                    {
+                        canAttack[i] = false;
+                        for (int j = 0; j < Armies.opponentArmy.Count; j++)
+                        {
+                            if(Math.Pow(Armies.army[i].GridPosition.X - Armies.opponentArmy[j].GridPosition.X, 2) == 1
+                            && Math.Pow(Armies.army[i].GridPosition.Y - Armies.opponentArmy[j].GridPosition.Y, 2) == 0
+                            || Math.Pow(Armies.army[i].GridPosition.Y - Armies.opponentArmy[j].GridPosition.Y, 2) == 1
+                            && Math.Pow(Armies.army[i].GridPosition.X - Armies.opponentArmy[j].GridPosition.X, 2) == 0)
+                            {
+                                canAttack[i] = true;
+                            }
+                        }
+                    }
+                    else if (canAttack[i])
+                        Armies.army[i].ResetColorEffect();
+                }
                 if (selected == -1)
                 {
                     if (canMove[canMove.Count-3] && Armies.army[Armies.army.Count-3].special == Character.Special.Minor)
