@@ -192,8 +192,10 @@ namespace Proeve.States
                                     {
                                         canMove[Armies.army.Count - 3] = false;
                                     }
+
                                     Globals.multiplayerConnection.SendMove(selected, canMoveTo[i]);
                                     ((GameState)StateManager.GetState(1)).MoveUnit(((GameState)StateManager.GetState(1)).GetArmy()[selected], canMoveTo[i]);
+
                                     canMove[selected] = false;
                                     selected = -1;
                                     contains = true;
@@ -237,35 +239,27 @@ namespace Proeve.States
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            if (IsTurn)
-            {
-                spriteBatch.DrawRectangle(new Rectangle(0, 0, 100, 100), Color.Aqua);
-            }
             StateManager.GetState(1).Draw(spriteBatch);
+
             if (selected >= 0)
             {
                 if (canMove[selected])
                 {
                     for (int i = 0; i < canMoveTo.Count; i++)
                     {
-                        spriteBatch.DrawRectangle(new Rectangle(Grid.ToPixelLocation(new Point((int)canMoveTo[i].X, (int)canMoveTo[i].Y), Globals.GridLocation, Globals.TileDimensions).X, Grid.ToPixelLocation(new Point((int)canMoveTo[i].X, (int)canMoveTo[i].Y), Globals.GridLocation, Globals.TileDimensions).Y, Globals.TILE_WIDTH, Globals.TILE_HEIGHT), Color.White);
+                        spriteBatch.DrawRectangle(new Rectangle(Grid.ToPixelLocation(new Point((int)canMoveTo[i].X, (int)canMoveTo[i].Y), Globals.GridLocation, Globals.TileDimensions).X, Grid.ToPixelLocation(new Point((int)canMoveTo[i].X, (int)canMoveTo[i].Y), Globals.GridLocation, Globals.TileDimensions).Y, Globals.TILE_WIDTH, Globals.TILE_HEIGHT), Color.BlueViolet * .50f);
                     }
                 }
                 if (canAttack[selected])
                 {
                     for (int i = 0; i < canAttackThis.Count; i++)
                     {
-                        spriteBatch.DrawRectangle(new Rectangle(Grid.ToPixelLocation(Armies.opponentArmy[canAttackThis[i]].GridPosition, Globals.GridLocation, Globals.TileDimensions).X, Grid.ToPixelLocation(Armies.opponentArmy[canAttackThis[i]].GridPosition, Globals.GridLocation, Globals.TileDimensions).Y, Globals.TILE_WIDTH, Globals.TILE_HEIGHT), Color.Red);
+                        spriteBatch.DrawRectangle(new Rectangle(Grid.ToPixelLocation(Armies.opponentArmy[canAttackThis[i]].GridPosition, Globals.GridLocation, Globals.TileDimensions).X, Grid.ToPixelLocation(Armies.opponentArmy[canAttackThis[i]].GridPosition, Globals.GridLocation, Globals.TileDimensions).Y, Globals.TILE_WIDTH, Globals.TILE_HEIGHT), Color.Red * .75f);
                     }
                 }
             }
 
             spriteBatch.DrawDebugText("IsTurn: " + IsTurn, new Point(4, 4), Color.White);
-
-            //foreach(Character c in Armies.army)
-            //{
-            //    spriteBatch.DrawRectangle(Globals.GridLocation.ToVector2() + c.GridPosition.ToVector2() * 82, 82, 82, Color.Blue * .5f);
-            //}
         }
 
         private void SetMovable()

@@ -32,6 +32,7 @@ namespace Proeve.States
 
         private Dictionary<Character.Weapon, Sprite> WeaponIcons;
 
+        private Point startDragGridPosition;
         private float dragHoldTimer;
         private bool drag;
         private Character selectedCharacter;
@@ -104,7 +105,7 @@ namespace Proeve.States
         public override void Update(GameTime gameTime)
         {
             if (!drag)
-                if (Globals.mouseState.LeftButtonHold)
+                if (Globals.mouseState.LeftButtonHold && startDragGridPosition == Grid.ToGridLocation(Globals.mouseState.Position.ToPoint(), gridLocation, Globals.TileDimensions))
                 {
                     dragHoldTimer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
 
@@ -134,6 +135,7 @@ namespace Proeve.States
                             WeaponIcons[c.weapon].sourceRectangle.X += WeaponIcons[c.weapon].sourceRectangle.Width;
 
                             dragHoldTimer = 0;
+                            startDragGridPosition = Grid.ToGridLocation(selectedCharacter.position.ToPoint(), gridLocation, Globals.TileDimensions);
                         }
 
                 if (selectedCharacter.special == Character.Special.None)
