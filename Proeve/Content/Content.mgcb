@@ -41,17 +41,6 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/normalFont.spritefont
 
-#begin Backgrounds/Background_grassland.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:TextureFormat=Color
-/build:Backgrounds/Background_grassland.png
-
 #begin UI/ArmyEditor/weaponButtons.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -73,4 +62,15 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:TextureFormat=Color
 /build:Characters/Chips/ChipsSheet.png
+
+#begin Backgrounds/backgroundGrassLand.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:Backgrounds/backgroundGrassLand.png
 

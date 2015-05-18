@@ -85,7 +85,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Backgrounds\Background_grassland.png" />
+    <Content Include="Content\Backgrounds\backgroundGrassLand.png" />
     <Content Include="Content\Backgrounds\editorBackground.png" />
     <Content Include="Content\Characters\Animations\MedievalArmy\bombAnimation.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

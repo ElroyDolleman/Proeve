@@ -43,7 +43,7 @@ namespace Proeve.Resources
         private const string WEAPON_BUTTONS = "weaponButtons";
 
         /* BACKGROUND */
-        private const string BACKGROUND_GRASS_LEVEL = "Background_grassland";
+        private const string BACKGROUND_GRASS_LEVEL = "backgroundGrassLand";
         private const string BACKGROUND_EDITOR = "editorBackground";
 
         /* FONTS */
