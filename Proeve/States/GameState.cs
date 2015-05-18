@@ -62,8 +62,8 @@ namespace Proeve.States
                     }
                 }
 
-                if (c.IsDead)
-                    tempArmy.Remove(c);
+                /*if (c.IsDead)
+                    tempArmy.Remove(c);*/
             }
         }
 
@@ -72,10 +72,12 @@ namespace Proeve.States
             spriteBatch.DrawE2DTexture(background, Vector2.Zero);
 
             foreach (Character c in army)
-                c.Draw(spriteBatch);
+                if (!c.IsDead)
+                    c.Draw(spriteBatch);
 
             foreach (Character c in enemyArmy)
-                c.Draw(spriteBatch);
+                if (!c.IsDead)
+                    c.Draw(spriteBatch);
         }
 
         public void SetArmy(List<Character> sendArmy)
@@ -118,12 +120,16 @@ namespace Proeve.States
             {
                 Point gridpos = Grid.ToGridLocation(new Point((int)army[i].position.X, (int)army[i].position.Y), Globals.GridLocation, Globals.TileDimensions);
 
-                tempLevel[gridpos.X, gridpos.Y] = 1;
+                if (gridpos.X >= 0)
+                    tempLevel[gridpos.X, gridpos.Y] = 1;
             }
+
             for (int i = 0; i < ((GameState)StateManager.GetState(1)).GetEnemyArmy().Count(); i++)
             {
                 Point gridpos = Grid.ToGridLocation(new Point((int)enemyArmy[i].position.X, (int)enemyArmy[i].position.Y), Globals.GridLocation, Globals.TileDimensions);
-                tempLevel[gridpos.X, gridpos.Y] = 1;
+                
+                if (gridpos.X >= 0)
+                    tempLevel[gridpos.X, gridpos.Y] = 1;
             }
 
             Point GPos = unit.GridPosition;

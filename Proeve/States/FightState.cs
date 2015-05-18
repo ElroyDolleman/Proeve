@@ -79,6 +79,12 @@ namespace Proeve.States
                 if (timer > 2000)
                     StateManager.RemoveState();
 
+                if (character.IsDead)
+                    character.GridPosition = new Point(-1, -1);
+
+                if (enemyCharacter.IsDead)
+                    enemyCharacter.GridPosition = new Point(-1, -1);
+
                 //if (character.IsDead && character.rank == Character.Rank.Marshal)
                     // TODO: You lost
 
