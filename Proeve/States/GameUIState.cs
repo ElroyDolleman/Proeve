@@ -139,13 +139,15 @@ namespace Proeve.States
                                 for (int i = 0; i < Armies.army.Count(); i++)
                                 {
                                     Point gridpos = ((GameState)StateManager.GetState(1)).GetArmy()[i].GridPosition;
-                                    
-                                    level[gridpos.X, gridpos.Y] = 1;
+
+                                    if (!Armies.army[i].IsDead)
+                                        level[gridpos.X, gridpos.Y] = 1;
                                 }
 
                                 for (int i = 0; i < Armies.opponentArmy.Count(); i++)
                                 {
                                     Point gridpos = Armies.opponentArmy[i].GridPosition; // Grid.ToGridLocation(new Point((int)((GameState)StateManager.GetState(1)).GetEnemyArmy()[i].Position.X + Globals.TILE_WIDTH / 2, (int)((GameState)StateManager.GetState(1)).GetEnemyArmy()[i].Position.Y + Globals.TILE_WIDTH / 2), Globals.GridLocation, Globals.TileDimensions);
+
                                     if (!Armies.opponentArmy[i].IsDead)
                                         level[gridpos.X, gridpos.Y] = 1;
                                 }
