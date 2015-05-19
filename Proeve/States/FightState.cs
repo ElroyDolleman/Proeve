@@ -80,10 +80,10 @@ namespace Proeve.States
                     StateManager.RemoveState();
 
                 if (character.IsDead)
-                    character.GridPosition = new Point(-1, -1);
+                    character.GridPosition = new Point(-5, -5);
 
                 if (enemyCharacter.IsDead)
-                    enemyCharacter.GridPosition = new Point(-1, -1);
+                    enemyCharacter.GridPosition = new Point(-5, -5);
 
                 //if (character.IsDead && character.rank == Character.Rank.Marshal)
                     // TODO: You lost
