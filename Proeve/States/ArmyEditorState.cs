@@ -97,6 +97,7 @@ namespace Proeve.States
 
         private void Ready()
         {
+            selectedCharacter.ResetColorEffect();
             ((GameState)StateManager.GetState(1)).SetArmy(Armies.army);
 
             StateManager.ChangeState(Settings.STATES.MatchFinder);
