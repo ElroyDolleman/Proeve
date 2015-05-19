@@ -44,6 +44,15 @@ namespace Proeve.States
 
         public override void Update(GameTime gameTime)
         {
+            if (Armies.army[0].IsDead)
+            {
+                StateManager.AddState(Settings.STATES.ArmyEditor);
+            }
+            else if (Armies.opponentArmy[0].IsDead)
+            {
+                StateManager.AddState(Settings.STATES.ArmyEditor);
+            }
+
             if (IsTurn)
             {
                 for (int i = 0; i < Armies.army.Count; i++)
