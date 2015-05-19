@@ -87,6 +87,9 @@
   <ItemGroup>
     <Content Include="Content\Backgrounds\backgroundGrassLand.png" />
     <Content Include="Content\Backgrounds\editorBackground.png" />
+    <Content Include="Content\Backgrounds\shine.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Characters\Animations\MedievalArmy\bombAnimation.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -112,6 +115,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Characters\Chips\ChipsSheet.png" />
+    <Content Include="Content\Characters\Chips\EnemyChips.png" />
     <Content Include="Content\UI\ArmyEditor\weaponButtons.png" />
     <Content Include="Content\UI\startButtonPlaceHolder.png" />
     <Content Include="Icon.ico" />
@@ -120,6 +124,12 @@
     <MonoGameContentReference Include="Content\Content.mgcb" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\Backgrounds\shine.atlas">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Backgrounds\shine.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Content\Characters\Animations\MedievalArmy\bombAnimation.atlas">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

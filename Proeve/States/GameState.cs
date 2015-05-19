@@ -21,6 +21,7 @@ namespace Proeve.States
         private List<Character> enemyArmy;
 
         private E2DTexture background;
+        private SpineAnimation shineForeground;
 
         public GameState()
         {
@@ -31,13 +32,17 @@ namespace Proeve.States
         {
             level = Levels.grassLevel;
             StateManager.AddState(Settings.STATES.ArmyEditor);
+
             background = ArtAssets.backgroundGrassLevel;
+            shineForeground = AnimationAssets.ShineEffect;
+            shineForeground.Position = new Vector2(768 / 2, 768 / 2);
         }
 
         public override void Update(GameTime gameTime)
         {
             UpdateArmies(army);
             UpdateArmies(enemyArmy);
+            shineForeground.Update(gameTime);
         }
 
         private void UpdateArmies(List<Character> tempArmy)
@@ -58,9 +63,6 @@ namespace Proeve.States
                         c.waypoints.RemoveAt(c.waypoints.Count - 1);
                     }
                 }
-
-                /*if (c.IsDead)
-                    tempArmy.Remove(c);*/
             }
         }
 
@@ -75,6 +77,11 @@ namespace Proeve.States
             foreach (Character c in enemyArmy)
                 if (!c.IsDead)
                     c.Draw(spriteBatch);
+        }
+
+        public override void DrawAnimation(Spine.SkeletonMeshRenderer skeletonRenderer)
+        {
+            shineForeground.Draw(skeletonRenderer);
         }
 
         public void SetArmy(List<Character> sendArmy)

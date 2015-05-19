@@ -295,6 +295,11 @@ namespace Proeve.States
             spriteBatch.DrawDebugText("IsTurn: " + IsTurn, new Point(4, 4), Color.White);
         }
 
+        public override void DrawAnimation(Spine.SkeletonMeshRenderer skeletonRenderer)
+        {
+            StateManager.GetState(1).DrawAnimation(skeletonRenderer);
+        }
+
         private void SetMovable()
         {
             canMove = new List<bool>();

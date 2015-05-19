@@ -1,0 +1,26 @@
+shine.png
+size: 4096,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Field_glow
+  rotate: false
+  xy: 0, 0
+  size: 1080, 768
+  orig: 1080, 768
+  offset: 0, 0
+  index: -1
+Shine_2
+  rotate: false
+  xy: 1080, 0
+  size: 1080, 768
+  orig: 1080, 768
+  offset: 0, 0
+  index: -1
+shine_1
+  rotate: false
+  xy: 2160, 0
+  size: 1080, 768
+  orig: 1080, 768
+  offset: 0, 0
+  index: -1

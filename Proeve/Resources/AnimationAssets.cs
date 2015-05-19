@@ -16,6 +16,8 @@ namespace Proeve.Resources
         private const string ANIMATION_PATH = "Characters\\Animations\\";
         private const string MEDIEVAL_ARMY_PATH = ANIMATION_PATH + "MedievalArmy\\";
 
+        private const string BACKGROUND_PATH = "Backgrounds\\";
+
         #endregion
         #region FILES
 
@@ -28,6 +30,8 @@ namespace Proeve.Resources
         private const string MEDIEVAL_HEALER = "wizardAnimation";
         private const string MEDIEVAL_SPY = "spyAnimation";
         private const string MEDIEVAL_BOMB = "bombAnimation";
+
+        private const string SHINE_EFFECT = "shine";
 
         #endregion
         #region ANIMATIONS
@@ -42,6 +46,9 @@ namespace Proeve.Resources
         private static SpineAnimation medievalSpy;
         private static SpineAnimation medievalBomb;
 
+        /* OTHER */
+        private static SpineAnimation shineEffect;
+
         #endregion
         #region READ ONLY
 
@@ -54,6 +61,9 @@ namespace Proeve.Resources
         public static SpineAnimation MedievalHealer { get { return (SpineAnimation)medievalHealer.Clone(); } }
         public static SpineAnimation MedievalSpy { get { return (SpineAnimation)medievalSpy.Clone(); } }
         public static SpineAnimation MedievalBomb { get { return (SpineAnimation)medievalBomb.Clone(); } }
+
+        /* OTHER */
+        public static SpineAnimation ShineEffect { get { return (SpineAnimation)shineEffect.Clone(); } }
 
         #endregion
 
@@ -90,6 +100,10 @@ namespace Proeve.Resources
             // MEDIEVAL BOMB
             medievalBomb = new SpineAnimation();
             medievalBomb.LoadAnimation(graphicsDevice, contentManager, MEDIEVAL_ARMY_PATH, MEDIEVAL_BOMB);
+
+            // SHINE EFFECT
+            shineEffect = new SpineAnimation();
+            shineEffect.LoadAnimation(Globals.graphicsDevice, Globals.contentManager, BACKGROUND_PATH, SHINE_EFFECT, "animation");
         }
     }
 }
