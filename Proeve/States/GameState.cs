@@ -50,13 +50,6 @@ namespace Proeve.States
             for (int i = 0; i < tempArmy.Count; i++)
             {
                 Character c = tempArmy[i];
-
-                // UPDATE ANIMTION
-                c.UpdateSpriteSheetAnimation(gameTime);
-
-                if (c.sprite.CurrentFrame == 1)
-                    c.sprite.CurrentFrame = 2;
-
                 if (c.waypoints.Count > 0)
                 {
                     Vector2 wp = Grid.ToPixelLocation(c.waypoints[c.waypoints.Count - 1], Globals.GridLocation, Globals.TileDimensions).ToVector2();

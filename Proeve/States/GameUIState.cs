@@ -44,6 +44,21 @@ namespace Proeve.States
 
         public override void Update(GameTime gameTime)
         {
+            if (canAttackThis != null)
+            {
+                for (int i = 0; i < canAttackThis.Count; i++)
+                {
+                    Character c = Armies.opponentArmy[canAttackThis[i]];
+
+                    // UPDATE ANIMTION
+                    c.UpdateSpriteSheetAnimation(gameTime);
+
+                    if (c.sprite.CurrentFrame == 1)
+                        c.sprite.CurrentFrame = 2;
+
+                }
+            }
+
             if (Armies.army[0].IsDead)
             {
                 StateManager.AddState(Settings.STATES.ArmyEditor);
@@ -255,11 +270,16 @@ namespace Proeve.States
                                 }
                             }
                         }
+                        for (int i = 0; i < canAttackThis.Count; i++)
+                        {
+                            Armies.opponentArmy[canAttackThis[i]].sprite.CurrentFrame = 1;
+                        }
 
                         if (!contains)
                         {
                             selected = -1;
                             canMoveTo = null;
+                            canAttackThis = null;
                         }
                     }
                 }
@@ -283,13 +303,13 @@ namespace Proeve.States
                         spriteBatch.DrawRectangle(new Rectangle(Grid.ToPixelLocation(new Point((int)canMoveTo[i].X, (int)canMoveTo[i].Y), Globals.GridLocation, Globals.TileDimensions).X, Grid.ToPixelLocation(new Point((int)canMoveTo[i].X, (int)canMoveTo[i].Y), Globals.GridLocation, Globals.TileDimensions).Y, Globals.TILE_WIDTH, Globals.TILE_HEIGHT), Color.BlueViolet * .50f);
                     }
                 }
-                if (canAttack[selected])
+                /*if (canAttack[selected])
                 {
                     for (int i = 0; i < canAttackThis.Count; i++)
                     {
                         spriteBatch.DrawRectangle(new Rectangle(Grid.ToPixelLocation(Armies.opponentArmy[canAttackThis[i]].GridPosition, Globals.GridLocation, Globals.TileDimensions).X, Grid.ToPixelLocation(Armies.opponentArmy[canAttackThis[i]].GridPosition, Globals.GridLocation, Globals.TileDimensions).Y, Globals.TILE_WIDTH, Globals.TILE_HEIGHT), Color.Red * .75f);
                     }
-                }
+                }/**/
             }
 
             spriteBatch.DrawDebugText("IsTurn: " + IsTurn, new Point(4, 4), Color.White);
