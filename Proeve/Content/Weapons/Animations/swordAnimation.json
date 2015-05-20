@@ -1,0 +1,183 @@
+{
+"skeleton": { "hash": "xFRwkp7VHZCdKR7lbdDPvYVr79M", "spine": "2.1.27", "width": 400, "height": 400, "images": "./../" },
+"bones": [
+	{ "name": "root" },
+	{ "name": "bone", "parent": "root", "length": 52, "x": 0.5, "y": -1, "rotation": -90 },
+	{ "name": "bone2", "parent": "bone", "length": 65.99, "rotation": 180 }
+],
+"slots": [
+	{ "name": "Sword/Sword2", "bone": "bone2", "attachment": "Sword/Sword" },
+	{ "name": "Sword/Sword", "bone": "bone", "attachment": "Sword/Sword" }
+],
+"skins": {
+	"default": {
+		"Sword/Sword": {
+			"Sword/Sword": { "x": -122.22, "y": -0.5, "rotation": 90, "width": 400, "height": 400 }
+		},
+		"Sword/Sword2": {
+			"Sword/Sword": { "x": 122.22, "y": 0.5, "rotation": -90, "width": 400, "height": 400 }
+		}
+	}
+},
+"animations": {
+	"SwordCrit": {
+		"slots": {
+			"Sword/Sword2": {
+				"color": [
+					{ "time": 0, "color": "ff040081" }
+				]
+			}
+		},
+		"bones": {
+			"root": {
+				"translate": [
+					{ "time": 0, "x": 0, "y": 0, "curve": "stepped" },
+					{ "time": 0.1666, "x": 0, "y": 0, "curve": "stepped" },
+					{ "time": 1, "x": 0, "y": 0 }
+				]
+			},
+			"bone": {
+				"rotate": [
+					{ "time": 0, "angle": 0 },
+					{
+						"time": 0.1666,
+						"angle": -17.92,
+						"curve": [ 0.25, 0, 0.75, 1 ]
+					},
+					{
+						"time": 0.3666,
+						"angle": 90.03,
+						"curve": [ 0.25, 0, 0.75, 1 ]
+					},
+					{ "time": 1, "angle": 0 }
+				],
+				"translate": [
+					{
+						"time": 0.1666,
+						"x": 0,
+						"y": 0,
+						"curve": [ 0.25, 0, 0.75, 1 ]
+					},
+					{
+						"time": 0.3666,
+						"x": -35.59,
+						"y": 0,
+						"curve": [ 0.25, 0, 0.75, 1 ]
+					},
+					{ "time": 0.8333, "x": 0, "y": 0 }
+				]
+			},
+			"bone2": {
+				"rotate": [
+					{ "time": 0, "angle": 0 },
+					{
+						"time": 0.1666,
+						"angle": -355.7,
+						"curve": [ 0.25, 0, 0.75, 1 ]
+					},
+					{
+						"time": 0.2,
+						"angle": -3.54,
+						"curve": [ 0.25, 0, 0.75, 1 ]
+					},
+					{
+						"time": 0.3666,
+						"angle": -10.26,
+						"curve": [ 0.25, 0, 0.75, 1 ]
+					},
+					{ "time": 0.4, "angle": 0, "curve": "stepped" },
+					{ "time": 1, "angle": 0 }
+				],
+				"scale": [
+					{ "time": 0, "x": 1, "y": 1 },
+					{
+						"time": 0.2,
+						"x": 1.003,
+						"y": 1.099,
+						"curve": [ 0.25, 0, 0.75, 1 ]
+					},
+					{
+						"time": 0.3666,
+						"x": 0.987,
+						"y": 1.223,
+						"curve": [ 0.25, 0, 0.75, 1 ]
+					},
+					{ "time": 0.4, "x": 1, "y": 1 }
+				]
+			}
+		}
+	},
+	"SwordNormal": {
+		"slots": {
+			"Sword/Sword2": {
+				"color": [
+					{ "time": 0, "color": "ffffff81" }
+				]
+			}
+		},
+		"bones": {
+			"root": {
+				"translate": [
+					{ "time": 0, "x": 0, "y": 0, "curve": "stepped" },
+					{ "time": 0.1666, "x": 0, "y": 0, "curve": "stepped" },
+					{ "time": 1, "x": 0, "y": 0 }
+				]
+			},
+			"bone": {
+				"rotate": [
+					{ "time": 0, "angle": 0 },
+					{
+						"time": 0.1666,
+						"angle": -17.92,
+						"curve": [ 0.25, 0, 0.75, 1 ]
+					},
+					{
+						"time": 0.3666,
+						"angle": 90.03,
+						"curve": [ 0.25, 0, 0.75, 1 ]
+					},
+					{ "time": 1, "angle": 0 }
+				]
+			},
+			"bone2": {
+				"rotate": [
+					{ "time": 0, "angle": 0 },
+					{
+						"time": 0.1666,
+						"angle": -355.7,
+						"curve": [ 0.25, 0, 0.75, 1 ]
+					},
+					{
+						"time": 0.2,
+						"angle": -3.54,
+						"curve": [ 0.25, 0, 0.75, 1 ]
+					},
+					{
+						"time": 0.3666,
+						"angle": -10.26,
+						"curve": [ 0.25, 0, 0.75, 1 ]
+					},
+					{ "time": 0.4, "angle": 0, "curve": "stepped" },
+					{ "time": 1, "angle": 0 }
+				],
+				"scale": [
+					{ "time": 0, "x": 1, "y": 1 },
+					{
+						"time": 0.2,
+						"x": 1.003,
+						"y": 1.099,
+						"curve": [ 0.25, 0, 0.75, 1 ]
+					},
+					{
+						"time": 0.3666,
+						"x": 0.987,
+						"y": 1.223,
+						"curve": [ 0.25, 0, 0.75, 1 ]
+					},
+					{ "time": 0.4, "x": 1, "y": 1 }
+				]
+			}
+		}
+	}
+}
+}

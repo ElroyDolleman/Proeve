@@ -1,0 +1,117 @@
+{
+"skeleton": { "hash": "my6kYIGGlZVo3FWVteQ2dP6nqYU", "spine": "2.1.27", "width": 400, "height": 400, "images": "../" },
+"bones": [
+	{ "name": "root" },
+	{ "name": "bone", "parent": "root", "length": 52, "x": 0.5, "y": -1, "rotation": -90 },
+	{ "name": "bone2", "parent": "root", "length": 65.99, "x": 0.5, "y": -1, "rotation": 90 }
+],
+"slots": [
+	{ "name": "Shield/Shield2", "bone": "bone2", "attachment": "Shield/Shield" },
+	{ "name": "Shield/Shield", "bone": "bone", "attachment": "Shield/Shield" }
+],
+"skins": {
+	"default": {
+		"Shield/Shield": {
+			"Shield/Shield": { "x": -1, "y": -0.5, "rotation": 90, "width": 400, "height": 400 }
+		},
+		"Shield/Shield2": {
+			"Shield/Shield": { "x": 1, "y": 0.5, "rotation": -90, "width": 400, "height": 400 }
+		}
+	}
+},
+"animations": {
+	"ShieldCrit": {
+		"slots": {
+			"Shield/Shield2": {
+				"color": [
+					{ "time": 0, "color": "ffffff7a" },
+					{ "time": 0.1666, "color": "ff00067a" },
+					{ "time": 0.6666, "color": "ffffff7a" }
+				]
+			}
+		},
+		"bones": {
+			"root": {
+				"scale": [
+					{
+						"time": 0,
+						"x": 1,
+						"y": 1,
+						"curve": [ 0.25, 0, 0.75, 1 ]
+					},
+					{
+						"time": 0.1666,
+						"x": 1.168,
+						"y": 1.168,
+						"curve": [ 0.25, 0, 0.75, 1 ]
+					},
+					{ "time": 0.6666, "x": 1, "y": 1 }
+				]
+			},
+			"bone2": {
+				"scale": [
+					{
+						"time": 0,
+						"x": 1,
+						"y": 1,
+						"curve": [ 0.25, 0, 0.75, 1 ]
+					},
+					{
+						"time": 0.1666,
+						"x": 1.227,
+						"y": 1.227,
+						"curve": [ 0.25, 0, 0.75, 1 ]
+					},
+					{ "time": 0.5, "x": 1, "y": 1 }
+				]
+			}
+		}
+	},
+	"ShieldNormal": {
+		"slots": {
+			"Shield/Shield2": {
+				"color": [
+					{ "time": 0, "color": "ffffff7a", "curve": "stepped" },
+					{ "time": 0.6666, "color": "ffffff7a" }
+				]
+			}
+		},
+		"bones": {
+			"root": {
+				"scale": [
+					{
+						"time": 0,
+						"x": 1,
+						"y": 1,
+						"curve": [ 0.25, 0, 0.75, 1 ]
+					},
+					{
+						"time": 0.1666,
+						"x": 1.168,
+						"y": 1.168,
+						"curve": [ 0.25, 0, 0.75, 1 ]
+					},
+					{ "time": 0.6666, "x": 1, "y": 1 }
+				]
+			},
+			"bone2": {
+				"scale": [
+					{
+						"time": 0,
+						"x": 1,
+						"y": 1,
+						"curve": [ 0.25, 0, 0.75, 1 ]
+					},
+					{
+						"time": 0.1666,
+						"x": 1.227,
+						"y": 1.227,
+						"curve": [ 0.25, 0, 0.75, 1 ]
+					},
+					{ "time": 0.5, "x": 1, "y": 1 }
+				]
+			}
+		}
+	}
+}
+}

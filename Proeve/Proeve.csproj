@@ -118,6 +118,15 @@
     <Content Include="Content\Characters\Chips\EnemyChips.png" />
     <Content Include="Content\UI\ArmyEditor\weaponButtons.png" />
     <Content Include="Content\UI\startButtonPlaceHolder.png" />
+    <Content Include="Content\Weapons\Animations\axeAnimation.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Weapons\Animations\shieldAnimation.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Weapons\Animations\swordAnimation.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -179,6 +188,24 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Content\Fonts\normalFont.spritefont" />
+    <None Include="Content\Weapons\Animations\axeAnimation.atlas">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Weapons\Animations\axeAnimation.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Weapons\Animations\shieldAnimation.atlas">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Weapons\Animations\shieldAnimation.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Weapons\Animations\swordAnimation.atlas">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Weapons\Animations\swordAnimation.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
