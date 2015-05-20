@@ -34,6 +34,7 @@ namespace Proeve.Resources
         /* CHARACTERS */
         // Chips
         private const string CHIPS_SHEET = "ChipsSheet";
+        private const string ENEMY_CHIP_SHEET = "EnemyChips";
 
         /* UI */
         // Buttons
@@ -55,6 +56,7 @@ namespace Proeve.Resources
         /* CHARACTERS */
         // Chips Medieval
         private static E2DTexture chipsSheet;
+        private static E2DTexture enemyChipSheet;
 
         /* UI */
         // Buttons
@@ -127,6 +129,7 @@ namespace Proeve.Resources
             /* CHARACTERS */
             // Chips
             chipsSheet.Load(CHIPS_PATH, CHIPS_SHEET);
+            enemyChipSheet.Load(CHIPS_PATH, ENEMY_CHIP_SHEET);
 
             /* UI */
             // Buttons
@@ -167,7 +170,8 @@ namespace Proeve.Resources
             medievalMinorChipSprite = new Sprite(chipsSheet, new Rectangle(W*3, 0, W, W));
             medievalBombChipSprite = new Sprite(chipsSheet, new Rectangle(W*3, W, W, W));
 
-            enemyChipSprite = new Sprite(chipsSheet, new Rectangle(W*8, 0, W, W));
+            enemyChipSprite = new Sprite(enemyChipSheet, new Rectangle(0, 0, 85, 85), 25, 30f, 5);
+            enemyChipSprite.origin = new Vector2(3, 3);
 
             /* UI */
             // Buttons

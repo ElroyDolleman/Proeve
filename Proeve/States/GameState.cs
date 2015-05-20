@@ -40,16 +40,22 @@ namespace Proeve.States
 
         public override void Update(GameTime gameTime)
         {
-            UpdateArmies(army);
-            UpdateArmies(enemyArmy);
+            UpdateArmies(army, gameTime);
+            UpdateArmies(enemyArmy, gameTime);
             shineForeground.Update(gameTime);
         }
 
-        private void UpdateArmies(List<Character> tempArmy)
+        private void UpdateArmies(List<Character> tempArmy, GameTime gameTime)
         {
             for (int i = 0; i < tempArmy.Count; i++)
             {
                 Character c = tempArmy[i];
+
+                // UPDATE ANIMTION
+                c.UpdateSpriteSheetAnimation(gameTime);
+
+                if (c.sprite.CurrentFrame == 1)
+                    c.sprite.CurrentFrame = 2;
 
                 if (c.waypoints.Count > 0)
                 {

@@ -92,8 +92,8 @@ namespace Proeve.States
                     // TODO: You won
             }
 
-            character.UpdateAnimation(gameTime);
-            enemyCharacter.UpdateAnimation(gameTime);
+            character.UpdateSpineAnimation(gameTime);
+            enemyCharacter.UpdateSpineAnimation(gameTime);
         }
 
         private void Attack()

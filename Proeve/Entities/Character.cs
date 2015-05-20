@@ -110,7 +110,12 @@ namespace Proeve.Entities
             this.army = army;
         }
 
-        public void UpdateAnimation(GameTime gameTime)
+        public void UpdateSpriteSheetAnimation(GameTime gameTime)
+        {
+            sprite.UpdateAnimation(gameTime);
+        }
+
+        public void UpdateSpineAnimation(GameTime gameTime)
         {
             animation.Update(gameTime);
         }

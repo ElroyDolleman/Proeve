@@ -178,7 +178,7 @@ namespace Proeve.States
                 drag = false;
             }
 
-            selectedCharacter.UpdateAnimation(gameTime);
+            selectedCharacter.UpdateSpineAnimation(gameTime);
         }
 
         private void ChangeWeapon(Character character, Character.Weapon weapon)
