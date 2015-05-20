@@ -121,7 +121,7 @@ namespace Proeve.States
 
             for (int i = 0; i < ((GameState)StateManager.GetState(1)).GetArmy().Count(); i++)
             {
-                Point gridpos = Grid.ToGridLocation(new Point((int)army[i].position.X, (int)army[i].position.Y), Globals.GridLocation, Globals.TileDimensions);
+                Point gridpos = army[i].waypoints.Count == 0 ? Grid.ToGridLocation(new Point((int)army[i].position.X, (int)army[i].position.Y), Globals.GridLocation, Globals.TileDimensions) : army[i].waypoints[0];
 
                 if (gridpos.X >= 0)
                     tempLevel[gridpos.X, gridpos.Y] = 1;
