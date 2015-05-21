@@ -82,11 +82,24 @@ namespace Proeve.States
                     else if (!canMove[i] && canAttack[i])
                     {
                         canAttack[i] = false;
-                        for (int j = 0; j < Armies.opponentArmy.Count; j++)
+                        if (Armies.army[i].special != Character.Special.Healer)
                         {
-                        if(Armies.army[i].IsNextTo(Armies.opponentArmy[Armies.opponentArmy.Count - 3]))
+                            for (int j = 0; j < Armies.opponentArmy.Count; j++)
                             {
-                                canAttack[i] = true;
+                            if(Armies.army[i].IsNextTo(Armies.opponentArmy[Armies.opponentArmy.Count - 3]))
+                                {
+                                    canAttack[i] = true;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            for (int j = 0; j < Armies.army.Count; j++)
+                            {
+                                if (Armies.army[i].IsNextTo(Armies.army[Armies.army.Count - 3]))
+                                {
+                                    canAttack[i] = true;
+                                }
                             }
                         }
                     }
@@ -145,7 +158,7 @@ namespace Proeve.States
                                 
                                 int[,] level = ((GameState)StateManager.GetState(1)).DuplicateLevel();
                                 
-                                SetUnwalkable(ref level, Armies.army[selected]);
+                                ((GameState)StateManager.GetState(1)).SetUnwalkable(ref level, Armies.army[selected]);
 
                                 // Uncomment to Print the grid
                                 /*for (int i = 0; i < level.GetLength(0); i++)
@@ -227,23 +240,48 @@ namespace Proeve.States
                         }
                         if (canAttackThis != null)
                         {
-                            for (int i = 0; i < canAttackThis.Count; i++)
+                            if (selected >= 0 && Armies.army[selected].special != Character.Special.Healer)
                             {
-                                Armies.opponentArmy[canAttackThis[i]].sprite.CurrentFrame = 1;
-                            }
-                            for (int i = 0; i < canAttackThis.Count; i++)
-                            {
-                                Rectangle hitbox = Armies.opponentArmy[canAttackThis[i]].Hitbox;
-                                if (hitbox.Contains(Globals.mouseState.Position))
+                                for (int i = 0; i < canAttackThis.Count; i++)
                                 {
-                                    Globals.multiplayerConnection.SendFight(selected, canAttackThis[i]);
-                                    ((GameState)StateManager.GetState(1)).AttackUnit(Armies.army[selected], Armies.opponentArmy[canAttackThis[i]]);
+                                    Armies.opponentArmy[canAttackThis[i]].sprite.CurrentFrame = 1;
+                                }
+                                for (int i = 0; i < canAttackThis.Count; i++)
+                                {
+                                    Rectangle hitbox = Armies.opponentArmy[canAttackThis[i]].Hitbox;
+                                    if (hitbox.Contains(Globals.mouseState.Position))
+                                    {
+                                        Globals.multiplayerConnection.SendFight(selected, canAttackThis[i]);
+                                        ((GameState)StateManager.GetState(1)).AttackUnit(Armies.army[selected], Armies.opponentArmy[canAttackThis[i]]);
 
-                                    canAttack[selected] = false;
-                                    selected = -1;
-                                    contains = true;
-                                    canAttackThis = null;
-                                    break;
+                                        canAttack[selected] = false;
+                                        selected = -1;
+                                        contains = true;
+                                        canAttackThis = null;
+                                        break;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                for (int i = 0; i < canAttackThis.Count; i++)
+                                {
+                                    Armies.army[canAttackThis[i]].sprite.CurrentFrame = 1;
+                                }
+                                for (int i = 0; i < canAttackThis.Count; i++)
+                                {
+                                    Rectangle hitbox = Armies.army[canAttackThis[i]].Hitbox;
+                                    if (hitbox.Contains(Globals.mouseState.Position))
+                                    {
+                                        Globals.multiplayerConnection.SendFight(selected, canAttackThis[i]);
+                                        ((GameState)StateManager.GetState(1)).AttackUnit(Armies.army[selected], Armies.army[canAttackThis[i]]);
+
+                                        canAttack[selected] = false;
+                                        selected = -1;
+                                        contains = true;
+                                        canAttackThis = null;
+                                        break;
+                                    }
                                 }
                             }
                         }
@@ -279,25 +317,6 @@ namespace Proeve.States
             }
 
             spriteBatch.DrawDebugText("IsTurn: " + IsTurn, new Point(4, 4), Color.White);
-        }
-
-        public void SetUnwalkable(ref int[,] level, Character c)
-        {
-            for (int i = 0; i < Armies.army.Count(); i++)
-            {
-                Point gridpos = Armies.army[i].GridPosition;
-
-                if (!Armies.army[i].IsDead && Armies.army[i] != c)
-                    level[gridpos.X, gridpos.Y] = 1;
-            }
-
-            for (int i = 0; i < Armies.opponentArmy.Count(); i++)
-            {
-                Point gridpos = Armies.opponentArmy[i].GridPosition;
-
-                if (!Armies.opponentArmy[i].IsDead)
-                    level[gridpos.X, gridpos.Y] = 1;
-            }
         }
 
         public override void DrawAnimation(Spine.SkeletonMeshRenderer skeletonRenderer)

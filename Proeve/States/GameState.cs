@@ -112,13 +112,7 @@ namespace Proeve.States
         {
             int[,] tempLevel = DuplicateLevel();
 
-            for (int i = 0; i < enemyArmy.Count(); i++)
-            {
-                Point gridpos = enemyArmy[i].GridPosition;
-                
-                if (gridpos.X >= 0)
-                    tempLevel[gridpos.X, gridpos.Y] = 1;
-            }
+            SetUnwalkable(ref tempLevel, unit);
 
             Point GPos = unit.GridPosition;
             tempLevel[GPos.X, GPos.Y] = 0;
@@ -163,6 +157,28 @@ namespace Proeve.States
             }
 
             return tempLevel;
+        }
+
+        public void SetUnwalkable(ref int[,] level, Character c)
+        {
+            for (int i = 0; i < Armies.army.Count(); i++)
+            {
+                Point gridpos = Armies.army[i].GridPosition;
+
+                if (!Armies.army[i].IsDead)
+                    level[gridpos.X, gridpos.Y] = 1;
+            }
+
+            for (int i = 0; i < Armies.opponentArmy.Count(); i++)
+            {
+                Point gridpos = Armies.opponentArmy[i].GridPosition;
+
+                if (!Armies.opponentArmy[i].IsDead)
+                    level[gridpos.X, gridpos.Y] = 1;
+            }
+
+            Point Gpos = c.GridPosition;
+            level[Gpos.X, Gpos.Y] = 0;
         }
     }
 }
