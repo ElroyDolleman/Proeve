@@ -62,13 +62,9 @@ namespace Proeve.States
             // END UPDATE ANIMATION
 
             // UNFINISHED WIN/LOSE DEFINITION/EFFECT
-            if (Armies.army[0].IsDead)
+            if (Armies.army[0].IsDead || Armies.opponentArmy[0].IsDead)
             {
-                StateManager.AddState(Settings.STATES.ArmyEditor);
-            }
-            else if (Armies.opponentArmy[0].IsDead)
-            {
-                StateManager.AddState(Settings.STATES.ArmyEditor);
+                StateManager.ChangeState(Settings.STATES.Result);
             }
             // END UNFINISHED WIN/LOSE DEFINITION/EFFECT
 
@@ -86,7 +82,7 @@ namespace Proeve.States
                         {
                             for (int j = 0; j < Armies.opponentArmy.Count; j++)
                             {
-                            if(Armies.army[i].IsNextTo(Armies.opponentArmy[Armies.opponentArmy.Count - 3]))
+                                if(Armies.army[i].IsNextTo(Armies.opponentArmy[j]))
                                 {
                                     canAttack[i] = true;
                                 }
@@ -96,7 +92,7 @@ namespace Proeve.States
                         {
                             for (int j = 0; j < Armies.army.Count; j++)
                             {
-                                if (Armies.army[i].IsNextTo(Armies.army[Armies.army.Count - 3]))
+                                if (Armies.army[i].IsNextTo(Armies.army[j]))
                                 {
                                     canAttack[i] = true;
                                 }
