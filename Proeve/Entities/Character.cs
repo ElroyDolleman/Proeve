@@ -171,5 +171,15 @@ namespace Proeve.Entities
         }
 
         public void ResetColorEffect() { ColorEffect = Color.White * 0f; }
+
+        public bool IsNextTo(Character c) 
+        {
+            if(Math.Pow(GridPosition.X - c.GridPosition.X, 2) == 1
+            && Math.Pow(GridPosition.Y - c.GridPosition.Y, 2) == 0
+            || Math.Pow(GridPosition.X - c.GridPosition.X, 2) == 0
+            && Math.Pow(GridPosition.Y - c.GridPosition.Y, 2) == 1)
+                return true;
+            return false;
+        }
     }
 }
