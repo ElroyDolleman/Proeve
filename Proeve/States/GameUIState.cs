@@ -256,6 +256,10 @@ namespace Proeve.States
                         {
                             for (int i = 0; i < canAttackThis.Count; i++)
                             {
+                                Armies.opponentArmy[canAttackThis[i]].sprite.CurrentFrame = 1;
+                            }
+                            for (int i = 0; i < canAttackThis.Count; i++)
+                            {
                                 Rectangle hitbox = Armies.opponentArmy[canAttackThis[i]].Hitbox;
                                 if (hitbox.Contains(Globals.mouseState.Position))
                                 {
@@ -269,10 +273,6 @@ namespace Proeve.States
                                     break;
                                 }
                             }
-                        }
-                        for (int i = 0; i < canAttackThis.Count; i++)
-                        {
-                            Armies.opponentArmy[canAttackThis[i]].sprite.CurrentFrame = 1;
                         }
 
                         if (!contains)
