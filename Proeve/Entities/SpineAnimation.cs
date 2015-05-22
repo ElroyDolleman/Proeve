@@ -18,12 +18,34 @@ namespace Proeve.Entities
     {
         private Skeleton skeleton;
         private AnimationState animationState;
+        private SkeletonJson json;
 
         private Atlas atlas;
         private string filesName, animationName;
 
+        public string AnimationName { get { return animationName; } }
+
         public bool loop;
         public bool IsPlayingAnimation { get { return !(!loop && animationState.GetCurrent(0).Time >= animationState.GetCurrent(0).EndTime);} }
+
+        public float Scale { get { return json.Scale; } 
+            set {
+                Vector2 oldPos = Position;
+
+                json.Scale = value;
+
+                SkeletonData skeletonData;
+                skeletonData = json.ReadSkeletonData(this.filesName + ".json");
+
+                this.skeleton = new Skeleton(skeletonData);
+                Position = oldPos;
+            } 
+        }
+
+        public bool FlipX { get { return skeleton.FlipX; } set { skeleton.FlipX = value; } }
+        public bool FlipY { get { return skeleton.FlipY; } set { skeleton.FlipY = value; } }
+
+        public float Time { get { return animationState.GetCurrent(0).Time; } }
 
         public Vector2 Position {
             get { return new Vector2(skeleton.X, skeleton.Y); }
@@ -42,12 +64,13 @@ namespace Proeve.Entities
 
             this.atlas = new Atlas(this.filesName + ".atlas", new XnaTextureLoader(graphicsDevice));
 
-            SkeletonData skeletonData;
+            this.json = new SkeletonJson(atlas);
 
-            SkeletonJson json = new SkeletonJson(atlas);
+            SkeletonData skeletonData;
             skeletonData = json.ReadSkeletonData(this.filesName + ".json");
 
             this.skeleton = new Skeleton(skeletonData);
+            //this.skeleton.FlipX = true;
 
             // Animation
             AnimationStateData animationStateData = new AnimationStateData(skeleton.Data);

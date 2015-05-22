@@ -48,6 +48,7 @@ namespace Proeve.Entities
 
         public enum Weapon
         {
+            None,
             Axe,
             Sword,
             Shield

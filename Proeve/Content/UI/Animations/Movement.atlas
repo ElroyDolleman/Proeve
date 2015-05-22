@@ -1,0 +1,27 @@
+
+Movement.png
+size: 256,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Arrow
+  rotate: false
+  xy: 0, 0
+  size: 82, 82
+  orig: 82, 82
+  offset: 0, 0
+  index: -1
+Attack
+  rotate: false
+  xy: 82, 0
+  size: 82, 82
+  orig: 82, 82
+  offset: 0, 0
+  index: -1
+Shade
+  rotate: false
+  xy: 164, 0
+  size: 82, 82
+  orig: 82, 82
+  offset: 0, 0
+  index: -1

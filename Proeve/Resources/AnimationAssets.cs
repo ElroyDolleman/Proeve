@@ -18,6 +18,7 @@ namespace Proeve.Resources
 
         private const string BACKGROUND_PATH = "Backgrounds\\";
         private const string WEAPON_ANIMATION_PATH = "Weapons\\Animations\\";
+        private const string UI_ANIMATION_PATH = "UI\\Animations\\";
 
         #endregion
         #region FILES
@@ -34,11 +35,25 @@ namespace Proeve.Resources
 
         /* OTHER */
         private const string SHINE_EFFECT = "shine";
+        private const string MOVEMENT_ATTACK_ICON = "Movement";
 
         /* WEAPONS */
         private const string WEAPON_AXE = "axeAnimation";
         private const string WEAPON_SWORD = "swordAnimation";
         private const string WEAPON_SHIELD = "shieldAnimation";
+
+        #endregion
+        #region ANIMATION NAMES
+        /* WEAPONS */
+        private const string AXE_NORMAL_ANIMATION = "AxeNormal";
+        private const string AXE_CRIT_ANIMATION = "AxeCrit";
+        private const string SWORD_NORMAL_ANIMATION = "SwordNormal";
+        private const string SWORD_CRIT_ANIMATION = "SwordCrit";
+        private const string SHIELD_NORMAL_ANIMATION = "ShieldNormal";
+        private const string SHIELD_CRIT_ANIMATION = "ShieldCrit";
+
+        private const string MOVEMENT_ICON_ANIMATION = "Arrow";
+        private const string ATTACK_ICON_ANIMATION = "Attack";
 
         #endregion
         #region ANIMATIONS
@@ -65,6 +80,9 @@ namespace Proeve.Resources
         /* OTHER */
         private static SpineAnimation shineEffect;
 
+        private static SpineAnimation arrowIcon;
+        private static SpineAnimation attackIcon;
+
         #endregion
         #region READ ONLY
 
@@ -79,16 +97,19 @@ namespace Proeve.Resources
         public static SpineAnimation MedievalBomb { get { return (SpineAnimation)medievalBomb.Clone(); } }
 
         /* WEAPONS */
-        private static SpineAnimation AxeNormalAttack { get { return (SpineAnimation)axeNormalAttack.Clone(); } }
-        private static SpineAnimation SwordNormalAttack { get { return (SpineAnimation)swordNormalAttack.Clone(); } }
-        private static SpineAnimation ShieldNormalAttack { get { return (SpineAnimation)shieldNormalAttack.Clone(); } }
+        public static SpineAnimation AxeNormalAttack { get { return (SpineAnimation)axeNormalAttack.Clone(); } }
+        public static SpineAnimation SwordNormalAttack { get { return (SpineAnimation)swordNormalAttack.Clone(); } }
+        public static SpineAnimation ShieldNormalAttack { get { return (SpineAnimation)shieldNormalAttack.Clone(); } }
 
-        private static SpineAnimation AxeCritAttack { get { return (SpineAnimation)axeCritAttack.Clone(); } }
-        private static SpineAnimation SwordCritAttack { get { return (SpineAnimation)swordCritAttack.Clone(); } }
-        private static SpineAnimation ShieldCritAttack { get { return (SpineAnimation)shieldCritAttack.Clone(); } }
+        public static SpineAnimation AxeCritAttack { get { return (SpineAnimation)axeCritAttack.Clone(); } }
+        public static SpineAnimation SwordCritAttack { get { return (SpineAnimation)swordCritAttack.Clone(); } }
+        public static SpineAnimation ShieldCritAttack { get { return (SpineAnimation)shieldCritAttack.Clone(); } }
 
         /* OTHER */
         public static SpineAnimation ShineEffect { get { return (SpineAnimation)shineEffect.Clone(); } }
+
+        public static SpineAnimation ArrowIcon { get { return (SpineAnimation)arrowIcon.Clone(); } }
+        public static SpineAnimation AttackIcon { get { return (SpineAnimation)attackIcon.Clone(); } }
 
         #endregion
 
@@ -128,25 +149,31 @@ namespace Proeve.Resources
 
             // SHINE EFFECT
             shineEffect = new SpineAnimation();
-            shineEffect.LoadAnimation(Globals.graphicsDevice, Globals.contentManager, BACKGROUND_PATH, SHINE_EFFECT, "animation");
+            shineEffect.LoadAnimation(graphicsDevice, contentManager, BACKGROUND_PATH, SHINE_EFFECT);
 
             // WEAPON AXE
             axeNormalAttack = new SpineAnimation();
-            axeNormalAttack.LoadAnimation(Globals.graphicsDevice, Globals.contentManager, WEAPON_ANIMATION_PATH, WEAPON_AXE, "AxeNormal");
+            axeNormalAttack.LoadAnimation(graphicsDevice, contentManager, WEAPON_ANIMATION_PATH, WEAPON_AXE, AXE_NORMAL_ANIMATION);
             axeCritAttack = new SpineAnimation();
-            axeCritAttack.LoadAnimation(Globals.graphicsDevice, Globals.contentManager, WEAPON_ANIMATION_PATH, WEAPON_AXE, "AxeCrit");
+            axeCritAttack.LoadAnimation(graphicsDevice, contentManager, WEAPON_ANIMATION_PATH, WEAPON_AXE, AXE_CRIT_ANIMATION);
 
             // WEAPON SWORD
             swordNormalAttack = new SpineAnimation();
-            swordNormalAttack.LoadAnimation(Globals.graphicsDevice, Globals.contentManager, WEAPON_ANIMATION_PATH, WEAPON_SWORD, "SwordNormal");
+            swordNormalAttack.LoadAnimation(graphicsDevice, contentManager, WEAPON_ANIMATION_PATH, WEAPON_SWORD, SWORD_NORMAL_ANIMATION);
             swordCritAttack = new SpineAnimation();
-            swordCritAttack.LoadAnimation(Globals.graphicsDevice, Globals.contentManager, WEAPON_ANIMATION_PATH, WEAPON_SWORD, "SwordCrit");
+            swordCritAttack.LoadAnimation(graphicsDevice, contentManager, WEAPON_ANIMATION_PATH, WEAPON_SWORD, SWORD_CRIT_ANIMATION);
 
             // WEAPON SHIELD
             shieldNormalAttack = new SpineAnimation();
-            shieldNormalAttack.LoadAnimation(Globals.graphicsDevice, Globals.contentManager, WEAPON_ANIMATION_PATH, WEAPON_SHIELD, "ShieldNormal");
+            shieldNormalAttack.LoadAnimation(graphicsDevice, contentManager, WEAPON_ANIMATION_PATH, WEAPON_SHIELD, SHIELD_NORMAL_ANIMATION);
             shieldCritAttack = new SpineAnimation();
-            shieldCritAttack.LoadAnimation(Globals.graphicsDevice, Globals.contentManager, WEAPON_ANIMATION_PATH, WEAPON_SHIELD, "ShieldCrit");
+            shieldCritAttack.LoadAnimation(graphicsDevice, contentManager, WEAPON_ANIMATION_PATH, WEAPON_SHIELD, SHIELD_CRIT_ANIMATION);
+
+            // UI
+            arrowIcon = new SpineAnimation();
+            arrowIcon.LoadAnimation(graphicsDevice, contentManager, UI_ANIMATION_PATH, MOVEMENT_ATTACK_ICON, MOVEMENT_ICON_ANIMATION);
+            attackIcon = new SpineAnimation();
+            attackIcon.LoadAnimation(graphicsDevice, contentManager, UI_ANIMATION_PATH, MOVEMENT_ATTACK_ICON, ATTACK_ICON_ANIMATION);
         }
     }
 }
