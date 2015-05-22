@@ -24,6 +24,8 @@ namespace Proeve.States
         private List<Point> canMoveTo;
         private List<bool> canAttack;
         private List<int> canAttackThis;
+        private List<SpineAnimation> moveArrows;
+        private List<SpineAnimation> attackIcons;
 
         public GameUIState()
         {
@@ -45,6 +47,20 @@ namespace Proeve.States
         public override void Update(GameTime gameTime)
         {
             // UPDATE ANIMTION
+            if (moveArrows != null)
+            {
+                for (int i = 0; i < moveArrows.Count; i++)
+                {
+                    moveArrows[i].Update(gameTime);
+                }
+            }
+            if (attackIcons != null)
+            {
+                for (int i = 0; i < attackIcons.Count; i++)
+                {
+                    attackIcons[i].Update(gameTime);
+                }
+            }
             if (canAttackThis != null)
             {
                 for (int i = 0; i < canAttackThis.Count; i++)
@@ -182,20 +198,28 @@ namespace Proeve.States
                                 List<Node> nodes = AStar.GetClosed();
                                 canMoveTo = new List<Point>();
 
+                                moveArrows = new List<SpineAnimation>();
                                 for (int i = 1; i < nodes.Count; i++)
+                                {
                                     canMoveTo.Add(new Point(nodes[i].x, nodes[i].y));
+                                    moveArrows.Add(AnimationAssets.ArrowIcon);
+                                    GPos = Grid.ToPixelLocation(new Point(nodes[i].x, nodes[i].y), Globals.GridLocation, Globals.TileDimensions);
+                                    moveArrows[i - 1].Position = new Vector2(GPos.X + Globals.TILE_WIDTH / 2, GPos.Y + Globals.TILE_HEIGHT / 2 - 20);
+                                }
                                 // END PATHFINDING FOR REACHABLE AREA
                             }
                             if (canAttack[selected])
                             {
                                 canAttackThis = new List<int>();
+                                attackIcons = new List<SpineAnimation>();
 
                                 for (int i = 0; i < Armies.opponentArmy.Count; i++)
                                 {
-
                                     if (Armies.army[selected].IsNextTo(Armies.opponentArmy[i]))
                                     {
                                         canAttackThis.Add(i);
+                                        attackIcons.Add(AnimationAssets.AttackIcon);
+                                        attackIcons[attackIcons.Count-1].Position = new Vector2(Armies.opponentArmy[i].position.X + Globals.TILE_WIDTH/2,Armies.opponentArmy[i].position.Y);
                                     }
                                 }
                                 if (!canMove[selected] && canAttackThis.Count == 0)
@@ -288,6 +312,8 @@ namespace Proeve.States
                             canMoveTo = null;
                             canAttackThis = null;
                         }
+                        moveArrows = null;
+                        attackIcons = null;
                     }
                 }
             }
@@ -300,8 +326,8 @@ namespace Proeve.States
         public override void Draw(SpriteBatch spriteBatch)
         {
             StateManager.GetState(1).Draw(spriteBatch);
-
-            if (selected >= 0)
+            
+            /*if (selected >= 0)
             {
                 if (canMove[selected])
                 {
@@ -310,7 +336,7 @@ namespace Proeve.States
                         spriteBatch.DrawRectangle(new Rectangle(Grid.ToPixelLocation(new Point((int)canMoveTo[i].X, (int)canMoveTo[i].Y), Globals.GridLocation, Globals.TileDimensions).X, Grid.ToPixelLocation(new Point((int)canMoveTo[i].X, (int)canMoveTo[i].Y), Globals.GridLocation, Globals.TileDimensions).Y, Globals.TILE_WIDTH, Globals.TILE_HEIGHT), Color.BlueViolet * .50f);
                     }
                 }
-            }
+            }/**/
 
             spriteBatch.DrawDebugText("IsTurn: " + IsTurn, new Point(4, 4), Color.White);
         }
@@ -318,6 +344,20 @@ namespace Proeve.States
         public override void DrawAnimation(Spine.SkeletonMeshRenderer skeletonRenderer)
         {
             StateManager.GetState(1).DrawAnimation(skeletonRenderer);
+            if (moveArrows != null)
+            {
+                for (int i = 0; i < moveArrows.Count; i++)
+                {
+                    moveArrows[i].Draw(skeletonRenderer);
+                }
+            }
+            if (attackIcons != null)
+            {
+                for (int i = 0; i < attackIcons.Count; i++)
+                {
+                    attackIcons[i].Draw(skeletonRenderer);
+                }
+            }
         }
 
         private void SetMovable()
