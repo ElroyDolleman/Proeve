@@ -16,14 +16,12 @@ namespace Proeve.States
 {
     class FightState : State
     {
-        // Animation hit constants
-        private const float AXE_HIT_TIME = .528f;
-        private const float SWORD_HIT_TIME = .528f;
-        private const float SHIELD_HIT_TIME = .350f;
-
-        private const float AXE_CRIT_HIT_TIME = .528f;
-        private const float SWORD_CRIT_HIT_TIME = .528f;
-        private const float SHIELD_CRIT_HIT_TIME = .528f;
+        // Animation hitting
+        private const float AXE_HIT_TIME = .4f;
+        private const float SWORD_HIT_TIME = .4f;
+        private const float SHIELD_HIT_TIME = .1f;
+        private Dictionary<Character.Weapon, float> hitMoments;
+        private float hitInterval;
 
         // Readonly positions
         private Vector2 MyAnimationPosition { get { return new Vector2(200, 340); } }
@@ -36,6 +34,14 @@ namespace Proeve.States
         // Fighting
         private bool myAttackTurn;
         private int damage;
+        private Sprite damageSprite;
+        private float damageSpriteAlpha;
+
+        private Vector2 EnemyDamagePosition { get { return new Vector2(200, 380); } }
+        private Vector2 MyDamagePosition { get { return new Vector2(Main.WindowWidth - 200, 380); } }
+
+        private const int DAMAGE_SPEED = 3;
+        private const float FADE_OUT_SPEED = .2f;
 
         // Animations
         private Dictionary<Character.Weapon, SpineAnimation> weaponAnimations;
@@ -44,12 +50,16 @@ namespace Proeve.States
         private SpineAnimation currentAnimation;
 
         // Flickering Fields
-        private const int FLICKER_INTERVAL = 160;
-        private const int FLICKER_LIMIT = 3;
+        private const int FLICKER_INTERVAL = 120;
+        private const int FLICKER_LIMIT = 2;
         private bool isFlickering;
         private bool show;
         private float flickerTimer;
         private int flickerAmount;
+
+        // Timer
+        private float timer;
+        private const int ATTACK_INTERVAL = 500;
 
         public FightState()
         {
@@ -95,15 +105,39 @@ namespace Proeve.States
             specialAnimations = new Dictionary<Character.Special, SpineAnimation>();
 
             specialAnimations.Add(Character.Special.Bomb, AnimationAssets.AxeNormalAttack);
-            specialAnimations.Add(Character.Special.Healer, AnimationAssets.AxeNormalAttack);
-            specialAnimations.Add(Character.Special.Minor, AnimationAssets.AxeNormalAttack);
-            specialAnimations.Add(Character.Special.Spy, AnimationAssets.AxeNormalAttack);
+            specialAnimations[Character.Special.Bomb].Position = Main.WindowCenter;
+            specialAnimations[Character.Special.Bomb].loop = false;
 
+            specialAnimations.Add(Character.Special.Healer, AnimationAssets.AxeNormalAttack);
+            specialAnimations[Character.Special.Healer].Position = Main.WindowCenter;
+            specialAnimations[Character.Special.Healer].loop = false;
+
+            specialAnimations.Add(Character.Special.Minor, AnimationAssets.AxeNormalAttack);
+            specialAnimations[Character.Special.Minor].Position = Main.WindowCenter;
+            specialAnimations[Character.Special.Minor].loop = false;
+
+            specialAnimations.Add(Character.Special.Spy, AnimationAssets.AxeNormalAttack);
+            specialAnimations[Character.Special.Spy].Position = Main.WindowCenter;
+            specialAnimations[Character.Special.Spy].loop = false;
+
+            // HIT MOMENTS
+            hitMoments = new Dictionary<Character.Weapon, float>();
+            hitMoments.Add(Character.Weapon.Axe, AXE_HIT_TIME);
+            hitMoments.Add(Character.Weapon.Sword, SWORD_HIT_TIME);
+            hitMoments.Add(Character.Weapon.Shield, SHIELD_HIT_TIME);
+            hitMoments.Add(Character.Weapon.None, AXE_HIT_TIME);
+
+            // DAMAGE SPRITE
+            damageSprite = ArtAssets.DamageTextSprite;
+            damageSpriteAlpha = 0f;
+            damageSprite.colorEffect = Color.White * damageSpriteAlpha;
+
+            // SETTING VALUES
             show = true;
             flickerTimer = 0;
             flickerAmount = FLICKER_LIMIT;
+            timer = 0;
         }
-
         public void SetUnits(Character attacker, Character defender)
         {
             if (Globals.multiplayerConnection.myTurn) {
@@ -119,12 +153,7 @@ namespace Proeve.States
                 myAttackTurn = (character.special == Character.Special.Bomb && enemyCharacter.special != Character.Special.Minor);
             }
 
-            if (myAttackTurn)
-                Attacking(character, enemyCharacter);
-            else
-                Attacking(enemyCharacter, character);
-
-            currentAnimation.FlipX = !myAttackTurn;
+            Attack();
 
             character.animation.Position = MyAnimationPosition;
             enemyCharacter.animation.Position = EnemyAnimationPosition;
@@ -132,52 +161,92 @@ namespace Proeve.States
 
         public override void Update(GameTime gameTime)
         {
-            if (!character.IsDead && !enemyCharacter.IsDead)
+            // TIMER FOR NEXT ATTACK
+            if (!currentAnimation.IsPlayingAnimation)
             {
-                if (!currentAnimation.IsPlayingAnimation && false)
-                {
-                    myAttackTurn = !myAttackTurn;
+                timer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
 
-                    if (myAttackTurn)
-                        Attacking(character, enemyCharacter);
-                    else
-                        Attacking(enemyCharacter, character);
+                // Damage
+                damageSpriteAlpha = Math.Max(0, damageSpriteAlpha - FADE_OUT_SPEED);
+            }
 
-                    currentAnimation.FlipX = !myAttackTurn;
+            // ATTACKING
+            if (timer >= ATTACK_INTERVAL)
+            {
+                timer = 0;
+
+                if (!character.IsDead && !enemyCharacter.IsDead) {
+                    myAttackTurn = !myAttackTurn; 
+                    Attack();
                 }
+                else
+                    StateManager.RemoveState();
+            }
 
-                currentAnimation.Update(gameTime);
+            // UPDATE WEAPON ANIMATION
+            currentAnimation.Update(gameTime);
 
+            // HIT MOMENT
+            if (currentAnimation.Time >= hitInterval && currentAnimation.IsPlayingAnimation && !isFlickering)
+            {
+                // Set flickering values
+                isFlickering = true;
+                flickerAmount = 0;
+                show = false;
 
-                if (currentAnimation.Time >= .5f && currentAnimation.IsPlayingAnimation && !isFlickering)
+                // Lose HP
+                if (myAttackTurn) enemyCharacter.hp -= Math.Min(damage, enemyCharacter.hp);
+                else character.hp -= Math.Min(damage, character.hp);
+
+                // Set visual damage
+                damageSprite.position = myAttackTurn ? MyDamagePosition : EnemyDamagePosition;
+                damageSpriteAlpha = 1f;
+                damageSprite.CurrentFrame = Math.Min(damage, 3);
+            }
+
+            damageSprite.position.Y -= DAMAGE_SPEED;
+
+            // FLICKER EFFECT
+            if (flickerAmount < FLICKER_LIMIT && isFlickering)
+            {
+                flickerTimer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+
+                if (flickerTimer >= FLICKER_INTERVAL)
                 {
-                    isFlickering = true;
-                    flickerAmount = 0;
-                    show = false;
-                }
+                    show = !show;
 
-                // FLICKER EFFECT
-                if (flickerAmount < FLICKER_LIMIT)
-                {
-                    flickerTimer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-
-                    if (flickerTimer >= FLICKER_INTERVAL)
-                    {
-                        show = !show;
-
-                        if (show)
-                            flickerAmount++;
-
-                        flickerTimer = 0;
-                    }
+                    if (show)
+                        flickerAmount++;
+                    flickerTimer = 0;
                 }
             }
 
+            // UPDATE CHARACTER ANIMATION 
             character.UpdateSpineAnimation(gameTime);
             enemyCharacter.UpdateSpineAnimation(gameTime);
         }
 
-        private void Attacking(Character attacker, Character defender)
+        private void Attack()
+        {
+            if (myAttackTurn)
+                DealDamage(character, enemyCharacter);
+            else
+                DealDamage(enemyCharacter, character);
+
+            currentAnimation.Play();
+            currentAnimation.FlipX = myAttackTurn;
+
+            isFlickering = false;
+
+            if ((myAttackTurn ? character.special : enemyCharacter.special) == Character.Special.None)
+                hitInterval = myAttackTurn ? hitMoments[character.weapon] : hitMoments[enemyCharacter.weapon];
+            else
+            {
+                hitInterval = .5f;
+            }
+        }
+
+        private void DealDamage(Character attacker, Character defender)
         {
             switch (attacker.special)
             {
@@ -190,7 +259,7 @@ namespace Proeve.States
                     break;
                 case Character.Special.Minor:
                     if (defender.special == Character.Special.Bomb) {
-                        damage = defender.hp;
+                        damage = Math.Max(3, defender.hp);
                         currentAnimation = specialAnimations[attacker.special];
                     }
                     else { 
@@ -200,7 +269,7 @@ namespace Proeve.States
                     break;
                 case Character.Special.Spy:
                     if (defender.rank == Character.Rank.Marshal) {
-                        damage = defender.hp;
+                        damage = Math.Max(3, defender.hp);
                         currentAnimation = specialAnimations[attacker.special];
                     }
                     else {
@@ -209,7 +278,7 @@ namespace Proeve.States
                     }
                     break;
                 case Character.Special.Bomb:
-                    damage = defender.hp;
+                    damage = Math.Max(3, defender.hp);
                     currentAnimation = specialAnimations[attacker.special];
                     break;
                 default:
@@ -271,18 +340,25 @@ namespace Proeve.States
 
             spriteBatch.DrawDebugText("Time: " + currentAnimation.Time, 120, 700, Color.White);
             spriteBatch.DrawDebugText(currentAnimation.AnimationName, 120, 718, Color.White);
+            spriteBatch.DrawDebugText("turn: " + myAttackTurn, 120, 732, Color.White);
         }
 
         public override void DrawAnimation(Spine.SkeletonMeshRenderer skeletonRenderer)
         {
-            if (show || !myAttackTurn)
+            if (show || myAttackTurn)
                 character.DrawAnimation(skeletonRenderer);
 
-            if (show || myAttackTurn)
+            if (show || !myAttackTurn)
                 enemyCharacter.DrawAnimation(skeletonRenderer);
 
             if (currentAnimation.IsPlayingAnimation)
                 currentAnimation.Draw(skeletonRenderer);
+        }
+
+        public override void DrawForeground(SpriteBatch spriteBatch)
+        {
+            damageSprite.colorEffect = Color.White * damageSpriteAlpha;
+            damageSprite.Draw(spriteBatch);
         }
     }
 }

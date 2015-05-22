@@ -23,6 +23,7 @@ namespace Proeve.Resources
 
         private const string UI_PATH = "UI\\";
         private const string ARMY_EDITOR_UI_PATH = UI_PATH + "ArmyEditor\\";
+        private const string FIGHTING_UI_PATH = UI_PATH + "Fighting\\";
 
         private const string BACKGROUND_PATH = "Backgrounds\\";
 
@@ -42,6 +43,9 @@ namespace Proeve.Resources
 
         // ArmyEditor
         private const string WEAPON_BUTTONS = "weaponButtons";
+
+        // Fighting
+        private const string DAMAGE_TEXT = "damage188x32";
 
         /* BACKGROUND */
         private const string BACKGROUND_GRASS_LEVEL = "backgroundGrassLand";
@@ -67,6 +71,9 @@ namespace Proeve.Resources
         private static E2DTexture shieldIconTexture;
         private static E2DTexture axeIconTexture;
 
+        // Figthing
+        private static E2DTexture damageTextTexture;
+
         /* BACKGROUNDS */
         public static E2DTexture editorBackground;
         public static E2DTexture backgroundGrassLevel;
@@ -89,6 +96,9 @@ namespace Proeve.Resources
         /* UI */
         // Buttons
         private static Sprite testButtonSprite;
+
+        // Figthing
+        private static Sprite damageTextSprite;
 
         // Army Editor
         private static Sprite axeIconSprite;
@@ -119,6 +129,9 @@ namespace Proeve.Resources
         public static Sprite AxeIcon { get { return (Sprite)axeIconSprite; } }
         public static Sprite ShieldIcon { get { return (Sprite)shieldIconSprite; } }
 
+        // Figthing
+        public static Sprite DamageTextSprite { get { return (Sprite)damageTextSprite; } }
+
         #endregion
         #region FONTS
         public static SpriteFont normalFont;
@@ -134,6 +147,9 @@ namespace Proeve.Resources
             /* UI */
             // Buttons
             testButtonTexture.Load(UI_PATH, TESTBUTTON);
+
+            // Fighting
+            damageTextTexture.Load(FIGHTING_UI_PATH, DAMAGE_TEXT);
 
             // Army Editor
             swordIconTexture.Load(ARMY_EDITOR_UI_PATH, WEAPON_BUTTONS);
@@ -181,6 +197,10 @@ namespace Proeve.Resources
             axeIconSprite = new Sprite(swordIconTexture, new Rectangle(0, 82, 82, 82));
             swordIconSprite = new Sprite(swordIconTexture, new Rectangle(0, 0, 82, 82));
             shieldIconSprite = new Sprite(swordIconTexture, new Rectangle(0, 82*2, 82, 82));
+
+            // Fighting
+            damageTextSprite = new Sprite(damageTextTexture, new Rectangle(0, 0, 181, 32), 3, 0f, 1);
+            damageTextSprite.origin = damageTextSprite.Center;
         }
     }
 }

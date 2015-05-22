@@ -70,7 +70,6 @@ namespace Proeve.Entities
             skeletonData = json.ReadSkeletonData(this.filesName + ".json");
 
             this.skeleton = new Skeleton(skeletonData);
-            //this.skeleton.FlipX = true;
 
             // Animation
             AnimationStateData animationStateData = new AnimationStateData(skeleton.Data);

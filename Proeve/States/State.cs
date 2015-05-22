@@ -20,6 +20,7 @@ namespace Proeve.States
         public virtual void Update(GameTime gameTime) { }
         public virtual void Draw(SpriteBatch spriteBatch) { }
         public virtual void DrawAnimation(SkeletonMeshRenderer skeletonRenderer) { }
+        public virtual void DrawForeground(SpriteBatch spriteBatch) { }
 
         public State Clone()
         {

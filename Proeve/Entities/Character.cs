@@ -105,7 +105,7 @@ namespace Proeve.Entities
             this.move = move;
 
             this.special = special;
-            this.weapon = Weapon.Sword;
+            this.weapon = special == Special.None ? Weapon.Sword : Weapon.None;
 
             this.rank = rank;
             this.army = army;

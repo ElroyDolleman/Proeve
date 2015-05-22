@@ -126,15 +126,17 @@ namespace Proeve.States
                         if (c.Hitbox.Contains(Globals.mouseState.Position))
                         {
                             selectedCharacter.ResetColorEffect();
-                            WeaponIcons[selectedCharacter.weapon].sourceRectangle.X = 0;
+
+                            if (selectedCharacter.weapon != Character.Weapon.None)
+                                WeaponIcons[selectedCharacter.weapon].sourceRectangle.X = 0;
 
                             selectedCharacter = c;
-                            selectedCharacter.animation.loop = false;
 
                             selectedCharacter.ColorEffect = SelectedColor;
                             selectedCharacter.animation.Position = AnimationPosition;
 
-                            WeaponIcons[c.weapon].sourceRectangle.X += WeaponIcons[c.weapon].sourceRectangle.Width;
+                            if (selectedCharacter.weapon != Character.Weapon.None)
+                                WeaponIcons[c.weapon].sourceRectangle.X += WeaponIcons[c.weapon].sourceRectangle.Width;
 
                             dragHoldTimer = 0;
                             startDragGridPosition = Grid.ToGridLocation(selectedCharacter.position.ToPoint(), gridLocation, Globals.TileDimensions);
