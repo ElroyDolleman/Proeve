@@ -38,11 +38,12 @@ namespace Proeve.Resources
         private const string ENEMY_CHIP_SHEET = "EnemyChips";
 
         /* UI */
+        private const string UI_SHEET = "UI_sheet";
+
         // Buttons
         private const string TESTBUTTON = "startButtonPlaceHolder";
 
         // ArmyEditor
-        private const string WEAPON_BUTTONS = "weaponButtons";
 
         // Fighting
         private const string DAMAGE_TEXT = "damage188x32";
@@ -63,19 +64,17 @@ namespace Proeve.Resources
         private static E2DTexture enemyChipSheet;
 
         /* UI */
+        private static E2DTexture UISheet;
+
         // Buttons
         private static E2DTexture testButtonTexture;
 
         // Army Editor
-        private static E2DTexture swordIconTexture;
-        private static E2DTexture shieldIconTexture;
-        private static E2DTexture axeIconTexture;
 
         // Figthing
         private static E2DTexture damageTextTexture;
 
         /* BACKGROUNDS */
-        public static E2DTexture editorBackground;
         public static E2DTexture backgroundGrassLevel;
 
         #endregion
@@ -94,13 +93,21 @@ namespace Proeve.Resources
         private static Sprite enemyChipSprite;
 
         /* UI */
+        private static Sprite characterInformationUI;
+        private static Sprite healthbar;
+
         // Buttons
         private static Sprite testButtonSprite;
 
         // Figthing
         private static Sprite damageTextSprite;
+        private static Sprite fightingPopUp;
 
         // Army Editor
+        private static Sprite armyShowCase;
+        private static Sprite diamondsUI;
+        private static Sprite startButton;
+
         private static Sprite axeIconSprite;
         private static Sprite swordIconSprite;
         private static Sprite shieldIconSprite;
@@ -121,6 +128,9 @@ namespace Proeve.Resources
         public static Sprite EnemyChip { get { return (Sprite)enemyChipSprite.Clone(); } }
 
         /* UI */
+        public static Sprite CharacterInformationUI { get { return (Sprite)characterInformationUI.Clone(); } }
+        public static Sprite Healthbar { get { return (Sprite)healthbar; } }
+
         // Buttons
         public static Sprite TestButton { get { return (Sprite)testButtonSprite.Clone(); } }
 
@@ -145,6 +155,8 @@ namespace Proeve.Resources
             enemyChipSheet.Load(CHIPS_PATH, ENEMY_CHIP_SHEET);
 
             /* UI */
+            UISheet.Load(UI_PATH, UI_SHEET);
+
             // Buttons
             testButtonTexture.Load(UI_PATH, TESTBUTTON);
 
@@ -152,12 +164,9 @@ namespace Proeve.Resources
             damageTextTexture.Load(FIGHTING_UI_PATH, DAMAGE_TEXT);
 
             // Army Editor
-            swordIconTexture.Load(ARMY_EDITOR_UI_PATH, WEAPON_BUTTONS);
-            shieldIconTexture.Load(ARMY_EDITOR_UI_PATH, WEAPON_BUTTONS);
-            axeIconTexture.Load(ARMY_EDITOR_UI_PATH, WEAPON_BUTTONS);
+            
 
             /* BACKGROUNDS */
-            editorBackground.Load(BACKGROUND_PATH, BACKGROUND_EDITOR);
             backgroundGrassLevel.Load(BACKGROUND_PATH, BACKGROUND_GRASS_LEVEL);
 
             InitializeSprites();
@@ -190,13 +199,16 @@ namespace Proeve.Resources
             enemyChipSprite.origin = new Vector2(3, 3);
 
             /* UI */
+            characterInformationUI = new Sprite(UISheet, new Rectangle(1602, 0, 261, 634));
+            healthbar = new Sprite(UISheet, new Rectangle(1213, 681, 22, 37), 2); healthbar.Offset = new Point(1, 0);
+
             // Buttons
             testButtonSprite = new Sprite(testButtonTexture, new Rectangle(0, 0, 64, 64), 2, 0f);
 
             // Army Editor
-            axeIconSprite = new Sprite(swordIconTexture, new Rectangle(0, 82, 82, 82));
-            swordIconSprite = new Sprite(swordIconTexture, new Rectangle(0, 0, 82, 82));
-            shieldIconSprite = new Sprite(swordIconTexture, new Rectangle(0, 82*2, 82, 82));
+            axeIconSprite = new Sprite(UISheet, new Rectangle(945, 417, 86, 87), 2); axeIconSprite.Offset = new Point(1, 0); axeIconSprite.origin = axeIconSprite.Center;
+            swordIconSprite = new Sprite(UISheet, new Rectangle(1293, 417, 86, 87), 2); swordIconSprite.Offset = new Point(1, 0); swordIconSprite.origin = axeIconSprite.Center;
+            shieldIconSprite = new Sprite(UISheet, new Rectangle(1119, 417, 86, 87), 2); shieldIconSprite.Offset = new Point(1, 0); shieldIconSprite.origin = axeIconSprite.Center;
 
             // Fighting
             damageTextSprite = new Sprite(damageTextTexture, new Rectangle(0, 0, 181, 32), 3, 0f, 1);

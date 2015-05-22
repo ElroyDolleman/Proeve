@@ -54,9 +54,12 @@ namespace Proeve.Entities
             Shield
         }
 
-        public int Level { get { return hp + move; } }
+        private const float ANIMATION_SCALE = .38f;
+
+        public readonly int rankLevel;
         public bool IsDead { get { return !(hp > 0); } }
 
+        public readonly int maxHP;
         public int hp;
         public int move;
         public List<Point> waypoints;
@@ -92,9 +95,12 @@ namespace Proeve.Entities
         public Character(Sprite sprite, SpineAnimation animation)
             : this()
         {
-            this.sprite = sprite;
             this.animation = animation;
+            this.animation.Scale = ANIMATION_SCALE;
+
+            this.sprite = sprite;
             this.layerSprite = (Sprite)this.sprite.Clone();
+
             this.ResetColorEffect();
         }
 
@@ -109,6 +115,9 @@ namespace Proeve.Entities
 
             this.rank = rank;
             this.army = army;
+
+            this.rankLevel = hp + move;
+            this.maxHP = hp;
         }
 
         public void UpdateSpriteSheetAnimation(GameTime gameTime)

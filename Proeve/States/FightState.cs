@@ -317,18 +317,6 @@ namespace Proeve.States
 
             spriteBatch.DrawRectangle(Main.WindowRectangle, Color.Black * .5f);
 
-            spriteBatch.DrawDebugText("Rank: " + character.rank, 100, 16, Color.White);
-            spriteBatch.DrawDebugText("Weapon: " + character.weapon, 100, 32, Color.White);
-            spriteBatch.DrawDebugText("Level: " + character.Level, 100, 48, Color.White);
-            spriteBatch.DrawDebugText("Steps: " + character.move, 100, 64, Color.White);
-            spriteBatch.DrawDebugText("HP: " + character.hp, 100, 80, Color.White);
-
-            spriteBatch.DrawDebugText("Rank: " + enemyCharacter.rank, 800, 16, Color.White);
-            spriteBatch.DrawDebugText("Weapon: " + enemyCharacter.weapon, 800, 32, Color.White);
-            spriteBatch.DrawDebugText("Level: " + enemyCharacter.Level, 800, 48, Color.White);
-            spriteBatch.DrawDebugText("Steps: " + enemyCharacter.move, 800, 64, Color.White);
-            spriteBatch.DrawDebugText("HP: " + enemyCharacter.hp, 800, 80, Color.White);
-
             if (character.IsDead)
                 spriteBatch.DrawDebugText("Lost", 100, 120, Color.White);
             else if (enemyCharacter.IsDead)

@@ -67,6 +67,7 @@
     <Compile Include="States\State.cs" />
     <Compile Include="States\StateManager.cs" />
     <Compile Include="UI\Button.cs" />
+    <Compile Include="UI\Healthbar.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="E2DFramework">
@@ -87,7 +88,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Backgrounds\backgroundGrassLand.png" />
-    <Content Include="Content\Backgrounds\editorBackground.png" />
     <Content Include="Content\Backgrounds\shine.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -120,11 +120,13 @@
     <Content Include="Content\UI\Animations\Movement.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\UI\ArmyEditor\Army_editor_sheet_115x115.png" />
     <Content Include="Content\UI\ArmyEditor\weaponButtons.png" />
     <Content Include="Content\UI\Fighting\damage188x32.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\UI\startButtonPlaceHolder.png" />
+    <Content Include="Content\UI\UI_sheet.png" />
     <Content Include="Content\Weapons\Animations\axeAnimation.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

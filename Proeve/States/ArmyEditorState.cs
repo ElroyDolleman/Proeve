@@ -19,23 +19,44 @@ namespace Proeve.States
 {
     class ArmyEditorState : State
     {
-        private Color SelectedColor { get { return Color.DarkBlue * .65f; } }
-        private Vector2 WeaponIconPosition { get { return new Vector2(228, 24); } }
-        private Vector2 AnimationPosition { get { return new Vector2(660, 200); } }
-        private const byte DRAG_HOLD_TIME = 200;
+        // Read only positions
+        private Vector2 CharacterInformationUIPosition { get { return new Vector2(0, 102); } }
+        private Vector2 HealthBarPosition { get { return new Vector2(118, 378); } }
+
+        private Vector2 AxeIconPosition { get { return new Vector2(162, 620); } }
+        private Vector2 SwordIconPosition { get { return new Vector2(75, 620); } }
+        private Vector2 ShieldIconPosition { get { return new Vector2(119, 542); } }
+
+        private Vector2 AnimationPosition { get { return new Vector2(118, 240); } }
+
+        // Character
+        private Color SelectedColor { get { return Color.Black * .65f; } }
+
+        private Character selectedCharacter;
         
+        // Background
+        private Color backgroundOverColor { get { return Color.Black * .75f; } }
+
         private E2DTexture background;
 
+        // UI
+        private Sprite characterInformationUI;
+        private Healthbar healthbar;
+
+        // Grid
         private Point gridLocation;
         private int gridWidth, gridHeight;
         private Rectangle GridArea { get { return new Rectangle(gridLocation.X, gridLocation.Y, gridWidth * Globals.TILE_WIDTH, gridHeight * Globals.TILE_HEIGHT); } }
 
+        // Weapons
         private Dictionary<Character.Weapon, Sprite> WeaponIcons;
+
+        // Drag
+        private const byte DRAG_HOLD_TIME = 200;
 
         private Point startDragGridPosition;
         private float dragHoldTimer;
         private bool drag;
-        private Character selectedCharacter;
 
         public ArmyEditorState()
         {
@@ -46,24 +67,30 @@ namespace Proeve.States
         {
             drag = false;
 
+            // Set grid values
             gridWidth = Globals.GRID_WIDTH;
             gridHeight = 3;
-
             gridLocation = new Point(Globals.GridLocation.X, Globals.GridLocation.Y + Globals.TILE_HEIGHT * 5);
 
-            background = ArtAssets.editorBackground;
+            // Set sprites/textures
+            background = ArtAssets.backgroundGrassLevel;
 
-            buttons.Add(new Button(ArtAssets.TestButton, 24, 24));
-            buttons[0].ClickEvent += Ready;
+            characterInformationUI = ArtAssets.CharacterInformationUI;
+            characterInformationUI.position = CharacterInformationUIPosition;
 
+            // Set weapon icons
             WeaponIcons = new Dictionary<Character.Weapon, Sprite>();
             WeaponIcons.Add(Character.Weapon.Axe, ArtAssets.AxeIcon);
             WeaponIcons.Add(Character.Weapon.Sword, ArtAssets.SwordIcon);
             WeaponIcons.Add(Character.Weapon.Shield, ArtAssets.ShieldIcon);
 
-            WeaponIcons[Character.Weapon.Axe].position =  WeaponIconPosition;
-            WeaponIcons[Character.Weapon.Sword].position =  WeaponIconPosition + Vector2.UnitX * WeaponIcons[Character.Weapon.Sword].sourceRectangle.Width;
-            WeaponIcons[Character.Weapon.Shield].position =  WeaponIconPosition + Vector2.UnitX * WeaponIcons[Character.Weapon.Shield].sourceRectangle.Width * 2;
+            WeaponIcons[Character.Weapon.Axe].position = AxeIconPosition;
+            WeaponIcons[Character.Weapon.Sword].position = SwordIconPosition;
+            WeaponIcons[Character.Weapon.Shield].position = ShieldIconPosition;
+
+            // Set buttons
+            buttons.Add(new Button(ArtAssets.TestButton, 24, 24));
+            buttons[0].ClickEvent += Ready;
 
             Armies.army = new List<Character>();
             Armies.army.Add(Armies.GetCharacter(Character.Rank.Marshal).Clone());
@@ -92,7 +119,9 @@ namespace Proeve.States
             selectedCharacter.animation.Position = AnimationPosition;
             selectedCharacter.ColorEffect = SelectedColor;
 
-            WeaponIcons[selectedCharacter.weapon].sourceRectangle.X += WeaponIcons[selectedCharacter.weapon].sourceRectangle.Width;
+            WeaponIcons[selectedCharacter.weapon].CurrentFrame = 2;
+
+            SetHealthBar(selectedCharacter.maxHP);
         }
 
         private void Ready()
@@ -128,15 +157,17 @@ namespace Proeve.States
                             selectedCharacter.ResetColorEffect();
 
                             if (selectedCharacter.weapon != Character.Weapon.None)
-                                WeaponIcons[selectedCharacter.weapon].sourceRectangle.X = 0;
+                                WeaponIcons[selectedCharacter.weapon].CurrentFrame = 1;
 
                             selectedCharacter = c;
+
+                            SetHealthBar(selectedCharacter.maxHP);
 
                             selectedCharacter.ColorEffect = SelectedColor;
                             selectedCharacter.animation.Position = AnimationPosition;
 
                             if (selectedCharacter.weapon != Character.Weapon.None)
-                                WeaponIcons[c.weapon].sourceRectangle.X += WeaponIcons[c.weapon].sourceRectangle.Width;
+                                WeaponIcons[c.weapon].CurrentFrame = 2;
 
                             dragHoldTimer = 0;
                             startDragGridPosition = Grid.ToGridLocation(selectedCharacter.position.ToPoint(), gridLocation, Globals.TileDimensions);
@@ -144,13 +175,8 @@ namespace Proeve.States
 
                 if (selectedCharacter.special == Character.Special.None)
                     foreach (Character.Weapon w in WeaponIcons.Keys)
-                    {
-                        Sprite s = WeaponIcons[w];
-                        Rectangle hitbox = new Rectangle((int)s.position.X, (int)s.position.Y, s.sourceRectangle.Width, s.sourceRectangle.Height);
-
-                        if (hitbox.Contains(Globals.mouseState.Position))
+                        if (Vector2.Distance(Globals.mouseState.Position, WeaponIcons[w].position) < WeaponIcons[w].sourceRectangle.Width / 2)
                             ChangeWeapon(selectedCharacter, w);
-                    }
             }
 
             if (drag && Globals.mouseState.LeftButtonReleased)
@@ -184,17 +210,32 @@ namespace Proeve.States
             selectedCharacter.UpdateSpineAnimation(gameTime);
         }
 
+        private void SetHealthBar(int hp)
+        {
+            healthbar = new Healthbar(ArtAssets.Healthbar, hp);
+            healthbar.Center = HealthBarPosition;
+        }
+
         private void ChangeWeapon(Character character, Character.Weapon weapon)
         {
-            WeaponIcons[character.weapon].sourceRectangle.X = 0;
+            WeaponIcons[character.weapon].CurrentFrame = 1;
             character.weapon = weapon;
-            WeaponIcons[character.weapon].sourceRectangle.X = WeaponIcons[character.weapon].sourceRectangle.Width;
+            WeaponIcons[character.weapon].CurrentFrame = 2;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             // Draw background
             spriteBatch.DrawE2DTexture(background, Vector2.Zero);
+
+            spriteBatch.DrawRectangle(Vector2.Zero, Main.WindowWidth, GridArea.Top, backgroundOverColor);
+            spriteBatch.DrawRectangle(new Vector2(0, GridArea.Top), GridArea.Left, GridArea.Height, backgroundOverColor);
+            spriteBatch.DrawRectangle(new Vector2(GridArea.Right, GridArea.Top), Main.WindowWidth - GridArea.Right, GridArea.Height, backgroundOverColor);
+            spriteBatch.DrawRectangle(new Vector2(0, GridArea.Bottom), Main.WindowWidth, Main.WindowHeight - GridArea.Bottom, backgroundOverColor);
+
+            // UI
+            characterInformationUI.Draw(spriteBatch);
+            healthbar.Draw(spriteBatch);
 
             // Draw all character chips
             foreach(Character c in Armies.army)
@@ -217,12 +258,6 @@ namespace Proeve.States
             spriteBatch.DrawSprite(WeaponIcons[Character.Weapon.Axe]);
             spriteBatch.DrawSprite(WeaponIcons[Character.Weapon.Sword]);
             spriteBatch.DrawSprite(WeaponIcons[Character.Weapon.Shield]);
-
-            spriteBatch.DrawDebugText("Rank: " + selectedCharacter.rank, 100, 16, Color.White);
-            spriteBatch.DrawDebugText("Weapon: " + selectedCharacter.weapon, 100, 32, Color.White);
-            spriteBatch.DrawDebugText("Level: " + selectedCharacter.Level, 100, 48, Color.White);
-            spriteBatch.DrawDebugText("Steps: " + selectedCharacter.move, 100, 64, Color.White);
-            spriteBatch.DrawDebugText("HP: " + selectedCharacter.hp, 100, 80, Color.White);
         }
 
         public override void DrawAnimation(SkeletonMeshRenderer skeletonRenderer)
