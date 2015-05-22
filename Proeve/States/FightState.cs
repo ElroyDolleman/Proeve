@@ -16,6 +16,7 @@ namespace Proeve.States
 {
     class FightState : State
     {
+        // Animation hit constants
         private const float AXE_HIT_TIME = .528f;
         private const float SWORD_HIT_TIME = .528f;
         private const float SHIELD_HIT_TIME = .350f;
@@ -24,26 +25,31 @@ namespace Proeve.States
         private const float SWORD_CRIT_HIT_TIME = .528f;
         private const float SHIELD_CRIT_HIT_TIME = .528f;
 
+        // Readonly positions
         private Vector2 MyAnimationPosition { get { return new Vector2(200, 340); } }
         private Vector2 EnemyAnimationPosition { get { return new Vector2(Main.WindowWidth - 200, 340); } }
 
+        // Characters
         private Character character;
         private Character enemyCharacter;
 
+        // Fighting
         private bool myAttackTurn;
         private int damage;
 
+        // Animations
         private Dictionary<Character.Weapon, SpineAnimation> weaponAnimations;
         private Dictionary<Character.Weapon, SpineAnimation> criticalAnimations;
         private Dictionary<Character.Special, SpineAnimation> specialAnimations;
         private SpineAnimation currentAnimation;
 
+        // Flickering Fields
+        private const int FLICKER_INTERVAL = 160;
+        private const int FLICKER_LIMIT = 3;
+        private bool isFlickering;
         private bool show;
         private float flickerTimer;
         private int flickerAmount;
-
-        private const int FLICKER_INTERVAL = 100;
-        private const int FLICKER_LIMIT = 2;
 
         public FightState()
         {
@@ -57,12 +63,15 @@ namespace Proeve.States
 
             weaponAnimations.Add(Character.Weapon.Axe, AnimationAssets.AxeNormalAttack);
             weaponAnimations[Character.Weapon.Axe].Position = Main.WindowCenter;
+            weaponAnimations[Character.Weapon.Axe].loop = false;
 
             weaponAnimations.Add(Character.Weapon.Sword, AnimationAssets.SwordNormalAttack);
             weaponAnimations[Character.Weapon.Sword].Position = Main.WindowCenter;
+            weaponAnimations[Character.Weapon.Sword].loop = false;
 
             weaponAnimations.Add(Character.Weapon.Shield, AnimationAssets.ShieldNormalAttack);
             weaponAnimations[Character.Weapon.Shield].Position = Main.WindowCenter;
+            weaponAnimations[Character.Weapon.Shield].loop = false;
 
             weaponAnimations.Add(Character.Weapon.None, AnimationAssets.AxeNormalAttack);
             weaponAnimations[Character.Weapon.None].Position = Main.WindowCenter;
@@ -72,12 +81,15 @@ namespace Proeve.States
 
             criticalAnimations.Add(Character.Weapon.Axe, AnimationAssets.AxeCritAttack);
             criticalAnimations[Character.Weapon.Axe].Position = Main.WindowCenter;
+            criticalAnimations[Character.Weapon.Axe].loop = false;
 
             criticalAnimations.Add(Character.Weapon.Sword, AnimationAssets.SwordCritAttack);
             criticalAnimations[Character.Weapon.Sword].Position = Main.WindowCenter;
+            criticalAnimations[Character.Weapon.Sword].loop = false;
 
             criticalAnimations.Add(Character.Weapon.Shield, AnimationAssets.ShieldCritAttack);
             criticalAnimations[Character.Weapon.Shield].Position = Main.WindowCenter;
+            criticalAnimations[Character.Weapon.Shield].loop = false;
 
             // SPECIAL DICTIONARY
             specialAnimations = new Dictionary<Character.Special, SpineAnimation>();
@@ -122,7 +134,7 @@ namespace Proeve.States
         {
             if (!character.IsDead && !enemyCharacter.IsDead)
             {
-                if (!currentAnimation.IsPlayingAnimation)
+                if (!currentAnimation.IsPlayingAnimation && false)
                 {
                     myAttackTurn = !myAttackTurn;
 
@@ -136,6 +148,14 @@ namespace Proeve.States
 
                 currentAnimation.Update(gameTime);
 
+
+                if (currentAnimation.Time >= .5f && currentAnimation.IsPlayingAnimation && !isFlickering)
+                {
+                    isFlickering = true;
+                    flickerAmount = 0;
+                    show = false;
+                }
+
                 // FLICKER EFFECT
                 if (flickerAmount < FLICKER_LIMIT)
                 {
@@ -147,6 +167,8 @@ namespace Proeve.States
 
                         if (show)
                             flickerAmount++;
+
+                        flickerTimer = 0;
                     }
                 }
             }
@@ -248,18 +270,19 @@ namespace Proeve.States
                 spriteBatch.DrawDebugText("Damage: " + damage, 500, 120, Color.White);
 
             spriteBatch.DrawDebugText("Time: " + currentAnimation.Time, 120, 700, Color.White);
-            spriteBatch.DrawDebugText("Time: " + currentAnimation.AnimationName, 120, 700, Color.White);
+            spriteBatch.DrawDebugText(currentAnimation.AnimationName, 120, 718, Color.White);
         }
 
         public override void DrawAnimation(Spine.SkeletonMeshRenderer skeletonRenderer)
         {
-            if (show || myAttackTurn)
+            if (show || !myAttackTurn)
                 character.DrawAnimation(skeletonRenderer);
 
-            if (show || !myAttackTurn)
+            if (show || myAttackTurn)
                 enemyCharacter.DrawAnimation(skeletonRenderer);
 
-            currentAnimation.Draw(skeletonRenderer);
+            if (currentAnimation.IsPlayingAnimation)
+                currentAnimation.Draw(skeletonRenderer);
         }
     }
 }

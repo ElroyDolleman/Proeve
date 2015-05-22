@@ -129,6 +129,7 @@ namespace Proeve.States
                             WeaponIcons[selectedCharacter.weapon].sourceRectangle.X = 0;
 
                             selectedCharacter = c;
+                            selectedCharacter.animation.loop = false;
 
                             selectedCharacter.ColorEffect = SelectedColor;
                             selectedCharacter.animation.Position = AnimationPosition;

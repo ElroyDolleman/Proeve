@@ -92,6 +92,8 @@ namespace Proeve.Entities
 
         public void Update(GameTime gameTime)
         {
+            //Console.WriteLine(IsPlayingAnimation);
+
             if (IsPlayingAnimation)
             {
                 animationState.Apply(skeleton);
