@@ -16,7 +16,8 @@ namespace Proeve.Resources
             ArmyEditor,
             MatchFinder,
             GameUI,
-            Fight
+            Fight,
+            Result
         }
         public static Dictionary<STATES, State> states = new Dictionary<STATES, State>();
 
@@ -29,6 +30,7 @@ namespace Proeve.Resources
             states.Add(STATES.GameUI, new GameUIState());
             states.Add(STATES.Game, new GameState());
             states.Add(STATES.Fight, new FightState());
+            states.Add(STATES.Result, new ResultState());
         }
     }
 }

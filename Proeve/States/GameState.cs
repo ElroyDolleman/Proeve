@@ -110,30 +110,9 @@ namespace Proeve.States
 
         public void MoveUnit(Character unit, Point gridPosition)
         {
-            int[,] tempLevel = new int[level.GetLength(0), level.GetLength(1)];
-            //tempLevel = Grid.RotateGrid(tempLevel, 2);
+            int[,] tempLevel = DuplicateLevel();
 
-            for (int i = 0; i < tempLevel.GetLength(0); i++)
-            for (int j = 0; j < tempLevel.GetLength(1); j++)
-            {
-                tempLevel[i, j] = level[i, j];
-            }
-
-            for (int i = 0; i < ((GameState)StateManager.GetState(1)).GetArmy().Count(); i++)
-            {
-                Point gridpos = army[i].waypoints.Count == 0 ? Grid.ToGridLocation(new Point((int)army[i].position.X, (int)army[i].position.Y), Globals.GridLocation, Globals.TileDimensions) : army[i].waypoints[0];
-
-                if (gridpos.X >= 0)
-                    tempLevel[gridpos.X, gridpos.Y] = 1;
-            }
-
-            for (int i = 0; i < ((GameState)StateManager.GetState(1)).GetEnemyArmy().Count(); i++)
-            {
-                Point gridpos = Grid.ToGridLocation(new Point((int)enemyArmy[i].position.X, (int)enemyArmy[i].position.Y), Globals.GridLocation, Globals.TileDimensions);
-                
-                if (gridpos.X >= 0)
-                    tempLevel[gridpos.X, gridpos.Y] = 1;
-            }
+            SetUnwalkable(ref tempLevel, unit);
 
             Point GPos = unit.GridPosition;
             tempLevel[GPos.X, GPos.Y] = 0;
@@ -165,6 +144,41 @@ namespace Proeve.States
         {
             StateManager.AddState(Settings.STATES.Fight);
             ((FightState)StateManager.GetState(0)).SetUnits(attacker, defender);
+        }
+
+        public int[,] DuplicateLevel()
+        {
+            int[,] tempLevel = new int[level.GetLength(0), level.GetLength(1)];
+
+            for (int i = 0; i < level.GetLength(0); i++)
+            for (int j = 0; j < level.GetLength(1); j++)
+            {
+                tempLevel[i, j] = level[i, j];
+            }
+
+            return tempLevel;
+        }
+
+        public void SetUnwalkable(ref int[,] level, Character c)
+        {
+            for (int i = 0; i < Armies.army.Count(); i++)
+            {
+                Point gridpos = Armies.army[i].GridPosition;
+
+                if (!Armies.army[i].IsDead)
+                    level[gridpos.X, gridpos.Y] = 1;
+            }
+
+            for (int i = 0; i < Armies.opponentArmy.Count(); i++)
+            {
+                Point gridpos = Armies.opponentArmy[i].GridPosition;
+
+                if (!Armies.opponentArmy[i].IsDead)
+                    level[gridpos.X, gridpos.Y] = 1;
+            }
+
+            Point Gpos = c.GridPosition;
+            level[Gpos.X, Gpos.Y] = 0;
         }
     }
 }
