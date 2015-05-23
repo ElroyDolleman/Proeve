@@ -80,6 +80,9 @@ namespace Proeve.UI
             if (SelectedCharacter.animation.Position != AnimationPosition)
                 SelectedCharacter.animation.Position = AnimationPosition;
 
+            if (SelectedCharacter.animation.Scale != Globals.ANIMATION_SCALE)
+                SelectedCharacter.animation.Scale = Globals.ANIMATION_SCALE;
+
             if (SelectedCharacter.weapon != Character.Weapon.None)
                 WeaponIcons[c.weapon].CurrentFrame = 2;
         }

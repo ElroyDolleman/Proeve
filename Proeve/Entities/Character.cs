@@ -54,8 +54,6 @@ namespace Proeve.Entities
             Shield
         }
 
-        private const float ANIMATION_SCALE = .38f;
-
         public readonly int rankLevel;
         public bool IsDead { get { return !(hp > 0); } }
 
@@ -96,7 +94,6 @@ namespace Proeve.Entities
             : this()
         {
             this.animation = animation;
-            this.animation.Scale = ANIMATION_SCALE;
 
             this.sprite = sprite;
             this.layerSprite = (Sprite)this.sprite.Clone();

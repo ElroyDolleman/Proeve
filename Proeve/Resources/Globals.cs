@@ -36,5 +36,7 @@ namespace Proeve.Resources
         public const int GRID_HEIGHT = 8;
 
         public static StatsUI statsUI;
+
+        public const float ANIMATION_SCALE = .38f;
     }
 }
