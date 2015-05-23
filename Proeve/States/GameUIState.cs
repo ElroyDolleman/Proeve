@@ -26,6 +26,7 @@ namespace Proeve.States
         private List<int> canAttackThis;
         private List<SpineAnimation> moveArrows;
         private List<SpineAnimation> attackIcons;
+        private StatsUI statsUI;
 
         public GameUIState()
         {
@@ -34,6 +35,8 @@ namespace Proeve.States
 
         public override void Initialize()
         {
+            statsUI = Globals.statsUI;
+
             buttons.Add(new Button(ArtAssets.TestButton, Main.WindowWidth - ArtAssets.TestButton.sourceRectangle.Width, Main.WindowHeight - ArtAssets.TestButton.sourceRectangle.Height));
             buttons[0].ClickEvent = EndTurn;
 
@@ -156,6 +159,7 @@ namespace Proeve.States
                             {
                                 selected = i;
                                 contains = true;
+                                statsUI.ChangeCharacter((StateManager.GetState(1) as GameState).GetArmy()[i]);
                             }
                         }
 
@@ -321,6 +325,8 @@ namespace Proeve.States
             if (StateManager.GetState(1) is GameState)
                 ((GameState)StateManager.GetState(1)).Update(gameTime);
             Globals.multiplayerConnection.Update(gameTime);
+
+            statsUI.UpdateAnimation(gameTime);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -338,12 +344,13 @@ namespace Proeve.States
                 }
             }/**/
 
-            spriteBatch.DrawDebugText("IsTurn: " + IsTurn, new Point(4, 4), Color.White);
+            statsUI.Draw(spriteBatch);
         }
 
         public override void DrawAnimation(Spine.SkeletonMeshRenderer skeletonRenderer)
         {
-            StateManager.GetState(1).DrawAnimation(skeletonRenderer);
+            //StateManager.GetState(1).DrawAnimation(skeletonRenderer);
+
             if (moveArrows != null)
             {
                 for (int i = 0; i < moveArrows.Count; i++)
@@ -358,6 +365,8 @@ namespace Proeve.States
                     attackIcons[i].Draw(skeletonRenderer);
                 }
             }
+
+            statsUI.DrawAnimation(skeletonRenderer);
         }
 
         private void SetMovable()

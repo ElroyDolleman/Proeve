@@ -80,8 +80,7 @@ namespace Proeve.UI
             if (SelectedCharacter.animation.Position != AnimationPosition)
                 SelectedCharacter.animation.Position = AnimationPosition;
 
-            if (SelectedCharacter.animation.Scale != Globals.ANIMATION_SCALE)
-                SelectedCharacter.animation.Scale = Globals.ANIMATION_SCALE;
+            SelectedCharacter.animation.Scale = Globals.ANIMATION_SCALE;
 
             if (SelectedCharacter.weapon != Character.Weapon.None)
                 WeaponIcons[c.weapon].CurrentFrame = 2;
@@ -106,7 +105,13 @@ namespace Proeve.UI
             SelectedCharacter.weapon = newWeapon;
         }
 
-        public void Update(GameTime gameTime)
+        public void UpdateAnimation(GameTime gameTime)
+        {
+            if (SelectedCharacter != null)
+                SelectedCharacter.UpdateSpineAnimation(gameTime);
+        }
+
+        public void UpdateWeaponChanging()
         {
             if (Globals.mouseState.LeftButtonPressed && SelectedCharacter != null)
                 if (SelectedCharacter.special == Character.Special.None)

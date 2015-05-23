@@ -97,6 +97,8 @@ namespace Proeve.States
 
         private void Ready()
         {
+            statsUI.RemoveCharacter();
+
             selectedCharacter.ResetColorEffect();
             ((GameState)StateManager.GetState(1)).SetArmy(Armies.army);
 
@@ -157,8 +159,8 @@ namespace Proeve.States
                 drag = false;
             }
 
-            selectedCharacter.UpdateSpineAnimation(gameTime);
-            statsUI.Update(gameTime);
+            statsUI.UpdateAnimation(gameTime);
+            statsUI.UpdateWeaponChanging();
         }
 
         private void SelectCharacter(Character c)
