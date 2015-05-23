@@ -19,16 +19,6 @@ namespace Proeve.States
 {
     class ArmyEditorState : State
     {
-        // Read only positions
-        private Vector2 CharacterInformationUIPosition { get { return new Vector2(0, 102); } }
-        private Vector2 HealthBarPosition { get { return new Vector2(118, 378); } }
-
-        private Vector2 AxeIconPosition { get { return new Vector2(162, 620); } }
-        private Vector2 SwordIconPosition { get { return new Vector2(75, 620); } }
-        private Vector2 ShieldIconPosition { get { return new Vector2(119, 542); } }
-
-        private Vector2 AnimationPosition { get { return new Vector2(118, 240); } }
-
         // Character
         private Color SelectedColor { get { return Color.Black * .65f; } }
 
@@ -40,16 +30,12 @@ namespace Proeve.States
         private E2DTexture background;
 
         // UI
-        private Sprite characterInformationUI;
-        private Healthbar healthbar;
+        private StatsUI statsUI;
 
         // Grid
         private Point gridLocation;
         private int gridWidth, gridHeight;
         private Rectangle GridArea { get { return new Rectangle(gridLocation.X, gridLocation.Y, gridWidth * Globals.TILE_WIDTH, gridHeight * Globals.TILE_HEIGHT); } }
-
-        // Weapons
-        private Dictionary<Character.Weapon, Sprite> WeaponIcons;
 
         // Drag
         private const byte DRAG_HOLD_TIME = 200;
@@ -75,18 +61,9 @@ namespace Proeve.States
             // Set sprites/textures
             background = ArtAssets.backgroundGrassLevel;
 
-            characterInformationUI = ArtAssets.CharacterInformationUI;
-            characterInformationUI.position = CharacterInformationUIPosition;
-
-            // Set weapon icons
-            WeaponIcons = new Dictionary<Character.Weapon, Sprite>();
-            WeaponIcons.Add(Character.Weapon.Axe, ArtAssets.AxeIcon);
-            WeaponIcons.Add(Character.Weapon.Sword, ArtAssets.SwordIcon);
-            WeaponIcons.Add(Character.Weapon.Shield, ArtAssets.ShieldIcon);
-
-            WeaponIcons[Character.Weapon.Axe].position = AxeIconPosition;
-            WeaponIcons[Character.Weapon.Sword].position = SwordIconPosition;
-            WeaponIcons[Character.Weapon.Shield].position = ShieldIconPosition;
+            // UI
+            statsUI = new StatsUI();
+            Globals.statsUI = statsUI;
 
             // Set buttons
             buttons.Add(new Button(ArtAssets.TestButton, 24, 24));
@@ -115,13 +92,7 @@ namespace Proeve.States
             Armies.army[8].position = Grid.ToPixelLocation(new Point(0, 1), gridLocation, Globals.TileDimensions).ToVector2();
             Armies.army[9].position = Grid.ToPixelLocation(new Point(1, 1), gridLocation, Globals.TileDimensions).ToVector2();
 
-            selectedCharacter = Armies.army[0];
-            selectedCharacter.animation.Position = AnimationPosition;
-            selectedCharacter.ColorEffect = SelectedColor;
-
-            WeaponIcons[selectedCharacter.weapon].CurrentFrame = 2;
-
-            SetHealthBar(selectedCharacter.maxHP);
+            SelectCharacter(Armies.army[0]);
         }
 
         private void Ready()
@@ -154,29 +125,8 @@ namespace Proeve.States
                     foreach (Character c in Armies.army)
                         if (c.Hitbox.Contains(Globals.mouseState.Position))
                         {
-                            selectedCharacter.ResetColorEffect();
-
-                            if (selectedCharacter.weapon != Character.Weapon.None)
-                                WeaponIcons[selectedCharacter.weapon].CurrentFrame = 1;
-
-                            selectedCharacter = c;
-
-                            SetHealthBar(selectedCharacter.maxHP);
-
-                            selectedCharacter.ColorEffect = SelectedColor;
-                            selectedCharacter.animation.Position = AnimationPosition;
-
-                            if (selectedCharacter.weapon != Character.Weapon.None)
-                                WeaponIcons[c.weapon].CurrentFrame = 2;
-
-                            dragHoldTimer = 0;
-                            startDragGridPosition = Grid.ToGridLocation(selectedCharacter.position.ToPoint(), gridLocation, Globals.TileDimensions);
+                            SelectCharacter(c);
                         }
-
-                if (selectedCharacter.special == Character.Special.None)
-                    foreach (Character.Weapon w in WeaponIcons.Keys)
-                        if (Vector2.Distance(Globals.mouseState.Position, WeaponIcons[w].position) < WeaponIcons[w].sourceRectangle.Width / 2)
-                            ChangeWeapon(selectedCharacter, w);
             }
 
             if (drag && Globals.mouseState.LeftButtonReleased)
@@ -208,19 +158,21 @@ namespace Proeve.States
             }
 
             selectedCharacter.UpdateSpineAnimation(gameTime);
+            statsUI.Update(gameTime);
         }
 
-        private void SetHealthBar(int hp)
+        private void SelectCharacter(Character c)
         {
-            healthbar = new Healthbar(ArtAssets.Healthbar, hp);
-            healthbar.Center = HealthBarPosition;
-        }
+            if (selectedCharacter != null)
+                selectedCharacter.ResetColorEffect();
 
-        private void ChangeWeapon(Character character, Character.Weapon weapon)
-        {
-            WeaponIcons[character.weapon].CurrentFrame = 1;
-            character.weapon = weapon;
-            WeaponIcons[character.weapon].CurrentFrame = 2;
+            selectedCharacter = c;
+            statsUI.ChangeCharacter(selectedCharacter);
+
+            selectedCharacter.ColorEffect = SelectedColor;
+
+            dragHoldTimer = 0;
+            startDragGridPosition = Grid.ToGridLocation(selectedCharacter.position.ToPoint(), gridLocation, Globals.TileDimensions);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -234,8 +186,7 @@ namespace Proeve.States
             spriteBatch.DrawRectangle(new Vector2(0, GridArea.Bottom), Main.WindowWidth, Main.WindowHeight - GridArea.Bottom, backgroundOverColor);
 
             // UI
-            characterInformationUI.Draw(spriteBatch);
-            healthbar.Draw(spriteBatch);
+            statsUI.Draw(spriteBatch);
 
             // Draw all character chips
             foreach(Character c in Armies.army)
@@ -254,15 +205,11 @@ namespace Proeve.States
 
                 spriteBatch.DrawSprite(selectedCharacter.sprite, dragPos);
             }
-
-            spriteBatch.DrawSprite(WeaponIcons[Character.Weapon.Axe]);
-            spriteBatch.DrawSprite(WeaponIcons[Character.Weapon.Sword]);
-            spriteBatch.DrawSprite(WeaponIcons[Character.Weapon.Shield]);
         }
 
         public override void DrawAnimation(SkeletonMeshRenderer skeletonRenderer)
         {
-            selectedCharacter.DrawAnimation(skeletonRenderer);
+            statsUI.DrawAnimation(skeletonRenderer);
         }
     }
 }

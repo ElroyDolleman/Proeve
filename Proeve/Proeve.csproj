@@ -68,6 +68,7 @@
     <Compile Include="States\StateManager.cs" />
     <Compile Include="UI\Button.cs" />
     <Compile Include="UI\Healthbar.cs" />
+    <Compile Include="UI\StatsUI.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="E2DFramework">

@@ -95,6 +95,8 @@ namespace Proeve.Resources
         /* UI */
         private static Sprite characterInformationUI;
         private static Sprite healthbar;
+        private static Sprite stepCount;
+        private static Sprite rankText;
 
         // Buttons
         private static Sprite testButtonSprite;
@@ -115,6 +117,8 @@ namespace Proeve.Resources
         #endregion
         #region READONLY PROPERTIES
 
+        private static Point OnePixelInterspace { get { return new Point(1, 1); } }
+
         /* CHARACTERS */
         // Chips
         public static Sprite MedievalCaptainChip { get { return (Sprite)medievalCaptainChipSprite.Clone(); } }
@@ -130,6 +134,7 @@ namespace Proeve.Resources
         /* UI */
         public static Sprite CharacterInformationUI { get { return (Sprite)characterInformationUI.Clone(); } }
         public static Sprite Healthbar { get { return (Sprite)healthbar; } }
+        public static Sprite StepCount { get { return (Sprite)stepCount; } }
 
         // Buttons
         public static Sprite TestButton { get { return (Sprite)testButtonSprite.Clone(); } }
@@ -200,7 +205,9 @@ namespace Proeve.Resources
 
             /* UI */
             characterInformationUI = new Sprite(UISheet, new Rectangle(1602, 0, 261, 634));
-            healthbar = new Sprite(UISheet, new Rectangle(1213, 681, 22, 37), 2); healthbar.Offset = new Point(1, 0);
+            healthbar = new Sprite(UISheet, new Rectangle(1213, 681, 22, 37), 2); healthbar.Offset = OnePixelInterspace;
+            stepCount = new Sprite(UISheet, new Rectangle(945, 756, 22, 28), 6); stepCount.Offset = OnePixelInterspace;
+            rankText = new Sprite(UISheet, new Rectangle(1327, 505, 141, 26), 8, 0f, 1, OnePixelInterspace);
 
             // Buttons
             testButtonSprite = new Sprite(testButtonTexture, new Rectangle(0, 0, 64, 64), 2, 0f);

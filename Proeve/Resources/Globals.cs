@@ -11,6 +11,7 @@ using E2DFramework.Input;
 
 using Spine;
 
+using Proeve.UI;
 using Proeve.Entities;
 
 namespace Proeve.Resources
@@ -33,5 +34,7 @@ namespace Proeve.Resources
 
         public const int GRID_WIDTH = 8;
         public const int GRID_HEIGHT = 8;
+
+        public static StatsUI statsUI;
     }
 }
