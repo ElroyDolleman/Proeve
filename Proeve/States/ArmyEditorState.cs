@@ -19,6 +19,10 @@ namespace Proeve.States
 {
     class ArmyEditorState : State
     {
+        // Read Only Positions
+        public Vector2 ArmyShowCasePosition { get { return new Vector2(334, 10); } }
+        public Vector2 StartButtonPosition { get { return new Vector2(498, 695); } }
+
         // Character
         private Color SelectedColor { get { return Color.Black * .65f; } }
 
@@ -31,6 +35,7 @@ namespace Proeve.States
 
         // UI
         private StatsUI statsUI;
+        private Sprite armyShowCase;
 
         // Grid
         private Point gridLocation;
@@ -65,8 +70,11 @@ namespace Proeve.States
             statsUI = new StatsUI();
             Globals.statsUI = statsUI;
 
+            armyShowCase = ArtAssets.ArmyShowCase;
+            armyShowCase.position = ArmyShowCasePosition;
+
             // Set buttons
-            buttons.Add(new Button(ArtAssets.TestButton, 24, 24));
+            buttons.Add(new Button(ArtAssets.StartButton, StartButtonPosition));
             buttons[0].ClickEvent += Ready;
 
             Armies.army = new List<Character>();
@@ -189,6 +197,7 @@ namespace Proeve.States
 
             // UI
             statsUI.Draw(spriteBatch);
+            armyShowCase.Draw(spriteBatch);
 
             // Draw all character chips
             foreach(Character c in Armies.army)

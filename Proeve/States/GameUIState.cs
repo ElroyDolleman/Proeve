@@ -18,6 +18,8 @@ namespace Proeve.States
 {
     class GameUIState : State
     {
+        private Vector2 EndTurnButtonPosition { get { return new Vector2(815, 695); } }
+
         private bool IsTurn { get { return Globals.multiplayerConnection.myTurn; } }
         private int selected = -1;
         private List<bool> canMove;
@@ -37,7 +39,7 @@ namespace Proeve.States
         {
             statsUI = Globals.statsUI;
 
-            buttons.Add(new Button(ArtAssets.TestButton, Main.WindowWidth - ArtAssets.TestButton.sourceRectangle.Width, Main.WindowHeight - ArtAssets.TestButton.sourceRectangle.Height));
+            buttons.Add(new Button(ArtAssets.EndTurnButton, EndTurnButtonPosition));
             buttons[0].ClickEvent = EndTurn;
 
             SetMovable();

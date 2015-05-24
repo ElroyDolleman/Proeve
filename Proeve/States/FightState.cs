@@ -24,8 +24,11 @@ namespace Proeve.States
         private float hitInterval;
 
         // Readonly positions
-        private Vector2 MyAnimationPosition { get { return new Vector2(200, 340); } }
-        private Vector2 EnemyAnimationPosition { get { return new Vector2(Main.WindowWidth - 200, 340); } }
+        private Vector2 MyAnimationPosition { get { return new Vector2(300, 340); } }
+        private Vector2 EnemyAnimationPosition { get { return new Vector2(Main.WindowWidth - 300, 340); } }
+
+        private Vector2 MyAttackPosition { get { return new Vector2(300, 340); } }
+        private Vector2 EnemyAttackPosition { get { return new Vector2(300, 340); } }
 
         // Characters
         private Character character;
@@ -60,6 +63,9 @@ namespace Proeve.States
         // Timer
         private float timer;
         private const int ATTACK_INTERVAL = 500;
+
+        // UI
+        private Sprite background;
 
         public FightState()
         {
@@ -137,6 +143,9 @@ namespace Proeve.States
             flickerTimer = 0;
             flickerAmount = FLICKER_LIMIT;
             timer = 0;
+
+            // UI
+            background = ArtAssets.FightPopUp; background.position = Main.WindowCenter;
         }
         public void SetUnits(Character attacker, Character defender)
         {
@@ -313,11 +322,14 @@ namespace Proeve.States
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            // Background
             StateManager.GetState(2).Draw(spriteBatch);
-
             spriteBatch.DrawRectangle(Main.WindowRectangle, Color.Black * .5f);
 
-            if (character.IsDead)
+            // UI
+            background.Draw(spriteBatch);
+
+            /*if (character.IsDead)
                 spriteBatch.DrawDebugText("Lost", 100, 120, Color.White);
             else if (enemyCharacter.IsDead)
                 spriteBatch.DrawDebugText("Win", 100, 120, Color.White);
@@ -328,7 +340,7 @@ namespace Proeve.States
 
             spriteBatch.DrawDebugText("Time: " + currentAnimation.Time, 120, 700, Color.White);
             spriteBatch.DrawDebugText(currentAnimation.AnimationName, 120, 718, Color.White);
-            spriteBatch.DrawDebugText("turn: " + myAttackTurn, 120, 732, Color.White);
+            spriteBatch.DrawDebugText("turn: " + myAttackTurn, 120, 732, Color.White);*/
         }
 
         public override void DrawAnimation(Spine.SkeletonMeshRenderer skeletonRenderer)

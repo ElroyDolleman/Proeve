@@ -40,9 +40,6 @@ namespace Proeve.Resources
         /* UI */
         private const string UI_SHEET = "UI_sheet";
 
-        // Buttons
-        private const string TESTBUTTON = "startButtonPlaceHolder";
-
         // ArmyEditor
 
         // Fighting
@@ -65,9 +62,6 @@ namespace Proeve.Resources
 
         /* UI */
         private static E2DTexture UISheet;
-
-        // Buttons
-        private static E2DTexture testButtonTexture;
 
         // Army Editor
 
@@ -99,7 +93,8 @@ namespace Proeve.Resources
         private static Sprite rankText;
 
         // Buttons
-        private static Sprite testButtonSprite;
+        private static Sprite startButtonSprite;
+        private static Sprite endTurnButtonSprite;
 
         // Figthing
         private static Sprite damageTextSprite;
@@ -133,23 +128,28 @@ namespace Proeve.Resources
 
         /* UI */
         public static Sprite CharacterInformationUI { get { return (Sprite)characterInformationUI.Clone(); } }
-        public static Sprite Healthbar { get { return (Sprite)healthbar; } }
-        public static Sprite StepCount { get { return (Sprite)stepCount; } }
+        public static Sprite Healthbar { get { return (Sprite)healthbar.Clone(); } }
+        public static Sprite StepCount { get { return (Sprite)stepCount.Clone(); } }
 
         // Buttons
-        public static Sprite TestButton { get { return (Sprite)testButtonSprite.Clone(); } }
+        public static Sprite StartButton { get { return (Sprite)startButtonSprite.Clone(); } }
+        public static Sprite EndTurnButton { get { return (Sprite)endTurnButtonSprite.Clone(); } }
 
         // ArmyEditor
-        public static Sprite SwordIcon { get { return (Sprite)swordIconSprite; } }
-        public static Sprite AxeIcon { get { return (Sprite)axeIconSprite; } }
-        public static Sprite ShieldIcon { get { return (Sprite)shieldIconSprite; } }
+        public static Sprite ArmyShowCase { get { return (Sprite)armyShowCase.Clone(); } }
+        public static Sprite SwordIcon { get { return (Sprite)swordIconSprite.Clone(); } }
+        public static Sprite AxeIcon { get { return (Sprite)axeIconSprite.Clone(); } }
+        public static Sprite ShieldIcon { get { return (Sprite)shieldIconSprite.Clone(); } }
 
         // Figthing
-        public static Sprite DamageTextSprite { get { return (Sprite)damageTextSprite; } }
+        public static Sprite DamageTextSprite { get { return (Sprite)damageTextSprite.Clone(); } }
+        public static Sprite FightPopUp { get { return(Sprite)fightingPopUp.Clone(); } }
 
         #endregion
         #region FONTS
+#if DEBUG
         public static SpriteFont normalFont;
+#endif
         #endregion
 
         public static void LoadTextures()
@@ -161,9 +161,6 @@ namespace Proeve.Resources
 
             /* UI */
             UISheet.Load(UI_PATH, UI_SHEET);
-
-            // Buttons
-            testButtonTexture.Load(UI_PATH, TESTBUTTON);
 
             // Fighting
             damageTextTexture.Load(FIGHTING_UI_PATH, DAMAGE_TEXT);
@@ -179,9 +176,8 @@ namespace Proeve.Resources
 
         public static void LoadFont(ContentManager contentManager)
         {
-            normalFont = contentManager.Load<SpriteFont>(FONT_PATH + FONT_NORMAL);
-
 #if DEBUG
+            normalFont = contentManager.Load<SpriteFont>(FONT_PATH + FONT_NORMAL);
             Debug.spriteFont = Globals.contentManager.Load<SpriteFont>(FONT_PATH + FONT_NORMAL);
 #endif
         }
@@ -210,9 +206,11 @@ namespace Proeve.Resources
             rankText = new Sprite(UISheet, new Rectangle(1327, 505, 141, 26), 8, 0f, 1, OnePixelInterspace);
 
             // Buttons
-            testButtonSprite = new Sprite(testButtonTexture, new Rectangle(0, 0, 64, 64), 2, 0f);
+            startButtonSprite = new Sprite(UISheet, new Rectangle(0, 760, 324, 64));
+            endTurnButtonSprite = new Sprite(UISheet, new Rectangle(325, 760, 198, 64));
 
             // Army Editor
+            armyShowCase = new Sprite(UISheet, new Rectangle(945, 0, 656, 416));
             axeIconSprite = new Sprite(UISheet, new Rectangle(945, 417, 86, 87), 2); axeIconSprite.Offset = new Point(1, 0); axeIconSprite.origin = axeIconSprite.Center;
             swordIconSprite = new Sprite(UISheet, new Rectangle(1293, 417, 86, 87), 2); swordIconSprite.Offset = new Point(1, 0); swordIconSprite.origin = axeIconSprite.Center;
             shieldIconSprite = new Sprite(UISheet, new Rectangle(1119, 417, 86, 87), 2); shieldIconSprite.Offset = new Point(1, 0); shieldIconSprite.origin = axeIconSprite.Center;
@@ -220,6 +218,9 @@ namespace Proeve.Resources
             // Fighting
             damageTextSprite = new Sprite(damageTextTexture, new Rectangle(0, 0, 181, 32), 3, 0f, 1);
             damageTextSprite.origin = damageTextSprite.Center;
+
+            fightingPopUp = new Sprite(UISheet, new Rectangle(0, 0, 944, 759));
+            fightingPopUp.origin = fightingPopUp.Center;
         }
     }
 }

@@ -21,7 +21,7 @@ namespace Proeve.UI
         private Sprite graphic;
         private Rectangle hitbox;
 
-        public bool Down{ get { return graphic.CurrentFrame == 2; } }
+        public bool Down { get; private set; }
 
         public Button(Sprite graphic)
         {
@@ -32,6 +32,8 @@ namespace Proeve.UI
             this.graphic = graphic;
 
             this.graphic.position = new Vector2(hitbox.X, hitbox.Y);
+
+            this.Down = false;
         }
 
         public Button(Sprite graphic, Rectangle hitbox)
@@ -40,6 +42,8 @@ namespace Proeve.UI
             this.hitbox = hitbox;
 
             this.graphic.position = new Vector2(hitbox.X, hitbox.Y);
+
+            this.Down = false;
         }
 
         public Button(Sprite graphic, Vector2 position)
@@ -48,6 +52,8 @@ namespace Proeve.UI
             this.hitbox = new Rectangle((int)position.X, (int)position.Y, graphic.texture.Width, graphic.texture.Height);
 
             this.graphic.position = new Vector2(position.X, position.Y);
+
+            this.Down = false;
         }
 
         public Button(Sprite graphic, int x, int y)
@@ -61,13 +67,16 @@ namespace Proeve.UI
             if (Globals.mouseState.LeftButtonPressed)
             {
                 if (hitbox.Contains(Globals.mouseState.Position))
-                    graphic.CurrentFrame = 2;
+                    Down = true;
             }
             if (Globals.mouseState.LeftButtonReleased){
-                if (ClickEvent != null && graphic.CurrentFrame == 2)
-                    ClickEvent();
+                if (Down)
+                {
+                    if (ClickEvent != null && hitbox.Contains(Globals.mouseState.Position))
+                        ClickEvent();
 
-                graphic.CurrentFrame = 1;
+                    Down = false;
+                }
             }
         }
 
