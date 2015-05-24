@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using E2DFramework.Graphics;
 
+using Proeve.UI;
 using Proeve.Entities;
 using Proeve.Resources;
 
@@ -17,18 +18,30 @@ namespace Proeve.States
     class FightState : State
     {
         // Animation hitting
+        private Dictionary<Character.Weapon, float> hitMoments;
         private const float AXE_HIT_TIME = .4f;
         private const float SWORD_HIT_TIME = .4f;
         private const float SHIELD_HIT_TIME = .1f;
-        private Dictionary<Character.Weapon, float> hitMoments;
         private float hitInterval;
 
-        // Readonly positions
-        private Vector2 MyAnimationPosition { get { return new Vector2(300, 340); } }
-        private Vector2 EnemyAnimationPosition { get { return new Vector2(Main.WindowWidth - 300, 340); } }
+        private const float ANIMATION_SCALE = .70f;
+        private const float WEAPON_SCALE = .75f;
 
-        private Vector2 MyAttackPosition { get { return new Vector2(300, 340); } }
-        private Vector2 EnemyAttackPosition { get { return new Vector2(300, 340); } }
+        // Readonly positions
+        private Vector2 MyAnimationPosition { get { return new Vector2(310, 320); } }
+        private Vector2 EnemyAnimationPosition { get { return new Vector2(Main.WindowWidth - 310, 320); } }
+
+        private Vector2 MyAttackPosition { get { return new Vector2(Main.WindowCenter.X + 40, Main.WindowCenter.Y); } }
+        private Vector2 EnemyAttackPosition { get { return new Vector2(Main.WindowCenter.X - 40, Main.WindowCenter.Y); } }
+
+        private Vector2 MyHealthbarPosition { get { return new Vector2(300, 520); } }
+        private Vector2 EnemyHealthbarPosition { get { return new Vector2(620, 520); } }
+
+        private Vector2 MyDamagePosition { get { return new Vector2(Main.WindowWidth - 280, 380); } }
+        private Vector2 EnemyDamagePosition { get { return new Vector2(280, 380); } }
+
+        private Vector2 MyWeaponPosition { get { return new Vector2(220, 510); } }
+        private Vector2 EnemyWeaponPosition { get { return new Vector2(Main.WindowWidth - 220, 510); } }
 
         // Characters
         private Character character;
@@ -39,9 +52,6 @@ namespace Proeve.States
         private int damage;
         private Sprite damageSprite;
         private float damageSpriteAlpha;
-
-        private Vector2 EnemyDamagePosition { get { return new Vector2(200, 380); } }
-        private Vector2 MyDamagePosition { get { return new Vector2(Main.WindowWidth - 200, 380); } }
 
         private const int DAMAGE_SPEED = 3;
         private const float FADE_OUT_SPEED = .2f;
@@ -66,6 +76,10 @@ namespace Proeve.States
 
         // UI
         private Sprite background;
+        private Sprite vsText;
+        private Healthbar myHealthBar, enemyHealthbar;
+
+        private Sprite axeIcon, swordIcon, shieldIcon;
 
         public FightState()
         {
@@ -78,34 +92,35 @@ namespace Proeve.States
             weaponAnimations = new Dictionary<Character.Weapon, SpineAnimation>();
 
             weaponAnimations.Add(Character.Weapon.Axe, AnimationAssets.AxeNormalAttack);
-            weaponAnimations[Character.Weapon.Axe].Position = Main.WindowCenter;
             weaponAnimations[Character.Weapon.Axe].loop = false;
+            weaponAnimations[Character.Weapon.Axe].Scale = WEAPON_SCALE;
 
             weaponAnimations.Add(Character.Weapon.Sword, AnimationAssets.SwordNormalAttack);
-            weaponAnimations[Character.Weapon.Sword].Position = Main.WindowCenter;
             weaponAnimations[Character.Weapon.Sword].loop = false;
+            weaponAnimations[Character.Weapon.Sword].Scale = WEAPON_SCALE;
 
             weaponAnimations.Add(Character.Weapon.Shield, AnimationAssets.ShieldNormalAttack);
-            weaponAnimations[Character.Weapon.Shield].Position = Main.WindowCenter;
             weaponAnimations[Character.Weapon.Shield].loop = false;
+            weaponAnimations[Character.Weapon.Shield].Scale = WEAPON_SCALE;
 
             weaponAnimations.Add(Character.Weapon.None, AnimationAssets.AxeNormalAttack);
-            weaponAnimations[Character.Weapon.None].Position = Main.WindowCenter;
+            weaponAnimations[Character.Weapon.None].loop = false;
+            weaponAnimations[Character.Weapon.None].Scale = .13f;
 
             // CRITICAL DICTIONARY
             criticalAnimations = new Dictionary<Character.Weapon, SpineAnimation>();
 
             criticalAnimations.Add(Character.Weapon.Axe, AnimationAssets.AxeCritAttack);
-            criticalAnimations[Character.Weapon.Axe].Position = Main.WindowCenter;
             criticalAnimations[Character.Weapon.Axe].loop = false;
+            criticalAnimations[Character.Weapon.Axe].Scale = WEAPON_SCALE;
 
             criticalAnimations.Add(Character.Weapon.Sword, AnimationAssets.SwordCritAttack);
-            criticalAnimations[Character.Weapon.Sword].Position = Main.WindowCenter;
             criticalAnimations[Character.Weapon.Sword].loop = false;
+            criticalAnimations[Character.Weapon.Sword].Scale = WEAPON_SCALE;
 
             criticalAnimations.Add(Character.Weapon.Shield, AnimationAssets.ShieldCritAttack);
-            criticalAnimations[Character.Weapon.Shield].Position = Main.WindowCenter;
             criticalAnimations[Character.Weapon.Shield].loop = false;
+            criticalAnimations[Character.Weapon.Shield].Scale = WEAPON_SCALE;
 
             // SPECIAL DICTIONARY
             specialAnimations = new Dictionary<Character.Special, SpineAnimation>();
@@ -146,7 +161,13 @@ namespace Proeve.States
 
             // UI
             background = ArtAssets.FightPopUp; background.position = Main.WindowCenter;
+            vsText = ArtAssets.VSText; vsText.position = Main.WindowCenter;
+
+            axeIcon = ArtAssets.AxeIcon; axeIcon.CurrentFrame = 2;
+            swordIcon = ArtAssets.SwordIcon; swordIcon.CurrentFrame = 2;
+            shieldIcon = ArtAssets.ShieldIcon; shieldIcon.CurrentFrame = 2;
         }
+
         public void SetUnits(Character attacker, Character defender)
         {
             if (Globals.multiplayerConnection.myTurn) {
@@ -166,6 +187,12 @@ namespace Proeve.States
 
             character.animation.Position = MyAnimationPosition;
             enemyCharacter.animation.Position = EnemyAnimationPosition;
+
+            character.animation.Scale = ANIMATION_SCALE;
+            enemyCharacter.animation.Scale = ANIMATION_SCALE;
+
+            myHealthBar = new Healthbar(ArtAssets.Healthbar, character.maxHP, character.hp, MyHealthbarPosition);
+            enemyHealthbar = new Healthbar(ArtAssets.Healthbar, enemyCharacter.maxHP, enemyCharacter.hp, EnemyHealthbarPosition);
         }
 
         public override void Update(GameTime gameTime)
@@ -184,12 +211,13 @@ namespace Proeve.States
             {
                 timer = 0;
 
-                if (!character.IsDead && !enemyCharacter.IsDead) {
-                    myAttackTurn = !myAttackTurn; 
+                if (!character.IsDead && !enemyCharacter.IsDead)
+                {
+                    myAttackTurn = !myAttackTurn;
                     Attack();
                 }
                 else
-                    StateManager.RemoveState();
+                    EndFight();
             }
 
             // UPDATE WEAPON ANIMATION
@@ -233,6 +261,16 @@ namespace Proeve.States
             // UPDATE CHARACTER ANIMATION 
             character.UpdateSpineAnimation(gameTime);
             enemyCharacter.UpdateSpineAnimation(gameTime);
+
+            // UPDATE HEALTH
+            myHealthBar.hp = character.hp;
+            enemyHealthbar.hp = enemyCharacter.hp;
+        }
+
+        private void EndFight()
+        {
+
+            StateManager.RemoveState();
         }
 
         private void Attack()
@@ -244,6 +282,7 @@ namespace Proeve.States
 
             currentAnimation.Play();
             currentAnimation.FlipX = myAttackTurn;
+            currentAnimation.Position = myAttackTurn ? MyAttackPosition : EnemyAttackPosition;
 
             isFlickering = false;
 
@@ -327,20 +366,25 @@ namespace Proeve.States
             spriteBatch.DrawRectangle(Main.WindowRectangle, Color.Black * .5f);
 
             // UI
-            background.Draw(spriteBatch);
+            background.Draw(spriteBatch); 
+            vsText.Draw(spriteBatch);
 
-            /*if (character.IsDead)
-                spriteBatch.DrawDebugText("Lost", 100, 120, Color.White);
-            else if (enemyCharacter.IsDead)
-                spriteBatch.DrawDebugText("Win", 100, 120, Color.White);
-            else if (myAttackTurn)
-                spriteBatch.DrawDebugText("Damage: " + damage, 100, 120, Color.White);
-            else
-                spriteBatch.DrawDebugText("Damage: " + damage, 500, 120, Color.White);
+            myHealthBar.Draw(spriteBatch);
+            enemyHealthbar.Draw(spriteBatch);
 
-            spriteBatch.DrawDebugText("Time: " + currentAnimation.Time, 120, 700, Color.White);
-            spriteBatch.DrawDebugText(currentAnimation.AnimationName, 120, 718, Color.White);
-            spriteBatch.DrawDebugText("turn: " + myAttackTurn, 120, 732, Color.White);*/
+            switch (character.weapon)
+            {
+                case Character.Weapon.Axe: spriteBatch.DrawSprite(axeIcon, MyWeaponPosition); break;
+                case Character.Weapon.Sword: spriteBatch.DrawSprite(swordIcon, MyWeaponPosition); break;
+                case Character.Weapon.Shield: spriteBatch.DrawSprite(shieldIcon, MyWeaponPosition); break;
+            }
+
+            switch (enemyCharacter.weapon)
+            {
+                case Character.Weapon.Axe: spriteBatch.DrawSprite(axeIcon, EnemyWeaponPosition); break;
+                case Character.Weapon.Sword: spriteBatch.DrawSprite(swordIcon, EnemyWeaponPosition); break;
+                case Character.Weapon.Shield: spriteBatch.DrawSprite(shieldIcon, EnemyWeaponPosition); break;
+            }
         }
 
         public override void DrawAnimation(Spine.SkeletonMeshRenderer skeletonRenderer)

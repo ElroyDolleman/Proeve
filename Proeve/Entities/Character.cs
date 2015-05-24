@@ -57,7 +57,7 @@ namespace Proeve.Entities
         public readonly int rankLevel;
         public bool IsDead { get { return !(hp > 0); } }
 
-        public readonly int maxHP;
+        public int maxHP;
         public int hp;
         public int move;
         public List<Point> waypoints;

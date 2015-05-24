@@ -50,11 +50,17 @@ namespace Proeve.UI
 
         }
 
+        public Healthbar(Sprite bar, int maxHP, int currentHP, Vector2 position)
+            : this(bar, maxHP, position)
+        {
+            this.hp = currentHP;
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             for (int i = 0; i < bars.Count; i++)
             {
-                if (i <= hp)
+                if (i+1 <= hp)
                     bars[i].CurrentFrame = 2;
                 else
                     bars[i].CurrentFrame = 1;

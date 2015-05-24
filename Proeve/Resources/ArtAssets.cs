@@ -91,6 +91,7 @@ namespace Proeve.Resources
         private static Sprite healthbar;
         private static Sprite stepCount;
         private static Sprite rankText;
+        private static Sprite diamondsUI;
 
         // Buttons
         private static Sprite startButtonSprite;
@@ -102,8 +103,7 @@ namespace Proeve.Resources
 
         // Army Editor
         private static Sprite armyShowCase;
-        private static Sprite diamondsUI;
-        private static Sprite startButton;
+        private static Sprite vsText;
 
         private static Sprite axeIconSprite;
         private static Sprite swordIconSprite;
@@ -143,7 +143,8 @@ namespace Proeve.Resources
 
         // Figthing
         public static Sprite DamageTextSprite { get { return (Sprite)damageTextSprite.Clone(); } }
-        public static Sprite FightPopUp { get { return(Sprite)fightingPopUp.Clone(); } }
+        public static Sprite FightPopUp { get { return (Sprite)fightingPopUp.Clone(); } }
+        public static Sprite VSText { get { return (Sprite)vsText.Clone(); } }
 
         #endregion
         #region FONTS
@@ -216,8 +217,11 @@ namespace Proeve.Resources
             shieldIconSprite = new Sprite(UISheet, new Rectangle(1119, 417, 86, 87), 2); shieldIconSprite.Offset = new Point(1, 0); shieldIconSprite.origin = axeIconSprite.Center;
 
             // Fighting
-            damageTextSprite = new Sprite(damageTextTexture, new Rectangle(0, 0, 181, 32), 3, 0f, 1);
+            damageTextSprite = new Sprite(damageTextTexture, new Rectangle(0, 0, 188, 32), 3, 0f, 1);
             damageTextSprite.origin = damageTextSprite.Center;
+
+            vsText = new Sprite(UISheet, new Rectangle(524, 760, 86, 58));
+            vsText.origin = vsText.Center;
 
             fightingPopUp = new Sprite(UISheet, new Rectangle(0, 0, 944, 759));
             fightingPopUp.origin = fightingPopUp.Center;

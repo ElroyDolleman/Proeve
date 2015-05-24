@@ -337,7 +337,8 @@ namespace Proeve.Resources
                     newPosition.Y = ((Globals.GRID_HEIGHT - 1) - gridPosition.Y) * Globals.TILE_HEIGHT + Globals.GridLocation.Y;
                     character.position = newPosition;
 
-                    character.hp = reader.ReadInt32();
+                    character.maxHP = reader.ReadInt32();
+                    character.hp = character.maxHP;
                     character.move = reader.ReadInt32();
 
                     character.special = (Character.Special)reader.ReadInt32();
@@ -369,7 +370,7 @@ namespace Proeve.Resources
                 writer.Write((int)character.position.X);
                 writer.Write((int)character.position.Y);
 
-                writer.Write(character.hp);
+                writer.Write(character.maxHP);
                 writer.Write(character.move);
 
                 writer.Write((int)character.special);

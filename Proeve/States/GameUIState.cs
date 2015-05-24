@@ -18,7 +18,7 @@ namespace Proeve.States
 {
     class GameUIState : State
     {
-        private Vector2 EndTurnButtonPosition { get { return new Vector2(815, 695); } }
+        private Vector2 EndTurnButtonPosition { get { return new Vector2(794, 695); } }
 
         private bool IsTurn { get { return Globals.multiplayerConnection.myTurn; } }
         private int selected = -1;
@@ -277,6 +277,7 @@ namespace Proeve.States
                                     Rectangle hitbox = Armies.opponentArmy[canAttackThis[i]].Hitbox;
                                     if (hitbox.Contains(Globals.mouseState.Position))
                                     {
+                                        statsUI.RemoveCharacter();
                                         Globals.multiplayerConnection.SendFight(selected, canAttackThis[i]);
                                         ((GameState)StateManager.GetState(1)).AttackUnit(Armies.army[selected], Armies.opponentArmy[canAttackThis[i]]);
 
@@ -299,6 +300,7 @@ namespace Proeve.States
                                     Rectangle hitbox = Armies.army[canAttackThis[i]].Hitbox;
                                     if (hitbox.Contains(Globals.mouseState.Position))
                                     {
+                                        statsUI.RemoveCharacter();
                                         Globals.multiplayerConnection.SendFight(selected, canAttackThis[i]);
                                         ((GameState)StateManager.GetState(1)).AttackUnit(Armies.army[selected], Armies.army[canAttackThis[i]]);
 
@@ -351,7 +353,7 @@ namespace Proeve.States
 
         public override void DrawAnimation(Spine.SkeletonMeshRenderer skeletonRenderer)
         {
-            //StateManager.GetState(1).DrawAnimation(skeletonRenderer);
+            StateManager.GetState(1).DrawAnimation(skeletonRenderer);
 
             if (moveArrows != null)
             {
