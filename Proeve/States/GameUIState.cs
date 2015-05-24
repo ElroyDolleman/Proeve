@@ -412,6 +412,7 @@ namespace Proeve.States
 
         public void RecievedFight(int charIndexAttacker, int charIndexDefender)
         {
+            statsUI.RemoveCharacter();
             ((GameState)StateManager.GetState(1)).AttackUnit(Armies.opponentArmy[charIndexAttacker], Armies.army[charIndexDefender]);
         }
 
