@@ -89,6 +89,11 @@ namespace Proeve.States
             }
             // END UNFINISHED WIN/LOSE DEFINITION/EFFECT
 
+            // CONNECTION LOST
+            if (Globals.multiplayerConnection.ConnectionLost)
+                StateManager.ChangeState(Settings.STATES.Result);
+            // END CONNECTION LOST
+
             if (IsTurn)
             {
                 // CHECK IF UNIT CAN ATTACK AFTER MOVING

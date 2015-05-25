@@ -158,7 +158,7 @@ namespace Proeve.Resources
         {
             BeginRead();
 
-            if (NewReadData)
+            if (NewReadData())
             {
                 GameLogicData gameLogicData = (GameLogicData)reader.ReadInt32();
 
@@ -271,7 +271,7 @@ namespace Proeve.Resources
         {
             BeginRead();
 
-            if (NewReadData)
+            if (NewReadData())
             {
                 if (myTurn)
                     currentState = State.None;
@@ -299,7 +299,7 @@ namespace Proeve.Resources
         private void ReadConnection()
         {
             BeginRead();
-            if (NewReadData)
+            if (NewReadData())
             {
                 Connected = reader.ReadBoolean();
                 currentState = State.Army;
@@ -322,7 +322,7 @@ namespace Proeve.Resources
         {
             BeginRead();
 
-            if (NewReadData)
+            if (NewReadData())
             {
                 Armies.opponentArmy = new List<Character>();
 
@@ -423,10 +423,7 @@ namespace Proeve.Resources
                     FileStream stream = new FileStream(writeFile, FileMode.Create);
                     writer = new BinaryWriter(stream);
 
-                    if (writeValue < byte.MaxValue)
-                        writeValue++;
-                    else
-                        writeValue = 0;
+                    writeValue++;
 
                     writer.Write(writeValue);
 
@@ -448,23 +445,20 @@ namespace Proeve.Resources
             writer.Close();
         }
 
-        private bool NewReadData
+        private bool NewReadData()
         {
-            get
+            if (!ConnectionLost)
             {
-                if (!ConnectionLost)
+                byte newReadValue = reader.ReadByte();
+
+                if (newReadValue != readValue)
                 {
-                    byte newReadValue = reader.ReadByte();
-
-                    if (newReadValue != readValue)
-                    {
-                        readValue = newReadValue;
-                        return true;
-                    }
+                    readValue = newReadValue;
+                    return true;
                 }
-
-                return false;
             }
+
+            return false;
         }
 
         private void CreateFiles()

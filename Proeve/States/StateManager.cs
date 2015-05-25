@@ -29,6 +29,7 @@ namespace Proeve.States
         {
             stateList.Add(Settings.states[s].Clone());
 
+            stateList[stateList.Count-1].buttons = new List<Button>();
             stateList[stateList.Count-1].Initialize();
         }
 

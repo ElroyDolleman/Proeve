@@ -16,16 +16,20 @@ namespace Proeve.States
 
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
-            try
+            while (true)
             {
-                if (File.Exists("data1.txt"))
-                    File.Delete("data1.txt");
-                if (File.Exists("data2.txt"))
-                    File.Delete("data2.txt");
-            }
-            catch
-            {
+                try
+                {
+                    if (File.Exists("data1.txt"))
+                        File.Delete("data1.txt");
+                    if (File.Exists("data2.txt"))
+                        File.Delete("data2.txt");
+                    break;
+                }
+                catch
+                {
 
+                }
             }
 
             Globals.multiplayerConnection = null;
