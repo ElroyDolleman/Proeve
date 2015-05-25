@@ -316,7 +316,7 @@ namespace Proeve.States
                     }
                     break;
                 case Character.Special.Spy:
-                    if (defender.rank == Character.Rank.Marshal) {
+                    if (defender.rank == Character.Rank.Leader) {
                         damage = Math.Max(3, defender.hp);
                         currentAnimation = specialAnimations[attacker.special];
                     }

@@ -27,6 +27,8 @@ namespace Proeve.UI
         private Vector2 ShieldIconPosition { get { return new Vector2(75, 620); } }
 
         private Vector2 AnimationPosition { get { return new Vector2(118, 240); } }
+
+        private Vector2 RankNamePosition { get { return new Vector2(32, 125); } }
         #endregion
 
         public Character SelectedCharacter { get; private set; }
@@ -34,8 +36,10 @@ namespace Proeve.UI
 
         private Sprite background;
         private Sprite stepCount;
+        private Sprite rankName;
 
         private Dictionary<Character.Weapon, Sprite> WeaponIcons;
+        private Dictionary<Character.Rank, int> rankNameFrames;
 
         public StatsUI()
         {
@@ -55,6 +59,18 @@ namespace Proeve.UI
             WeaponIcons[Character.Weapon.Axe].position = AxeIconPosition;
             WeaponIcons[Character.Weapon.Sword].position = SwordIconPosition;
             WeaponIcons[Character.Weapon.Shield].position = ShieldIconPosition;
+
+            // Set rankNameFrames
+            rankNameFrames = new Dictionary<Character.Rank, int>();
+            rankNameFrames.Add(Character.Rank.Leader, 4);
+            rankNameFrames.Add(Character.Rank.General, 6);
+            rankNameFrames.Add(Character.Rank.Captain, 7);
+            rankNameFrames.Add(Character.Rank.Soldier, 2);
+            rankNameFrames.Add(Character.Rank.Special, 1);
+            rankNameFrames.Add(Character.Rank.Bomb, 8);
+
+            rankName = ArtAssets.RankNamesNormal;
+            rankName.position = RankNamePosition;
         }
 
         private void SetHealthBar(int hp)
@@ -73,7 +89,7 @@ namespace Proeve.UI
 
             SelectedCharacter = c;
 
-            healthbar = new Healthbar(ArtAssets.Healthbar, SelectedCharacter.hp);
+            healthbar = new Healthbar(ArtAssets.Healthbar, SelectedCharacter.maxHP, SelectedCharacter.hp, Vector2.Zero);
             healthbar.Center = HealthBarPosition;
             stepCount.CurrentFrame = SelectedCharacter.move;
 
@@ -84,6 +100,8 @@ namespace Proeve.UI
 
             if (SelectedCharacter.weapon != Character.Weapon.None)
                 WeaponIcons[c.weapon].CurrentFrame = 2;
+
+            rankName.CurrentFrame = rankNameFrames[SelectedCharacter.rank];
         }
 
         public void RemoveCharacter()
@@ -130,6 +148,8 @@ namespace Proeve.UI
 
                 if (SelectedCharacter.special != Character.Special.Bomb)
                     stepCount.Draw(spriteBatch);
+
+                rankName.Draw(spriteBatch);
             }
 
             spriteBatch.DrawSprite(WeaponIcons[Character.Weapon.Axe]);

@@ -23,10 +23,10 @@ namespace Proeve.Entities
     {
         public enum Rank
         {
-            Marshal,
+            Leader,
             General,
-            Majoor,
             Captain,
+            Soldier,
             Special,
             Bomb
         }

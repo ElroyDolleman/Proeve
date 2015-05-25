@@ -78,13 +78,13 @@ namespace Proeve.States
             buttons[0].ClickEvent += Ready;
 
             Armies.army = new List<Character>();
-            Armies.army.Add(Armies.GetCharacter(Character.Rank.Marshal).Clone());
+            Armies.army.Add(Armies.GetCharacter(Character.Rank.Leader).Clone());
             Armies.army.Add(Armies.GetCharacter(Character.Rank.General).Clone());
             Armies.army.Add(Armies.GetCharacter(Character.Rank.General).Clone());
-            Armies.army.Add(Armies.GetCharacter(Character.Rank.Majoor).Clone());
-            Armies.army.Add(Armies.GetCharacter(Character.Rank.Majoor).Clone());
             Armies.army.Add(Armies.GetCharacter(Character.Rank.Captain).Clone());
             Armies.army.Add(Armies.GetCharacter(Character.Rank.Captain).Clone());
+            Armies.army.Add(Armies.GetCharacter(Character.Rank.Soldier).Clone());
+            Armies.army.Add(Armies.GetCharacter(Character.Rank.Soldier).Clone());
             Armies.army.Add(Armies.GetCharacter(Character.Rank.Special).Clone());
             Armies.army.Add(Armies.GetCharacter(Character.Rank.Bomb).Clone());
             Armies.army.Add(Armies.GetCharacter(Character.Rank.Bomb).Clone());
