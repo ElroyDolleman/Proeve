@@ -42,7 +42,7 @@ namespace Proeve.Entities
             None,
             Spy,
             Healer,
-            Minor,
+            Miner,
             Bomb
         }
 

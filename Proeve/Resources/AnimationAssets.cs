@@ -63,7 +63,7 @@ namespace Proeve.Resources
         private static SpineAnimation medievalGeneral;
         private static SpineAnimation medievalMajoor;
         private static SpineAnimation medievalCaptain;
-        private static SpineAnimation medievalMinor;
+        private static SpineAnimation medievalMiner;
         private static SpineAnimation medievalHealer;
         private static SpineAnimation medievalSpy;
         private static SpineAnimation medievalBomb;
@@ -91,7 +91,7 @@ namespace Proeve.Resources
         public static SpineAnimation MedievalGeneral { get { return (SpineAnimation)medievalGeneral.Clone(); } }
         public static SpineAnimation MedievalMajoor { get { return (SpineAnimation)medievalMajoor.Clone(); } }
         public static SpineAnimation MedievalCaptain { get { return (SpineAnimation)medievalCaptain.Clone(); } }
-        public static SpineAnimation MedievalMinor { get { return (SpineAnimation)medievalMinor.Clone(); } }
+        public static SpineAnimation MedievalMiner { get { return (SpineAnimation)medievalMiner.Clone(); } }
         public static SpineAnimation MedievalHealer { get { return (SpineAnimation)medievalHealer.Clone(); } }
         public static SpineAnimation MedievalSpy { get { return (SpineAnimation)medievalSpy.Clone(); } }
         public static SpineAnimation MedievalBomb { get { return (SpineAnimation)medievalBomb.Clone(); } }
@@ -132,8 +132,8 @@ namespace Proeve.Resources
             medievalCaptain.LoadAnimation(graphicsDevice, contentManager, MEDIEVAL_ARMY_PATH, MEDIEVAL_CAPTAIN);
 
             // MEDIEVAL MINOR
-            medievalMinor = new SpineAnimation();
-            medievalMinor.LoadAnimation(graphicsDevice, contentManager, MEDIEVAL_ARMY_PATH, MEDIEVAL_MINOR);
+            medievalMiner = new SpineAnimation();
+            medievalMiner.LoadAnimation(graphicsDevice, contentManager, MEDIEVAL_ARMY_PATH, MEDIEVAL_MINOR);
 
             // MEDIEVAL HEALER
             medievalHealer = new SpineAnimation();

@@ -43,6 +43,9 @@ namespace Proeve.States
         private Vector2 MyWeaponPosition { get { return new Vector2(220, 510); } }
         private Vector2 EnemyWeaponPosition { get { return new Vector2(Main.WindowWidth - 220, 510); } }
 
+        private Vector2 MyRankNamePosition { get { return new Vector2(300, 490); } }
+        private Vector2 EnemyRankNamePosition { get { return new Vector2(620, 490); } }
+
         // Characters
         private Character character;
         private Character enemyCharacter;
@@ -79,6 +82,10 @@ namespace Proeve.States
         private Sprite vsText;
         private Healthbar myHealthBar, enemyHealthbar;
 
+        private Dictionary<Character.Special, int> specialRankNameFrames;
+        private Dictionary<Character.Rank, int> rankNameFrames;
+        private Sprite myRankName, enemyRankName;
+
         private Sprite axeIcon, swordIcon, shieldIcon;
 
         public FightState()
@@ -88,6 +95,7 @@ namespace Proeve.States
 
         public override void Initialize()
         {
+            #region SET DICTIONARIES
             // WEAPON DICTIONARY
             weaponAnimations = new Dictionary<Character.Weapon, SpineAnimation>();
 
@@ -133,13 +141,27 @@ namespace Proeve.States
             specialAnimations[Character.Special.Healer].Position = Main.WindowCenter;
             specialAnimations[Character.Special.Healer].loop = false;
 
-            specialAnimations.Add(Character.Special.Minor, AnimationAssets.AxeNormalAttack);
-            specialAnimations[Character.Special.Minor].Position = Main.WindowCenter;
-            specialAnimations[Character.Special.Minor].loop = false;
+            specialAnimations.Add(Character.Special.Miner, AnimationAssets.AxeNormalAttack);
+            specialAnimations[Character.Special.Miner].Position = Main.WindowCenter;
+            specialAnimations[Character.Special.Miner].loop = false;
 
             specialAnimations.Add(Character.Special.Spy, AnimationAssets.AxeNormalAttack);
             specialAnimations[Character.Special.Spy].Position = Main.WindowCenter;
             specialAnimations[Character.Special.Spy].loop = false;
+
+            // RANK NAME FRAMES
+            rankNameFrames = new Dictionary<Character.Rank, int>();
+            rankNameFrames.Add(Character.Rank.Leader, 4);
+            rankNameFrames.Add(Character.Rank.General, 5);
+            rankNameFrames.Add(Character.Rank.Captain, 6);
+            rankNameFrames.Add(Character.Rank.Soldier, 7);
+            rankNameFrames.Add(Character.Rank.Bomb, 8);
+            rankNameFrames.Add(Character.Rank.Special, 1);
+
+            specialRankNameFrames = new Dictionary<Character.Special, int>();
+            specialRankNameFrames.Add(Character.Special.Healer, 1);
+            specialRankNameFrames.Add(Character.Special.Miner, 2);
+            specialRankNameFrames.Add(Character.Special.Spy, 3);
 
             // HIT MOMENTS
             hitMoments = new Dictionary<Character.Weapon, float>();
@@ -147,6 +169,7 @@ namespace Proeve.States
             hitMoments.Add(Character.Weapon.Sword, SWORD_HIT_TIME);
             hitMoments.Add(Character.Weapon.Shield, SHIELD_HIT_TIME);
             hitMoments.Add(Character.Weapon.None, AXE_HIT_TIME);
+            #endregion
 
             // DAMAGE SPRITE
             damageSprite = ArtAssets.DamageTextSprite;
@@ -166,6 +189,12 @@ namespace Proeve.States
             axeIcon = ArtAssets.AxeIcon; axeIcon.CurrentFrame = 2;
             swordIcon = ArtAssets.SwordIcon; swordIcon.CurrentFrame = 2;
             shieldIcon = ArtAssets.ShieldIcon; shieldIcon.CurrentFrame = 2;
+
+            myRankName = ArtAssets.RankNamesBold;
+            myRankName.position = MyRankNamePosition;
+
+            enemyRankName = ArtAssets.RankNamesBold;
+            enemyRankName.position = EnemyRankNamePosition;
         }
 
         public void SetUnits(Character attacker, Character defender)
@@ -174,13 +203,13 @@ namespace Proeve.States
                 this.character = attacker;
                 this.enemyCharacter = defender;
 
-                myAttackTurn = !(enemyCharacter.special == Character.Special.Bomb && character.special != Character.Special.Minor);
+                myAttackTurn = !(enemyCharacter.special == Character.Special.Bomb && character.special != Character.Special.Miner);
             }
             else {
                 this.character = defender;
                 this.enemyCharacter = attacker;
 
-                myAttackTurn = (character.special == Character.Special.Bomb && enemyCharacter.special != Character.Special.Minor);
+                myAttackTurn = (character.special == Character.Special.Bomb && enemyCharacter.special != Character.Special.Miner);
             }
 
             Attack();
@@ -193,6 +222,9 @@ namespace Proeve.States
 
             myHealthBar = new Healthbar(ArtAssets.Healthbar, character.maxHP, character.hp, MyHealthbarPosition);
             enemyHealthbar = new Healthbar(ArtAssets.Healthbar, enemyCharacter.maxHP, enemyCharacter.hp, EnemyHealthbarPosition);
+
+            myRankName.CurrentFrame = character.special == Character.Special.None ? rankNameFrames[character.rank] : specialRankNameFrames[character.special];
+            enemyRankName.CurrentFrame = enemyCharacter.special == Character.Special.None ? rankNameFrames[enemyCharacter.rank] : specialRankNameFrames[enemyCharacter.special];
         }
 
         public override void Update(GameTime gameTime)
@@ -305,7 +337,7 @@ namespace Proeve.States
                     else
                         currentAnimation = criticalAnimations[attacker.weapon];
                     break;
-                case Character.Special.Minor:
+                case Character.Special.Miner:
                     if (defender.special == Character.Special.Bomb) {
                         damage = Math.Max(3, defender.hp);
                         currentAnimation = specialAnimations[attacker.special];
@@ -371,6 +403,9 @@ namespace Proeve.States
 
             myHealthBar.Draw(spriteBatch);
             enemyHealthbar.Draw(spriteBatch);
+
+            myRankName.Draw(spriteBatch);
+            enemyRankName.Draw(spriteBatch);
 
             switch (character.weapon)
             {

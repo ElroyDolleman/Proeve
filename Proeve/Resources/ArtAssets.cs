@@ -81,7 +81,7 @@ namespace Proeve.Resources
         private static Sprite medievalGeneralChipSprite;
         private static Sprite medievalMarshalChipSprite;
 
-        private static Sprite medievalMinorChipSprite;
+        private static Sprite medievalMinerChipSprite;
         private static Sprite medievalBombChipSprite;
 
         private static Sprite enemyChipSprite;
@@ -90,8 +90,10 @@ namespace Proeve.Resources
         private static Sprite characterInformationUI;
         private static Sprite healthbar;
         private static Sprite stepCount;
-        private static Sprite rankNamesNormal;
         private static Sprite diamondsUI;
+
+        private static Sprite rankNamesNormal;
+        private static Sprite rankNamesBold;
 
         // Buttons
         private static Sprite startButtonSprite;
@@ -121,7 +123,7 @@ namespace Proeve.Resources
         public static Sprite MedievalGeneralChip { get { return (Sprite)medievalGeneralChipSprite.Clone(); } }
         public static Sprite MedievalMarshalChip { get { return (Sprite)medievalMarshalChipSprite.Clone(); } }
 
-        public static Sprite MedievalMinorChip { get { return (Sprite)medievalMinorChipSprite.Clone(); } }
+        public static Sprite MedievalMinerChip { get { return (Sprite)medievalMinerChipSprite.Clone(); } }
         public static Sprite MedievalBombChip { get { return (Sprite)medievalBombChipSprite.Clone(); } }
 
         public static Sprite EnemyChip { get { return (Sprite)enemyChipSprite.Clone(); } }
@@ -130,7 +132,9 @@ namespace Proeve.Resources
         public static Sprite CharacterInformationUI { get { return (Sprite)characterInformationUI.Clone(); } }
         public static Sprite Healthbar { get { return (Sprite)healthbar.Clone(); } }
         public static Sprite StepCount { get { return (Sprite)stepCount.Clone(); } }
+
         public static Sprite RankNamesNormal { get { return (Sprite)rankNamesNormal.Clone(); } }
+        public static Sprite RankNamesBold { get { return (Sprite)rankNamesBold.Clone(); } }
 
         // Buttons
         public static Sprite StartButton { get { return (Sprite)startButtonSprite.Clone(); } }
@@ -195,7 +199,7 @@ namespace Proeve.Resources
             medievalGeneralChipSprite = new Sprite(chipsSheet, new Rectangle(W*2, W, W, W));
             medievalMarshalChipSprite = new Sprite(chipsSheet, new Rectangle(0, W, W, W));
 
-            medievalMinorChipSprite = new Sprite(chipsSheet, new Rectangle(W*3, 0, W, W));
+            medievalMinerChipSprite = new Sprite(chipsSheet, new Rectangle(W*3, 0, W, W));
             medievalBombChipSprite = new Sprite(chipsSheet, new Rectangle(W*3, W, W, W));
 
             enemyChipSprite = new Sprite(enemyChipSheet, new Rectangle(0, 0, 85, 85), 25, 30f, 5);
@@ -205,7 +209,9 @@ namespace Proeve.Resources
             characterInformationUI = new Sprite(UISheet, new Rectangle(1602, 0, 261, 634));
             healthbar = new Sprite(UISheet, new Rectangle(1213, 681, 22, 37), 2); healthbar.Offset = OnePixelInterspace;
             stepCount = new Sprite(UISheet, new Rectangle(945, 756, 22, 28), 6); stepCount.Offset = OnePixelInterspace;
+
             rankNamesNormal = new Sprite(UISheet, new Rectangle(1327, 505, 141, 26), 8, 0f, 1, OnePixelInterspace);
+            rankNamesBold = new Sprite(UISheet, new Rectangle(1213, 505, 113, 21), 8, 0f, 1, OnePixelInterspace);
 
             // Buttons
             startButtonSprite = new Sprite(UISheet, new Rectangle(0, 760, 324, 64));

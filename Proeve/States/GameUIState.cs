@@ -128,7 +128,7 @@ namespace Proeve.States
 
                 if (selected == -1)
                 {
-                    if (canMove[canMove.Count-3] && Armies.army[Armies.army.Count-3].special == Character.Special.Minor)
+                    if (canMove[canMove.Count-3] && Armies.army[Armies.army.Count-3].special == Character.Special.Miner)
                     {
                         if(Armies.army[Armies.army.Count - 1].IsNextTo(Armies.army[Armies.army.Count - 3]))
                         {
