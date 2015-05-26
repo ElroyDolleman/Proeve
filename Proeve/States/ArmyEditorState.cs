@@ -23,6 +23,7 @@ namespace Proeve.States
         public Vector2 ArmyShowCasePosition { get { return new Vector2(334, 10); } }
         public Vector2 StartButtonPosition { get { return new Vector2(498, 695); } }
         public Vector2 RankNamePosition { get { return new Vector2(507, 20); } }
+        public Vector2 HomeButtonPosition { get { return new Vector2(8, 10); } }
 
         // Character
         private static Dictionary<Character.Rank, Sprite> armyDict;
@@ -85,6 +86,9 @@ namespace Proeve.States
             buttons.Add(new Button(ArtAssets.StartButton, StartButtonPosition));
             buttons[0].ClickEvent += Ready;
 
+            buttons.Add(new Button(ArtAssets.HomeButton, HomeButtonPosition));
+            buttons[1].ClickEvent += Quit;
+
             Armies.army = new List<Character>();
             Armies.army.Add(Armies.GetCharacter(Character.Rank.Leader).Clone());
             Armies.army.Add(Armies.GetCharacter(Character.Rank.General).Clone());
@@ -123,6 +127,11 @@ namespace Proeve.States
             ((GameState)StateManager.GetState(1)).SetArmy(Armies.army);
 
             StateManager.ChangeState(Settings.STATES.MatchFinder);
+        }
+
+        private void Quit()
+        {
+            
         }
 
         public override void Update(GameTime gameTime)
@@ -231,8 +240,6 @@ namespace Proeve.States
 
             dragHoldTimer = 0;
             startDragGridPosition = Grid.ToGridLocation(selectedCharacter.position.ToPoint(), gridLocation, Globals.TileDimensions);
-
-            
         }
 
         private void ChangeCharacter(Character.Rank rank)

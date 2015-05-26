@@ -344,8 +344,10 @@ namespace Proeve.Resources
                     character.special = (Character.Special)reader.ReadInt32();
                     character.weapon = (Character.Weapon)reader.ReadInt32();
                     character.rank = (Character.Rank)reader.ReadInt32();
+                    character.army = (Character.Army)reader.ReadInt32();
 
-                    character.animation = (SpineAnimation)Armies.characters[(int)character.rank][0].animation.Clone();
+                    Console.WriteLine(character.army);
+                    character.animation = (SpineAnimation)Armies.characters[(int)character.rank][(int)character.army].animation.Clone();
 
                     Armies.opponentArmy.Add(character);
                 }
@@ -376,6 +378,7 @@ namespace Proeve.Resources
                 writer.Write((int)character.special);
                 writer.Write((int)character.weapon);
                 writer.Write((int)character.rank);
+                writer.Write((int)character.army);
             }
 
             EndWrite();
