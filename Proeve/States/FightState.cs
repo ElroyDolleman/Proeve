@@ -156,7 +156,7 @@ namespace Proeve.States
             rankNameFrames.Add(Character.Rank.Captain, 6);
             rankNameFrames.Add(Character.Rank.Soldier, 7);
             rankNameFrames.Add(Character.Rank.Bomb, 8);
-            rankNameFrames.Add(Character.Rank.Special, 1);
+            rankNameFrames.Add(Character.Rank.Miner, 1);
 
             specialRankNameFrames = new Dictionary<Character.Special, int>();
             specialRankNameFrames.Add(Character.Special.Healer, 1);
