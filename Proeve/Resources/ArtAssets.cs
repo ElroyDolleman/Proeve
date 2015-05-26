@@ -78,13 +78,25 @@ namespace Proeve.Resources
 
         /* CHARACTERS */
         // Chips
+        private static Sprite medievalSoldierChipSprite;
         private static Sprite medievalCaptainChipSprite;
-        private static Sprite medievalMajoorChipSprite;
         private static Sprite medievalGeneralChipSprite;
-        private static Sprite medievalMarshalChipSprite;
+        private static Sprite medievalLeaderChipSprite;
 
+        private static Sprite medievalSpyChipSprite;
         private static Sprite medievalMinerChipSprite;
+        private static Sprite medievalHealerChipSprite;
         private static Sprite medievalBombChipSprite;
+
+        private static Sprite tikiSoldierChipSprite;
+        private static Sprite tikiCaptainChipSprite;
+        private static Sprite tikiGeneralChipSprite;
+        private static Sprite tikiLeaderChipSprite;
+
+        private static Sprite tikiSpyChipSprite;
+        private static Sprite tikiMinerChipSprite;
+        private static Sprite tikiHealerChipSprite;
+        private static Sprite tikiBombChipSprite;
 
         private static Sprite enemyChipSprite;
 
@@ -123,15 +135,25 @@ namespace Proeve.Resources
 
         /* CHARACTERS */
         // Chips
+        public static Sprite MedievalSoldierChip { get { return (Sprite)tikiSoldierChipSprite.Clone(); } }
         public static Sprite MedievalCaptainChip { get { return (Sprite)medievalCaptainChipSprite.Clone(); } }
-        public static Sprite MedievalMajoorChip { get { return (Sprite)medievalMajoorChipSprite.Clone(); } }
         public static Sprite MedievalGeneralChip { get { return (Sprite)medievalGeneralChipSprite.Clone(); } }
-        public static Sprite MedievalMarshalChip { get { return (Sprite)medievalMarshalChipSprite.Clone(); } }
+        public static Sprite MedievalLeaderChip { get { return (Sprite)medievalLeaderChipSprite.Clone(); } }
 
-        public static Sprite MedievalSpyChip { get { return (Sprite)medievalMinerChipSprite.Clone(); } }
+        public static Sprite MedievalSpyChip { get { return (Sprite)medievalSpyChipSprite.Clone(); } }
         public static Sprite MedievalMinerChip { get { return (Sprite)medievalMinerChipSprite.Clone(); } }
-        public static Sprite MedievalHealerChip { get { return (Sprite)medievalMinerChipSprite.Clone(); } }
+        public static Sprite MedievalHealerChip { get { return (Sprite)medievalHealerChipSprite.Clone(); } }
         public static Sprite MedievalBombChip { get { return (Sprite)medievalBombChipSprite.Clone(); } }
+
+        public static Sprite TikiSoldierChip { get { return (Sprite)tikiSoldierChipSprite.Clone(); } }
+        public static Sprite TikiCaptainChip { get { return (Sprite)tikiCaptainChipSprite.Clone(); } }
+        public static Sprite TikiGeneralChip { get { return (Sprite)tikiGeneralChipSprite.Clone(); } }
+        public static Sprite TikiLeaderChip { get { return (Sprite)tikiLeaderChipSprite.Clone(); } }
+
+        public static Sprite TikiSpyChip { get { return (Sprite)tikiSpyChipSprite.Clone(); } }
+        public static Sprite TikiMinerChip { get { return (Sprite)tikiMinerChipSprite.Clone(); } }
+        public static Sprite TikiHealerChip { get { return (Sprite)tikiHealerChipSprite.Clone(); } }
+        public static Sprite TikiBombChip { get { return (Sprite)tikiBombChipSprite.Clone(); } }
 
         public static Sprite EnemyChip { get { return (Sprite)enemyChipSprite.Clone(); } }
 
@@ -204,13 +226,25 @@ namespace Proeve.Resources
             // Chips
             int W = 82;
 
-            medievalCaptainChipSprite = new Sprite(chipsSheet, new Rectangle(W, 0, W, W));
-            medievalMajoorChipSprite = new Sprite(chipsSheet, new Rectangle(0, 0, W, W));
+            medievalSoldierChipSprite = new Sprite(chipsSheet, new Rectangle(W, 0, W, W));
+            medievalCaptainChipSprite = new Sprite(chipsSheet, new Rectangle(0, 0, W, W));
             medievalGeneralChipSprite = new Sprite(chipsSheet, new Rectangle(W*2, W, W, W));
-            medievalMarshalChipSprite = new Sprite(chipsSheet, new Rectangle(0, W, W, W));
+            medievalLeaderChipSprite = new Sprite(chipsSheet, new Rectangle(0, W, W, W));
 
-            medievalMinerChipSprite = new Sprite(chipsSheet, new Rectangle(W*3, 0, W, W));
+            medievalSpyChipSprite = new Sprite(chipsSheet, new Rectangle(W * 2, 0, W, W));
+            medievalMinerChipSprite = new Sprite(chipsSheet, new Rectangle(W * 3, 0, W, W));
+            medievalHealerChipSprite = new Sprite(chipsSheet, new Rectangle(W, W, W, W));
             medievalBombChipSprite = new Sprite(chipsSheet, new Rectangle(W*3, W, W, W));
+
+            tikiSoldierChipSprite = new Sprite(chipsSheet, new Rectangle(W*5, 0, W, W));
+            tikiCaptainChipSprite = new Sprite(chipsSheet, new Rectangle(W*4, 0, W, W));
+            tikiGeneralChipSprite = new Sprite(chipsSheet, new Rectangle(W*6, W, W, W));
+            tikiLeaderChipSprite = new Sprite(chipsSheet, new Rectangle(W*4, W, W, W));
+
+            tikiSpyChipSprite = new Sprite(chipsSheet, new Rectangle(W*6, 0, W, W));
+            tikiMinerChipSprite = new Sprite(chipsSheet, new Rectangle(W*7, 0, W, W));
+            tikiHealerChipSprite = new Sprite(chipsSheet, new Rectangle(W*5, W, W, W));
+            tikiBombChipSprite = new Sprite(chipsSheet, new Rectangle(W*7, W, W, W));
 
             enemyChipSprite = new Sprite(enemyChipSheet, new Rectangle(0, 0, 85, 85), 25, 30f, 5);
             enemyChipSprite.origin = new Vector2(3, 3);

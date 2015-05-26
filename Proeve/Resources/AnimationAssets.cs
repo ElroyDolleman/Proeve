@@ -15,6 +15,7 @@ namespace Proeve.Resources
         #region FILEPATHS
         private const string ANIMATION_PATH = "Characters\\Animations\\";
         private const string MEDIEVAL_ARMY_PATH = ANIMATION_PATH + "MedievalArmy\\";
+        private const string TIKI_ARMY_PATH = ANIMATION_PATH + "TikiArmy\\";
 
         private const string BACKGROUND_PATH = "Backgrounds\\";
         private const string WEAPON_ANIMATION_PATH = "Weapons\\Animations\\";
@@ -24,14 +25,24 @@ namespace Proeve.Resources
         #region FILES
 
         /* MEDIEVAL ARMY */
-        private const string MEDIEVAL_MARSHAL = "kingAnimation";
+        private const string MEDIEVAL_LEADER = "kingAnimation";
         private const string MEDIEVAL_GENERAL = "dragonAnimation";
-        private const string MEDIEVAL_MAJOOR = "knightAnimation";
-        private const string MEDIEVAL_CAPTAIN = "soldierAnimation";
-        private const string MEDIEVAL_MINOR = "narAnimation";
+        private const string MEDIEVAL_CAPTAIN = "knightAnimation";
+        private const string MEDIEVAL_SOLDIER = "soldierAnimation";
+        private const string MEDIEVAL_MINER = "narAnimation";
         private const string MEDIEVAL_HEALER = "wizardAnimation";
         private const string MEDIEVAL_SPY = "spyAnimation";
         private const string MEDIEVAL_BOMB = "bombAnimation";
+
+        /* TIKI ARMY */
+        private const string TIKI_LEADER = "tikiLeader";
+        private const string TIKI_GENERAL = "tikiGeneral";
+        private const string TIKI_CAPTAIN = "tikiCaptain";
+        private const string TIKI_SOLDIER = "tikiSoldier";
+        private const string TIKI_MINER = "tikiMiner";
+        private const string TIKI_HEALER = "tikiHealer";
+        private const string TIKI_SPY = "tikiSpy";
+        private const string TIKI_BOMB = "tikiBomb";
 
         /* OTHER */
         private const string SHINE_EFFECT = "shine";
@@ -59,14 +70,24 @@ namespace Proeve.Resources
         #region ANIMATIONS
 
         /* MEDIEVAL ARMY */
-        private static SpineAnimation medievalMarshal;
+        private static SpineAnimation medievalLeader;
         private static SpineAnimation medievalGeneral;
-        private static SpineAnimation medievalMajoor;
         private static SpineAnimation medievalCaptain;
+        private static SpineAnimation medievalSoldier;
         private static SpineAnimation medievalMiner;
         private static SpineAnimation medievalHealer;
         private static SpineAnimation medievalSpy;
         private static SpineAnimation medievalBomb;
+
+        /* TIKI ARMY */
+        private static SpineAnimation tikiLeader;
+        private static SpineAnimation tikiGeneral;
+        private static SpineAnimation tikiCaptain;
+        private static SpineAnimation tikiSoldier;
+        private static SpineAnimation tikiMiner;
+        private static SpineAnimation tikiHealer;
+        private static SpineAnimation tikiSpy;
+        private static SpineAnimation tikiBomb;
 
         /* WEAPONS */
         private static SpineAnimation axeNormalAttack;
@@ -87,14 +108,24 @@ namespace Proeve.Resources
         #region READ ONLY
 
         /* MEDIEVAL ARMY */
-        public static SpineAnimation MedievalMarshal { get { return (SpineAnimation)medievalMarshal.Clone(); } }
+        public static SpineAnimation MedievalLeader { get { return (SpineAnimation)medievalLeader.Clone(); } }
         public static SpineAnimation MedievalGeneral { get { return (SpineAnimation)medievalGeneral.Clone(); } }
-        public static SpineAnimation MedievalMajoor { get { return (SpineAnimation)medievalMajoor.Clone(); } }
         public static SpineAnimation MedievalCaptain { get { return (SpineAnimation)medievalCaptain.Clone(); } }
+        public static SpineAnimation MedievalSoldier { get { return (SpineAnimation)medievalSoldier.Clone(); } }
         public static SpineAnimation MedievalMiner { get { return (SpineAnimation)medievalMiner.Clone(); } }
         public static SpineAnimation MedievalHealer { get { return (SpineAnimation)medievalHealer.Clone(); } }
         public static SpineAnimation MedievalSpy { get { return (SpineAnimation)medievalSpy.Clone(); } }
         public static SpineAnimation MedievalBomb { get { return (SpineAnimation)medievalBomb.Clone(); } }
+
+        /* TIKI ARMY */
+        public static SpineAnimation TikiLeader { get { return (SpineAnimation)tikiLeader.Clone(); } }
+        public static SpineAnimation TikiGeneral { get { return (SpineAnimation)tikiGeneral.Clone(); } }
+        public static SpineAnimation TikiCaptain { get { return (SpineAnimation)tikiCaptain.Clone(); } }
+        public static SpineAnimation TikiSoldier { get { return (SpineAnimation)tikiSoldier.Clone(); } }
+        public static SpineAnimation TikiMiner { get { return (SpineAnimation)tikiMiner.Clone(); } }
+        public static SpineAnimation TikiHealer { get { return (SpineAnimation)tikiHealer.Clone(); } }
+        public static SpineAnimation TikiSpy { get { return (SpineAnimation)tikiSpy.Clone(); } }
+        public static SpineAnimation TikiBomb { get { return (SpineAnimation)tikiBomb.Clone(); } }
 
         /* WEAPONS */
         public static SpineAnimation AxeNormalAttack { get { return (SpineAnimation)axeNormalAttack.Clone(); } }
@@ -115,25 +146,26 @@ namespace Proeve.Resources
 
         public static void LoadAnimations(GraphicsDevice graphicsDevice, ContentManager contentManager)
         {
-            // MEDIEVAL MARSHAL
-            medievalMarshal = new SpineAnimation();
-            medievalMarshal.LoadAnimation(graphicsDevice, contentManager, MEDIEVAL_ARMY_PATH, MEDIEVAL_MARSHAL);
+            #region MEDIEVAL ARMY
+            // MEDIEVAL Leader
+            medievalLeader = new SpineAnimation();
+            medievalLeader.LoadAnimation(graphicsDevice, contentManager, MEDIEVAL_ARMY_PATH, MEDIEVAL_LEADER);
 
             // MEDIEVAL GENERAL
             medievalGeneral = new SpineAnimation();
             medievalGeneral.LoadAnimation(graphicsDevice, contentManager, MEDIEVAL_ARMY_PATH, MEDIEVAL_GENERAL, "Idle");
 
-            // MEDIEVAL MAJOOR
-            medievalMajoor = new SpineAnimation();
-            medievalMajoor.LoadAnimation(graphicsDevice, contentManager, MEDIEVAL_ARMY_PATH, MEDIEVAL_MAJOOR);
-
-            // MEDIEVAL CAPTAIN
+            // MEDIEVAL Captain
             medievalCaptain = new SpineAnimation();
             medievalCaptain.LoadAnimation(graphicsDevice, contentManager, MEDIEVAL_ARMY_PATH, MEDIEVAL_CAPTAIN);
 
+            // MEDIEVAL Soldier
+            medievalSoldier = new SpineAnimation();
+            medievalSoldier.LoadAnimation(graphicsDevice, contentManager, MEDIEVAL_ARMY_PATH, MEDIEVAL_SOLDIER);
+
             // MEDIEVAL MINOR
             medievalMiner = new SpineAnimation();
-            medievalMiner.LoadAnimation(graphicsDevice, contentManager, MEDIEVAL_ARMY_PATH, MEDIEVAL_MINOR);
+            medievalMiner.LoadAnimation(graphicsDevice, contentManager, MEDIEVAL_ARMY_PATH, MEDIEVAL_MINER);
 
             // MEDIEVAL HEALER
             medievalHealer = new SpineAnimation();
@@ -146,6 +178,40 @@ namespace Proeve.Resources
             // MEDIEVAL BOMB
             medievalBomb = new SpineAnimation();
             medievalBomb.LoadAnimation(graphicsDevice, contentManager, MEDIEVAL_ARMY_PATH, MEDIEVAL_BOMB);
+            #endregion
+            #region TIKI ARMY
+            // TIKI Leader
+            tikiLeader = new SpineAnimation();
+            tikiLeader.LoadAnimation(graphicsDevice, contentManager, TIKI_ARMY_PATH, TIKI_LEADER, "Idle");
+
+            // TIKI GENERAL
+            tikiGeneral = new SpineAnimation();
+            tikiGeneral.LoadAnimation(graphicsDevice, contentManager, TIKI_ARMY_PATH, TIKI_GENERAL);
+
+            // TIKI Captain
+            tikiCaptain = new SpineAnimation();
+            tikiCaptain.LoadAnimation(graphicsDevice, contentManager, TIKI_ARMY_PATH, TIKI_CAPTAIN, "Idle");
+
+            // TIKI Soldier
+            tikiSoldier = new SpineAnimation();
+            tikiSoldier.LoadAnimation(graphicsDevice, contentManager, TIKI_ARMY_PATH, TIKI_SOLDIER);
+
+            // TIKI MINOR
+            tikiMiner = new SpineAnimation();
+            tikiMiner.LoadAnimation(graphicsDevice, contentManager, TIKI_ARMY_PATH, TIKI_MINER);
+
+            // TIKI HEALER
+            tikiHealer = new SpineAnimation();
+            tikiHealer.LoadAnimation(graphicsDevice, contentManager, TIKI_ARMY_PATH, TIKI_HEALER);
+
+            // TIKI SPY
+            tikiSpy = new SpineAnimation();
+            tikiSpy.LoadAnimation(graphicsDevice, contentManager, TIKI_ARMY_PATH, TIKI_SPY);
+
+            // TIKI BOMB
+            tikiBomb = new SpineAnimation();
+            tikiBomb.LoadAnimation(graphicsDevice, contentManager, TIKI_ARMY_PATH, TIKI_BOMB);
+            #endregion
 
             // SHINE EFFECT
             shineEffect = new SpineAnimation();
