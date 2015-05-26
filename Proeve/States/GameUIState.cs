@@ -306,6 +306,8 @@ namespace Proeve.States
                                 moveArrows.Add(AnimationAssets.ArrowIcon);
                                 GPos = Grid.ToPixelLocation(new Point(nodes[i].x, nodes[i].y), Globals.GridLocation, Globals.TileDimensions);
                                 moveArrows[i - 1].Position = new Vector2(GPos.X + Globals.TILE_WIDTH / 2, GPos.Y + Globals.TILE_HEIGHT / 2 - 20);
+                                moveArrows[i - 1].Update(gameTime);
+                                moveArrows[i - 1].Update(gameTime);
                             }
                             // END PATHFINDING FOR REACHABLE AREA
                         }
