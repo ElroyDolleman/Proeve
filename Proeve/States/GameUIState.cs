@@ -252,7 +252,7 @@ namespace Proeve.States
                     bool contains = false;
                     for (int i = 0; i < Armies.army.Count; i++)
                     {
-                        if (Armies.army[i].Hitbox.Contains(Globals.mouseState.Position) && (canMove[i] || canAttack[i]) && Armies.army[i].waypoints.Count == 0)
+                        if (Armies.army[i].Hitbox.Contains(Globals.mouseState.Position) && (canMove[i] || canAttack[i]) && Armies.army[i].waypoints.Count == 0 && !Armies.army[i].IsDead)
                         {
                             selected = i;
                             contains = true;
