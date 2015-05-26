@@ -99,9 +99,7 @@ namespace Proeve.States
                 // CHECK IF UNIT CAN ATTACK AFTER MOVING
                 for (int i = 0; i < Armies.army.Count; i++)
                 {
-                    if (!canMove[i] && !canAttack[i] && Armies.army[i].waypoints.Count == 0)
-                        Armies.army[i].ColorEffect = Color.Black * .5f;
-                    else if (!canMove[i] && canAttack[i])
+                    if (!canMove[i] && canAttack[i])
                     {
                         canAttack[i] = false;
                         if (Armies.army[i].special != Character.Special.Healer)
@@ -125,8 +123,8 @@ namespace Proeve.States
                             }
                         }
                     }
-                    else if (canAttack[i])
-                        Armies.army[i].ResetColorEffect();
+                    if (!canAttack[i] && !canMove[i] && Armies.army[i].waypoints.Count == 0)
+                        Armies.army[i].ColorEffect = Color.Black * .5f;
                 }
                 if (canMove[canMove.Count - 3] && Armies.army[Armies.army.Count - 3].special == Character.Special.Miner)
                 {
