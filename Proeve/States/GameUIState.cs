@@ -125,7 +125,7 @@ namespace Proeve.States
                             }
                         }
                     }
-                    else if (canAttack[i])
+                    else if (canAttack[i] || canMove[i])
                         Armies.army[i].ResetColorEffect();
                 }
                 if (canMove[canMove.Count - 3] && Armies.army[Armies.army.Count - 3].special == Character.Special.Miner)
