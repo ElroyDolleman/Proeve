@@ -119,6 +119,7 @@ namespace Proeve.Resources
 
         // Army Editor
         private static Sprite armyShowCase;
+        private static Sprite armyNames;
         private static Sprite vsText;
 
         private static Sprite axeIconSprite;
@@ -171,6 +172,7 @@ namespace Proeve.Resources
 
         // ArmyEditor
         public static Sprite ArmyShowCase { get { return (Sprite)armyShowCase.Clone(); } }
+        public static Sprite ArmyNames { get { return (Sprite)armyNames.Clone(); } }
         public static Sprite SwordIcon { get { return (Sprite)swordIconSprite.Clone(); } }
         public static Sprite AxeIcon { get { return (Sprite)axeIconSprite.Clone(); } }
         public static Sprite ShieldIcon { get { return (Sprite)shieldIconSprite.Clone(); } }
@@ -269,6 +271,8 @@ namespace Proeve.Resources
 
             medievalArmySheet = new Sprite(armySheetTexture, new Rectangle(0, 0, 115, 115), 8);
             tikiArmySheet = new Sprite(armySheetTexture, new Rectangle(0, 0, 115, 115), 8); tikiArmySheet.SheetPosition = new Point(0, 115);
+
+            armyNames = new Sprite(UISheet, new Rectangle(945, 505, 267, 41), 3, 0f, 1);
 
             // Fighting
             damageTextSprite = new Sprite(damageTextTexture, new Rectangle(0, 0, 188, 32), 3, 0f, 1);

@@ -27,7 +27,6 @@ namespace Proeve.Entities
             General,
             Captain,
             Soldier,
-
             Spy,
             Miner,
             Healer,
@@ -37,7 +36,8 @@ namespace Proeve.Entities
         public enum Army
         {
             Normal,
-            Tiki
+            Tiki,
+            Ocean
         }
 
         public enum Special

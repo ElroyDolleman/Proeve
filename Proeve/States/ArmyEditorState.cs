@@ -22,6 +22,7 @@ namespace Proeve.States
         // Read Only Positions
         public Vector2 ArmyShowCasePosition { get { return new Vector2(334, 10); } }
         public Vector2 StartButtonPosition { get { return new Vector2(498, 695); } }
+        public Vector2 RankNamePosition { get { return new Vector2(507, 20); } }
 
         // Character
         private static Dictionary<Character.Rank, Sprite> armyDict;
@@ -38,6 +39,7 @@ namespace Proeve.States
         // UI
         private StatsUI statsUI;
         private Sprite armyShowCase;
+        private Sprite armyName;
 
         // Grid
         private Point gridLocation;
@@ -108,6 +110,8 @@ namespace Proeve.States
 
             SelectCharacter(Armies.army[0]);
 
+            armyName = ArtAssets.ArmyNames;
+            armyName.position = RankNamePosition;
             SetArmyDictionary(Character.Army.Normal);
         }
 
@@ -273,6 +277,7 @@ namespace Proeve.States
             armyDict[Character.Rank.Healer].position = new Vector2(782, 227);
 
             currentArmy = army;
+            armyName.CurrentFrame = (int)army + 1;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -288,6 +293,7 @@ namespace Proeve.States
             // UI
             statsUI.Draw(spriteBatch);
             armyShowCase.Draw(spriteBatch);
+            armyName.Draw(spriteBatch);
 
             // Draw all character chips
             foreach(Character c in Armies.army)
