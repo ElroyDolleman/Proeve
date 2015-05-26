@@ -125,13 +125,14 @@ namespace Proeve.States
                             }
                         }
                     }
-                    else if (canAttack[i] || canMove[i])
+                    else if (canAttack[i])
                         Armies.army[i].ResetColorEffect();
                 }
                 if (canMove[canMove.Count - 3] && Armies.army[Armies.army.Count - 3].special == Character.Special.Miner)
                 {
                     if (Armies.army[Armies.army.Count - 1].IsNextTo(Armies.army[Armies.army.Count - 3]))
                     {
+                        Armies.army[canMove.Count - 1].ResetColorEffect();
                         canMove[canMove.Count - 1] = true;
                     }
                     else
@@ -140,6 +141,7 @@ namespace Proeve.States
                     }
                     if (Armies.army[Armies.army.Count - 2].IsNextTo(Armies.army[Armies.army.Count - 3]))
                     {
+                        Armies.army[canMove.Count - 2].ResetColorEffect();
                         canMove[canMove.Count - 2] = true;
                     }
                     else
