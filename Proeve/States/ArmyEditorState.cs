@@ -25,6 +25,7 @@ namespace Proeve.States
 
         // Character
         private static Dictionary<Character.Rank, Sprite> armyDict;
+        private static Character.Army currentArmy;
 
         private Color SelectedColor { get { return Color.Black * .65f; } }
         private Character selectedCharacter;
@@ -49,6 +50,10 @@ namespace Proeve.States
         private Point startDragGridPosition;
         private float dragHoldTimer;
         private bool drag;
+
+        // Next Army Buttons
+        private Rectangle leftNextButtonHitbox { get { return new Rectangle(360, 196, 32, 50); } }
+        private Rectangle rightNextButtonHitbox { get { return new Rectangle(930, 196, 32, 50); } }
 
         public ArmyEditorState()
         {
@@ -103,12 +108,7 @@ namespace Proeve.States
 
             SelectCharacter(Armies.army[0]);
 
-            armyDict = new Dictionary<Character.Rank, Sprite>();
-            armyDict.Add(Character.Rank.Leader, ArtAssets.MedievalArmySheet); armyDict[Character.Rank.Leader].CurrentFrame = 8;
-            armyDict.Add(Character.Rank.General, ArtAssets.MedievalArmySheet); armyDict[Character.Rank.Leader].CurrentFrame = 7;
-            armyDict.Add(Character.Rank.Captain, ArtAssets.MedievalArmySheet); armyDict[Character.Rank.Leader].CurrentFrame = 6;
-            armyDict.Add(Character.Rank.Soldier, ArtAssets.MedievalArmySheet); armyDict[Character.Rank.Leader].CurrentFrame = 5;
-            armyDict.Add(Character.Rank.Bomb, ArtAssets.MedievalArmySheet); armyDict[Character.Rank.Leader].CurrentFrame = 8;     
+            SetArmyDictionary(Character.Army.Normal);
         }
 
         private void Ready()
@@ -145,6 +145,42 @@ namespace Proeve.States
                         {
                             SelectCharacter(c);
                         }
+
+                // Check switchable unit
+                foreach (KeyValuePair<Character.Rank, Sprite> entry in armyDict)
+                {
+                    Rectangle hitbox = new Rectangle((int)entry.Value.position.X, (int)entry.Value.position.Y, entry.Value.sourceRectangle.Width, entry.Value.sourceRectangle.Height);
+
+                    if (hitbox.Contains(Globals.mouseState.Position))
+                    {
+                        if (selectedCharacter.special == Character.Special.None)
+                        {
+                            if (selectedCharacter.rank == entry.Key)
+                                ChangeCharacter(entry.Key);
+                        }
+                        else
+                        {
+                            switch (entry.Key)
+                            {
+                                case Character.Rank.Spy:
+                                case Character.Rank.Miner:
+                                case Character.Rank.Healer:
+                                    ChangeCharacter(entry.Key);
+                                    break;
+                                case Character.Rank.Bomb:
+                                    if (selectedCharacter.rank == Character.Rank.Bomb)
+                                        ChangeCharacter(entry.Key);
+                                    break;
+                            }
+                        }
+                    }
+                }
+
+                if (leftNextButtonHitbox.Contains(Globals.mouseState.Position))
+                    SetArmyDictionary(currentArmy == Character.Army.Normal ? Character.Army.Tiki : Character.Army.Normal);
+
+                if (rightNextButtonHitbox.Contains(Globals.mouseState.Position))
+                    SetArmyDictionary(currentArmy == Character.Army.Normal ? Character.Army.Tiki : Character.Army.Normal);
             }
 
             if (drag && Globals.mouseState.LeftButtonReleased)
@@ -191,6 +227,52 @@ namespace Proeve.States
 
             dragHoldTimer = 0;
             startDragGridPosition = Grid.ToGridLocation(selectedCharacter.position.ToPoint(), gridLocation, Globals.TileDimensions);
+
+            
+        }
+
+        private void ChangeCharacter(Character.Rank rank)
+        {
+            Vector2 position = selectedCharacter.position;
+            int index = Armies.army.IndexOf(selectedCharacter);
+
+            Armies.army[index] = Armies.GetCharacter(rank, currentArmy);
+            Armies.army[index].position = position;
+
+            SelectCharacter(Armies.army[index]);
+        }
+
+        private void SetArmyDictionary(Character.Army army)
+        {
+            Sprite armySheet;
+
+            switch (army)
+            {
+                default:
+                case Character.Army.Normal: armySheet = ArtAssets.MedievalArmySheet; break;
+                case Character.Army.Tiki: armySheet = ArtAssets.TikiArmySheet; break;
+            }
+
+            armyDict = new Dictionary<Character.Rank, Sprite>();
+            armyDict.Add(Character.Rank.Leader, (Sprite)armySheet.Clone()); armyDict[Character.Rank.Leader].CurrentFrame = 8;
+            armyDict.Add(Character.Rank.General, (Sprite)armySheet.Clone()); armyDict[Character.Rank.General].CurrentFrame = 7;
+            armyDict.Add(Character.Rank.Captain, (Sprite)armySheet.Clone()); armyDict[Character.Rank.Captain].CurrentFrame = 6;
+            armyDict.Add(Character.Rank.Soldier, (Sprite)armySheet.Clone()); armyDict[Character.Rank.Soldier].CurrentFrame = 5;
+            armyDict.Add(Character.Rank.Bomb, (Sprite)armySheet.Clone()); armyDict[Character.Rank.Bomb].CurrentFrame = 4;
+            armyDict.Add(Character.Rank.Spy, (Sprite)armySheet.Clone()); armyDict[Character.Rank.Spy].CurrentFrame = 1;
+            armyDict.Add(Character.Rank.Miner, (Sprite)armySheet.Clone()); armyDict[Character.Rank.Miner].CurrentFrame = 3;
+            armyDict.Add(Character.Rank.Healer, (Sprite)armySheet.Clone()); armyDict[Character.Rank.Healer].CurrentFrame = 2;
+
+            armyDict[Character.Rank.Leader].position = new Vector2(422, 107);
+            armyDict[Character.Rank.General].position = new Vector2(542, 107);
+            armyDict[Character.Rank.Captain].position = new Vector2(662, 107);
+            armyDict[Character.Rank.Soldier].position = new Vector2(782, 107);
+            armyDict[Character.Rank.Bomb].position = new Vector2(422, 227);
+            armyDict[Character.Rank.Spy].position = new Vector2(542, 227);
+            armyDict[Character.Rank.Miner].position = new Vector2(662, 227);
+            armyDict[Character.Rank.Healer].position = new Vector2(782, 227);
+
+            currentArmy = army;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -223,6 +305,29 @@ namespace Proeve.States
                 dragPos.Y = MathHelper.Clamp(dragPos.Y, GridArea.Top - H, GridArea.Bottom - H);
 
                 spriteBatch.DrawSprite(selectedCharacter.sprite, dragPos);
+            }
+
+            foreach (KeyValuePair<Character.Rank, Sprite> entry in armyDict)
+            {
+                entry.Value.Draw(spriteBatch);
+
+                if (selectedCharacter.rank != entry.Key)
+                {
+                    switch(entry.Key)
+                    {
+                        case Character.Rank.Miner:
+                        case Character.Rank.Spy:
+                        case Character.Rank.Healer:
+                            if (selectedCharacter.special == Character.Special.None || selectedCharacter.rank == Character.Rank.Bomb)
+                                goto default;
+                            break;
+                        default:
+                            Sprite clone = (Sprite)entry.Value.Clone();
+                            clone.colorEffect = Color.Black * .68f;
+                            clone.Draw(spriteBatch);
+                            break;
+                    }
+                }
             }
         }
 

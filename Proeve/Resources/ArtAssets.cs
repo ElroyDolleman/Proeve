@@ -135,7 +135,7 @@ namespace Proeve.Resources
 
         /* CHARACTERS */
         // Chips
-        public static Sprite MedievalSoldierChip { get { return (Sprite)tikiSoldierChipSprite.Clone(); } }
+        public static Sprite MedievalSoldierChip { get { return (Sprite)medievalSoldierChipSprite.Clone(); } }
         public static Sprite MedievalCaptainChip { get { return (Sprite)medievalCaptainChipSprite.Clone(); } }
         public static Sprite MedievalGeneralChip { get { return (Sprite)medievalGeneralChipSprite.Clone(); } }
         public static Sprite MedievalLeaderChip { get { return (Sprite)medievalLeaderChipSprite.Clone(); } }
@@ -267,8 +267,8 @@ namespace Proeve.Resources
             swordIconSprite = new Sprite(UISheet, new Rectangle(1293, 417, 86, 87), 2); swordIconSprite.Offset = new Point(1, 0); swordIconSprite.origin = axeIconSprite.Center;
             shieldIconSprite = new Sprite(UISheet, new Rectangle(1119, 417, 86, 87), 2); shieldIconSprite.Offset = new Point(1, 0); shieldIconSprite.origin = axeIconSprite.Center;
 
-            medievalArmySheet = new Sprite(armySheetTexture, new Rectangle(0, 0, 115, 115), 8, 0f, 1);
-            tikiArmySheet = new Sprite(armySheetTexture, new Rectangle(0, 0, 115, 115), 8, 0f, 1);
+            medievalArmySheet = new Sprite(armySheetTexture, new Rectangle(0, 0, 115, 115), 8);
+            tikiArmySheet = new Sprite(armySheetTexture, new Rectangle(0, 0, 115, 115), 8); tikiArmySheet.SheetPosition = new Point(0, 115);
 
             // Fighting
             damageTextSprite = new Sprite(damageTextTexture, new Rectangle(0, 0, 188, 32), 3, 0f, 1);
