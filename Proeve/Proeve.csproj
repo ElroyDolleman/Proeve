@@ -150,7 +150,6 @@
     <Content Include="Content\UI\Fighting\damage188x32.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\UI\startButtonPlaceHolder.png" />
     <Content Include="Content\UI\UI_sheet.png" />
     <Content Include="Content\Weapons\Animations\axeAnimation.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

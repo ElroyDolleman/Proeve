@@ -49,7 +49,7 @@ namespace Proeve.UI
         public Button(Sprite graphic, Vector2 position)
         {
             this.graphic = graphic;
-            this.hitbox = new Rectangle((int)position.X, (int)position.Y, graphic.texture.Width, graphic.texture.Height);
+            this.hitbox = new Rectangle((int)position.X, (int)position.Y, graphic.sourceRectangle.Width, graphic.sourceRectangle.Height);
 
             this.graphic.position = new Vector2(position.X, position.Y);
 
