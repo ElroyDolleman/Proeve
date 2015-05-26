@@ -316,7 +316,7 @@ namespace Proeve.States
 
                             for (int i = 0; i < Armies.opponentArmy.Count; i++)
                             {
-                                if (Armies.army[selected].IsNextTo(Armies.opponentArmy[i]))
+                                if (Armies.army[selected].IsNextTo(Armies.opponentArmy[i]) && !Armies.opponentArmy[i].IsDead)
                                 {
                                     canAttackThis.Add(i);
                                     attackIcons.Add(AnimationAssets.AttackIcon);
