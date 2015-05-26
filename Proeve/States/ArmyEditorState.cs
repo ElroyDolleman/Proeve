@@ -24,8 +24,9 @@ namespace Proeve.States
         public Vector2 StartButtonPosition { get { return new Vector2(498, 695); } }
 
         // Character
-        private Color SelectedColor { get { return Color.Black * .65f; } }
+        private static Dictionary<Character.Rank, Sprite> armyDict;
 
+        private Color SelectedColor { get { return Color.Black * .65f; } }
         private Character selectedCharacter;
         
         // Background
@@ -85,7 +86,7 @@ namespace Proeve.States
             Armies.army.Add(Armies.GetCharacter(Character.Rank.Captain).Clone());
             Armies.army.Add(Armies.GetCharacter(Character.Rank.Soldier).Clone());
             Armies.army.Add(Armies.GetCharacter(Character.Rank.Soldier).Clone());
-            Armies.army.Add(Armies.GetCharacter(Character.Rank.Special).Clone());
+            Armies.army.Add(Armies.GetCharacter(Character.Rank.Miner).Clone());
             Armies.army.Add(Armies.GetCharacter(Character.Rank.Bomb).Clone());
             Armies.army.Add(Armies.GetCharacter(Character.Rank.Bomb).Clone());
 
@@ -101,6 +102,13 @@ namespace Proeve.States
             Armies.army[9].position = Grid.ToPixelLocation(new Point(1, 1), gridLocation, Globals.TileDimensions).ToVector2();
 
             SelectCharacter(Armies.army[0]);
+
+            armyDict = new Dictionary<Character.Rank, Sprite>();
+            armyDict.Add(Character.Rank.Leader, ArtAssets.MedievalArmySheet); armyDict[Character.Rank.Leader].CurrentFrame = 8;
+            armyDict.Add(Character.Rank.General, ArtAssets.MedievalArmySheet); armyDict[Character.Rank.Leader].CurrentFrame = 7;
+            armyDict.Add(Character.Rank.Captain, ArtAssets.MedievalArmySheet); armyDict[Character.Rank.Leader].CurrentFrame = 6;
+            armyDict.Add(Character.Rank.Soldier, ArtAssets.MedievalArmySheet); armyDict[Character.Rank.Leader].CurrentFrame = 5;
+            armyDict.Add(Character.Rank.Bomb, ArtAssets.MedievalArmySheet); armyDict[Character.Rank.Leader].CurrentFrame = 8;     
         }
 
         private void Ready()

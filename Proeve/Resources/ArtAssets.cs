@@ -41,6 +41,7 @@ namespace Proeve.Resources
         private const string UI_SHEET = "UI_sheet";
 
         // ArmyEditor
+        private const string ARMY_SHEET = "Army_editor_sheet_115x115";
 
         // Fighting
         private const string DAMAGE_TEXT = "damage188x32";
@@ -64,6 +65,7 @@ namespace Proeve.Resources
         private static E2DTexture UISheet;
 
         // Army Editor
+        private static E2DTexture armySheetTexture;
 
         // Figthing
         private static E2DTexture damageTextTexture;
@@ -111,6 +113,9 @@ namespace Proeve.Resources
         private static Sprite swordIconSprite;
         private static Sprite shieldIconSprite;
 
+        private static Sprite medievalArmySheet;
+        private static Sprite tikiArmySheet;
+
         #endregion
         #region READONLY PROPERTIES
 
@@ -123,7 +128,9 @@ namespace Proeve.Resources
         public static Sprite MedievalGeneralChip { get { return (Sprite)medievalGeneralChipSprite.Clone(); } }
         public static Sprite MedievalMarshalChip { get { return (Sprite)medievalMarshalChipSprite.Clone(); } }
 
+        public static Sprite MedievalSpyChip { get { return (Sprite)medievalMinerChipSprite.Clone(); } }
         public static Sprite MedievalMinerChip { get { return (Sprite)medievalMinerChipSprite.Clone(); } }
+        public static Sprite MedievalHealerChip { get { return (Sprite)medievalMinerChipSprite.Clone(); } }
         public static Sprite MedievalBombChip { get { return (Sprite)medievalBombChipSprite.Clone(); } }
 
         public static Sprite EnemyChip { get { return (Sprite)enemyChipSprite.Clone(); } }
@@ -145,6 +152,9 @@ namespace Proeve.Resources
         public static Sprite SwordIcon { get { return (Sprite)swordIconSprite.Clone(); } }
         public static Sprite AxeIcon { get { return (Sprite)axeIconSprite.Clone(); } }
         public static Sprite ShieldIcon { get { return (Sprite)shieldIconSprite.Clone(); } }
+
+        public static Sprite MedievalArmySheet { get { return (Sprite)medievalArmySheet.Clone(); } }
+        public static Sprite TikiArmySheet { get { return (Sprite)tikiArmySheet.Clone(); } }
 
         // Figthing
         public static Sprite DamageTextSprite { get { return (Sprite)damageTextSprite.Clone(); } }
@@ -172,7 +182,7 @@ namespace Proeve.Resources
             damageTextTexture.Load(FIGHTING_UI_PATH, DAMAGE_TEXT);
 
             // Army Editor
-            
+            armySheetTexture.Load(ARMY_EDITOR_UI_PATH, ARMY_SHEET);
 
             /* BACKGROUNDS */
             backgroundGrassLevel.Load(BACKGROUND_PATH, BACKGROUND_GRASS_LEVEL);
@@ -222,6 +232,9 @@ namespace Proeve.Resources
             axeIconSprite = new Sprite(UISheet, new Rectangle(945, 417, 86, 87), 2); axeIconSprite.Offset = new Point(1, 0); axeIconSprite.origin = axeIconSprite.Center;
             swordIconSprite = new Sprite(UISheet, new Rectangle(1293, 417, 86, 87), 2); swordIconSprite.Offset = new Point(1, 0); swordIconSprite.origin = axeIconSprite.Center;
             shieldIconSprite = new Sprite(UISheet, new Rectangle(1119, 417, 86, 87), 2); shieldIconSprite.Offset = new Point(1, 0); shieldIconSprite.origin = axeIconSprite.Center;
+
+            medievalArmySheet = new Sprite(armySheetTexture, new Rectangle(0, 0, 115, 115), 8, 0f, 1);
+            tikiArmySheet = new Sprite(armySheetTexture, new Rectangle(0, 0, 115, 115), 8, 0f, 1);
 
             // Fighting
             damageTextSprite = new Sprite(damageTextTexture, new Rectangle(0, 0, 188, 32), 3, 0f, 1);

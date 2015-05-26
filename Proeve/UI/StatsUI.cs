@@ -39,7 +39,6 @@ namespace Proeve.UI
         private Sprite rankName;
 
         private Dictionary<Character.Weapon, Sprite> WeaponIcons;
-        private Dictionary<Character.Special, int> specialRankNameFrames;
         private Dictionary<Character.Rank, int> rankNameFrames;
 
         public StatsUI()
@@ -67,13 +66,10 @@ namespace Proeve.UI
             rankNameFrames.Add(Character.Rank.General, 6);
             rankNameFrames.Add(Character.Rank.Captain, 7);
             rankNameFrames.Add(Character.Rank.Soldier, 2);
-            rankNameFrames.Add(Character.Rank.Special, 1);
+            rankNameFrames.Add(Character.Rank.Spy, 1);
+            rankNameFrames.Add(Character.Rank.Healer, 5);
+            rankNameFrames.Add(Character.Rank.Miner, 3);
             rankNameFrames.Add(Character.Rank.Bomb, 8);
-
-            specialRankNameFrames = new Dictionary<Character.Special, int>();
-            specialRankNameFrames.Add(Character.Special.Miner, 3);
-            specialRankNameFrames.Add(Character.Special.Healer, 5);
-            specialRankNameFrames.Add(Character.Special.Spy, 1);
 
             rankName = ArtAssets.RankNamesNormal;
             rankName.position = RankNamePosition;
@@ -107,7 +103,7 @@ namespace Proeve.UI
             if (SelectedCharacter.weapon != Character.Weapon.None)
                 WeaponIcons[c.weapon].CurrentFrame = 2;
 
-            rankName.CurrentFrame = SelectedCharacter.rank != Character.Rank.Special ? rankNameFrames[SelectedCharacter.rank] : specialRankNameFrames[SelectedCharacter.special];
+            rankName.CurrentFrame = rankNameFrames[SelectedCharacter.rank];
         }
 
         public void RemoveCharacter()

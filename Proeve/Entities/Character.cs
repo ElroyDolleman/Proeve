@@ -27,8 +27,11 @@ namespace Proeve.Entities
             General,
             Captain,
             Soldier,
-            Special,
-            Bomb
+
+            Spy,
+            Miner,
+            Healer,
+            Bomb,
         }
 
         public enum Army
