@@ -106,7 +106,7 @@ namespace Proeve.States
                         {
                             for (int j = 0; j < Armies.opponentArmy.Count; j++)
                             {
-                                if(Armies.army[i].IsNextTo(Armies.opponentArmy[j]))
+                                if (Armies.army[i].IsNextTo(Armies.opponentArmy[j]) && !Armies.opponentArmy[j].IsDead)
                                 {
                                     canAttack[i] = true;
                                 }
@@ -116,7 +116,7 @@ namespace Proeve.States
                         {
                             for (int j = 0; j < Armies.army.Count; j++)
                             {
-                                if (Armies.army[i].IsNextTo(Armies.army[j]))
+                                if (Armies.army[i].IsNextTo(Armies.army[j]) && !Armies.army[j].IsDead)
                                 {
                                     canAttack[i] = true;
                                 }
