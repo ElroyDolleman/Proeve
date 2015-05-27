@@ -94,7 +94,7 @@ namespace Proeve.States
                 StateManager.ChangeState(Settings.STATES.Result);
             // END CONNECTION LOST
 
-            if (IsTurn)
+            if (IsTurn && !Globals.multiplayerConnection.IsWaitingForResponse)
             {
                 // CHECK IF UNIT CAN ATTACK AFTER MOVING
                 for (int i = 0; i < Armies.army.Count; i++)

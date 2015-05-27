@@ -346,7 +346,6 @@ namespace Proeve.Resources
                     character.rank = (Character.Rank)reader.ReadInt32();
                     character.army = (Character.Army)reader.ReadInt32();
 
-                    Console.WriteLine(character.army);
                     character.animation = (SpineAnimation)Armies.characters[(int)character.rank][(int)character.army].animation.Clone();
 
                     Armies.opponentArmy.Add(character);
