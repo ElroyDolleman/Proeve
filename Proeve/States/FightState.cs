@@ -411,7 +411,7 @@ namespace Proeve.States
 
             // UI
             background.Draw(spriteBatch); 
-            vsText.Draw(spriteBatch);
+            if (!isHealing) vsText.Draw(spriteBatch);
 
             myHealthBar.Draw(spriteBatch);
             enemyHealthbar.Draw(spriteBatch);

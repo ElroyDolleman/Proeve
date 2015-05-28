@@ -66,18 +66,16 @@ namespace Proeve.States
                     attackIcons[i].Update(gameTime);
                 }
             }
-            if (selected > -1 && canAttack[selected])
+            if (selected >= 0 && canAttackThis != null && canAttack[selected])
             {
                 for (int i = 0; i < canAttackThis.Count; i++)
                 {
                     Character c = Armies.opponentArmy[canAttackThis[i]];
-
                     
                     c.UpdateSpriteSheetAnimation(gameTime);
 
                     if (c.sprite.CurrentFrame == 1)
                         c.sprite.CurrentFrame = 2;
-
                 }
             }
             // END UPDATE ANIMATION
@@ -185,7 +183,7 @@ namespace Proeve.States
                                 }
                             }
                         }
-                        if (canAttack[selected])
+                        if (selected >= 0 && canAttack[selected])
                         {
                             if (selected >= 0 && Armies.army[selected].special != Character.Special.Healer)
                             {
@@ -237,7 +235,7 @@ namespace Proeve.States
 
                         if (!contains)
                         {
-                            selected = -1;
+                            //selected = -1;
                             canMoveTo = null;
                         }
                         moveArrows = null;
@@ -255,7 +253,7 @@ namespace Proeve.States
                         if (Armies.army[i].Hitbox.Contains(Globals.mouseState.Position) && (canMove[i] || canAttack[i]) && Armies.army[i].waypoints.Count == 0 && !Armies.army[i].IsDead)
                         {
                             bool valid = true;
-                            if (canAttackThis != null && Armies.army[Armies.army.Count-3].special == Character.Special.Healer) {
+                            if (canAttackThis != null && selected >= 0 && Armies.army[selected].special == Character.Special.Healer) {
                                 for (int j = 0; j < canAttackThis.Count; j++)
                                 {
                                     if(i == canAttackThis[j])
@@ -275,7 +273,7 @@ namespace Proeve.States
 
                     if (!contains)
                     {
-                        selected = -1;
+                        //selected = -1;
                     }
                     else if (selected != -1)
                     {
@@ -458,7 +456,7 @@ namespace Proeve.States
         public void RecievedFight(int charIndexAttacker, int charIndexDefender)
         {
             statsUI.RemoveCharacter();
-            ((GameState)StateManager.GetState(1)).AttackUnit(Armies.opponentArmy[charIndexAttacker], Armies.army[charIndexDefender]);
+            ((GameState)StateManager.GetState(1)).AttackUnit(Armies.opponentArmy[charIndexAttacker], Armies.opponentArmy[charIndexAttacker].special != Character.Special.Healer ? Armies.army[charIndexDefender] : Armies.opponentArmy[charIndexDefender]);
         }
 
         private void OtherPlayerEndedHisTurn()
