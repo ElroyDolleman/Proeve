@@ -102,17 +102,15 @@ namespace Proeve.States
                     if (!canMove[i] && canAttack[i])
                     {
                         canAttack[i] = false;
-                        if (Armies.army[i].special != Character.Special.Healer)
+                        
+                        for (int j = 0; j < Armies.opponentArmy.Count; j++)
                         {
-                            for (int j = 0; j < Armies.opponentArmy.Count; j++)
+                            if (Armies.army[i].IsNextTo(Armies.opponentArmy[j]) && !Armies.opponentArmy[j].IsDead)
                             {
-                                if (Armies.army[i].IsNextTo(Armies.opponentArmy[j]) && !Armies.opponentArmy[j].IsDead)
-                                {
-                                    canAttack[i] = true;
-                                }
+                                canAttack[i] = true;
                             }
                         }
-                        else
+                        if (Armies.army[i].special == Character.Special.Healer)
                         {
                             for (int j = 0; j < Armies.army.Count; j++)
                             {
@@ -186,30 +184,29 @@ namespace Proeve.States
                         }
                         if (canAttackThis != null)
                         {
-                            if (selected >= 0 && Armies.army[selected].special != Character.Special.Healer)
+                            
+                            for (int i = 0; i < canAttackThis.Count; i++)
                             {
-                                for (int i = 0; i < canAttackThis.Count; i++)
+                                Armies.opponentArmy[canAttackThis[i]].sprite.CurrentFrame = 1;
+                            }
+                            for (int i = 0; i < canAttackThis.Count; i++)
+                            {
+                                Rectangle hitbox = Armies.opponentArmy[canAttackThis[i]].Hitbox;
+                                if (hitbox.Contains(Globals.mouseState.Position))
                                 {
-                                    Armies.opponentArmy[canAttackThis[i]].sprite.CurrentFrame = 1;
-                                }
-                                for (int i = 0; i < canAttackThis.Count; i++)
-                                {
-                                    Rectangle hitbox = Armies.opponentArmy[canAttackThis[i]].Hitbox;
-                                    if (hitbox.Contains(Globals.mouseState.Position))
-                                    {
-                                        statsUI.RemoveCharacter();
-                                        Globals.multiplayerConnection.SendFight(selected, canAttackThis[i]);
-                                        ((GameState)StateManager.GetState(1)).AttackUnit(Armies.army[selected], Armies.opponentArmy[canAttackThis[i]]);
+                                    statsUI.RemoveCharacter();
+                                    Globals.multiplayerConnection.SendFight(selected, canAttackThis[i]);
+                                    ((GameState)StateManager.GetState(1)).AttackUnit(Armies.army[selected], Armies.opponentArmy[canAttackThis[i]]);
 
-                                        canAttack[selected] = false;
-                                        selected = -1;
-                                        contains = true;
-                                        canAttackThis = null;
-                                        break;
-                                    }
+                                    canAttack[selected] = false;
+                                    selected = -1;
+                                    contains = true;
+                                    canAttackThis = null;
+                                    break;
                                 }
                             }
-                            else
+                            
+                            if (selected >= 0 && Armies.army[selected].special == Character.Special.Healer)
                             {
                                 for (int i = 0; i < canAttackThis.Count; i++)
                                 {
@@ -244,8 +241,6 @@ namespace Proeve.States
                         attackIcons = null;
                     }
                 }
-                //if (selected == -1)
-                //{
 
                 if (Globals.mouseState.LeftButtonPressed)
                 {
@@ -332,8 +327,6 @@ namespace Proeve.States
                         }
                     }
                 }
-                //}
-                //else
             }
 
             if (StateManager.GetState(1) is GameState)
@@ -346,17 +339,6 @@ namespace Proeve.States
         public override void Draw(SpriteBatch spriteBatch)
         {
             StateManager.GetState(1).Draw(spriteBatch);
-            
-            /*if (selected >= 0)
-            {
-                if (canMove[selected])
-                {
-                    for (int i = 0; i < canMoveTo.Count; i++)
-                    {
-                        spriteBatch.DrawRectangle(new Rectangle(Grid.ToPixelLocation(new Point((int)canMoveTo[i].X, (int)canMoveTo[i].Y), Globals.GridLocation, Globals.TileDimensions).X, Grid.ToPixelLocation(new Point((int)canMoveTo[i].X, (int)canMoveTo[i].Y), Globals.GridLocation, Globals.TileDimensions).Y, Globals.TILE_WIDTH, Globals.TILE_HEIGHT), Color.BlueViolet * .50f);
-                    }
-                }
-            }/**/
 
             statsUI.Draw(spriteBatch);
         }
