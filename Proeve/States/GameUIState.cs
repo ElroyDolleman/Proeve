@@ -183,9 +183,9 @@ namespace Proeve.States
                                 }
                             }
                         }
-                        if (selected >= 0 && canAttack[selected])
+                        if (selected >= 0 && canAttack[selected] && canAttackThis != null)
                         {
-                            if (selected >= 0 && Armies.army[selected].special != Character.Special.Healer)
+                            if (Armies.army[selected].special != Character.Special.Healer)
                             {
                                 for (int i = 0; i < canAttackThis.Count; i++)
                                 {
@@ -208,7 +208,7 @@ namespace Proeve.States
                                     }
                                 }
                             }
-                            else
+                            else 
                             {
                                 for (int i = 0; i < canAttackThis.Count; i++)
                                 {
@@ -262,7 +262,7 @@ namespace Proeve.States
                                     }
                                 }
                             }
-                            if (valid)
+                            if (valid && StateManager.GetState(1) is GameState)
                             {
                                 selected = i;
                                 contains = true;

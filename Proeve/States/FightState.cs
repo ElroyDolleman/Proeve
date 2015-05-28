@@ -267,8 +267,8 @@ namespace Proeve.States
                 show = false;
 
                 // Lose HP
-                if (myAttackTurn) enemyCharacter.hp -= Math.Min(damage, enemyCharacter.hp);
-                else character.hp -= Math.Min(damage, character.hp);
+                if (myAttackTurn) enemyCharacter.hp -= MathHelper.Clamp(damage, enemyCharacter.hp - enemyCharacter.maxHP, enemyCharacter.hp);
+                else character.hp -= MathHelper.Clamp(damage, character.hp - character.maxHP, character.hp);
 
                 // Set visual damage
                 damageSprite.position = myAttackTurn ? MyDamagePosition : EnemyDamagePosition;
