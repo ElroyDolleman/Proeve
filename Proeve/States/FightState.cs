@@ -55,6 +55,7 @@ namespace Proeve.States
         private int damage;
         private Sprite damageSprite;
         private float damageSpriteAlpha;
+        private bool isHealing;
 
         private const int DAMAGE_SPEED = 3;
         private const float FADE_OUT_SPEED = .2f;
@@ -212,6 +213,8 @@ namespace Proeve.States
                 myAttackTurn = (character.special == Character.Special.Bomb && enemyCharacter.special != Character.Special.Miner);
             }
 
+            isHealing = attacker.special == Character.Special.Healer;
+
             Attack();
 
             character.animation.Position = MyAnimationPosition;
@@ -243,7 +246,7 @@ namespace Proeve.States
             {
                 timer = 0;
 
-                if (!character.IsDead && !enemyCharacter.IsDead)
+                if (!character.IsDead && !enemyCharacter.IsDead && !isHealing)
                 {
                     myAttackTurn = !myAttackTurn;
                     Attack();
@@ -301,7 +304,6 @@ namespace Proeve.States
 
         private void EndFight()
         {
-
             StateManager.RemoveState();
         }
 
@@ -360,6 +362,16 @@ namespace Proeve.States
                 case Character.Special.Bomb:
                     damage = Math.Max(3, defender.hp);
                     currentAnimation = specialAnimations[attacker.special];
+                    break;
+                case Character.Special.Healer:
+                    if (isHealing) {
+                        damage = -2;
+                        currentAnimation = specialAnimations[attacker.special];
+                    }
+                    else {
+                        damage = 0;
+                        currentAnimation = specialAnimations[attacker.special];
+                    }
                     break;
                 default:
                     damage = 1;
