@@ -227,7 +227,8 @@ namespace Proeve.States
                                         ((GameState)StateManager.GetState(1)).AttackUnit(Armies.army[selected], Armies.army[canAttackThis[i]]);
 
                                         canAttack[selected] = false;
-                                        selected = -1;
+                                        if (!canMove[selected])
+                                            selected = -1;
                                         contains = true;
                                         canAttackThis = null;
                                         break;
@@ -257,11 +258,13 @@ namespace Proeve.States
                         if (Armies.army[i].Hitbox.Contains(Globals.mouseState.Position) && (canMove[i] || canAttack[i]) && Armies.army[i].waypoints.Count == 0 && !Armies.army[i].IsDead)
                         {
                             bool valid = true;
-                            for (int j = 0; j < canAttackThis.Count; j++)
-                            {
-                                if(i == canAttackThis[j])
+                            if (canAttackThis != null && Armies.army[Armies.army.Count-3].special == Character.Special.Healer) {
+                                for (int j = 0; j < canAttackThis.Count; j++)
                                 {
-                                    valid = false;
+                                    if(i == canAttackThis[j])
+                                    {
+                                        valid = false;
+                                    }
                                 }
                             }
                             if (valid)
@@ -329,18 +332,37 @@ namespace Proeve.States
                             canAttackThis = new List<int>();
                             attackIcons = new List<SpineAnimation>();
 
-                            for (int i = 0; i < Armies.opponentArmy.Count; i++)
+                            if (Armies.army[selected].special != Character.Special.Healer)
                             {
-                                if (Armies.army[selected].IsNextTo(Armies.opponentArmy[i]) && !Armies.opponentArmy[i].IsDead)
+                                for (int i = 0; i < Armies.opponentArmy.Count; i++)
                                 {
-                                    canAttackThis.Add(i);
-                                    attackIcons.Add(AnimationAssets.AttackIcon);
-                                    attackIcons[attackIcons.Count - 1].Position = new Vector2(Armies.opponentArmy[i].position.X + Globals.TILE_WIDTH / 2, Armies.opponentArmy[i].position.Y);
+                                    if (Armies.army[selected].IsNextTo(Armies.opponentArmy[i]) && !Armies.opponentArmy[i].IsDead)
+                                    {
+                                        canAttackThis.Add(i);
+                                        attackIcons.Add(AnimationAssets.AttackIcon);
+                                        attackIcons[attackIcons.Count - 1].Position = new Vector2(Armies.opponentArmy[i].position.X + Globals.TILE_WIDTH / 2, Armies.opponentArmy[i].position.Y);
+                                    }
+                                }
+                                if (!canMove[selected] && canAttackThis.Count == 0)
+                                {
+                                    canAttack[selected] = false;
                                 }
                             }
-                            if (!canMove[selected] && canAttackThis.Count == 0)
+                            else
                             {
-                                canAttack[selected] = false;
+                                for (int i = 0; i < Armies.army.Count; i++)
+                                {
+                                    if (Armies.army[selected].IsNextTo(Armies.army[i]) && !Armies.army[i].IsDead)
+                                    {
+                                        canAttackThis.Add(i);
+                                        attackIcons.Add(AnimationAssets.AttackIcon);
+                                        attackIcons[attackIcons.Count - 1].Position = new Vector2(Armies.army[i].position.X + Globals.TILE_WIDTH / 2, Armies.army[i].position.Y);
+                                    }
+                                }
+                                if (!canMove[selected] && canAttackThis.Count == 0)
+                                {
+                                    canAttack[selected] = false;
+                                }
                             }
                         }
                     }
