@@ -66,7 +66,7 @@ namespace Proeve.States
                     attackIcons[i].Update(gameTime);
                 }
             }
-            if (canAttackThis != null)
+            if (selected > -1 && canAttack[selected])
             {
                 for (int i = 0; i < canAttackThis.Count; i++)
                 {
@@ -185,7 +185,7 @@ namespace Proeve.States
                                 }
                             }
                         }
-                        if (canAttackThis != null)
+                        if (canAttack[selected])
                         {
                             if (selected >= 0 && Armies.army[selected].special != Character.Special.Healer)
                             {
@@ -206,7 +206,6 @@ namespace Proeve.States
                                         if (!canMove[selected])
                                             selected = -1;
                                         contains = true;
-                                        canAttackThis = null;
                                         break;
                                     }
                                 }
@@ -230,7 +229,6 @@ namespace Proeve.States
                                         if (!canMove[selected])
                                             selected = -1;
                                         contains = true;
-                                        canAttackThis = null;
                                         break;
                                     }
                                 }
@@ -241,7 +239,6 @@ namespace Proeve.States
                         {
                             selected = -1;
                             canMoveTo = null;
-                            canAttackThis = null;
                         }
                         moveArrows = null;
                         attackIcons = null;
@@ -271,7 +268,7 @@ namespace Proeve.States
                             {
                                 selected = i;
                                 contains = true;
-                                statsUI.ChangeCharacter((StateManager.GetState(1) as GameState).GetArmy()[i]);
+                                statsUI.ChangeCharacter(((GameState)StateManager.GetState(1)).GetArmy()[i]);
                             }
                         }
                     }
@@ -376,6 +373,9 @@ namespace Proeve.States
             Globals.multiplayerConnection.Update(gameTime);
 
             statsUI.UpdateAnimation(gameTime);
+
+            if (selected > -1 && !canAttack[selected])
+                canAttackThis = null;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
