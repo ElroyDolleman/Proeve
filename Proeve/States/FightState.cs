@@ -155,13 +155,13 @@ namespace Proeve.States
             rankNameFrames.Add(Character.Rank.General, 5);
             rankNameFrames.Add(Character.Rank.Captain, 6);
             rankNameFrames.Add(Character.Rank.Soldier, 7);
-            rankNameFrames.Add(Character.Rank.Bomb, 8);
             rankNameFrames.Add(Character.Rank.Miner, 1);
 
             specialRankNameFrames = new Dictionary<Character.Special, int>();
             specialRankNameFrames.Add(Character.Special.Healer, 1);
             specialRankNameFrames.Add(Character.Special.Miner, 2);
             specialRankNameFrames.Add(Character.Special.Spy, 3);
+            specialRankNameFrames.Add(Character.Special.Bomb, 8);
 
             // HIT MOMENTS
             hitMoments = new Dictionary<Character.Weapon, float>();
