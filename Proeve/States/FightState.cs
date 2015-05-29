@@ -375,14 +375,12 @@ namespace Proeve.States
                     }
                     break;
                 case Character.Special.Spy:
-                    if (defender.rank == Character.Rank.Leader) {
+                    if (defender.rank == Character.Rank.Leader)
                         damage = Math.Max(3, defender.hp);
-                        currentAnimation = specialAnimations[attacker.special];
-                    }
-                    else {
+                    else
                         damage = 1;
-                        currentAnimation = weaponAnimations[attacker.weapon];
-                    }
+
+                    currentAnimation = specialAnimations[attacker.special];
                     break;
                 case Character.Special.Bomb:
                     damage = Math.Max(3, defender.hp);
