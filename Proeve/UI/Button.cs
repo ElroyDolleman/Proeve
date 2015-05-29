@@ -14,6 +14,7 @@ namespace Proeve.UI
 {
     class Button
     {
+        public bool enabled = true;
         public delegate void OnClickEvent();
 
         public OnClickEvent ClickEvent;
