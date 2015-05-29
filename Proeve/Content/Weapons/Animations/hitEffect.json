@@ -1,0 +1,82 @@
+{
+"skeleton": { "hash": "3HgLaku5qTeLXhRBQZWzojAunvI", "spine": "2.1.27", "width": 277.62, "height": 284.03, "images": "" },
+"bones": [
+	{ "name": "root" },
+	{ "name": "Hit", "parent": "root", "length": 61.03, "x": -35.62, "y": 11.78, "rotation": 87.74 },
+	{ "name": "Hit2", "parent": "root", "length": 61.03, "x": 0.53, "y": -52.11, "scaleX": 0.732, "scaleY": 0.732, "rotation": 87.74 },
+	{ "name": "ouch", "parent": "root", "length": 45.34, "x": 86.99, "y": 86.99, "rotation": 41.4 }
+],
+"slots": [
+	{ "name": "Effect_5", "bone": "ouch", "attachment": "Effect_5" },
+	{ "name": "Effect_2", "bone": "Hit", "attachment": "Effect_2" },
+	{ "name": "Effect_3", "bone": "Hit2", "attachment": "Effect_2" }
+],
+"skins": {
+	"default": {
+		"Effect_2": {
+			"Effect_2": { "x": 0.7, "y": 0.02, "rotation": -87.74, "width": 191, "height": 191 }
+		},
+		"Effect_3": {
+			"Effect_2": { "x": 0.7, "y": 0.02, "rotation": -87.74, "width": 191, "height": 191 }
+		},
+		"Effect_5": {
+			"Effect_5": { "x": 25.71, "y": 7.99, "rotation": -41.4, "width": 91, "height": 105 }
+		}
+	}
+},
+"animations": {
+	"animation2": {
+		"slots": {
+			"Effect_2": {
+				"color": [
+					{ "time": 0, "color": "ffffff00" },
+					{ "time": 0.1333, "color": "c40c06a7" },
+					{ "time": 0.3, "color": "c40c0600" }
+				]
+			},
+			"Effect_3": {
+				"color": [
+					{ "time": 0, "color": "ffffff00", "curve": "stepped" },
+					{ "time": 0.1, "color": "ffffff00" },
+					{ "time": 0.2333, "color": "c40c06a7" },
+					{ "time": 0.3666, "color": "c40c0600" }
+				]
+			},
+			"Effect_5": {
+				"color": [
+					{ "time": 0, "color": "ffffff00" },
+					{ "time": 0.1666, "color": "f8ff11c4" },
+					{ "time": 0.3333, "color": "f8ff1100" }
+				]
+			}
+		},
+		"bones": {
+			"ouch": {
+				"translate": [
+					{ "time": 0, "x": 0, "y": 0 },
+					{ "time": 0.3333, "x": 29.71, "y": 26.2 }
+				],
+				"scale": [
+					{ "time": 0, "x": 0.67, "y": 0.682 },
+					{ "time": 0.1666, "x": 0.899, "y": 0.914 }
+				]
+			},
+			"Hit": {
+				"scale": [
+					{ "time": 0, "x": 0.762, "y": 0.762 },
+					{ "time": 0.1333, "x": 1.039, "y": 1.039 },
+					{ "time": 0.3, "x": 0.762, "y": 0.762 }
+				]
+			},
+			"Hit2": {
+				"scale": [
+					{ "time": 0, "x": 1, "y": 1 },
+					{ "time": 0.1, "x": 0.865, "y": 0.865 },
+					{ "time": 0.2333, "x": 1.148, "y": 1.148 },
+					{ "time": 0.3666, "x": 0.865, "y": 0.865 }
+				]
+			}
+		}
+	}
+}
+}

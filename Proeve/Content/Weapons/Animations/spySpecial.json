@@ -1,0 +1,241 @@
+{
+"skeleton": { "hash": "qrUEuoYVAYUw67LvAQNgLjqMRHw", "spine": "2.1.27", "width": 546.33, "height": 565.13, "images": "" },
+"bones": [
+	{ "name": "root" },
+	{ "name": "BigHit", "parent": "root", "length": 110.16, "x": 29, "y": -16, "rotation": -2.7 },
+	{ "name": "Dagger", "parent": "root", "length": 147.14, "x": 239, "y": 88, "rotation": -149.1 },
+	{ "name": "HitSmall", "parent": "root", "length": 40, "x": 59, "y": 101.99, "rotation": 90 },
+	{ "name": "HitSmall2", "parent": "root", "length": 40, "x": 93, "y": -14, "rotation": 90 },
+	{ "name": "HitSmall3", "parent": "root", "length": 40, "x": 37, "y": -136, "rotation": 90 },
+	{ "name": "sprits", "parent": "root", "length": 54.35, "x": 144.51, "y": -137.11, "rotation": -36.43 },
+	{ "name": "sprits3", "parent": "root", "length": 54.35, "x": 134.29, "y": 98.12, "rotation": 19.56 }
+],
+"slots": [
+	{ "name": "Dagger", "bone": "Dagger", "attachment": "Dagger" },
+	{ "name": "Effect_1", "bone": "BigHit", "attachment": "Effect_1" },
+	{ "name": "Effect_2", "bone": "HitSmall", "attachment": "Effect_2" },
+	{ "name": "Effect_4", "bone": "HitSmall2", "attachment": "Effect_2" },
+	{ "name": "Effect_5", "bone": "HitSmall3", "attachment": "Effect_2" },
+	{ "name": "Effect_6", "bone": "sprits", "attachment": "Effect_4" },
+	{ "name": "Effect_8", "bone": "sprits3", "attachment": "Effect_4" }
+],
+"skins": {
+	"default": {
+		"Dagger": {
+			"Dagger": { "x": 62.76, "y": -0.3, "rotation": -90.97, "width": 400, "height": 400 }
+		},
+		"Effect_1": {
+			"Effect_1": { "x": 110.06, "y": 1.17, "scaleX": 0.837, "scaleY": 0.837, "rotation": -87.29, "width": 400, "height": 400 }
+		},
+		"Effect_2": {
+			"Effect_2": { "x": 1, "scaleX": 0.498, "scaleY": 0.498, "rotation": -90, "width": 191, "height": 191 }
+		},
+		"Effect_4": {
+			"Effect_2": { "x": 1, "scaleX": 0.498, "scaleY": 0.498, "rotation": -90, "width": 191, "height": 191 }
+		},
+		"Effect_5": {
+			"Effect_2": { "x": 1, "scaleX": 0.498, "scaleY": 0.498, "rotation": -90, "width": 191, "height": 191 }
+		},
+		"Effect_6": {
+			"Effect_4": { "x": 45.06, "y": 25.08, "rotation": -14.62, "width": 125, "height": 139 }
+		},
+		"Effect_8": {
+			"Effect_4": { "x": 45.06, "y": 25.08, "rotation": -14.62, "width": 125, "height": 139 }
+		}
+	}
+},
+"animations": {
+	"BackstabBack": {
+		"slots": {
+			"Dagger": {
+				"color": [
+					{ "time": 0, "color": "ffffffff", "curve": "stepped" },
+					{ "time": 0.6666, "color": "ffffffff" },
+					{ "time": 0.8333, "color": "ffffff00" }
+				]
+			},
+			"Effect_1": {
+				"color": [
+					{ "time": 0, "color": "ffffff00" },
+					{ "time": 0.1666, "color": "a30b10b4" },
+					{ "time": 0.3333, "color": "a30b1000" }
+				]
+			},
+			"Effect_2": {
+				"color": [
+					{ "time": 0, "color": "ffffff00" }
+				]
+			},
+			"Effect_4": {
+				"color": [
+					{ "time": 0, "color": "ffffff00" }
+				]
+			},
+			"Effect_5": {
+				"color": [
+					{ "time": 0, "color": "ffffff00" }
+				]
+			},
+			"Effect_6": {
+				"color": [
+					{ "time": 0, "color": "ffffff00", "curve": "stepped" },
+					{ "time": 0.1666, "color": "ffffff00" },
+					{ "time": 0.3333, "color": "ffe248ab" },
+					{ "time": 0.5, "color": "ffe24800" }
+				]
+			},
+			"Effect_8": {
+				"color": [
+					{ "time": 0, "color": "ffffff00", "curve": "stepped" },
+					{ "time": 0.1666, "color": "ffffff00" },
+					{ "time": 0.3333, "color": "ffe248ab" },
+					{ "time": 0.5, "color": "ffe24800" }
+				]
+			}
+		},
+		"bones": {
+			"Dagger": {
+				"translate": [
+					{ "time": 0, "x": 0, "y": -38.29 },
+					{ "time": 0.0666, "x": 10.46, "y": -32.02 },
+					{ "time": 0.1666, "x": -85.83, "y": -89.71, "curve": "stepped" },
+					{ "time": 0.6666, "x": -85.83, "y": -89.71 }
+				]
+			},
+			"BigHit": {
+				"scale": [
+					{ "time": 0, "x": 0.423, "y": 0.423, "curve": "stepped" },
+					{ "time": 0.1, "x": 0.423, "y": 0.423 },
+					{ "time": 0.1666, "x": 0.703, "y": 0.703 },
+					{ "time": 0.3333, "x": 0.845, "y": 0.845 }
+				]
+			},
+			"sprits3": {
+				"rotate": [
+					{ "time": 0, "angle": 10.75 }
+				],
+				"translate": [
+					{ "time": 0, "x": -36.38, "y": -46.31 },
+					{ "time": 0.1666, "x": -16.54, "y": -31.42 },
+					{ "time": 0.3333, "x": 8.26, "y": -11.57 }
+				],
+				"scale": [
+					{ "time": 0, "x": 0.167, "y": 0.167 },
+					{ "time": 0.3333, "x": 0.364, "y": 0.364 }
+				]
+			},
+			"sprits": {
+				"rotate": [
+					{ "time": 0, "angle": 0 }
+				],
+				"translate": [
+					{ "time": 0, "x": -62.91, "y": 55.21 },
+					{ "time": 0.1666, "x": -30.68, "y": 34.33 },
+					{ "time": 0.3333, "x": -11.68, "y": 23.37 }
+				],
+				"scale": [
+					{ "time": 0, "x": 0.148, "y": 0.148 },
+					{ "time": 0.1666, "x": 0.29, "y": 0.29 },
+					{ "time": 0.3333, "x": 0.486, "y": 0.486 }
+				]
+			}
+		}
+	},
+	"BackstabFront": {
+		"slots": {
+			"Dagger": {
+				"color": [
+					{ "time": 0, "color": "ffffff00" }
+				]
+			},
+			"Effect_1": {
+				"color": [
+					{ "time": 0, "color": "ffffff00" }
+				]
+			},
+			"Effect_2": {
+				"color": [
+					{ "time": 0, "color": "ffffff00", "curve": "stepped" },
+					{ "time": 0.1666, "color": "ffffff00" },
+					{ "time": 0.3, "color": "b30c00b1" },
+					{ "time": 0.4333, "color": "ffffff00" }
+				]
+			},
+			"Effect_4": {
+				"color": [
+					{ "time": 0, "color": "ffffff00", "curve": "stepped" },
+					{ "time": 0.3, "color": "ffffff00" },
+					{ "time": 0.4333, "color": "910002b9" },
+					{ "time": 0.5666, "color": "91000200" }
+				]
+			},
+			"Effect_5": {
+				"color": [
+					{ "time": 0, "color": "ffffff00", "curve": "stepped" },
+					{ "time": 0.4333, "color": "ffffff00" },
+					{ "time": 0.5666, "color": "b00003b0" },
+					{ "time": 0.7, "color": "b0000300" }
+				]
+			},
+			"Effect_6": {
+				"color": [
+					{ "time": 0, "color": "ffffff00" }
+				]
+			},
+			"Effect_8": {
+				"color": [
+					{ "time": 0, "color": "ffffff00" }
+				]
+			}
+		},
+		"bones": {
+			"HitSmall": {
+				"scale": [
+					{ "time": 0, "x": 1, "y": 1 },
+					{ "time": 0.1666, "x": 0.551, "y": 0.551 },
+					{ "time": 0.3, "x": 1, "y": 1 },
+					{ "time": 0.4333, "x": 1.167, "y": 1.167 }
+				]
+			},
+			"HitSmall2": {
+				"scale": [
+					{ "time": 0, "x": 0.551, "y": 0.551, "curve": "stepped" },
+					{ "time": 0.3, "x": 0.551, "y": 0.551 },
+					{ "time": 0.4333, "x": 1, "y": 1 },
+					{ "time": 0.5666, "x": 1.167, "y": 1.167 }
+				]
+			},
+			"HitSmall3": {
+				"scale": [
+					{ "time": 0, "x": 1, "y": 1 },
+					{ "time": 0.4333, "x": 0.551, "y": 0.551 },
+					{ "time": 0.5666, "x": 1, "y": 1 },
+					{ "time": 0.7, "x": 1.167, "y": 1.167 }
+				]
+			},
+			"sprits3": {
+				"rotate": [
+					{ "time": 0, "angle": 10.75 }
+				],
+				"translate": [
+					{ "time": 0, "x": -36.38, "y": -46.31 }
+				],
+				"scale": [
+					{ "time": 0, "x": 0.167, "y": 0.167 }
+				]
+			},
+			"sprits": {
+				"rotate": [
+					{ "time": 0, "angle": 0 }
+				],
+				"translate": [
+					{ "time": 0, "x": -62.91, "y": 55.21 }
+				],
+				"scale": [
+					{ "time": 0, "x": 0.148, "y": 0.148 }
+				]
+			}
+		}
+	}
+}
+}
