@@ -29,6 +29,7 @@ namespace Proeve.UI
         private Vector2 AnimationPosition { get { return new Vector2(118, 240); } }
 
         private Vector2 RankNamePosition { get { return new Vector2(32, 125); } }
+        private Vector2 DiamondsUIPosition { get { return new Vector2(95, 10); } }
         #endregion
 
         public Character SelectedCharacter { get; private set; }
@@ -37,6 +38,7 @@ namespace Proeve.UI
         private Sprite background;
         private Sprite stepCount;
         private Sprite rankName;
+        private Sprite diamondsUI;
 
         private Dictionary<Character.Weapon, Sprite> WeaponIcons;
         private Dictionary<Character.Rank, int> rankNameFrames;
@@ -49,6 +51,9 @@ namespace Proeve.UI
 
             stepCount = ArtAssets.StepCount;
             stepCount.position = StepCountPosition;
+
+            diamondsUI = ArtAssets.DiamondsUI;
+            diamondsUI.position = DiamondsUIPosition;
 
             // Set weapon icons
             WeaponIcons = new Dictionary<Character.Weapon, Sprite>();
@@ -143,6 +148,7 @@ namespace Proeve.UI
         public void Draw(SpriteBatch spriteBatch)
         {
             background.Draw(spriteBatch);
+            diamondsUI.Draw(spriteBatch);
 
             if (SelectedCharacter != null)
             {

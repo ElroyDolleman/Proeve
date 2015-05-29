@@ -167,6 +167,8 @@ namespace Proeve.Resources
         public static Sprite RankNamesNormal { get { return (Sprite)rankNamesNormal.Clone(); } }
         public static Sprite RankNamesBold { get { return (Sprite)rankNamesBold.Clone(); } }
 
+        public static Sprite DiamondsUI { get { return (Sprite)diamondsUI.Clone(); } }
+
         // Buttons
         public static Sprite StartButton { get { return (Sprite)startButtonSprite.Clone(); } }
         public static Sprite EndTurnButton { get { return (Sprite)endTurnButtonSprite.Clone(); } }
@@ -286,6 +288,8 @@ namespace Proeve.Resources
 
             fightingPopUp = new Sprite(UISheet, new Rectangle(0, 0, 944, 759));
             fightingPopUp.origin = fightingPopUp.Center;
+
+            diamondsUI = new Sprite(UISheet, new Rectangle(611, 760, 166, 75));
         }
     }
 }
