@@ -56,6 +56,7 @@ namespace Proeve.Resources
 
         private const string HIT_EFFECT = "hitEffect";
         private const string SPY_SPECIAL = "spySpecial";
+        private const string HEAL_SPECIAL = "healAnimation";
 
         #endregion
         #region ANIMATION NAMES
@@ -104,6 +105,7 @@ namespace Proeve.Resources
 
         private static SpineAnimation spySpecial;
         private static SpineAnimation spySpecialHitEffect;
+        private static SpineAnimation healSpecial;
 
         private static SpineAnimation hitEffect;
 
@@ -147,6 +149,7 @@ namespace Proeve.Resources
         public static SpineAnimation ShieldCritAttack { get { return (SpineAnimation)shieldCritAttack.Clone(); } }
 
         public static SpineAnimation SpySpecial { get { return (SpineAnimation)spySpecial.Clone(); } }
+        public static SpineAnimation HealSpecial { get { return (SpineAnimation)healSpecial.Clone(); } }
         public static SpineAnimation SpySpecialHitEffect { get { return (SpineAnimation)spySpecialHitEffect.Clone(); } }
 
         public static SpineAnimation HitEffect { get { return (SpineAnimation)hitEffect.Clone(); } }
@@ -256,6 +259,10 @@ namespace Proeve.Resources
             spySpecial.LoadAnimation(graphicsDevice, contentManager, WEAPON_ANIMATION_PATH, SPY_SPECIAL, "BackstabBack");
             spySpecialHitEffect = new SpineAnimation();
             spySpecialHitEffect.LoadAnimation(graphicsDevice, contentManager, WEAPON_ANIMATION_PATH, SPY_SPECIAL, "BackstabFront");
+
+            // HEAL SPECIAL
+            healSpecial = new SpineAnimation();
+            healSpecial.LoadAnimation(graphicsDevice, contentManager, WEAPON_ANIMATION_PATH, HEAL_SPECIAL);
 
             // HIT 
             hitEffect = new SpineAnimation();

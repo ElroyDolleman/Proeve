@@ -278,7 +278,7 @@ namespace Proeve.Resources
             armyNames = new Sprite(UISheet, new Rectangle(945, 505, 267, 41), 3, 0f, 1);
 
             // Fighting
-            damageTextSprite = new Sprite(damageTextTexture, new Rectangle(0, 0, 188, 32), 3, 0f, 1);
+            damageTextSprite = new Sprite(damageTextTexture, new Rectangle(0, 0, 188, 32), 5, 0f, 1);
             damageTextSprite.origin = damageTextSprite.Center;
 
             vsText = new Sprite(UISheet, new Rectangle(524, 760, 86, 58));

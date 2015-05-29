@@ -61,9 +61,11 @@ namespace Proeve.States
         // Fighting
         private bool myAttackTurn;
         private int damage;
-        private Sprite damageSprite;
         private float damageSpriteAlpha;
         private bool isHealing;
+
+        private Sprite damageSprite;
+        private Sprite healSprite;
 
         private const int DAMAGE_SPEED = 3;
         private const float FADE_OUT_SPEED = .2f;
@@ -148,7 +150,7 @@ namespace Proeve.States
             specialAnimations[Character.Special.Bomb].Position = Main.WindowCenter;
             specialAnimations[Character.Special.Bomb].loop = false;
 
-            specialAnimations.Add(Character.Special.Healer, AnimationAssets.AxeNormalAttack);
+            specialAnimations.Add(Character.Special.Healer, AnimationAssets.HealSpecial);
             specialAnimations[Character.Special.Healer].Position = Main.WindowCenter;
             specialAnimations[Character.Special.Healer].loop = false;
 
@@ -277,24 +279,36 @@ namespace Proeve.States
             // HIT MOMENT
             if (currentAnimation.Time >= hitInterval && currentAnimation.IsPlayingAnimation && !isFlickering)
             {
-                // Set flickering values
-                isFlickering = true;
-                flickerAmount = 0;
-                show = false;
-
                 // Lose HP
                 if (myAttackTurn) enemyCharacter.hp -= MathHelper.Clamp(damage, enemyCharacter.hp - enemyCharacter.maxHP, enemyCharacter.hp);
                 else character.hp -= MathHelper.Clamp(damage, character.hp - character.maxHP, character.hp);
 
-                // Set visual damage
-                damageSprite.position = myAttackTurn ? MyDamagePosition : EnemyDamagePosition;
-                damageSpriteAlpha = 1f;
-                damageSprite.CurrentFrame = Math.Min(damage, 3);
+                if (currentAnimation != specialAnimations[Character.Special.Healer])
+                {
+                    // Set flickering values
+                    isFlickering = true;
+                    flickerAmount = 0;
+                    show = false;
 
-                //hitEffect = currentAnimation != specialAnimations[Character.Special.Spy] ? AnimationAssets.HitEffect : AnimationAssets.SpySpecialHitEffect;
-                hitEffect.Position = myAttackTurn ? MyHitEffectPosition : EnemyHitEffectPosition;
-                hitEffect.Play();
-                hitEffect.FlipX = !myAttackTurn;
+                    // Set visual damage
+                    damageSprite.position = myAttackTurn ? MyDamagePosition : EnemyDamagePosition;
+                    damageSpriteAlpha = 1f;
+                    damageSprite.CurrentFrame = Math.Min(damage, 3);
+
+                    //hitEffect = currentAnimation != specialAnimations[Character.Special.Spy] ? AnimationAssets.HitEffect : AnimationAssets.SpySpecialHitEffect;
+                    hitEffect.Position = myAttackTurn ? MyHitEffectPosition : EnemyHitEffectPosition;
+                    hitEffect.Play();
+                    hitEffect.FlipX = !myAttackTurn;
+                }
+                else
+                {
+                    // Set visual heal
+                    damageSprite.position = myAttackTurn ? MyDamagePosition : EnemyDamagePosition;
+                    damageSpriteAlpha = 1f;
+                    damageSprite.CurrentFrame = Math.Min(-damage+3, 4);
+
+                    isFlickering = true;
+                }
             }
 
             damageSprite.position.Y -= DAMAGE_SPEED;
@@ -349,6 +363,8 @@ namespace Proeve.States
 
             if ((myAttackTurn ? character.special : enemyCharacter.special) == Character.Special.None)
                 hitInterval = myAttackTurn ? hitMoments[character.weapon] : hitMoments[enemyCharacter.weapon];
+            else if ((myAttackTurn ? character.special : enemyCharacter.special) == Character.Special.Healer)
+                hitInterval = 1.4f;
             else
                 hitInterval = .5f;
         }
