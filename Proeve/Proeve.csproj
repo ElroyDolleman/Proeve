@@ -142,6 +142,9 @@
     </Content>
     <Content Include="Content\Characters\Chips\ChipsSheet.png" />
     <Content Include="Content\Characters\Chips\EnemyChips.png" />
+    <Content Include="Content\UI\Animations\healIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\UI\Animations\Movement.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -275,6 +278,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Content\Fonts\normalFont.spritefont" />
+    <None Include="Content\UI\Animations\healIcon.atlas">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\Animations\healIcon.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Content\UI\Animations\Movement.atlas">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

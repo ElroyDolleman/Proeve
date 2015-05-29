@@ -372,7 +372,7 @@ namespace Proeve.States
                     if (Armies.army[selected].IsNextTo(Armies.army[i]) && !Armies.army[i].IsDead && Armies.army[i].hp != Armies.army[i].maxHP)
                     {
                         canAttackThis.Add(i);
-                        attackIcons.Add(AnimationAssets.AttackIcon);
+                        attackIcons.Add(AnimationAssets.HealIcon);
                         attackIcons[attackIcons.Count - 1].Position = new Vector2(Armies.army[i].position.X + Globals.TILE_WIDTH / 2, Armies.army[i].position.Y);
                     }
                 }

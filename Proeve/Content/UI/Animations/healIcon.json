@@ -1,0 +1,148 @@
+{
+"skeleton": { "hash": "nBpl0RXXD6JYnfRtqu48jIMJStQ", "spine": "2.1.27", "width": 82, "height": 92.52, "images": "" },
+"bones": [
+	{ "name": "root" },
+	{ "name": "Heal", "parent": "root", "length": 20.61, "x": 0.22, "y": -0.96, "rotation": -90 },
+	{ "name": "Heal3", "parent": "root", "length": 20.61, "x": -24.51, "y": 17.17, "scaleX": 0.307, "scaleY": 0.307, "rotation": -90 },
+	{ "name": "Heal4", "parent": "root", "length": 20.61, "x": 22.48, "y": 26.24, "scaleX": 0.307, "scaleY": 0.307, "rotation": -90 },
+	{ "name": "Heal5", "parent": "root", "length": 20.61, "x": -0.6, "y": 38.61, "scaleX": 0.307, "scaleY": 0.307, "rotation": -90 }
+],
+"slots": [
+	{ "name": "Heal", "bone": "Heal", "attachment": "Heal" },
+	{ "name": "Heal3", "bone": "Heal3", "attachment": "Heal" },
+	{ "name": "Heal4", "bone": "Heal4", "attachment": "Heal" },
+	{ "name": "Heal5", "bone": "Heal5", "attachment": "Heal" }
+],
+"skins": {
+	"default": {
+		"Heal": {
+			"Heal": { "x": -0.96, "y": -0.22, "rotation": 90, "width": 82, "height": 82 }
+		},
+		"Heal3": {
+			"Heal": { "x": -0.96, "y": -0.22, "rotation": 90, "width": 82, "height": 82 }
+		},
+		"Heal4": {
+			"Heal": { "x": -0.96, "y": -0.22, "rotation": 90, "width": 82, "height": 82 }
+		},
+		"Heal5": {
+			"Heal": { "x": -0.96, "y": -0.22, "rotation": 90, "width": 82, "height": 82 }
+		}
+	}
+},
+"animations": {
+	"Heal": {
+		"slots": {
+			"Heal3": {
+				"color": [
+					{ "time": 0, "color": "ffffff00", "curve": "stepped" },
+					{ "time": 0.1666, "color": "ffffff00" },
+					{ "time": 0.2333, "color": "ffffffff", "curve": "stepped" },
+					{ "time": 0.4333, "color": "ffffffff" },
+					{ "time": 0.5, "color": "ffffff00" }
+				]
+			},
+			"Heal4": {
+				"color": [
+					{ "time": 0, "color": "ffffff00", "curve": "stepped" },
+					{ "time": 0.5, "color": "ffffff00" },
+					{ "time": 0.5666, "color": "ffffffff", "curve": "stepped" },
+					{ "time": 0.7666, "color": "ffffffff" },
+					{ "time": 0.8333, "color": "ffffff00" }
+				]
+			},
+			"Heal5": {
+				"color": [
+					{ "time": 0, "color": "ffffff00", "curve": "stepped" },
+					{ "time": 0.3333, "color": "ffffff00" },
+					{ "time": 0.4, "color": "ffffffff", "curve": "stepped" },
+					{ "time": 0.6, "color": "ffffffff" },
+					{ "time": 0.6666, "color": "ffffff00", "curve": "stepped" },
+					{ "time": 1, "color": "ffffff00" }
+				]
+			}
+		},
+		"bones": {
+			"Heal": {
+				"scale": [
+					{
+						"time": 0,
+						"x": 1,
+						"y": 1,
+						"curve": [ 0.25, 0, 0.75, 1 ]
+					},
+					{
+						"time": 0.1666,
+						"x": 1.06,
+						"y": 1.06,
+						"curve": [ 0.25, 0, 0.75, 1 ]
+					},
+					{ "time": 0.3333, "x": 1, "y": 1, "curve": "stepped" },
+					{ "time": 1, "x": 1, "y": 1 }
+				]
+			},
+			"Heal3": {
+				"translate": [
+					{ "time": 0, "x": 4.12, "y": -8.24 },
+					{ "time": 0.1666, "x": 4.12, "y": 0 },
+					{ "time": 0.5, "x": 4.12, "y": 17.31 },
+					{ "time": 1, "x": 4.12, "y": 0 }
+				]
+			},
+			"Heal4": {
+				"translate": [
+					{ "time": 0, "x": 0, "y": 0, "curve": "stepped" },
+					{ "time": 0.5, "x": 0, "y": 0 },
+					{ "time": 0.8333, "x": 0, "y": 12.36 },
+					{ "time": 1, "x": 0, "y": 0 }
+				]
+			},
+			"Heal5": {
+				"translate": [
+					{ "time": 0, "x": 1.64, "y": -2.47, "curve": "stepped" },
+					{ "time": 0.3333, "x": 1.64, "y": -2.47 },
+					{ "time": 0.6666, "x": 1.65, "y": 14.84 },
+					{ "time": 1, "x": 1.64, "y": -2.47 }
+				]
+			}
+		}
+	},
+	"TargetHeal": {
+		"slots": {
+			"Heal3": {
+				"color": [
+					{ "time": 0, "color": "ffffff00" }
+				]
+			},
+			"Heal4": {
+				"color": [
+					{ "time": 0, "color": "ffffff00" }
+				]
+			},
+			"Heal5": {
+				"color": [
+					{ "time": 0, "color": "ffffff00" }
+				]
+			}
+		},
+		"bones": {
+			"Heal": {
+				"translate": [
+					{
+						"time": 0,
+						"x": 0,
+						"y": 0,
+						"curve": [ 0.25, 0, 0.75, 1 ]
+					},
+					{
+						"time": 0.5,
+						"x": 0,
+						"y": 4.94,
+						"curve": [ 0.25, 0, 0.75, 1 ]
+					},
+					{ "time": 1, "x": 0, "y": 0 }
+				]
+			}
+		}
+	}
+}
+}
