@@ -27,6 +27,8 @@ namespace Proeve.States
         private const float ANIMATION_SCALE = .70f;
         private const float WEAPON_SCALE = .75f;
 
+        private const float END_TIME_HIT_ANIMATION = .367f;
+
         // Readonly positions
         private Vector2 MyAnimationPosition { get { return new Vector2(310, 320); } }
         private Vector2 EnemyAnimationPosition { get { return new Vector2(Main.WindowWidth - 310, 320); } }
@@ -34,11 +36,17 @@ namespace Proeve.States
         private Vector2 MyAttackPosition { get { return new Vector2(Main.WindowCenter.X + 40, Main.WindowCenter.Y); } }
         private Vector2 EnemyAttackPosition { get { return new Vector2(Main.WindowCenter.X - 40, Main.WindowCenter.Y); } }
 
+        private Vector2 MySpySpecialPosition { get { return new Vector2(Main.WindowCenter.X + 160, Main.WindowCenter.Y - 70); } }
+        private Vector2 EnemySpySpecialPosition { get { return new Vector2(Main.WindowCenter.X - 160, Main.WindowCenter.Y - 70); } }
+
         private Vector2 MyHealthbarPosition { get { return new Vector2(300, 520); } }
         private Vector2 EnemyHealthbarPosition { get { return new Vector2(620, 520); } }
 
         private Vector2 MyDamagePosition { get { return new Vector2(Main.WindowWidth - 280, 380); } }
         private Vector2 EnemyDamagePosition { get { return new Vector2(280, 380); } }
+
+        private Vector2 MyHitEffectPosition { get { return new Vector2(Main.WindowWidth - 280, 340); } }
+        private Vector2 EnemyHitEffectPosition { get { return new Vector2(280, 340); } }
 
         private Vector2 MyWeaponPosition { get { return new Vector2(220, 510); } }
         private Vector2 EnemyWeaponPosition { get { return new Vector2(Main.WindowWidth - 220, 510); } }
@@ -59,6 +67,8 @@ namespace Proeve.States
 
         private const int DAMAGE_SPEED = 3;
         private const float FADE_OUT_SPEED = .2f;
+
+        private SpineAnimation hitEffect;
 
         // Animations
         private Dictionary<Character.Weapon, SpineAnimation> weaponAnimations;
@@ -146,7 +156,7 @@ namespace Proeve.States
             specialAnimations[Character.Special.Miner].Position = Main.WindowCenter;
             specialAnimations[Character.Special.Miner].loop = false;
 
-            specialAnimations.Add(Character.Special.Spy, AnimationAssets.AxeNormalAttack);
+            specialAnimations.Add(Character.Special.Spy, AnimationAssets.SpySpecial);
             specialAnimations[Character.Special.Spy].Position = Main.WindowCenter;
             specialAnimations[Character.Special.Spy].loop = false;
 
@@ -196,6 +206,11 @@ namespace Proeve.States
 
             enemyRankName = ArtAssets.RankNamesBold;
             enemyRankName.position = EnemyRankNamePosition;
+
+            // HIT EFFECT
+            hitEffect = AnimationAssets.HitEffect;
+            hitEffect.loop = false;
+            hitEffect.Position = -Vector2.One * 100;
         }
 
         public void SetUnits(Character attacker, Character defender)
@@ -257,6 +272,7 @@ namespace Proeve.States
 
             // UPDATE WEAPON ANIMATION
             currentAnimation.Update(gameTime);
+            hitEffect.Update(gameTime);
 
             // HIT MOMENT
             if (currentAnimation.Time >= hitInterval && currentAnimation.IsPlayingAnimation && !isFlickering)
@@ -274,6 +290,11 @@ namespace Proeve.States
                 damageSprite.position = myAttackTurn ? MyDamagePosition : EnemyDamagePosition;
                 damageSpriteAlpha = 1f;
                 damageSprite.CurrentFrame = Math.Min(damage, 3);
+
+                //hitEffect = currentAnimation != specialAnimations[Character.Special.Spy] ? AnimationAssets.HitEffect : AnimationAssets.SpySpecialHitEffect;
+                hitEffect.Position = myAttackTurn ? MyHitEffectPosition : EnemyHitEffectPosition;
+                hitEffect.Play();
+                hitEffect.FlipX = !myAttackTurn;
             }
 
             damageSprite.position.Y -= DAMAGE_SPEED;
@@ -318,14 +339,18 @@ namespace Proeve.States
             currentAnimation.FlipX = myAttackTurn;
             currentAnimation.Position = myAttackTurn ? MyAttackPosition : EnemyAttackPosition;
 
+            if (currentAnimation == specialAnimations[Character.Special.Spy])
+            {
+                currentAnimation.FlipX = !currentAnimation.FlipX;
+                currentAnimation.Position = myAttackTurn ? MySpySpecialPosition : EnemySpySpecialPosition;
+            }
+
             isFlickering = false;
 
             if ((myAttackTurn ? character.special : enemyCharacter.special) == Character.Special.None)
                 hitInterval = myAttackTurn ? hitMoments[character.weapon] : hitMoments[enemyCharacter.weapon];
             else
-            {
                 hitInterval = .5f;
-            }
         }
 
         private void DealDamage(Character attacker, Character defender)
@@ -436,13 +461,21 @@ namespace Proeve.States
 
         public override void DrawAnimation(Spine.SkeletonMeshRenderer skeletonRenderer)
         {
+            bool spyAnimationIsPlaying = currentAnimation == specialAnimations[Character.Special.Spy];
+
+            if (currentAnimation.IsPlayingAnimation && spyAnimationIsPlaying)
+                currentAnimation.Draw(skeletonRenderer);
+
             if (show || myAttackTurn)
                 character.DrawAnimation(skeletonRenderer);
 
             if (show || !myAttackTurn)
                 enemyCharacter.DrawAnimation(skeletonRenderer);
 
-            if (currentAnimation.IsPlayingAnimation)
+            if (hitEffect.Time < END_TIME_HIT_ANIMATION)
+                hitEffect.Draw(skeletonRenderer);
+
+            if (currentAnimation.IsPlayingAnimation && !spyAnimationIsPlaying)
                 currentAnimation.Draw(skeletonRenderer);
         }
 

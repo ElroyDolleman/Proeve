@@ -63,6 +63,9 @@ namespace Proeve.Resources
         private const string SHIELD_NORMAL_ANIMATION = "ShieldNormal";
         private const string SHIELD_CRIT_ANIMATION = "ShieldCrit";
 
+        private const string HIT_EFFECT = "hitEffect";
+        private const string SPY_SPECIAL = "spySpecial";
+
         private const string MOVEMENT_ICON_ANIMATION = "Arrow";
         private const string ATTACK_ICON_ANIMATION = "Attack";
 
@@ -97,6 +100,11 @@ namespace Proeve.Resources
         private static SpineAnimation axeCritAttack;
         private static SpineAnimation swordCritAttack;
         private static SpineAnimation shieldCritAttack;
+
+        private static SpineAnimation spySpecial;
+        private static SpineAnimation spySpecialHitEffect;
+
+        private static SpineAnimation hitEffect;
 
         /* OTHER */
         private static SpineAnimation shineEffect;
@@ -135,6 +143,11 @@ namespace Proeve.Resources
         public static SpineAnimation AxeCritAttack { get { return (SpineAnimation)axeCritAttack.Clone(); } }
         public static SpineAnimation SwordCritAttack { get { return (SpineAnimation)swordCritAttack.Clone(); } }
         public static SpineAnimation ShieldCritAttack { get { return (SpineAnimation)shieldCritAttack.Clone(); } }
+
+        public static SpineAnimation SpySpecial { get { return (SpineAnimation)spySpecial.Clone(); } }
+        public static SpineAnimation SpySpecialHitEffect { get { return (SpineAnimation)spySpecialHitEffect.Clone(); } }
+
+        public static SpineAnimation HitEffect { get { return (SpineAnimation)hitEffect.Clone(); } }
 
         /* OTHER */
         public static SpineAnimation ShineEffect { get { return (SpineAnimation)shineEffect.Clone(); } }
@@ -234,6 +247,16 @@ namespace Proeve.Resources
             shieldNormalAttack.LoadAnimation(graphicsDevice, contentManager, WEAPON_ANIMATION_PATH, WEAPON_SHIELD, SHIELD_NORMAL_ANIMATION);
             shieldCritAttack = new SpineAnimation();
             shieldCritAttack.LoadAnimation(graphicsDevice, contentManager, WEAPON_ANIMATION_PATH, WEAPON_SHIELD, SHIELD_CRIT_ANIMATION);
+
+            // SPY SPECIAL
+            spySpecial = new SpineAnimation();
+            spySpecial.LoadAnimation(graphicsDevice, contentManager, WEAPON_ANIMATION_PATH, SPY_SPECIAL, "BackstabBack");
+            spySpecialHitEffect = new SpineAnimation();
+            spySpecialHitEffect.LoadAnimation(graphicsDevice, contentManager, WEAPON_ANIMATION_PATH, SPY_SPECIAL, "BackstabFront");
+
+            // HIT 
+            hitEffect = new SpineAnimation();
+            hitEffect.LoadAnimation(graphicsDevice, contentManager, WEAPON_ANIMATION_PATH, HIT_EFFECT, "animation2");
 
             // UI
             arrowIcon = new SpineAnimation();

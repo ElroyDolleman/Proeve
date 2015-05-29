@@ -1,0 +1,33 @@
+spySpecial.png
+size: 2048,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Dagger
+  rotate: false
+  xy: 0, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Effect_1
+  rotate: false
+  xy: 400, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Effect_2
+  rotate: false
+  xy: 800, 0
+  size: 191, 191
+  orig: 191, 191
+  offset: 0, 0
+  index: -1
+Effect_4
+  rotate: false
+  xy: 1200, 0
+  size: 125, 139
+  orig: 125, 139
+  offset: 0, 0
+  index: -1
