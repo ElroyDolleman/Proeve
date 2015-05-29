@@ -1,0 +1,12 @@
+healIcon.png
+size: 128,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Heal
+  rotate: false
+  xy: 0, 0
+  size: 82, 82
+  orig: 82, 82
+  offset: 0, 0
+  index: -1

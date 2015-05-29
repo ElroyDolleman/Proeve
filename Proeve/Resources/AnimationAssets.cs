@@ -47,11 +47,15 @@ namespace Proeve.Resources
         /* OTHER */
         private const string SHINE_EFFECT = "shine";
         private const string MOVEMENT_ATTACK_ICON = "Movement";
+        private const string HEAL_ICON = "healIcon";
 
         /* WEAPONS */
         private const string WEAPON_AXE = "axeAnimation";
         private const string WEAPON_SWORD = "swordAnimation";
         private const string WEAPON_SHIELD = "shieldAnimation";
+
+        private const string HIT_EFFECT = "hitEffect";
+        private const string SPY_SPECIAL = "spySpecial";
 
         #endregion
         #region ANIMATION NAMES
@@ -62,9 +66,6 @@ namespace Proeve.Resources
         private const string SWORD_CRIT_ANIMATION = "SwordCrit";
         private const string SHIELD_NORMAL_ANIMATION = "ShieldNormal";
         private const string SHIELD_CRIT_ANIMATION = "ShieldCrit";
-
-        private const string HIT_EFFECT = "hitEffect";
-        private const string SPY_SPECIAL = "spySpecial";
 
         private const string MOVEMENT_ICON_ANIMATION = "Arrow";
         private const string ATTACK_ICON_ANIMATION = "Attack";
@@ -111,6 +112,7 @@ namespace Proeve.Resources
 
         private static SpineAnimation arrowIcon;
         private static SpineAnimation attackIcon;
+        private static SpineAnimation healIcon;
 
         #endregion
         #region READ ONLY
@@ -154,6 +156,7 @@ namespace Proeve.Resources
 
         public static SpineAnimation ArrowIcon { get { return (SpineAnimation)arrowIcon.Clone(); } }
         public static SpineAnimation AttackIcon { get { return (SpineAnimation)attackIcon.Clone(); } }
+        public static SpineAnimation HealIcon { get { return (SpineAnimation)healIcon.Clone(); } }
 
         #endregion
 
@@ -261,8 +264,12 @@ namespace Proeve.Resources
             // UI
             arrowIcon = new SpineAnimation();
             arrowIcon.LoadAnimation(graphicsDevice, contentManager, UI_ANIMATION_PATH, MOVEMENT_ATTACK_ICON, MOVEMENT_ICON_ANIMATION);
+
             attackIcon = new SpineAnimation();
             attackIcon.LoadAnimation(graphicsDevice, contentManager, UI_ANIMATION_PATH, MOVEMENT_ATTACK_ICON, ATTACK_ICON_ANIMATION);
+
+            healIcon = new SpineAnimation();
+            healIcon.LoadAnimation(graphicsDevice, contentManager, UI_ANIMATION_PATH, HEAL_ICON, "Heal");
         }
     }
 }
