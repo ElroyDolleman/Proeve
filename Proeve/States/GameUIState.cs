@@ -51,6 +51,14 @@ namespace Proeve.States
 
         public override void Update(GameTime gameTime)
         {
+            if (!IsTurn)
+            {
+                buttons[0].enabled = false;
+            }
+            else
+            {
+                buttons[0].enabled = true;
+            }
             // UPDATE ANIMTION
             if (moveArrows != null)
             {

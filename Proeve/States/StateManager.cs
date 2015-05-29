@@ -54,7 +54,10 @@ namespace Proeve.States
             Globals.mouseState.Begin();
 
             foreach (Button b in stateList[stateList.Count - 1].buttons)
-                b.Update(gameTime);
+            {
+                if (b.enabled)
+                    b.Update(gameTime);
+            }
 
             stateList[stateList.Count-1].Update(gameTime);
 
@@ -68,7 +71,10 @@ namespace Proeve.States
             stateList[stateList.Count-1].Draw(spriteBatch);
 
             foreach (Button b in stateList[stateList.Count - 1].buttons)
-                b.Draw(spriteBatch);
+            {
+                if (b.enabled)
+                    b.Draw(spriteBatch);
+            }
 
             spriteBatch.End();
 
