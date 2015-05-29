@@ -369,7 +369,7 @@ namespace Proeve.States
             {
                 for (int i = 0; i < Armies.army.Count; i++)
                 {
-                    if (Armies.army[selected].IsNextTo(Armies.army[i]) && !Armies.army[i].IsDead && Armies.army[i].hp == Armies.army[i].maxHP)
+                    if (Armies.army[selected].IsNextTo(Armies.army[i]) && !Armies.army[i].IsDead && Armies.army[i].hp != Armies.army[i].maxHP)
                     {
                         canAttackThis.Add(i);
                         attackIcons.Add(AnimationAssets.AttackIcon);
