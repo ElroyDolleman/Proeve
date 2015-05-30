@@ -27,6 +27,7 @@ namespace Proeve.States
         public override void Initialize()
         {
             Node.size = Globals.TILE_WIDTH;
+            Globals.diamonds = 0;
 
             ArtAssets.LoadTextures();
             ArtAssets.LoadFont(Globals.contentManager);

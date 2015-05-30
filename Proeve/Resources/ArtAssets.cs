@@ -105,6 +105,7 @@ namespace Proeve.Resources
         private static Sprite healthbar;
         private static Sprite stepCount;
         private static Sprite diamondsUI;
+        private static Sprite numbers;
 
         private static Sprite rankNamesNormal;
         private static Sprite rankNamesBold;
@@ -168,6 +169,7 @@ namespace Proeve.Resources
         public static Sprite RankNamesBold { get { return (Sprite)rankNamesBold.Clone(); } }
 
         public static Sprite DiamondsUI { get { return (Sprite)diamondsUI.Clone(); } }
+        public static Sprite Numbers { get { return (Sprite)numbers.Clone(); } }
 
         // Buttons
         public static Sprite StartButton { get { return (Sprite)startButtonSprite.Clone(); } }
@@ -262,6 +264,8 @@ namespace Proeve.Resources
 
             rankNamesNormal = new Sprite(UISheet, new Rectangle(1327, 505, 141, 26), 8, 0f, 1, OnePixelInterspace);
             rankNamesBold = new Sprite(UISheet, new Rectangle(1213, 505, 113, 21), 8, 0f, 1, OnePixelInterspace);
+
+            numbers = new Sprite(UISheet, new Rectangle(945, 785, 15, 17), 10, 0f, 0, OnePixelInterspace);
 
             // Buttons
             startButtonSprite = new Sprite(UISheet, new Rectangle(0, 760, 324, 64));

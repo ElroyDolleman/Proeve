@@ -47,7 +47,7 @@ namespace Proeve.Resources
             characters[(int)Character.Rank.Miner].Add(new Character(ArtAssets.TikiMinerChip, AnimationAssets.TikiMiner, 2, 1, Character.Rank.Miner, Character.Army.Tiki, Character.Special.Miner));
 
             characters[(int)Character.Rank.Healer].Add(new Character(ArtAssets.MedievalHealerChip, AnimationAssets.MedievalHealer, 1, 2, Character.Rank.Healer, Character.Army.Normal, Character.Special.Healer));
-            characters[(int)Character.Rank.Healer].Add(new Character(ArtAssets.TikiHealerChip, AnimationAssets.TikiHealer, 2, 1, Character.Rank.Healer, Character.Army.Tiki, Character.Special.Healer));
+            characters[(int)Character.Rank.Healer].Add(new Character(ArtAssets.TikiHealerChip, AnimationAssets.TikiHealer, 1, 2, Character.Rank.Healer, Character.Army.Tiki, Character.Special.Healer));
 
             characters[(int)Character.Rank.Bomb].Add(new Character(ArtAssets.MedievalBombChip, AnimationAssets.MedievalBomb, 1, 1, Character.Rank.Bomb, Character.Army.Normal, Character.Special.Bomb));
             characters[(int)Character.Rank.Bomb].Add(new Character(ArtAssets.TikiBombChip, AnimationAssets.TikiBomb, 1, 1, Character.Rank.Bomb, Character.Army.Tiki, Character.Special.Bomb));

@@ -24,8 +24,6 @@ namespace Proeve.Resources
         public static MultiplayerConnection multiplayerConnection;
         public static SkeletonMeshRenderer skeletonRenderer;
 
-        public static int coins;
-
         public static Point GridLocation { get { return new Point(336, 32); } }
         public static Point TileDimensions { get { return new Point(TILE_WIDTH, TILE_HEIGHT); } }
 
@@ -35,8 +33,9 @@ namespace Proeve.Resources
         public const int GRID_WIDTH = 8;
         public const int GRID_HEIGHT = 8;
 
-        public static StatsUI statsUI;
-
         public const float ANIMATION_SCALE = .38f;
+
+        public static StatsUI statsUI;
+        public static int diamonds;
     }
 }

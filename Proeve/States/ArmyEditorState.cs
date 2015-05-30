@@ -78,6 +78,7 @@ namespace Proeve.States
             // UI
             statsUI = new StatsUI();
             Globals.statsUI = statsUI;
+            Globals.statsUI.Diamonds = Globals.diamonds;
 
             armyShowCase = ArtAssets.ArmyShowCase;
             armyShowCase.position = ArmyShowCasePosition;
