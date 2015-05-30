@@ -1,0 +1,26 @@
+minerSpecial.png
+size: 2048,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Shit
+  rotate: false
+  xy: 0, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Shit_Particle
+  rotate: false
+  xy: 400, 0
+  size: 30, 30
+  orig: 30, 30
+  offset: 0, 0
+  index: -1
+Shovel
+  rotate: false
+  xy: 800, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1

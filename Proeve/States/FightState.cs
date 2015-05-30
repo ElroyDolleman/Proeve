@@ -39,6 +39,9 @@ namespace Proeve.States
         private Vector2 MySpySpecialPosition { get { return new Vector2(Main.WindowCenter.X + 160, Main.WindowCenter.Y - 70); } }
         private Vector2 EnemySpySpecialPosition { get { return new Vector2(Main.WindowCenter.X - 160, Main.WindowCenter.Y - 70); } }
 
+        private Vector2 MyMinerSpecialPosition { get { return new Vector2(Main.WindowCenter.X + 140, Main.WindowCenter.Y + 70); } }
+        private Vector2 EnemyMinerSpecialPosition { get { return new Vector2(Main.WindowCenter.X - 140, Main.WindowCenter.Y + 70); } }
+
         private Vector2 MyHealthbarPosition { get { return new Vector2(300, 520); } }
         private Vector2 EnemyHealthbarPosition { get { return new Vector2(620, 520); } }
 
@@ -155,7 +158,7 @@ namespace Proeve.States
             specialAnimations[Character.Special.Healer].Position = Main.WindowCenter;
             specialAnimations[Character.Special.Healer].loop = false;
 
-            specialAnimations.Add(Character.Special.Miner, AnimationAssets.AxeNormalAttack);
+            specialAnimations.Add(Character.Special.Miner, AnimationAssets.MinerSpecial);
             specialAnimations[Character.Special.Miner].Position = Main.WindowCenter;
             specialAnimations[Character.Special.Miner].loop = false;
 
@@ -373,6 +376,11 @@ namespace Proeve.States
                 currentAnimation.FlipX = !currentAnimation.FlipX;
                 currentAnimation.Position = myAttackTurn ? MySpySpecialPosition : EnemySpySpecialPosition;
             }
+            else if (currentAnimation == specialAnimations[Character.Special.Miner])
+            {
+                currentAnimation.FlipX = !currentAnimation.FlipX;
+                currentAnimation.Position = myAttackTurn ? MyMinerSpecialPosition : EnemyMinerSpecialPosition;
+            }
 
             isFlickering = false;
 
@@ -396,14 +404,12 @@ namespace Proeve.States
                         currentAnimation = criticalAnimations[attacker.weapon];
                     break;
                 case Character.Special.Miner:
-                    if (defender.special == Character.Special.Bomb) {
+                    if (defender.special == Character.Special.Bomb)
                         damage = Math.Max(3, defender.hp);
-                        currentAnimation = specialAnimations[attacker.special];
-                    }
-                    else { 
+                    else 
                         damage = 1;
-                        currentAnimation = weaponAnimations[attacker.weapon];
-                    }
+
+                    currentAnimation = specialAnimations[attacker.special];
                     break;
                 case Character.Special.Spy:
                     if (defender.rank == Character.Rank.Leader)

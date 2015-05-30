@@ -163,6 +163,9 @@
     <Content Include="Content\Weapons\Animations\hitEffect.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Weapons\Animations\minerSpecial.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Weapons\Animations\shieldAnimation.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -309,6 +312,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Content\Weapons\Animations\hitEffect.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Weapons\Animations\minerSpecial.atlas">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Weapons\Animations\minerSpecial.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Content\Weapons\Animations\shieldAnimation.atlas">
