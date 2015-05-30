@@ -35,7 +35,6 @@ namespace Proeve.Resources
         /* CHARACTERS */
         // Chips
         private const string CHIPS_SHEET = "ChipsSheet";
-        private const string ENEMY_CHIP_SHEET = "EnemyChips";
 
         /* UI */
         private const string UI_SHEET = "UI_sheet";
@@ -59,7 +58,6 @@ namespace Proeve.Resources
         /* CHARACTERS */
         // Chips Medieval
         private static E2DTexture chipsSheet;
-        private static E2DTexture enemyChipSheet;
 
         /* UI */
         private static E2DTexture UISheet;
@@ -105,6 +103,7 @@ namespace Proeve.Resources
         private static Sprite healthbar;
         private static Sprite stepCount;
         private static Sprite diamondsUI;
+        private static Sprite numbers;
 
         private static Sprite rankNamesNormal;
         private static Sprite rankNamesBold;
@@ -167,6 +166,9 @@ namespace Proeve.Resources
         public static Sprite RankNamesNormal { get { return (Sprite)rankNamesNormal.Clone(); } }
         public static Sprite RankNamesBold { get { return (Sprite)rankNamesBold.Clone(); } }
 
+        public static Sprite DiamondsUI { get { return (Sprite)diamondsUI.Clone(); } }
+        public static Sprite Numbers { get { return (Sprite)numbers.Clone(); } }
+
         // Buttons
         public static Sprite StartButton { get { return (Sprite)startButtonSprite.Clone(); } }
         public static Sprite EndTurnButton { get { return (Sprite)endTurnButtonSprite.Clone(); } }
@@ -199,7 +201,6 @@ namespace Proeve.Resources
             /* CHARACTERS */
             // Chips
             chipsSheet.Load(CHIPS_PATH, CHIPS_SHEET);
-            enemyChipSheet.Load(CHIPS_PATH, ENEMY_CHIP_SHEET);
 
             /* UI */
             UISheet.Load(UI_PATH, UI_SHEET);
@@ -250,8 +251,7 @@ namespace Proeve.Resources
             tikiHealerChipSprite = new Sprite(chipsSheet, new Rectangle(W*5, W, W, W));
             tikiBombChipSprite = new Sprite(chipsSheet, new Rectangle(W*7, W, W, W));
 
-            enemyChipSprite = new Sprite(enemyChipSheet, new Rectangle(0, 0, 85, 85), 25, 30f, 5);
-            enemyChipSprite.origin = new Vector2(3, 3);
+            enemyChipSprite = new Sprite(chipsSheet, new Rectangle(W*8, 0, 82, 82));
 
             /* UI */
             characterInformationUI = new Sprite(UISheet, new Rectangle(1602, 0, 261, 634));
@@ -260,6 +260,8 @@ namespace Proeve.Resources
 
             rankNamesNormal = new Sprite(UISheet, new Rectangle(1327, 505, 141, 26), 8, 0f, 1, OnePixelInterspace);
             rankNamesBold = new Sprite(UISheet, new Rectangle(1213, 505, 113, 21), 8, 0f, 1, OnePixelInterspace);
+
+            numbers = new Sprite(UISheet, new Rectangle(945, 785, 15, 17), 10, 0f, 0, OnePixelInterspace);
 
             // Buttons
             startButtonSprite = new Sprite(UISheet, new Rectangle(0, 760, 324, 64));
@@ -286,6 +288,8 @@ namespace Proeve.Resources
 
             fightingPopUp = new Sprite(UISheet, new Rectangle(0, 0, 944, 759));
             fightingPopUp.origin = fightingPopUp.Center;
+
+            diamondsUI = new Sprite(UISheet, new Rectangle(611, 760, 166, 75));
         }
     }
 }

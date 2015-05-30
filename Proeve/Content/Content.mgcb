@@ -52,17 +52,6 @@
 /processorParam:TextureFormat=Color
 /build:Backgrounds/backgroundGrassLand.png
 
-#begin Characters/Chips/EnemyChips.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:TextureFormat=Color
-/build:Characters/Chips/EnemyChips.png
-
 #begin UI/Fighting/damage188x32.png
 /importer:TextureImporter
 /processor:TextureProcessor

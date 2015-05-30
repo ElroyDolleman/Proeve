@@ -39,6 +39,9 @@ namespace Proeve.States
         private Vector2 MySpySpecialPosition { get { return new Vector2(Main.WindowCenter.X + 160, Main.WindowCenter.Y - 70); } }
         private Vector2 EnemySpySpecialPosition { get { return new Vector2(Main.WindowCenter.X - 160, Main.WindowCenter.Y - 70); } }
 
+        private Vector2 MyMinerSpecialPosition { get { return new Vector2(Main.WindowCenter.X + 140, Main.WindowCenter.Y + 70); } }
+        private Vector2 EnemyMinerSpecialPosition { get { return new Vector2(Main.WindowCenter.X - 140, Main.WindowCenter.Y + 70); } }
+
         private Vector2 MyHealthbarPosition { get { return new Vector2(300, 520); } }
         private Vector2 EnemyHealthbarPosition { get { return new Vector2(620, 520); } }
 
@@ -97,8 +100,9 @@ namespace Proeve.States
 
         private Dictionary<Character.Special, int> specialRankNameFrames;
         private Dictionary<Character.Rank, int> rankNameFrames;
-        private Sprite myRankName, enemyRankName;
+        private Dictionary<Character.Rank, int> rewards;
 
+        private Sprite myRankName, enemyRankName;
         private Sprite axeIcon, swordIcon, shieldIcon;
 
         public FightState()
@@ -154,7 +158,7 @@ namespace Proeve.States
             specialAnimations[Character.Special.Healer].Position = Main.WindowCenter;
             specialAnimations[Character.Special.Healer].loop = false;
 
-            specialAnimations.Add(Character.Special.Miner, AnimationAssets.AxeNormalAttack);
+            specialAnimations.Add(Character.Special.Miner, AnimationAssets.MinerSpecial);
             specialAnimations[Character.Special.Miner].Position = Main.WindowCenter;
             specialAnimations[Character.Special.Miner].loop = false;
 
@@ -182,6 +186,17 @@ namespace Proeve.States
             hitMoments.Add(Character.Weapon.Sword, SWORD_HIT_TIME);
             hitMoments.Add(Character.Weapon.Shield, SHIELD_HIT_TIME);
             hitMoments.Add(Character.Weapon.None, AXE_HIT_TIME);
+
+            // REWARDS
+            rewards = new Dictionary<Character.Rank, int>();
+            rewards.Add(Character.Rank.Soldier, 10);
+            rewards.Add(Character.Rank.Captain, 20);
+            rewards.Add(Character.Rank.General, 30);
+            rewards.Add(Character.Rank.Bomb, 30);
+            rewards.Add(Character.Rank.Miner, 30);
+            rewards.Add(Character.Rank.Spy, 30);
+            rewards.Add(Character.Rank.Healer, 30);
+            rewards.Add(Character.Rank.Leader, 50);
             #endregion
 
             // DAMAGE SPRITE
@@ -305,7 +320,7 @@ namespace Proeve.States
                     // Set visual heal
                     damageSprite.position = myAttackTurn ? MyDamagePosition : EnemyDamagePosition;
                     damageSpriteAlpha = 1f;
-                    damageSprite.CurrentFrame = Math.Min(-damage+3, 4);
+                    damageSprite.CurrentFrame = Math.Min(-damage+3, 5);
 
                     isFlickering = true;
                 }
@@ -339,6 +354,9 @@ namespace Proeve.States
 
         private void EndFight()
         {
+            if (enemyCharacter.IsDead)
+                Globals.earnedDiamonds += rewards[enemyCharacter.rank];
+
             StateManager.RemoveState();
         }
 
@@ -357,6 +375,11 @@ namespace Proeve.States
             {
                 currentAnimation.FlipX = !currentAnimation.FlipX;
                 currentAnimation.Position = myAttackTurn ? MySpySpecialPosition : EnemySpySpecialPosition;
+            }
+            else if (currentAnimation == specialAnimations[Character.Special.Miner])
+            {
+                currentAnimation.FlipX = !currentAnimation.FlipX;
+                currentAnimation.Position = myAttackTurn ? MyMinerSpecialPosition : EnemyMinerSpecialPosition;
             }
 
             isFlickering = false;
@@ -381,14 +404,12 @@ namespace Proeve.States
                         currentAnimation = criticalAnimations[attacker.weapon];
                     break;
                 case Character.Special.Miner:
-                    if (defender.special == Character.Special.Bomb) {
+                    if (defender.special == Character.Special.Bomb)
                         damage = Math.Max(3, defender.hp);
-                        currentAnimation = specialAnimations[attacker.special];
-                    }
-                    else { 
+                    else 
                         damage = 1;
-                        currentAnimation = weaponAnimations[attacker.weapon];
-                    }
+
+                    currentAnimation = specialAnimations[attacker.special];
                     break;
                 case Character.Special.Spy:
                     if (defender.rank == Character.Rank.Leader)
@@ -404,7 +425,7 @@ namespace Proeve.States
                     break;
                 case Character.Special.Healer:
                     if (isHealing) {
-                        damage = -2;
+                        damage = Math.Max(-2, -(defender.maxHP - defender.hp));
                         currentAnimation = specialAnimations[attacker.special];
                     }
                     else {

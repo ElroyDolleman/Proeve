@@ -6,6 +6,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using E2DFramework.Helpers;
 using E2DFramework.Graphics;
 
 using Spine;
@@ -29,6 +30,8 @@ namespace Proeve.UI
         private Vector2 AnimationPosition { get { return new Vector2(118, 240); } }
 
         private Vector2 RankNamePosition { get { return new Vector2(32, 125); } }
+        private Vector2 DiamondsUIPosition { get { return new Vector2(95, 10); } }
+        private Vector2 DiamondsNumbersPosition { get { return new Vector2(172, 47); } }
         #endregion
 
         public Character SelectedCharacter { get; private set; }
@@ -37,9 +40,39 @@ namespace Proeve.UI
         private Sprite background;
         private Sprite stepCount;
         private Sprite rankName;
+        private Sprite diamondsUI;
 
         private Dictionary<Character.Weapon, Sprite> WeaponIcons;
         private Dictionary<Character.Rank, int> rankNameFrames;
+
+        private List<Sprite> diamondsDisplay;
+        private const int DIAMONDS_LIMIT = 99999;
+
+        public int Diamonds
+        {
+            get 
+            {
+                int score = 0;
+                for (int i = 0; i < diamondsDisplay.Count; i++)
+                    score += (diamondsDisplay[i].CurrentFrame - 1) * (1 * (int)Math.Pow(10, i));
+
+                return Math.Min(score, DIAMONDS_LIMIT);
+            }
+            set
+            {
+                int[] digits = MathHelp.GetDigits(value);
+
+                diamondsDisplay = new List<Sprite>();
+
+                for (int i = 0; i < digits.Length; i++) 
+                { 
+                    diamondsDisplay.Add(ArtAssets.Numbers);
+                    Sprite number = diamondsDisplay[i];
+                    number.CurrentFrame = digits[i] + 1;
+                    number.position = DiamondsNumbersPosition + new Vector2(i * number.sourceRectangle.Width, 0);
+                }
+            }
+        }
 
         public StatsUI()
         {
@@ -49,6 +82,9 @@ namespace Proeve.UI
 
             stepCount = ArtAssets.StepCount;
             stepCount.position = StepCountPosition;
+
+            diamondsUI = ArtAssets.DiamondsUI;
+            diamondsUI.position = DiamondsUIPosition;
 
             // Set weapon icons
             WeaponIcons = new Dictionary<Character.Weapon, Sprite>();
@@ -73,6 +109,9 @@ namespace Proeve.UI
 
             rankName = ArtAssets.RankNamesNormal;
             rankName.position = RankNamePosition;
+
+            // Set default score
+            Diamonds = 0;
         }
 
         private void SetHealthBar(int hp)
@@ -143,6 +182,10 @@ namespace Proeve.UI
         public void Draw(SpriteBatch spriteBatch)
         {
             background.Draw(spriteBatch);
+
+            diamondsUI.Draw(spriteBatch);
+            foreach (Sprite number in diamondsDisplay)
+                number.Draw(spriteBatch);
 
             if (SelectedCharacter != null)
             {

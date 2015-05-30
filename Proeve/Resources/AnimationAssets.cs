@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -57,6 +58,7 @@ namespace Proeve.Resources
         private const string HIT_EFFECT = "hitEffect";
         private const string SPY_SPECIAL = "spySpecial";
         private const string HEAL_SPECIAL = "healAnimation";
+        private const string MINER_SPECIAL = "minerSpecial";
 
         #endregion
         #region ANIMATION NAMES
@@ -106,6 +108,7 @@ namespace Proeve.Resources
         private static SpineAnimation spySpecial;
         private static SpineAnimation spySpecialHitEffect;
         private static SpineAnimation healSpecial;
+        private static SpineAnimation minerSpecial;
 
         private static SpineAnimation hitEffect;
 
@@ -151,6 +154,7 @@ namespace Proeve.Resources
         public static SpineAnimation SpySpecial { get { return (SpineAnimation)spySpecial.Clone(); } }
         public static SpineAnimation HealSpecial { get { return (SpineAnimation)healSpecial.Clone(); } }
         public static SpineAnimation SpySpecialHitEffect { get { return (SpineAnimation)spySpecialHitEffect.Clone(); } }
+        public static SpineAnimation MinerSpecial { get { return (SpineAnimation)minerSpecial.Clone(); } }
 
         public static SpineAnimation HitEffect { get { return (SpineAnimation)hitEffect.Clone(); } }
 
@@ -189,6 +193,7 @@ namespace Proeve.Resources
             // MEDIEVAL HEALER
             medievalHealer = new SpineAnimation();
             medievalHealer.LoadAnimation(graphicsDevice, contentManager, MEDIEVAL_ARMY_PATH, MEDIEVAL_HEALER);
+            medievalHealer.Offset = new Vector2(0, 2);
 
             // MEDIEVAL SPY
             medievalSpy = new SpineAnimation();
@@ -206,14 +211,17 @@ namespace Proeve.Resources
             // TIKI GENERAL
             tikiGeneral = new SpineAnimation();
             tikiGeneral.LoadAnimation(graphicsDevice, contentManager, TIKI_ARMY_PATH, TIKI_GENERAL);
+            tikiGeneral.Offset = new Vector2(0, 4);
 
             // TIKI Captain
             tikiCaptain = new SpineAnimation();
             tikiCaptain.LoadAnimation(graphicsDevice, contentManager, TIKI_ARMY_PATH, TIKI_CAPTAIN, "Idle");
+            tikiCaptain.Offset = new Vector2(0, 10);
 
             // TIKI Soldier
             tikiSoldier = new SpineAnimation();
             tikiSoldier.LoadAnimation(graphicsDevice, contentManager, TIKI_ARMY_PATH, TIKI_SOLDIER);
+            tikiSoldier.Offset = new Vector2(0, 8);
 
             // TIKI MINOR
             tikiMiner = new SpineAnimation();
@@ -263,6 +271,10 @@ namespace Proeve.Resources
             // HEAL SPECIAL
             healSpecial = new SpineAnimation();
             healSpecial.LoadAnimation(graphicsDevice, contentManager, WEAPON_ANIMATION_PATH, HEAL_SPECIAL);
+
+            // MINER SPECIAL
+            minerSpecial = new SpineAnimation();
+            minerSpecial.LoadAnimation(graphicsDevice, contentManager, WEAPON_ANIMATION_PATH, MINER_SPECIAL);
 
             // HIT 
             hitEffect = new SpineAnimation();
