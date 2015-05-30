@@ -49,7 +49,14 @@ namespace Proeve.Entities
 
         public Vector2 Position {
             get { return new Vector2(skeleton.X, skeleton.Y); }
-            set { skeleton.X = value.X; skeleton.Y = value.Y; }
+            set { skeleton.X = value.X + offset.X; skeleton.Y = value.Y + offset.Y; }
+        }
+
+        private Vector2 offset;
+        public Vector2 Offset
+        {
+            get { return offset; }
+            set { offset = value; Position = Position + offset; }
         }
 
         public SpineAnimation()
@@ -91,8 +98,6 @@ namespace Proeve.Entities
 
         public void Update(GameTime gameTime)
         {
-            //Console.WriteLine(IsPlayingAnimation);
-
             if (IsPlayingAnimation)
             {
                 animationState.Apply(skeleton);

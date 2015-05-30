@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -192,6 +193,7 @@ namespace Proeve.Resources
             // MEDIEVAL HEALER
             medievalHealer = new SpineAnimation();
             medievalHealer.LoadAnimation(graphicsDevice, contentManager, MEDIEVAL_ARMY_PATH, MEDIEVAL_HEALER);
+            medievalHealer.Offset = new Vector2(0, 2);
 
             // MEDIEVAL SPY
             medievalSpy = new SpineAnimation();
@@ -209,14 +211,17 @@ namespace Proeve.Resources
             // TIKI GENERAL
             tikiGeneral = new SpineAnimation();
             tikiGeneral.LoadAnimation(graphicsDevice, contentManager, TIKI_ARMY_PATH, TIKI_GENERAL);
+            tikiGeneral.Offset = new Vector2(0, 4);
 
             // TIKI Captain
             tikiCaptain = new SpineAnimation();
             tikiCaptain.LoadAnimation(graphicsDevice, contentManager, TIKI_ARMY_PATH, TIKI_CAPTAIN, "Idle");
+            tikiCaptain.Offset = new Vector2(0, 10);
 
             // TIKI Soldier
             tikiSoldier = new SpineAnimation();
             tikiSoldier.LoadAnimation(graphicsDevice, contentManager, TIKI_ARMY_PATH, TIKI_SOLDIER);
+            tikiSoldier.Offset = new Vector2(0, 8);
 
             // TIKI MINOR
             tikiMiner = new SpineAnimation();
