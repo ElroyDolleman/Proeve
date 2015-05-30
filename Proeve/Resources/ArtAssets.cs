@@ -35,7 +35,6 @@ namespace Proeve.Resources
         /* CHARACTERS */
         // Chips
         private const string CHIPS_SHEET = "ChipsSheet";
-        private const string ENEMY_CHIP_SHEET = "EnemyChips";
 
         /* UI */
         private const string UI_SHEET = "UI_sheet";
@@ -59,7 +58,6 @@ namespace Proeve.Resources
         /* CHARACTERS */
         // Chips Medieval
         private static E2DTexture chipsSheet;
-        private static E2DTexture enemyChipSheet;
 
         /* UI */
         private static E2DTexture UISheet;
@@ -203,7 +201,6 @@ namespace Proeve.Resources
             /* CHARACTERS */
             // Chips
             chipsSheet.Load(CHIPS_PATH, CHIPS_SHEET);
-            enemyChipSheet.Load(CHIPS_PATH, ENEMY_CHIP_SHEET);
 
             /* UI */
             UISheet.Load(UI_PATH, UI_SHEET);
@@ -254,8 +251,7 @@ namespace Proeve.Resources
             tikiHealerChipSprite = new Sprite(chipsSheet, new Rectangle(W*5, W, W, W));
             tikiBombChipSprite = new Sprite(chipsSheet, new Rectangle(W*7, W, W, W));
 
-            enemyChipSprite = new Sprite(enemyChipSheet, new Rectangle(0, 0, 85, 85), 25, 30f, 5);
-            enemyChipSprite.origin = new Vector2(3, 3);
+            enemyChipSprite = new Sprite(chipsSheet, new Rectangle(W*8, 0, 82, 82));
 
             /* UI */
             characterInformationUI = new Sprite(UISheet, new Rectangle(1602, 0, 261, 634));

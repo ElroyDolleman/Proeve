@@ -486,7 +486,7 @@ namespace Proeve.States
 
         public List<Character> GetEnemyArmy()
         {
-            return ((GameState)StateManager.GetState(1)).GetEnemyArmy(); ;
+            return ((GameState)StateManager.GetState(1)).GetEnemyArmy();
         }
 
         private void RecievedMove(int charIndex, Point gridLocation)

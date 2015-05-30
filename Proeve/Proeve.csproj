@@ -141,7 +141,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Characters\Chips\ChipsSheet.png" />
-    <Content Include="Content\Characters\Chips\EnemyChips.png" />
     <Content Include="Content\UI\Animations\healIcon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
