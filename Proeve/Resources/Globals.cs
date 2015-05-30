@@ -36,6 +36,8 @@ namespace Proeve.Resources
         public const float ANIMATION_SCALE = .38f;
 
         public static StatsUI statsUI;
+
         public static int diamonds;
+        public static int earnedDiamonds;
     }
 }

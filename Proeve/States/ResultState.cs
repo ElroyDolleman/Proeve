@@ -32,6 +32,9 @@ namespace Proeve.States
                 }
             }
 
+            Globals.diamonds = Globals.earnedDiamonds;
+            Globals.earnedDiamonds = 0;
+
             Globals.multiplayerConnection = null;
             StateManager.ChangeState(Settings.STATES.ArmyEditor);
         }

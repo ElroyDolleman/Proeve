@@ -47,6 +47,8 @@ namespace Proeve.States
             Globals.multiplayerConnection.RecieveMove += RecievedMove;
             Globals.multiplayerConnection.RecieveFight += RecievedFight;
             Globals.multiplayerConnection.RecieveEndTurn += OtherPlayerEndedHisTurn;
+
+            Globals.earnedDiamonds = 0;
         }
 
         public override void Update(GameTime gameTime)

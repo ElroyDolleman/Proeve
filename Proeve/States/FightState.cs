@@ -97,8 +97,9 @@ namespace Proeve.States
 
         private Dictionary<Character.Special, int> specialRankNameFrames;
         private Dictionary<Character.Rank, int> rankNameFrames;
-        private Sprite myRankName, enemyRankName;
+        private Dictionary<Character.Rank, int> rewards;
 
+        private Sprite myRankName, enemyRankName;
         private Sprite axeIcon, swordIcon, shieldIcon;
 
         public FightState()
@@ -182,6 +183,17 @@ namespace Proeve.States
             hitMoments.Add(Character.Weapon.Sword, SWORD_HIT_TIME);
             hitMoments.Add(Character.Weapon.Shield, SHIELD_HIT_TIME);
             hitMoments.Add(Character.Weapon.None, AXE_HIT_TIME);
+
+            // REWARDS
+            rewards = new Dictionary<Character.Rank, int>();
+            rewards.Add(Character.Rank.Soldier, 10);
+            rewards.Add(Character.Rank.Captain, 20);
+            rewards.Add(Character.Rank.General, 30);
+            rewards.Add(Character.Rank.Bomb, 30);
+            rewards.Add(Character.Rank.Miner, 30);
+            rewards.Add(Character.Rank.Spy, 30);
+            rewards.Add(Character.Rank.Healer, 30);
+            rewards.Add(Character.Rank.Leader, 50);
             #endregion
 
             // DAMAGE SPRITE
@@ -305,7 +317,7 @@ namespace Proeve.States
                     // Set visual heal
                     damageSprite.position = myAttackTurn ? MyDamagePosition : EnemyDamagePosition;
                     damageSpriteAlpha = 1f;
-                    damageSprite.CurrentFrame = Math.Min(-damage+3, 4);
+                    damageSprite.CurrentFrame = Math.Min(-damage+3, 5);
 
                     isFlickering = true;
                 }
@@ -339,6 +351,9 @@ namespace Proeve.States
 
         private void EndFight()
         {
+            if (enemyCharacter.IsDead)
+                Globals.earnedDiamonds += rewards[enemyCharacter.rank];
+
             StateManager.RemoveState();
         }
 
@@ -404,7 +419,7 @@ namespace Proeve.States
                     break;
                 case Character.Special.Healer:
                     if (isHealing) {
-                        damage = -2;
+                        damage = Math.Max(-2, -(defender.maxHP - defender.hp));
                         currentAnimation = specialAnimations[attacker.special];
                     }
                     else {
