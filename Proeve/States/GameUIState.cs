@@ -115,22 +115,17 @@ namespace Proeve.States
 
                         if (!contains)
                         {
-                            //selected = -1;
                             canMoveTo = null;
                         }
                         moveArrows = null;
                         attackIcons = null;
                     }
                 }
-                //if (selected == -1)
-                //{
 
                 if (Globals.mouseState.LeftButtonPressed)
                 {
                     SelectUnit(gameTime);
                 }
-                //}
-                //else
             }
 
             if (StateManager.GetState(1) is GameState)
@@ -172,7 +167,7 @@ namespace Proeve.States
                     moveArrows[i].Draw(skeletonRenderer);
                 }
             }
-            if (attackIcons != null)
+            if (attackIcons != null && Armies.army[selected].waypoints.Count == 0)
             {
                 for (int i = 0; i < attackIcons.Count; i++)
                 {
@@ -265,7 +260,6 @@ namespace Proeve.States
 
         public void SelectUnit(GameTime gameTime)
         {
-            bool contains = false;
             for (int i = 0; i < Armies.army.Count; i++)
             {
                 if (Armies.army[i].Hitbox.Contains(Globals.mouseState.Position) && (canMove[i] || canAttack[i]) && Armies.army[i].waypoints.Count == 0 && !Armies.army[i].IsDead)
@@ -284,17 +278,12 @@ namespace Proeve.States
                     if (valid && StateManager.GetState(1) is GameState)
                     {
                         selected = i;
-                        contains = true;
                         statsUI.ChangeCharacter(((GameState)StateManager.GetState(1)).GetArmy()[i]);
                     }
                 }
             }
 
-            if (!contains)
-            {
-                //selected = -1;
-            }
-            else if (selected != -1)
+            if (selected != -1)
             {
                 if (canMove[selected])
                 {
