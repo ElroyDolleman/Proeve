@@ -19,6 +19,7 @@ namespace Proeve.States
     class GameUIState : State
     {
         private Vector2 EndTurnButtonPosition { get { return new Vector2(794, 695); } }
+        private Vector2 HomeButtonPosition { get { return new Vector2(8, 10); } }
 
         private bool IsTurn { get { return Globals.multiplayerConnection.myTurn; } }
         private int selected = -1;
@@ -41,6 +42,9 @@ namespace Proeve.States
 
             buttons.Add(new Button(ArtAssets.EndTurnButton, EndTurnButtonPosition));
             buttons[0].ClickEvent = EndTurn;
+
+            buttons.Add(new Button(ArtAssets.HomeButton, HomeButtonPosition));
+            buttons[1].ClickEvent = QuitMatch;
 
             SetMovable();
 
@@ -502,6 +506,11 @@ namespace Proeve.States
                 c.ResetColorEffect();
 
             SetMovable();
+        }
+
+        private void QuitMatch()
+        {
+            Armies.army[0].hp = 0;
         }
     }
 }

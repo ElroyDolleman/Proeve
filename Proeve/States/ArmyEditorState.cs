@@ -20,10 +20,10 @@ namespace Proeve.States
     class ArmyEditorState : State
     {
         // Read Only Positions
-        public Vector2 ArmyShowCasePosition { get { return new Vector2(334, 10); } }
-        public Vector2 StartButtonPosition { get { return new Vector2(498, 695); } }
-        public Vector2 RankNamePosition { get { return new Vector2(507, 20); } }
-        public Vector2 HomeButtonPosition { get { return new Vector2(8, 10); } }
+        private Vector2 ArmyShowCasePosition { get { return new Vector2(334, 10); } }
+        private Vector2 StartButtonPosition { get { return new Vector2(498, 695); } }
+        private Vector2 RankNamePosition { get { return new Vector2(507, 20); } }
+        private Vector2 HomeButtonPosition { get { return new Vector2(8, 10); } }
 
         // Character
         private static Dictionary<Character.Rank, Sprite> armyDict;
