@@ -199,6 +199,8 @@ namespace Proeve.Resources
         public static Sprite WinPopUp { get { return (Sprite)winPopUp.Clone(); } }
         public static Sprite LosePopUp { get { return (Sprite)losePopUp.Clone(); } }
         public static Sprite ReturnButton { get { return (Sprite)returnButton.Clone(); } }
+        public static Sprite RewardText { get { return (Sprite)rewardText.Clone(); } }
+        public static Sprite BigNumbers { get { return (Sprite)bigNumbers.Clone(); } }
 
         #endregion
         #region FONTS
@@ -305,8 +307,10 @@ namespace Proeve.Resources
             // Win / Lose
             winPopUp = new Sprite(UISheet, new Rectangle(0, 845, 906, 687)); //winPopUp.origin = winPopUp.Center;
             losePopUp = new Sprite(UISheet, new Rectangle(907, 845, 906, 687)); //losePopUp.origin = losePopUp.Center;
-
             returnButton = new Sprite(UISheet, new Rectangle(1517, 417, 82, 81));
+
+            rewardText = new Sprite(UISheet, new Rectangle(1233, 721, 235, 71));
+            bigNumbers = new Sprite(UISheet, new Rectangle(945, 803, 28, 34), 10, 0f, 0, OnePixelInterspace);
         }
     }
 }
