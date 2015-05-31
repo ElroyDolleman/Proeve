@@ -19,19 +19,19 @@ namespace Proeve.Resources
     {
         #region Events
 
-        public delegate void RecieveConnectionEvent();
-        public delegate void RecieveArmyEvent();
-        public delegate void RecieveMoveEvent(int characterIndex, Point gridLocation);
-        public delegate void RecieveFightEvent(int characterIndexAttacker, int characterIndexDefender);
-        public delegate void RecieveEndTurnEvent();
-        public delegate void RecieveResponsEvent();
+        public delegate void ReceiveConnectionEvent();
+        public delegate void ReceiveArmyEvent();
+        public delegate void ReceiveMoveEvent(int characterIndex, Point gridLocation);
+        public delegate void ReceiveFightEvent(int characterIndexAttacker, int characterIndexDefender);
+        public delegate void ReceiveEndTurnEvent();
+        public delegate void ReceiveResponsEvent();
 
-        public RecieveConnectionEvent RecieveConnection;
-        public RecieveArmyEvent RecieveArmy;
-        public RecieveMoveEvent RecieveMove;
-        public RecieveFightEvent RecieveFight;
-        public RecieveEndTurnEvent RecieveEndTurn;
-        public RecieveResponsEvent RecieveResponse;
+        public ReceiveConnectionEvent ReceiveConnection;
+        public ReceiveArmyEvent ReceiveArmy;
+        public ReceiveMoveEvent ReceiveMove;
+        public ReceiveFightEvent ReceiveFight;
+        public ReceiveEndTurnEvent ReceiveEndTurn;
+        public ReceiveResponsEvent ReceiveResponse;
 
         #endregion
 
@@ -122,7 +122,7 @@ namespace Proeve.Resources
                         if (!isHosting)
                             WriteConnection();
 
-                        RecieveConnection();
+                        ReceiveConnection();
                     }
                     break;
 
@@ -139,7 +139,7 @@ namespace Proeve.Resources
                         if (!isHosting)
                             WriteArmy();
 
-                        RecieveArmy();
+                        ReceiveArmy();
                     }
                     break;
 
@@ -168,16 +168,16 @@ namespace Proeve.Resources
                         int charIndex = reader.ReadInt32();
                         Point gridLocation = new Point(reader.ReadInt32(), reader.ReadInt32());
 
-                        RecieveMove(charIndex, gridLocation);
+                        ReceiveMove(charIndex, gridLocation);
                         break;
                     case GameLogicData.Fight:
-                        RecieveFight(reader.ReadInt32(), reader.ReadInt32());
+                        ReceiveFight(reader.ReadInt32(), reader.ReadInt32());
                         break;
                     case GameLogicData.EndTurn:
                         myTurn = true;
                         currentState = State.None;
 
-                        RecieveEndTurn();
+                        ReceiveEndTurn();
                         break;
                 }
 

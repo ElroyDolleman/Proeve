@@ -27,8 +27,8 @@ namespace Proeve.States
             font = ArtAssets.normalFont;
             Globals.multiplayerConnection = new MultiplayerConnection();
 
-            Globals.multiplayerConnection.RecieveArmy += RecievedArmy;
-            Globals.multiplayerConnection.RecieveConnection += RecievedConnection;
+            Globals.multiplayerConnection.ReceiveArmy += ReceivedArmy;
+            Globals.multiplayerConnection.ReceiveConnection += ReceivedConnection;
 
             if (Globals.multiplayerConnection.isHosting) {
                 you = 1;
@@ -40,12 +40,12 @@ namespace Proeve.States
             }
         }
 
-        private void RecievedConnection()
+        private void ReceivedConnection()
         {
             
         }
 
-        private void RecievedArmy()
+        private void ReceivedArmy()
         {
             ((GameState)StateManager.GetState(1)).SetEnemyArmy(Armies.opponentArmy);
             //((GameState)StateManager.GetState(1)).MatchStarts();

@@ -48,9 +48,9 @@ namespace Proeve.States
 
             SetMovable();
 
-            Globals.multiplayerConnection.RecieveMove += RecievedMove;
-            Globals.multiplayerConnection.RecieveFight += RecievedFight;
-            Globals.multiplayerConnection.RecieveEndTurn += OtherPlayerEndedHisTurn;
+            Globals.multiplayerConnection.ReceiveMove += ReceivedMove;
+            Globals.multiplayerConnection.ReceiveFight += ReceivedFight;
+            Globals.multiplayerConnection.ReceiveEndTurn += OtherPlayerEndedHisTurn;
 
             Globals.earnedDiamonds = 0;
         }
@@ -478,12 +478,12 @@ namespace Proeve.States
             return ((GameState)StateManager.GetState(1)).GetEnemyArmy();
         }
 
-        private void RecievedMove(int charIndex, Point gridLocation)
+        private void ReceivedMove(int charIndex, Point gridLocation)
         {
             ((GameState)StateManager.GetState(1)).MoveUnit(Armies.opponentArmy[charIndex], gridLocation);
         }
 
-        public void RecievedFight(int charIndexAttacker, int charIndexDefender)
+        public void ReceivedFight(int charIndexAttacker, int charIndexDefender)
         {
             statsUI.RemoveCharacter();
             ((GameState)StateManager.GetState(1)).AttackUnit(Armies.opponentArmy[charIndexAttacker], Armies.opponentArmy[charIndexAttacker].special != Character.Special.Healer ? Armies.army[charIndexDefender] : Armies.opponentArmy[charIndexDefender]);
