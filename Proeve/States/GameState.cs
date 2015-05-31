@@ -16,6 +16,8 @@ namespace Proeve.States
 {
     class GameState : State
     {
+        private const float MOVEMENT_VELOCITY = 5.2f;
+
         private int[,] level;
         private List<Character> army;
         private List<Character> enemyArmy;
@@ -54,8 +56,8 @@ namespace Proeve.States
                 {
                     Vector2 wp = Grid.ToPixelLocation(c.waypoints[c.waypoints.Count - 1], Globals.GridLocation, Globals.TileDimensions).ToVector2();
 
-                    if (Vector2.Distance(c.position, wp) > 4)
-                        c.MoveTowards(wp, 4);
+                    if (Vector2.Distance(c.position, wp) > MOVEMENT_VELOCITY)
+                        c.MoveTowards(wp, MOVEMENT_VELOCITY);
                     else
                     {
                         c.position = wp;
@@ -73,9 +75,10 @@ namespace Proeve.States
                 if (!c.IsDead)
                     c.Draw(spriteBatch);
 
-            foreach (Character c in enemyArmy)
-                if (!c.IsDead)
-                    c.Draw(spriteBatch);
+            if (enemyArmy != null)
+                foreach (Character c in enemyArmy)
+                    if (!c.IsDead)
+                        c.Draw(spriteBatch);
         }
 
         public override void DrawAnimation(Spine.SkeletonMeshRenderer skeletonRenderer)

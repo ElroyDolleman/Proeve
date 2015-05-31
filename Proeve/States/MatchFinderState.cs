@@ -7,6 +7,8 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using E2DFramework.Graphics;
+
 using Proeve.Resources;
 #endregion
 
@@ -60,12 +62,16 @@ namespace Proeve.States
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(font, "player " + you, new Vector2(100, 64), Color.White);
+            StateManager.GetState(1).Draw(spriteBatch);
+            Globals.statsUI.Draw(spriteBatch);
+            spriteBatch.DrawRectangle(Main.WindowRectangle, Color.Black * .75f);
 
-            if (Globals.multiplayerConnection.Connected)
+            //spriteBatch.DrawString(font, "player " + you, new Vector2(100, 64), Color.White);
+
+            /*if (Globals.multiplayerConnection.Connected)
                 spriteBatch.DrawString(font, "player " + opponent, new Vector2(Main.WindowWidth - 100, 64), Color.White);
             else
-                spriteBatch.DrawString(font, "searching...", new Vector2(Main.WindowWidth - 100, 64), Color.White);
+                spriteBatch.DrawString(font, "searching...", new Vector2(Main.WindowWidth - 100, 64), Color.White);*/
         }
     }
 }
