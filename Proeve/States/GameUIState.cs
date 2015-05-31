@@ -166,18 +166,21 @@ namespace Proeve.States
         {
             StateManager.GetState(1).DrawAnimation(skeletonRenderer);
 
-            if (moveArrows != null)
+            if (selected >= 0)
             {
-                for (int i = 0; i < moveArrows.Count; i++)
+                if (moveArrows != null)
                 {
-                    moveArrows[i].Draw(skeletonRenderer);
+                    for (int i = 0; i < moveArrows.Count; i++)
+                    {
+                        moveArrows[i].Draw(skeletonRenderer);
+                    }
                 }
-            }
-            if (attackIcons != null && Armies.army[selected].waypoints.Count == 0)
-            {
-                for (int i = 0; i < attackIcons.Count; i++)
+                if (attackIcons != null && Armies.army[selected].waypoints.Count == 0)
                 {
-                    attackIcons[i].Draw(skeletonRenderer);
+                    for (int i = 0; i < attackIcons.Count; i++)
+                    {
+                        attackIcons[i].Draw(skeletonRenderer);
+                    }
                 }
             }
 
@@ -464,6 +467,9 @@ namespace Proeve.States
 
         private void EndTurn()
         {
+            selected = -1;
+            statsUI.RemoveCharacter();
+
             if (IsTurn)
                 Globals.multiplayerConnection.SendEndTurn();
         }
