@@ -104,6 +104,7 @@ namespace Proeve.Resources
         private static Sprite stepCount;
         private static Sprite diamondsUI;
         private static Sprite numbers;
+        private static Sprite bigNumbers;
 
         private static Sprite rankNamesNormal;
         private static Sprite rankNamesBold;
@@ -128,6 +129,11 @@ namespace Proeve.Resources
 
         private static Sprite medievalArmySheet;
         private static Sprite tikiArmySheet;
+
+        // Win Lose
+        private static Sprite winPopUp, losePopUp;
+        private static Sprite rewardText;
+        private static Sprite returnButton;
 
         #endregion
         #region READONLY PROPERTIES
@@ -188,6 +194,11 @@ namespace Proeve.Resources
         public static Sprite DamageTextSprite { get { return (Sprite)damageTextSprite.Clone(); } }
         public static Sprite FightPopUp { get { return (Sprite)fightingPopUp.Clone(); } }
         public static Sprite VSText { get { return (Sprite)vsText.Clone(); } }
+
+        // Win/Lose
+        public static Sprite WinPopUp { get { return (Sprite)winPopUp.Clone(); } }
+        public static Sprite LosePopUp { get { return (Sprite)losePopUp.Clone(); } }
+        public static Sprite ReturnButton { get { return (Sprite)returnButton.Clone(); } }
 
         #endregion
         #region FONTS
@@ -290,6 +301,12 @@ namespace Proeve.Resources
             fightingPopUp.origin = fightingPopUp.Center;
 
             diamondsUI = new Sprite(UISheet, new Rectangle(611, 760, 166, 75));
+
+            // Win / Lose
+            winPopUp = new Sprite(UISheet, new Rectangle(0, 845, 906, 687)); //winPopUp.origin = winPopUp.Center;
+            losePopUp = new Sprite(UISheet, new Rectangle(907, 845, 906, 687)); //losePopUp.origin = losePopUp.Center;
+
+            returnButton = new Sprite(UISheet, new Rectangle(1517, 417, 82, 81));
         }
     }
 }

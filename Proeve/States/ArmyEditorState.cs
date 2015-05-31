@@ -138,7 +138,7 @@ namespace Proeve.States
         public override void Update(GameTime gameTime)
         {
             if (!drag)
-                if (Globals.mouseState.LeftButtonHold && startDragGridPosition == Grid.ToGridLocation(Globals.mouseState.Position.ToPoint(), gridLocation, Globals.TileDimensions))
+                if (Globals.mouseState.LeftButtonHold && startDragGridPosition == Grid.ToGridLocation(Globals.mouseState.Position.ToPoint(), gridLocation, Globals.TileDimensions) && Main.WindowRectangle.Contains(Globals.mouseState.Position))
                 {
                     dragHoldTimer += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
 
@@ -149,7 +149,7 @@ namespace Proeve.States
                     }
                 }
 
-            if (Globals.mouseState.LeftButtonPressed)
+            if (Globals.mouseState.LeftButtonPressed && Main.WindowRectangle.Contains(Globals.mouseState.Position))
             {
                 if (selectedCharacter.Hitbox.Contains(Globals.mouseState.Position))
                     drag = true;

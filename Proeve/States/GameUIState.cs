@@ -112,7 +112,7 @@ namespace Proeve.States
                 
                 if (selected != -1)
                 {
-                    if (Globals.mouseState.LeftButtonPressed)
+                    if (Globals.mouseState.LeftButtonPressed && Main.WindowRectangle.Contains(Globals.mouseState.Position))
                     {
                         bool contains = false;
                         contains = TestForMove(gameTime);
@@ -128,7 +128,7 @@ namespace Proeve.States
                     }
                 }
 
-                if (Globals.mouseState.LeftButtonPressed)
+                if (Globals.mouseState.LeftButtonPressed && Main.WindowRectangle.Contains(Globals.mouseState.Position))
                 {
                     SelectUnit(gameTime);
                 }

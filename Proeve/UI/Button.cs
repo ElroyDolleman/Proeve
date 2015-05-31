@@ -65,12 +65,13 @@ namespace Proeve.UI
 
         public void Update(GameTime gametime)
         {
-            if (Globals.mouseState.LeftButtonPressed)
+            if (Globals.mouseState.LeftButtonPressed && Main.WindowRectangle.Contains(Globals.mouseState.Position))
             {
                 if (hitbox.Contains(Globals.mouseState.Position))
                     Down = true;
             }
-            if (Globals.mouseState.LeftButtonReleased){
+            if (Globals.mouseState.LeftButtonReleased && Main.WindowRectangle.Contains(Globals.mouseState.Position))
+            {
                 if (Down)
                 {
                     if (ClickEvent != null && hitbox.Contains(Globals.mouseState.Position))

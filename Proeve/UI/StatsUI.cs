@@ -172,7 +172,7 @@ namespace Proeve.UI
 
         public void UpdateWeaponChanging()
         {
-            if (Globals.mouseState.LeftButtonPressed && SelectedCharacter != null)
+            if (Globals.mouseState.LeftButtonPressed && SelectedCharacter != null && Main.WindowRectangle.Contains(Globals.mouseState.Position))
                 if (SelectedCharacter.special == Character.Special.None)
                     foreach (Character.Weapon w in WeaponIcons.Keys)
                         if (Vector2.Distance(Globals.mouseState.Position, WeaponIcons[w].position) < WeaponIcons[w].sourceRectangle.Width / 2)
