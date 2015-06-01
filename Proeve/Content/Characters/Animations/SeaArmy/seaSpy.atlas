@@ -1,0 +1,145 @@
+seaSpy.png
+size: 4096,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Eyes
+  rotate: false
+  xy: 0, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Head
+  rotate: false
+  xy: 400, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Leg_B_1
+  rotate: false
+  xy: 800, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Leg_B_2
+  rotate: false
+  xy: 1200, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Leg_B_3
+  rotate: false
+  xy: 1600, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Leg_B_4
+  rotate: false
+  xy: 2000, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Leg_F_1
+  rotate: false
+  xy: 2400, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Leg_F_2
+  rotate: false
+  xy: 2800, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Leg_F_3
+  rotate: false
+  xy: 3200, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Leg_F_4
+  rotate: false
+  xy: 3600, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Leg_F_5
+  rotate: false
+  xy: 0, 400
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Leg_F_6
+  rotate: false
+  xy: 400, 400
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Moustache
+  rotate: false
+  xy: 800, 400
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Neck_1
+  rotate: false
+  xy: 1200, 400
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Neck_2
+  rotate: false
+  xy: 1600, 400
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Neck_3
+  rotate: false
+  xy: 2000, 400
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Neck_4
+  rotate: false
+  xy: 2400, 400
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Tail_1
+  rotate: false
+  xy: 2800, 400
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Tail_2
+  rotate: false
+  xy: 3200, 400
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Tail_3
+  rotate: false
+  xy: 3600, 400
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1

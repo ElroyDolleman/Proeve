@@ -191,10 +191,24 @@ namespace Proeve.States
                 }
 
                 if (leftNextButtonHitbox.Contains(Globals.mouseState.Position))
-                    SetArmyDictionary(currentArmy == Character.Army.Normal ? Character.Army.Tiki : Character.Army.Normal);
+                {
+                    switch(currentArmy)
+                    {
+                        case Character.Army.Normal: SetArmyDictionary(Character.Army.Sea); break;
+                        case Character.Army.Tiki: SetArmyDictionary(Character.Army.Normal); break;
+                        case Character.Army.Sea: SetArmyDictionary(Character.Army.Tiki); break;
+                    }
+                }
 
                 if (rightNextButtonHitbox.Contains(Globals.mouseState.Position))
-                    SetArmyDictionary(currentArmy == Character.Army.Normal ? Character.Army.Tiki : Character.Army.Normal);
+                {
+                    switch (currentArmy)
+                    {
+                        case Character.Army.Normal: SetArmyDictionary(Character.Army.Tiki); break;
+                        case Character.Army.Tiki: SetArmyDictionary(Character.Army.Sea); break;
+                        case Character.Army.Sea: SetArmyDictionary(Character.Army.Normal); break;
+                    }
+                }
             }
 
             if (drag && Globals.mouseState.LeftButtonReleased)
@@ -263,6 +277,7 @@ namespace Proeve.States
                 default:
                 case Character.Army.Normal: armySheet = ArtAssets.MedievalArmySheet; break;
                 case Character.Army.Tiki: armySheet = ArtAssets.TikiArmySheet; break;
+                case Character.Army.Sea: armySheet = ArtAssets.SeaArmySheet; break;
             }
 
             armyDict = new Dictionary<Character.Rank, Sprite>();

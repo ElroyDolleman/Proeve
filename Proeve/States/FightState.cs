@@ -68,7 +68,6 @@ namespace Proeve.States
         private bool isHealing;
 
         private Sprite damageSprite;
-        private Sprite healSprite;
 
         private const int DAMAGE_SPEED = 3;
         private const float FADE_OUT_SPEED = .2f;
@@ -196,7 +195,7 @@ namespace Proeve.States
             rewards.Add(Character.Rank.Miner, 30);
             rewards.Add(Character.Rank.Spy, 30);
             rewards.Add(Character.Rank.Healer, 30);
-            rewards.Add(Character.Rank.Leader, 50);
+            rewards.Add(Character.Rank.Leader, 100);
             #endregion
 
             // DAMAGE SPRITE

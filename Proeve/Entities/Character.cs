@@ -37,7 +37,7 @@ namespace Proeve.Entities
         {
             Normal,
             Tiki,
-            Ocean
+            Sea
         }
 
         public enum Special

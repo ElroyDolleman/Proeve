@@ -1,0 +1,47 @@
+seaHealer.png
+size: 4096,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Jelly
+  rotate: false
+  xy: 0, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Skull
+  rotate: false
+  xy: 400, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Tentacle_B_L
+  rotate: false
+  xy: 800, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Tentacle_B_R
+  rotate: false
+  xy: 1200, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Tentacle_F_L
+  rotate: false
+  xy: 1600, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Tentacle_F_R
+  rotate: false
+  xy: 2000, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1

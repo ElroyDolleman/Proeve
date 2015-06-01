@@ -40,7 +40,7 @@ namespace Proeve.Resources
         private const string UI_SHEET = "UI_sheet";
 
         // ArmyEditor
-        private const string ARMY_SHEET = "Army_editor_sheet_115x115";
+        private const string ARMY_SHEET = "Army_editor_sheet";
 
         // Fighting
         private const string DAMAGE_TEXT = "damage188x32";
@@ -96,6 +96,16 @@ namespace Proeve.Resources
         private static Sprite tikiHealerChipSprite;
         private static Sprite tikiBombChipSprite;
 
+        private static Sprite seaSoldierChipSprite;
+        private static Sprite seaCaptainChipSprite;
+        private static Sprite seaGeneralChipSprite;
+        private static Sprite seaLeaderChipSprite;
+
+        private static Sprite seaSpyChipSprite;
+        private static Sprite seaMinerChipSprite;
+        private static Sprite seaHealerChipSprite;
+        private static Sprite seaBombChipSprite;
+
         private static Sprite enemyChipSprite;
 
         /* UI */
@@ -129,6 +139,7 @@ namespace Proeve.Resources
 
         private static Sprite medievalArmySheet;
         private static Sprite tikiArmySheet;
+        private static Sprite seaArmySheet;
 
         // Win Lose
         private static Sprite winPopUp, losePopUp;
@@ -162,6 +173,16 @@ namespace Proeve.Resources
         public static Sprite TikiHealerChip { get { return (Sprite)tikiHealerChipSprite.Clone(); } }
         public static Sprite TikiBombChip { get { return (Sprite)tikiBombChipSprite.Clone(); } }
 
+        public static Sprite SeaSoldierChip { get { return (Sprite)seaSoldierChipSprite.Clone(); } }
+        public static Sprite SeaCaptainChip { get { return (Sprite)seaCaptainChipSprite.Clone(); } }
+        public static Sprite SeaGeneralChip { get { return (Sprite)seaGeneralChipSprite.Clone(); } }
+        public static Sprite SeaLeaderChip { get { return (Sprite)seaLeaderChipSprite.Clone(); } }
+
+        public static Sprite SeaSpyChip { get { return (Sprite)seaSpyChipSprite.Clone(); } }
+        public static Sprite SeaMinerChip { get { return (Sprite)seaMinerChipSprite.Clone(); } }
+        public static Sprite SeaHealerChip { get { return (Sprite)seaHealerChipSprite.Clone(); } }
+        public static Sprite SeaBombChip { get { return (Sprite)seaBombChipSprite.Clone(); } }
+
         public static Sprite EnemyChip { get { return (Sprite)enemyChipSprite.Clone(); } }
 
         /* UI */
@@ -189,6 +210,7 @@ namespace Proeve.Resources
 
         public static Sprite MedievalArmySheet { get { return (Sprite)medievalArmySheet.Clone(); } }
         public static Sprite TikiArmySheet { get { return (Sprite)tikiArmySheet.Clone(); } }
+        public static Sprite SeaArmySheet { get { return (Sprite)seaArmySheet.Clone(); } }
 
         // Figthing
         public static Sprite DamageTextSprite { get { return (Sprite)damageTextSprite.Clone(); } }
@@ -264,7 +286,17 @@ namespace Proeve.Resources
             tikiHealerChipSprite = new Sprite(chipsSheet, new Rectangle(W*5, W, W, W));
             tikiBombChipSprite = new Sprite(chipsSheet, new Rectangle(W*7, W, W, W));
 
-            enemyChipSprite = new Sprite(chipsSheet, new Rectangle(W*8, 0, 82, 82));
+            seaSoldierChipSprite = new Sprite(chipsSheet, new Rectangle(W, W*2, W, W));
+            seaCaptainChipSprite = new Sprite(chipsSheet, new Rectangle(0, W*2, W, W));
+            seaGeneralChipSprite = new Sprite(chipsSheet, new Rectangle(W*2, W*3, W, W));
+            seaLeaderChipSprite = new Sprite(chipsSheet, new Rectangle(0, W*3, W, W));
+
+            seaSpyChipSprite = new Sprite(chipsSheet, new Rectangle(W*2, W*2, W, W));
+            seaMinerChipSprite = new Sprite(chipsSheet, new Rectangle(W*3, W*2, W, W));
+            seaHealerChipSprite = new Sprite(chipsSheet, new Rectangle(W, W*3, W, W));
+            seaBombChipSprite = new Sprite(chipsSheet, new Rectangle(W*3, W*3, W, W));
+
+            enemyChipSprite = new Sprite(chipsSheet, new Rectangle(W*4, W*2, 82, 82));
 
             /* UI */
             characterInformationUI = new Sprite(UISheet, new Rectangle(1602, 0, 261, 634));
@@ -288,7 +320,8 @@ namespace Proeve.Resources
             shieldIconSprite = new Sprite(UISheet, new Rectangle(1119, 417, 86, 87), 2); shieldIconSprite.Offset = new Point(1, 0); shieldIconSprite.origin = axeIconSprite.Center;
 
             medievalArmySheet = new Sprite(armySheetTexture, new Rectangle(0, 0, 115, 115), 8);
-            tikiArmySheet = new Sprite(armySheetTexture, new Rectangle(0, 0, 115, 115), 8); tikiArmySheet.SheetPosition = new Point(0, 115);
+            tikiArmySheet = new Sprite(armySheetTexture, new Rectangle(0, 115, 115, 115), 8);
+            seaArmySheet = new Sprite(armySheetTexture, new Rectangle(0, 115*2, 115, 115), 8);
 
             armyNames = new Sprite(UISheet, new Rectangle(945, 505, 267, 41), 3, 0f, 1);
 

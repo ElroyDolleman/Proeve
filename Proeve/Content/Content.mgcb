@@ -19,17 +19,6 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/normalFont.spritefont
 
-#begin UI/ArmyEditor/weaponButtons.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:TextureFormat=Color
-/build:UI/ArmyEditor/weaponButtons.png
-
 #begin Characters/Chips/ChipsSheet.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -74,17 +63,6 @@
 /processorParam:TextureFormat=Color
 /build:UI/UI_sheet.png
 
-#begin UI/ArmyEditor/Army_editor_sheet_115x115.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:TextureFormat=Color
-/build:UI/ArmyEditor/Army_editor_sheet_115x115.png
-
 #begin Audio/Drag.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -114,4 +92,15 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Audio/Weapon_Swoosh.wav
+
+#begin UI/ArmyEditor/Army_editor_sheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:UI/ArmyEditor/Army_editor_sheet.png
 

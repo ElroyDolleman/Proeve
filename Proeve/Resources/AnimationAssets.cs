@@ -17,6 +17,7 @@ namespace Proeve.Resources
         private const string ANIMATION_PATH = "Characters\\Animations\\";
         private const string MEDIEVAL_ARMY_PATH = ANIMATION_PATH + "MedievalArmy\\";
         private const string TIKI_ARMY_PATH = ANIMATION_PATH + "TikiArmy\\";
+        private const string SEA_ARMY_PATH = ANIMATION_PATH + "SeaArmy\\";
 
         private const string BACKGROUND_PATH = "Backgrounds\\";
         private const string WEAPON_ANIMATION_PATH = "Weapons\\Animations\\";
@@ -44,6 +45,16 @@ namespace Proeve.Resources
         private const string TIKI_HEALER = "tikiHealer";
         private const string TIKI_SPY = "tikiSpy";
         private const string TIKI_BOMB = "tikiBomb";
+
+        /* SEA ARMY */
+        private const string SEA_LEADER = "seaLeader";
+        private const string SEA_GENERAL = "seaGeneral";
+        private const string SEA_CAPTAIN = "seaCaptain";
+        private const string SEA_SOLDIER = "seaSoldier";
+        private const string SEA_MINER = "seaMiner";
+        private const string SEA_HEALER = "seaHealer";
+        private const string SEA_SPY = "seaSpy";
+        private const string SEA_BOMB = "seaBomb";
 
         /* OTHER */
         private const string SHINE_EFFECT = "shine";
@@ -96,6 +107,16 @@ namespace Proeve.Resources
         private static SpineAnimation tikiSpy;
         private static SpineAnimation tikiBomb;
 
+        /* SEA ARMY */
+        private static SpineAnimation seaLeader;
+        private static SpineAnimation seaGeneral;
+        private static SpineAnimation seaCaptain;
+        private static SpineAnimation seaSoldier;
+        private static SpineAnimation seaMiner;
+        private static SpineAnimation seaHealer;
+        private static SpineAnimation seaSpy;
+        private static SpineAnimation seaBomb;
+
         /* WEAPONS */
         private static SpineAnimation axeNormalAttack;
         private static SpineAnimation swordNormalAttack;
@@ -141,6 +162,16 @@ namespace Proeve.Resources
         public static SpineAnimation TikiHealer { get { return (SpineAnimation)tikiHealer.Clone(); } }
         public static SpineAnimation TikiSpy { get { return (SpineAnimation)tikiSpy.Clone(); } }
         public static SpineAnimation TikiBomb { get { return (SpineAnimation)tikiBomb.Clone(); } }
+
+        /* SEA ARMY */
+        public static SpineAnimation SeaLeader { get { return (SpineAnimation)seaLeader.Clone(); } }
+        public static SpineAnimation SeaGeneral { get { return (SpineAnimation)seaGeneral.Clone(); } }
+        public static SpineAnimation SeaCaptain { get { return (SpineAnimation)seaCaptain.Clone(); } }
+        public static SpineAnimation SeaSoldier { get { return (SpineAnimation)seaSoldier.Clone(); } }
+        public static SpineAnimation SeaMiner { get { return (SpineAnimation)seaMiner.Clone(); } }
+        public static SpineAnimation SeaHealer { get { return (SpineAnimation)seaHealer.Clone(); } }
+        public static SpineAnimation SeaSpy { get { return (SpineAnimation)seaSpy.Clone(); } }
+        public static SpineAnimation SeaBomb { get { return (SpineAnimation)seaBomb.Clone(); } }
 
         /* WEAPONS */
         public static SpineAnimation AxeNormalAttack { get { return (SpineAnimation)axeNormalAttack.Clone(); } }
@@ -238,6 +269,42 @@ namespace Proeve.Resources
             // TIKI BOMB
             tikiBomb = new SpineAnimation();
             tikiBomb.LoadAnimation(graphicsDevice, contentManager, TIKI_ARMY_PATH, TIKI_BOMB);
+            #endregion
+            #region SEA ARMY
+            // SEA Leader
+            seaLeader = new SpineAnimation();
+            seaLeader.LoadAnimation(graphicsDevice, contentManager, SEA_ARMY_PATH, SEA_LEADER);
+
+            // SEA GENERAL
+            seaGeneral = new SpineAnimation();
+            seaGeneral.LoadAnimation(graphicsDevice, contentManager, SEA_ARMY_PATH, SEA_GENERAL);
+            seaGeneral.Offset = new Vector2(0, 4);
+
+            // SEA Captain
+            seaCaptain = new SpineAnimation();
+            seaCaptain.LoadAnimation(graphicsDevice, contentManager, SEA_ARMY_PATH, SEA_CAPTAIN);
+            seaCaptain.Offset = new Vector2(0, 10);
+
+            // SEA Soldier
+            seaSoldier = new SpineAnimation();
+            seaSoldier.LoadAnimation(graphicsDevice, contentManager, SEA_ARMY_PATH, SEA_SOLDIER);
+            seaSoldier.Offset = new Vector2(0, 8);
+
+            // SEA MINOR
+            seaMiner = new SpineAnimation();
+            seaMiner.LoadAnimation(graphicsDevice, contentManager, SEA_ARMY_PATH, SEA_MINER);
+
+            // SEA HEALER
+            seaHealer = new SpineAnimation();
+            seaHealer.LoadAnimation(graphicsDevice, contentManager, SEA_ARMY_PATH, SEA_HEALER);
+
+            // SEA SPY
+            seaSpy = new SpineAnimation();
+            seaSpy.LoadAnimation(graphicsDevice, contentManager, SEA_ARMY_PATH, SEA_SPY);
+
+            // SEA BOMB
+            seaBomb = new SpineAnimation();
+            seaBomb.LoadAnimation(graphicsDevice, contentManager, SEA_ARMY_PATH, SEA_BOMB);
             #endregion
 
             // SHINE EFFECT
