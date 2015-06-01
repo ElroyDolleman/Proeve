@@ -232,7 +232,7 @@ namespace Proeve.States
                         {
                             statsUI.RemoveCharacter();
                             Globals.multiplayerConnection.SendFight(selected, canAttackThis[i]);
-                            ((GameState)StateManager.GetState(1)).AttackUnit(Armies.army[selected], Armies.opponentArmy[canAttackThis[i]]);
+                            ((GameState)StateManager.GetState(Settings.STATES.Game)).AttackUnit(Armies.army[selected], Armies.opponentArmy[canAttackThis[i]]);
 
                             canAttack[selected] = false;
                             if (!canMove[selected])
@@ -307,9 +307,9 @@ namespace Proeve.States
 
         public void GetWalkable(GameTime gameTime)
         {
-            int[,] level = ((GameState)StateManager.GetState(1)).DuplicateLevel();
+            int[,] level = ((GameState)StateManager.GetState(Settings.STATES.Game)).DuplicateLevel();
 
-            ((GameState)StateManager.GetState(1)).SetUnwalkable(ref level, Armies.army[selected]);
+            ((GameState)StateManager.GetState(Settings.STATES.Game)).SetUnwalkable(ref level, Armies.army[selected]);
 
             // Uncomment to Print the grid
             /*for (int i = 0; i < level.GetLength(0); i++)

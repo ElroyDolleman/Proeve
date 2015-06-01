@@ -49,6 +49,13 @@ namespace Proeve.States
             return stateList[(stateList.Count - (i + 1) >= 0 ? stateList.Count - (i + 1) : 0)];
         }
 
+        public static State GetState(Settings.STATES c)
+        {
+            foreach (State s in stateList)
+                if (Settings.states[c].GetType() == s.GetType())
+                    return s;
+            return null;
+        }
         public static void Update(GameTime gameTime)
         {
             Globals.mouseState.Begin();

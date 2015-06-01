@@ -21,8 +21,10 @@ namespace Proeve.Resources
         public static E2DMouseState mouseState;
         public static ContentManager contentManager;
         public static GraphicsDevice graphicsDevice;
-        public static MultiplayerConnection multiplayerConnection;
         public static SkeletonMeshRenderer skeletonRenderer;
+
+        public static MultiplayerConnection multiplayerConnection;
+        public static SoundManager soundManager;
 
         public static Point GridLocation { get { return new Point(336, 32); } }
         public static Point TileDimensions { get { return new Point(TILE_WIDTH, TILE_HEIGHT); } }

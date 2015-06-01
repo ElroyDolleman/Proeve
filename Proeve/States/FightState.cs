@@ -294,6 +294,8 @@ namespace Proeve.States
             // HIT MOMENT
             if (currentAnimation.Time >= hitInterval && currentAnimation.IsPlayingAnimation && !isFlickering)
             {
+                Globals.soundManager.PlaySound(AudioAssets.weaponImpact, .01f);
+
                 // Lose HP
                 if (myAttackTurn) enemyCharacter.hp -= MathHelper.Clamp(damage, enemyCharacter.hp - enemyCharacter.maxHP, enemyCharacter.hp);
                 else character.hp -= MathHelper.Clamp(damage, character.hp - character.maxHP, character.hp);

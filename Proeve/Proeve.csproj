@@ -55,6 +55,7 @@
     <Compile Include="Resources\Levels.cs" />
     <Compile Include="Resources\MultiplayerConnection.cs" />
     <Compile Include="Resources\Settings.cs" />
+    <Compile Include="Resources\SoundManager.cs" />
     <Compile Include="States\ArmyEditorState.cs" />
     <Compile Include="States\FightState.cs" />
     <Compile Include="States\GameState.cs" />
@@ -88,6 +89,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Audio\Drag.wav" />
+    <Content Include="Content\Audio\Explosion_1.wav" />
+    <Content Include="Content\Audio\Weapon_Hit.wav" />
+    <Content Include="Content\Audio\Weapon_Impact.wav" />
+    <Content Include="Content\Audio\Weapon_Swoosh.wav" />
     <Content Include="Content\Backgrounds\backgroundGrassLand.png" />
     <Content Include="Content\Backgrounds\shine.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

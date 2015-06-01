@@ -85,3 +85,33 @@
 /processorParam:TextureFormat=Color
 /build:UI/ArmyEditor/Army_editor_sheet_115x115.png
 
+#begin Audio/Drag.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Drag.wav
+
+#begin Audio/Explosion_1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Explosion_1.wav
+
+#begin Audio/Weapon_Hit.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Weapon_Hit.wav
+
+#begin Audio/Weapon_Impact.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Weapon_Impact.wav
+
+#begin Audio/Weapon_Swoosh.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Weapon_Swoosh.wav
+

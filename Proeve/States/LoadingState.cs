@@ -29,6 +29,8 @@ namespace Proeve.States
             Node.size = Globals.TILE_WIDTH;
             Globals.diamonds = 0;
 
+            Globals.soundManager = new SoundManager();
+
             ArtAssets.LoadTextures();
             ArtAssets.LoadFont(Globals.contentManager);
             AudioAssets.Load(Globals.contentManager);
