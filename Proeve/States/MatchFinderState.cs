@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 using E2DFramework.Graphics;
 
+using Proeve.Entities;
 using Proeve.Resources;
 #endregion
 
@@ -18,6 +19,8 @@ namespace Proeve.States
     {
         private SpriteFont font;
         private byte you, opponent;
+
+        private SpineAnimation searchMatchAnimation;
 
         public MatchFinderState()
         {
@@ -40,6 +43,9 @@ namespace Proeve.States
                 you = 2;
                 opponent = 1;
             }
+
+            searchMatchAnimation = AnimationAssets.MatchFinderAnimation;
+            searchMatchAnimation.Position = Main.WindowCenter;
         }
 
         private void ReceivedConnection()
@@ -58,20 +64,18 @@ namespace Proeve.States
         public override void Update(GameTime gameTime)
         {
             Globals.multiplayerConnection.Update(gameTime);
+            searchMatchAnimation.Update(gameTime);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             StateManager.GetState(1).Draw(spriteBatch);
-            Globals.statsUI.Draw(spriteBatch);
             spriteBatch.DrawRectangle(Main.WindowRectangle, Color.Black * .75f);
+        }
 
-            //spriteBatch.DrawString(font, "player " + you, new Vector2(100, 64), Color.White);
-
-            /*if (Globals.multiplayerConnection.Connected)
-                spriteBatch.DrawString(font, "player " + opponent, new Vector2(Main.WindowWidth - 100, 64), Color.White);
-            else
-                spriteBatch.DrawString(font, "searching...", new Vector2(Main.WindowWidth - 100, 64), Color.White);*/
+        public override void DrawAnimation(Spine.SkeletonMeshRenderer skeletonRenderer)
+        {
+            searchMatchAnimation.Draw(skeletonRenderer);
         }
     }
 }

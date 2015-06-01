@@ -60,6 +60,7 @@ namespace Proeve.Resources
         private const string SHINE_EFFECT = "shine";
         private const string MOVEMENT_ATTACK_ICON = "Movement";
         private const string HEAL_ICON = "healIcon";
+        private const string MATCHFINDER = "matchFinderAnimation";
 
         /* WEAPONS */
         private const string WEAPON_AXE = "axeAnimation";
@@ -141,6 +142,7 @@ namespace Proeve.Resources
         private static SpineAnimation arrowIcon;
         private static SpineAnimation attackIcon;
         private static SpineAnimation healIcon;
+        private static SpineAnimation matchFinderAnimation;
 
         #endregion
         #region READ ONLY
@@ -198,6 +200,8 @@ namespace Proeve.Resources
         public static SpineAnimation ArrowIcon { get { return (SpineAnimation)arrowIcon.Clone(); } }
         public static SpineAnimation AttackIcon { get { return (SpineAnimation)attackIcon.Clone(); } }
         public static SpineAnimation HealIcon { get { return (SpineAnimation)healIcon.Clone(); } }
+
+        public static SpineAnimation MatchFinderAnimation { get { return (SpineAnimation)matchFinderAnimation.Clone(); } }
 
         #endregion
 
@@ -360,6 +364,10 @@ namespace Proeve.Resources
 
             healIcon = new SpineAnimation();
             healIcon.LoadAnimation(graphicsDevice, contentManager, UI_ANIMATION_PATH, HEAL_ICON, "Heal");
+
+            // MATCHFINDER
+            matchFinderAnimation = new SpineAnimation();
+            matchFinderAnimation.LoadAnimation(graphicsDevice, contentManager, UI_ANIMATION_PATH, MATCHFINDER);
         }
     }
 }

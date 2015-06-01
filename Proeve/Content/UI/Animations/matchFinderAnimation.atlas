@@ -1,0 +1,26 @@
+matchFinderAnimation.png
+size: 2048,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+MagnifyingGlass
+  rotate: false
+  xy: 0, 0
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+Punt_12x12
+  rotate: false
+  xy: 493, 0
+  size: 12, 12
+  orig: 12, 12
+  offset: 0, 0
+  index: -1
+Searching_493x32
+  rotate: false
+  xy: 986, 0
+  size: 493, 32
+  orig: 493, 32
+  offset: 0, 0
+  index: -1
