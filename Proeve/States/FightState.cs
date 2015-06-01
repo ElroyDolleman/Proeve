@@ -388,6 +388,8 @@ namespace Proeve.States
             }
             else if (currentAnimation == specialAnimations[Character.Special.Bomb])
                 currentAnimation.Position = !myAttackTurn ? MyExplosionPosition : EnemyExplosionPosition;
+            else if (currentAnimation == specialAnimations[Character.Special.Healer])
+                currentAnimation.Position = Main.WindowCenter - Vector2.UnitY * 18;
 
             isFlickering = false;
 
