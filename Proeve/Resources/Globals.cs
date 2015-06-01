@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 using E2DFramework.Input;
+using E2DFramework.Graphics;
 
 using Spine;
 
@@ -38,6 +39,7 @@ namespace Proeve.Resources
         public const float ANIMATION_SCALE = .38f;
 
         public static StatsUI statsUI;
+        public static E2DTexture background;
 
         public static int diamonds;
         public static int earnedDiamonds;

@@ -22,7 +22,6 @@ namespace Proeve.States
         private List<Character> army;
         private List<Character> enemyArmy;
 
-        private E2DTexture background;
         private SpineAnimation shineForeground;
 
         public GameState()
@@ -35,7 +34,6 @@ namespace Proeve.States
             level = Levels.grassLevel;
             StateManager.AddState(Settings.STATES.ArmyEditor);
 
-            background = ArtAssets.backgroundGrassLevel;
             shineForeground = AnimationAssets.ShineEffect;
             shineForeground.Position = new Vector2(768 / 2, 768 / 2);
         }
@@ -69,7 +67,7 @@ namespace Proeve.States
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawE2DTexture(background, Vector2.Zero);
+            spriteBatch.DrawE2DTexture(Globals.background, Vector2.Zero);
 
             foreach (Character c in army)
                 if (!c.IsDead)

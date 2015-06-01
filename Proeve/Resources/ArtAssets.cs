@@ -47,7 +47,9 @@ namespace Proeve.Resources
 
         /* BACKGROUND */
         private const string BACKGROUND_GRASS_LEVEL = "backgroundGrassLand";
-        private const string BACKGROUND_EDITOR = "editorBackground";
+        private const string BACKGROUND_TIKI_LEVEL = "backgroundTikiLand";
+        private const string BACKGROUND_SEA_LEVEL = "backgroundSea";
+        private const string BACKGROUND_START_SCREEN = "startScreenBackground";
 
         /* FONTS */
         private const string FONT_NORMAL = "normalFont";
@@ -70,6 +72,9 @@ namespace Proeve.Resources
 
         /* BACKGROUNDS */
         public static E2DTexture backgroundGrassLevel;
+        public static E2DTexture backgroundTikiLevel;
+        public static E2DTexture backgroundSeaLevel;
+        public static E2DTexture backgroundStartScreen;
 
         #endregion
         #region SPRITES
@@ -248,6 +253,9 @@ namespace Proeve.Resources
 
             /* BACKGROUNDS */
             backgroundGrassLevel.Load(BACKGROUND_PATH, BACKGROUND_GRASS_LEVEL);
+            backgroundTikiLevel.Load(BACKGROUND_PATH, BACKGROUND_TIKI_LEVEL);
+            backgroundSeaLevel.Load(BACKGROUND_PATH, BACKGROUND_SEA_LEVEL);
+            backgroundStartScreen.Load(BACKGROUND_PATH, BACKGROUND_START_SCREEN);
 
             InitializeSprites();
         }

@@ -123,6 +123,7 @@ namespace Proeve.States
         private void Ready()
         {
             statsUI.RemoveCharacter();
+            Globals.background = background;
 
             selectedCharacter.ResetColorEffect();
             ((GameState)StateManager.GetState(1)).SetArmy(Armies.army);
@@ -275,9 +276,9 @@ namespace Proeve.States
             switch (army)
             {
                 default:
-                case Character.Army.Normal: armySheet = ArtAssets.MedievalArmySheet; break;
-                case Character.Army.Tiki: armySheet = ArtAssets.TikiArmySheet; break;
-                case Character.Army.Sea: armySheet = ArtAssets.SeaArmySheet; break;
+                case Character.Army.Normal: armySheet = ArtAssets.MedievalArmySheet; background = ArtAssets.backgroundGrassLevel; break;
+                case Character.Army.Tiki: armySheet = ArtAssets.TikiArmySheet; background = ArtAssets.backgroundTikiLevel; break;
+                case Character.Army.Sea: armySheet = ArtAssets.SeaArmySheet; background = ArtAssets.backgroundSeaLevel; break;
             }
 
             armyDict = new Dictionary<Character.Rank, Sprite>();
@@ -352,7 +353,7 @@ namespace Proeve.States
                             break;
                         default:
                             Sprite clone = (Sprite)entry.Value.Clone();
-                            clone.colorEffect = Color.Black * .68f;
+                            clone.colorEffect = Color.Black * .78f;
                             clone.Draw(spriteBatch);
                             break;
                     }
