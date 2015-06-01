@@ -279,7 +279,7 @@ namespace Proeve.Resources
             // Buttons
             startButtonSprite = new Sprite(UISheet, new Rectangle(0, 760, 324, 64));
             endTurnButtonSprite = new Sprite(UISheet, new Rectangle(325, 760, 198, 64));
-            homeButton = new Sprite(UISheet, new Rectangle(778, 760, 86, 86));
+            homeButton = new Sprite(UISheet, new Rectangle(778, 760, 86, 85));
 
             // Army Editor
             armyShowCase = new Sprite(UISheet, new Rectangle(945, 0, 656, 416));
