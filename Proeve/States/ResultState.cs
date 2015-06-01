@@ -91,7 +91,9 @@ namespace Proeve.States
         private void Quit()
         {
             Globals.multiplayerConnection = null;
-            StateManager.ChangeState(Settings.STATES.ArmyEditor);
+
+            StateManager.RemoveState();
+            StateManager.ChangeState(Settings.STATES.MainMenu);
         }
 
         public override void Draw(SpriteBatch spriteBatch)

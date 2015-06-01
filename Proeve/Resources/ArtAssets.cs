@@ -128,6 +128,7 @@ namespace Proeve.Resources
         private static Sprite startButtonSprite;
         private static Sprite endTurnButtonSprite;
         private static Sprite homeButton;
+        private static Sprite startGameButton;
 
         // Figthing
         private static Sprite damageTextSprite;
@@ -205,6 +206,7 @@ namespace Proeve.Resources
         public static Sprite StartButton { get { return (Sprite)startButtonSprite.Clone(); } }
         public static Sprite EndTurnButton { get { return (Sprite)endTurnButtonSprite.Clone(); } }
         public static Sprite HomeButton { get { return (Sprite)homeButton.Clone(); } }
+        public static Sprite StartGameButton { get { return (Sprite)startGameButton.Clone(); } }
 
         // ArmyEditor
         public static Sprite ArmyShowCase { get { return (Sprite)armyShowCase.Clone(); } }
@@ -320,6 +322,7 @@ namespace Proeve.Resources
             startButtonSprite = new Sprite(UISheet, new Rectangle(0, 760, 324, 64));
             endTurnButtonSprite = new Sprite(UISheet, new Rectangle(325, 760, 198, 64));
             homeButton = new Sprite(UISheet, new Rectangle(778, 760, 86, 85));
+            startGameButton = new Sprite(UISheet, new Rectangle(1519, 636, 344, 99));
 
             // Army Editor
             armyShowCase = new Sprite(UISheet, new Rectangle(945, 0, 656, 416));

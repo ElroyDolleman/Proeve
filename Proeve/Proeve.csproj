@@ -64,7 +64,6 @@
     <Compile Include="States\MainMenuState.cs" />
     <Compile Include="States\MatchFinderState.cs" />
     <Compile Include="States\ResultState.cs" />
-    <Compile Include="States\StartState.cs" />
     <Compile Include="States\State.cs" />
     <Compile Include="States\StateManager.cs" />
     <Compile Include="UI\Button.cs" />
@@ -187,9 +186,7 @@
     <Content Include="Content\UI\Fighting\damage188x32.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\UI\UI_sheet.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Content\UI\UI_sheet.png" />
     <Content Include="Content\Weapons\Animations\axeAnimation.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

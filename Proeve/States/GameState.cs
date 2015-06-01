@@ -42,7 +42,7 @@ namespace Proeve.States
         {
             UpdateArmies(army, gameTime);
             UpdateArmies(enemyArmy, gameTime);
-            shineForeground.Update(gameTime);
+            //shineForeground.Update(gameTime);
         }
 
         private void UpdateArmies(List<Character> tempArmy, GameTime gameTime)
@@ -81,7 +81,7 @@ namespace Proeve.States
 
         public override void DrawAnimation(Spine.SkeletonMeshRenderer skeletonRenderer)
         {
-            shineForeground.Draw(skeletonRenderer);
+            //shineForeground.Draw(skeletonRenderer);
         }
 
         public void SetArmy(List<Character> sendArmy)

@@ -133,7 +133,8 @@ namespace Proeve.States
 
         private void Quit()
         {
-            
+            StateManager.RemoveState();
+            StateManager.ChangeState(Settings.STATES.MainMenu);
         }
 
         public override void Update(GameTime gameTime)
