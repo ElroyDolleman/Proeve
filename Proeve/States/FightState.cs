@@ -477,6 +477,8 @@ namespace Proeve.States
         {
             if (currentAnimation == specialAnimations[Character.Special.Bomb])
                 Globals.soundManager.PlaySound(AudioAssets.explosion);
+            else if (currentAnimation == specialAnimations[Character.Special.Healer])
+                { } // TODO: Add healer sound
             else
                 Globals.soundManager.PlaySound(AudioAssets.weaponImpact);
         }
