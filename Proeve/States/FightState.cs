@@ -54,6 +54,9 @@ namespace Proeve.States
         private Vector2 MyWeaponPosition { get { return new Vector2(220, 510); } }
         private Vector2 EnemyWeaponPosition { get { return new Vector2(Main.WindowWidth - 220, 510); } }
 
+        private Vector2 MyExplosionPosition { get { return new Vector2(320, Main.WindowCenter.Y - 100); } }
+        private Vector2 EnemyExplosionPosition { get { return new Vector2(Main.WindowWidth - 320, Main.WindowCenter.Y - 100); } }
+
         private Vector2 MyRankNamePosition { get { return new Vector2(300, 490); } }
         private Vector2 EnemyRankNamePosition { get { return new Vector2(620, 490); } }
 
@@ -149,7 +152,7 @@ namespace Proeve.States
             // SPECIAL DICTIONARY
             specialAnimations = new Dictionary<Character.Special, SpineAnimation>();
 
-            specialAnimations.Add(Character.Special.Bomb, AnimationAssets.AxeNormalAttack);
+            specialAnimations.Add(Character.Special.Bomb, AnimationAssets.Explosion);
             specialAnimations[Character.Special.Bomb].Position = Main.WindowCenter;
             specialAnimations[Character.Special.Bomb].loop = false;
 
@@ -383,6 +386,8 @@ namespace Proeve.States
                 currentAnimation.FlipX = !currentAnimation.FlipX;
                 currentAnimation.Position = myAttackTurn ? MyMinerSpecialPosition : EnemyMinerSpecialPosition;
             }
+            else if (currentAnimation == specialAnimations[Character.Special.Bomb])
+                currentAnimation.Position = !myAttackTurn ? MyExplosionPosition : EnemyExplosionPosition;
 
             isFlickering = false;
 

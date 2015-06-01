@@ -70,6 +70,7 @@ namespace Proeve.Resources
         private const string SPY_SPECIAL = "spySpecial";
         private const string HEAL_SPECIAL = "healAnimation";
         private const string MINER_SPECIAL = "minerSpecial";
+        private const string BOMB_SPECIAL = "explosion";
 
         #endregion
         #region ANIMATION NAMES
@@ -130,6 +131,7 @@ namespace Proeve.Resources
         private static SpineAnimation spySpecialHitEffect;
         private static SpineAnimation healSpecial;
         private static SpineAnimation minerSpecial;
+        private static SpineAnimation explosion;
 
         private static SpineAnimation hitEffect;
 
@@ -186,6 +188,7 @@ namespace Proeve.Resources
         public static SpineAnimation HealSpecial { get { return (SpineAnimation)healSpecial.Clone(); } }
         public static SpineAnimation SpySpecialHitEffect { get { return (SpineAnimation)spySpecialHitEffect.Clone(); } }
         public static SpineAnimation MinerSpecial { get { return (SpineAnimation)minerSpecial.Clone(); } }
+        public static SpineAnimation Explosion { get { return (SpineAnimation)explosion.Clone(); } }
 
         public static SpineAnimation HitEffect { get { return (SpineAnimation)hitEffect.Clone(); } }
 
@@ -278,17 +281,14 @@ namespace Proeve.Resources
             // SEA GENERAL
             seaGeneral = new SpineAnimation();
             seaGeneral.LoadAnimation(graphicsDevice, contentManager, SEA_ARMY_PATH, SEA_GENERAL);
-            seaGeneral.Offset = new Vector2(0, 4);
 
             // SEA Captain
             seaCaptain = new SpineAnimation();
             seaCaptain.LoadAnimation(graphicsDevice, contentManager, SEA_ARMY_PATH, SEA_CAPTAIN);
-            seaCaptain.Offset = new Vector2(0, 10);
 
             // SEA Soldier
             seaSoldier = new SpineAnimation();
             seaSoldier.LoadAnimation(graphicsDevice, contentManager, SEA_ARMY_PATH, SEA_SOLDIER);
-            seaSoldier.Offset = new Vector2(0, 8);
 
             // SEA MINOR
             seaMiner = new SpineAnimation();
@@ -342,6 +342,10 @@ namespace Proeve.Resources
             // MINER SPECIAL
             minerSpecial = new SpineAnimation();
             minerSpecial.LoadAnimation(graphicsDevice, contentManager, WEAPON_ANIMATION_PATH, MINER_SPECIAL);
+
+            // BOMB EXPLOSION
+            explosion = new SpineAnimation();
+            explosion.LoadAnimation(graphicsDevice, contentManager, WEAPON_ANIMATION_PATH, BOMB_SPECIAL);
 
             // HIT 
             hitEffect = new SpineAnimation();
