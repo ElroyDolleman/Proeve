@@ -57,6 +57,8 @@ namespace Proeve.States
 
         public override void Update(GameTime gameTime)
         {
+            if (selected != -1 && Armies.army[selected].IsDead)
+                selected = -1;
             if (!IsTurn)
             {
                 buttons[0].enabled = false;
