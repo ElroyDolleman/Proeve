@@ -294,7 +294,8 @@ namespace Proeve.States
             // HIT MOMENT
             if (currentAnimation.Time >= hitInterval && currentAnimation.IsPlayingAnimation && !isFlickering)
             {
-                Globals.soundManager.PlaySound(AudioAssets.weaponImpact, .01f);
+                // Play the right hit sound
+                PlayHitSound();
 
                 // Lose HP
                 if (myAttackTurn) enemyCharacter.hp -= MathHelper.Clamp(damage, enemyCharacter.hp - enemyCharacter.maxHP, enemyCharacter.hp);
@@ -386,12 +387,20 @@ namespace Proeve.States
 
             isFlickering = false;
 
+            // Set hit interval
             if ((myAttackTurn ? character.special : enemyCharacter.special) == Character.Special.None)
+            {
                 hitInterval = myAttackTurn ? hitMoments[character.weapon] : hitMoments[enemyCharacter.weapon];
+                Globals.soundManager.PlaySound(AudioAssets.weaponSwoosh, 1f);
+            }
             else if ((myAttackTurn ? character.special : enemyCharacter.special) == Character.Special.Healer)
                 hitInterval = 1.4f;
+            else if ((myAttackTurn ? character.special : enemyCharacter.special) == Character.Special.Spy)
+                hitInterval = .2f;
+            else if ((myAttackTurn ? character.special : enemyCharacter.special) == Character.Special.Bomb)
+                hitInterval = .1F;
             else
-                hitInterval = .5f;
+                hitInterval = .5F;
         }
 
         private void DealDamage(Character attacker, Character defender)
@@ -463,6 +472,14 @@ namespace Proeve.States
                     else
                         return 1;
             }
+        }
+
+        private void PlayHitSound()
+        {
+            if (currentAnimation == specialAnimations[Character.Special.Bomb])
+                Globals.soundManager.PlaySound(AudioAssets.explosion);
+            else
+                Globals.soundManager.PlaySound(AudioAssets.weaponImpact);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
