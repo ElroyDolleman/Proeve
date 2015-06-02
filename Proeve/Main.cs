@@ -21,7 +21,7 @@ namespace Proeve
             : base()
         {
             Content.RootDirectory = "Content";
-            Window.Title = "Proeve";
+            Window.Title = "Clash of the Realms";
 
             WindowWidth = 1024;
             WindowHeight = 768;

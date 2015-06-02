@@ -42,8 +42,6 @@ namespace Proeve.States
         {
             RemoveState();
             AddState(s);
-
-            Console.WriteLine("stateList length: {0}", stateList.Count);
         }
 
         public static State GetState(int i = 0)
