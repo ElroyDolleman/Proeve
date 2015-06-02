@@ -26,8 +26,8 @@ namespace Proeve.States
         private Vector2 HomeButtonPosition { get { return new Vector2(8, 10); } }
 
         // Character
-        private static Dictionary<Character.Rank, Sprite> armyDict;
-        private static Character.Army currentArmy;
+        private Dictionary<Character.Rank, Sprite> armyDict;
+        private Character.Army currentArmy;
 
         private Color SelectedColor { get { return Color.Black * .65f; } }
         private Character selectedCharacter;
@@ -55,8 +55,8 @@ namespace Proeve.States
         private bool drag;
 
         // Next Army Buttons
-        private Rectangle leftNextButtonHitbox { get { return new Rectangle(360, 196, 32, 50); } }
-        private Rectangle rightNextButtonHitbox { get { return new Rectangle(930, 196, 32, 50); } }
+        private Rectangle LeftNextButtonHitbox { get { return new Rectangle(360, 196, 32, 50); } }
+        private Rectangle RightNextButtonHitbox { get { return new Rectangle(930, 196, 32, 50); } }
 
         public ArmyEditorState()
         {
@@ -192,7 +192,7 @@ namespace Proeve.States
                     }
                 }
 
-                if (leftNextButtonHitbox.Contains(Globals.mouseState.Position))
+                if (LeftNextButtonHitbox.Contains(Globals.mouseState.Position))
                 {
                     switch(currentArmy)
                     {
@@ -202,7 +202,7 @@ namespace Proeve.States
                     }
                 }
 
-                if (rightNextButtonHitbox.Contains(Globals.mouseState.Position))
+                if (RightNextButtonHitbox.Contains(Globals.mouseState.Position))
                 {
                     switch (currentArmy)
                     {
