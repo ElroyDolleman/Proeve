@@ -17,9 +17,6 @@ namespace Proeve.States
 {
     class MatchFinderState : State
     {
-        private SpriteFont font;
-        private byte you, opponent;
-
         private SpineAnimation searchMatchAnimation;
 
         public MatchFinderState()
@@ -29,20 +26,10 @@ namespace Proeve.States
 
         public override void Initialize()
         {
-            font = ArtAssets.normalFont;
             Globals.multiplayerConnection = new MultiplayerConnection();
 
             Globals.multiplayerConnection.ReceiveArmy += ReceivedArmy;
             Globals.multiplayerConnection.ReceiveConnection += ReceivedConnection;
-
-            if (Globals.multiplayerConnection.isHosting) {
-                you = 1;
-                opponent = 2;
-            }
-            else {
-                you = 2;
-                opponent = 1;
-            }
 
             searchMatchAnimation = AnimationAssets.MatchFinderAnimation;
             searchMatchAnimation.Position = Main.WindowCenter;
@@ -56,7 +43,6 @@ namespace Proeve.States
         private void ReceivedArmy()
         {
             ((GameState)StateManager.GetState(1)).SetEnemyArmy(Armies.opponentArmy);
-            //((GameState)StateManager.GetState(1)).MatchStarts();
 
             StateManager.ChangeState(Settings.STATES.GameUI);
         }

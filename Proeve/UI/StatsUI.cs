@@ -42,7 +42,7 @@ namespace Proeve.UI
         private Sprite rankName;
         private Sprite diamondsUI;
 
-        private Dictionary<Character.Weapon, Sprite> WeaponIcons;
+        private Dictionary<Character.Weapon, Sprite> weaponIcons;
         private Dictionary<Character.Rank, int> rankNameFrames;
 
         private List<Sprite> diamondsDisplay;
@@ -87,14 +87,14 @@ namespace Proeve.UI
             diamondsUI.position = DiamondsUIPosition;
 
             // Set weapon icons
-            WeaponIcons = new Dictionary<Character.Weapon, Sprite>();
-            WeaponIcons.Add(Character.Weapon.Axe, ArtAssets.AxeIcon);
-            WeaponIcons.Add(Character.Weapon.Sword, ArtAssets.SwordIcon);
-            WeaponIcons.Add(Character.Weapon.Shield, ArtAssets.ShieldIcon);
+            weaponIcons = new Dictionary<Character.Weapon, Sprite>();
+            weaponIcons.Add(Character.Weapon.Axe, ArtAssets.AxeIcon);
+            weaponIcons.Add(Character.Weapon.Sword, ArtAssets.SwordIcon);
+            weaponIcons.Add(Character.Weapon.Shield, ArtAssets.ShieldIcon);
 
-            WeaponIcons[Character.Weapon.Axe].position = AxeIconPosition;
-            WeaponIcons[Character.Weapon.Sword].position = SwordIconPosition;
-            WeaponIcons[Character.Weapon.Shield].position = ShieldIconPosition;
+            weaponIcons[Character.Weapon.Axe].position = AxeIconPosition;
+            weaponIcons[Character.Weapon.Sword].position = SwordIconPosition;
+            weaponIcons[Character.Weapon.Shield].position = ShieldIconPosition;
 
             // Set rankNameFrames
             rankNameFrames = new Dictionary<Character.Rank, int>();
@@ -125,7 +125,7 @@ namespace Proeve.UI
             if (SelectedCharacter != null)
             {
                 if (SelectedCharacter.weapon != Character.Weapon.None)
-                    WeaponIcons[SelectedCharacter.weapon].CurrentFrame = 1;
+                    weaponIcons[SelectedCharacter.weapon].CurrentFrame = 1;
             }
 
             SelectedCharacter = c;
@@ -140,7 +140,7 @@ namespace Proeve.UI
             SelectedCharacter.animation.Scale = Globals.ANIMATION_SCALE;
 
             if (SelectedCharacter.weapon != Character.Weapon.None)
-                WeaponIcons[c.weapon].CurrentFrame = 2;
+                weaponIcons[c.weapon].CurrentFrame = 2;
 
             rankName.CurrentFrame = rankNameFrames[SelectedCharacter.rank];
         }
@@ -150,7 +150,7 @@ namespace Proeve.UI
             if (SelectedCharacter != null)
             {
                 if (SelectedCharacter.weapon != Character.Weapon.None)
-                    WeaponIcons[SelectedCharacter.weapon].CurrentFrame = 1;
+                    weaponIcons[SelectedCharacter.weapon].CurrentFrame = 1;
 
                 SelectedCharacter = null;
             }
@@ -158,8 +158,8 @@ namespace Proeve.UI
 
         private void ChangeWeapon(Character.Weapon oldWeapon, Character.Weapon newWeapon)
         {
-            WeaponIcons[oldWeapon].CurrentFrame = 1;
-            WeaponIcons[newWeapon].CurrentFrame = 2;
+            weaponIcons[oldWeapon].CurrentFrame = 1;
+            weaponIcons[newWeapon].CurrentFrame = 2;
 
             SelectedCharacter.weapon = newWeapon;
         }
@@ -174,8 +174,8 @@ namespace Proeve.UI
         {
             if (Globals.mouseState.LeftButtonPressed && SelectedCharacter != null && Main.WindowRectangle.Contains(Globals.mouseState.Position))
                 if (SelectedCharacter.special == Character.Special.None)
-                    foreach (Character.Weapon w in WeaponIcons.Keys)
-                        if (Vector2.Distance(Globals.mouseState.Position, WeaponIcons[w].position) < WeaponIcons[w].sourceRectangle.Width / 2)
+                    foreach (Character.Weapon w in weaponIcons.Keys)
+                        if (Vector2.Distance(Globals.mouseState.Position, weaponIcons[w].position) < weaponIcons[w].sourceRectangle.Width / 2)
                             ChangeWeapon(SelectedCharacter.weapon, w);
         }
 
@@ -197,9 +197,9 @@ namespace Proeve.UI
                 rankName.Draw(spriteBatch);
             }
 
-            spriteBatch.DrawSprite(WeaponIcons[Character.Weapon.Axe]);
-            spriteBatch.DrawSprite(WeaponIcons[Character.Weapon.Sword]);
-            spriteBatch.DrawSprite(WeaponIcons[Character.Weapon.Shield]);
+            spriteBatch.DrawSprite(weaponIcons[Character.Weapon.Axe]);
+            spriteBatch.DrawSprite(weaponIcons[Character.Weapon.Sword]);
+            spriteBatch.DrawSprite(weaponIcons[Character.Weapon.Shield]);
         }
 
         public void DrawAnimation(SkeletonMeshRenderer skeletonRenderer)

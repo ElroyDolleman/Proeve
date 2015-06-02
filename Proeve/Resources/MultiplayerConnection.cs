@@ -40,7 +40,7 @@ namespace Proeve.Resources
             None,
             Join,
             Army,
-            GameLogicRecieving,
+            GameLogicReceiving,
             WaitingResponse,
             ConnectionLost
         }
@@ -143,7 +143,7 @@ namespace Proeve.Resources
                     }
                     break;
 
-                case State.GameLogicRecieving:
+                case State.GameLogicReceiving:
                     ReadGameLogicData();
                     break;
                 case State.WaitingResponse:
@@ -276,7 +276,7 @@ namespace Proeve.Resources
                 if (myTurn)
                     currentState = State.None;
                 else
-                    currentState = State.GameLogicRecieving;
+                    currentState = State.GameLogicReceiving;
             }
 
 
@@ -354,7 +354,7 @@ namespace Proeve.Resources
                 if (myTurn)
                     currentState = State.None;
                 else
-                    currentState = State.GameLogicRecieving;
+                    currentState = State.GameLogicReceiving;
             }
 
             EndRead();

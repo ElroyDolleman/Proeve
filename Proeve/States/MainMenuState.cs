@@ -15,7 +15,7 @@ namespace Proeve.States
 {
     class MainMenuState : State
     {
-        E2DTexture background;
+        private E2DTexture background;
 
         public MainMenuState()
         {
