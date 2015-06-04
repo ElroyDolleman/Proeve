@@ -99,6 +99,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Backgrounds\backgroundSea.png" />
+    <Content Include="Content\Backgrounds\startScreenBackground.png" />
     <Content Include="Content\Characters\Animations\MedievalArmy\bombAnimation.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -172,7 +173,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Characters\Chips\ChipsSheet.png" />
-    <Content Include="Content\Backgrounds\startScreenBackground.png" />
     <Content Include="Content\UI\Animations\healIcon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
